@@ -24,62 +24,62 @@
         android:paddingRight="20sp"
         ></ListView>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:paddingLeft="15dp"
-        android:layout_height="0px"
-        android:layout_weight="1">
+    <!--<LinearLayout-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:paddingLeft="15dp"-->
+        <!--android:layout_height="0px"-->
+        <!--android:layout_weight="1">-->
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0px"
-            android:gravity="bottom|center_horizontal"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <ImageView
-                android:layout_width="126dp"
-                android:layout_height="180dp"
-                android:src="@drawable/here_logo_character_notitle_onlygirl_narrow"
-                android:layout_gravity="bottom|center_horizontal"/>
-        </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="0px"-->
+            <!--android:gravity="bottom|center_horizontal"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1">-->
+            <!--<ImageView-->
+                <!--android:layout_width="126dp"-->
+                <!--android:layout_height="180dp"-->
+                <!--android:src="@drawable/here_logo_character_notitle_onlygirl_narrow"-->
+                <!--android:layout_gravity="bottom|center_horizontal"/>-->
+        <!--</LinearLayout>-->
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_weight="2">
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="0px"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_weight="2">-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Welcome!"
-                android:textStyle="bold"
-                android:textSize="24sp"
-                android:textColor="@color/colorSkyBlue"/>
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Welcome!"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="24sp"-->
+                <!--android:textColor="@color/colorSkyBlue"/>-->
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <!--<LinearLayout-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-                <TextView
-                    android:id="@+id/equiplist_numagents"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4"/>
+                <!--<TextView-->
+                    <!--android:id="@+id/equiplist_numagents"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="4"/>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" Agents in your room!"/>
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text=" Agents in your room!"/>-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 </LinearLayout>

@@ -29,6 +29,6 @@
         android:layout_height="50dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/icon_play" />
+        android:src="@drawable/odnq_icon_add" />
 
 </android.support.design.widget.CoordinatorLayout>

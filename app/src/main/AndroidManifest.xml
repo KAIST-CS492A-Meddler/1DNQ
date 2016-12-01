@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.user.wase">
+    package="com.example.user.onedaynquestions">
 
     <uses-permission android:name = "android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -11,13 +11,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/here_app_icon_circle"
+        android:icon="@mipmap/odnq_app_icon_bulb"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".view.activity.SplashActivity">
+        <activity android:name="com.example.user.onedaynquestions.view.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,33 +26,33 @@
         </activity>
 
         <activity
-            android:name=".view.activity.MainActivity"
+            android:name="com.example.user.onedaynquestions.view.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".device.BluetoothComm">
+        <activity android:name="com.example.user.onedaynquestions.device.BluetoothComm">
         </activity>
-        <activity android:name=".device.DiscoverDevice">
+        <activity android:name="com.example.user.onedaynquestions.device.DiscoverDevice">
         </activity>
-        <activity android:name = ".device.WorkoutRecords"/>
-        <activity android:name = ".device.WorkoutRecord"/>
-        <activity android:name = ".device.WorkoutRecord2"/>
-        <activity android:name = ".device.EquipmentRecordTerminal"/>
-        <activity android:name=".view.activity.MyEquipmentsActivity"/>
-        <activity android:name=".view.activity.MyRecordsActivity"/>
-        <activity android:name=".view.activity.MyRoutinesActivity"/>
-        <activity android:name=".view.activity.SettingAppInfoActivity"/>
-        <activity android:name=".view.activity.SettingMyInfoActivity"/>
-        <activity android:name=".view.activity.SupportAppInfoActivity"/>
-        <activity android:name=".view.activity.DatabaseTestActivity"/>
-        <activity android:name=".view.activity.SupportHelpActivity"
+        <activity android:name = "com.example.user.onedaynquestions.device.WorkoutRecords"/>
+        <activity android:name = "com.example.user.onedaynquestions.device.WorkoutRecord"/>
+        <activity android:name = "com.example.user.onedaynquestions.device.WorkoutRecord2"/>
+        <activity android:name = "com.example.user.onedaynquestions.device.EquipmentRecordTerminal"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.MyEquipmentsActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.MyRecordsActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.MyRoutinesActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.SettingAppInfoActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.SettingMyInfoActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.SupportAppInfoActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.DatabaseTestActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.SupportHelpActivity"
             android:theme="@style/Theme.Transparent"/>
-        <activity android:name = ".deviceLE.BeaconRangingActivity" />
-        <activity android:name = ".deviceLE.DataViewTerminal" />
-        <activity android:name=".view.activity.StartExerciseActivity"/>
-        <activity android:name=".view.activity.DoingExerciseActivity"/>
-        <activity android:name=".view.activity.FinishExerciseActivity"/>
-        <service android:name=".deviceLE.BluetoothLeService" android:enabled="true" />
+        <activity android:name = "com.example.user.onedaynquestions.deviceLE.BeaconRangingActivity" />
+        <activity android:name = "com.example.user.onedaynquestions.deviceLE.DataViewTerminal" />
+        <activity android:name="com.example.user.onedaynquestions.view.activity.StartExerciseActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.DoingExerciseActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.FinishExerciseActivity"/>
+        <service android:name="com.example.user.onedaynquestions.deviceLE.BluetoothLeService" android:enabled="true" />
 
     </application>
 

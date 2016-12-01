@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@drawable/splash_background_skyblue"
-    android:gravity="center"
+    android:background="@drawable/odnq_splash_background"
+    android:gravity="bottom|center_horizontal"
+    android:paddingBottom="50dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,8 +14,8 @@
 
     <ImageView
         android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:src="@drawable/here_logo_character"/>
+        android:layout_height="204dp"
+        android:src="@drawable/odnq_logo_rect"/>
 
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->
@@ -24,26 +25,26 @@
         <!--android:textStyle="bold"-->
         <!--android:textSize="50sp"/>-->
 
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10sp"-->
+        <!--android:text="Crowdsourcing Studygroup"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:textSize="18sp"/>-->
+    <!--android:layout_marginTop="10sp"-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10sp"
-        android:text="home exercise reminder"
-        android:textColor="#ffffff"
-        android:textSize="18sp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50sp"
-        android:text="ver 1.1.5"
+        android:text="ver 0.1.0"
         android:textColor="#aaffffff"
         android:textSize="15sp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5sp"
-        android:text="2016-Spring CS442\nTeam PEACH"
+        android:layout_marginTop="3sp"
+        android:text="2016-Fall CS492-A\nTeam MEDDLER"
         android:gravity="center"
         android:textStyle="bold"
         android:textColor="#ccffffff"
