@@ -93,17 +93,6 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG_DB, "[Database] DatabaseHelper is created.");
         }
 
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getApplicationContext(), "Please permit location access\nfor ", Toast.LENGTH_SHORT).show();
-
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION},
-                    REQUEST_CODE_LOCATION);
-            //return;
-        } else {
-            Toast.makeText(getApplicationContext(), "Granted", Toast.LENGTH_SHORT).show();
-        }
 
 
         tabLayout = (TabLayout) findViewById(R.id.main_tablayout);

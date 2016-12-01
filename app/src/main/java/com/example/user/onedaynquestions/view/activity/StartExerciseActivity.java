@@ -79,9 +79,9 @@ public class StartExerciseActivity extends AppCompatActivity {
                         try {
                             Thread.sleep(100);
 
-                            Intent intent_doingexercise = new Intent(getApplicationContext(), DoingExerciseActivity.class);
-                            startActivity(intent_doingexercise);
-                            StartExerciseActivity.this.finish();
+//                            Intent intent_doingexercise = new Intent(getApplicationContext(), DoingExerciseActivity.class);
+//                            startActivity(intent_doingexercise);
+//                            StartExerciseActivity.this.finish();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
