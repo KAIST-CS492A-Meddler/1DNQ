@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorSkyBlue"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:text="Starred Question Cards"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorSkyBlue"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="#eeeeee"
+                android:gravity="center"
+                android:text="Starred Question View\n(Horizontal scroll view OR CardView)"
+                android:textSize="15dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="15dp"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorSkyBlue"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:text="Frequently Wrong Cards"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorSkyBlue"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="#eeeeee"
+                android:gravity="center"
+                android:text="Frequently Wrong Cards\n(Horizontal scroll view OR CardView)"
+                android:textSize="15dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="15dp"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorSkyBlue"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:text="Recommended Cards"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorSkyBlue"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="#eeeeee"
+                android:gravity="center"
+                android:text="Recommended Cards (by System/Group)\n(Horizontal scroll view OR CardView)"
+                android:textSize="15dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="15dp"/>
+
+        </LinearLayout>
+
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:text="My StudyNote \nFragment"-->
+        <!--android:textSize="30dp"-->
+        <!--android:textStyle="bold"/>-->
+
+    </ScrollView>
+
+
+
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+            <!--<LinearLayout-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="15dp"-->
+                <!--android:paddingRight="15dp"-->
+                <!--android:paddingTop="10dp"-->
+                <!--android:paddingBottom="10dp"-->
+                <!--android:background="#eeeeee">-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/record_character_img"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="100dp"-->
+                    <!--android:src="@drawable/here_character_simple_boy"/>-->
+
+                <!--<LinearLayout-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:gravity="left|center_vertical">-->
+
+                    <!--<TextView-->
+                        <!--android:id = "@+id/record_nick_name"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginBottom="10dp"-->
+                        <!--android:text="Jiyoung Song (jysong_selab)"-->
+                        <!--android:textSize="13dp"-->
+                        <!--android:textColor="#999999"/>-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Your records"-->
+                        <!--android:textSize="23dp"-->
+                        <!--android:textColor="@color/colorPrimaryDark"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id ="@+id/record_msg"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="You have to do more! :)"-->
+                        <!--android:textSize="16dp"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textColor="@color/colorSkyBlue"/>-->
+
+                <!--</LinearLayout>-->
+
+            <!--</LinearLayout>-->
+
+
+            <!--<LinearLayout-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+
+                <!--<TextView-->
+                    <!--android:layout_width="0px"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:paddingLeft="15dp"-->
+                    <!--android:paddingTop="5dp"-->
+                    <!--android:paddingBottom="5dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:textColor="@color/colorSkyBlue"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:textSize="18dp"-->
+                    <!--android:text="Weekly Calorie Report"/>-->
+
+                <!--<LinearLayout-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_width="0px"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:gravity="right|bottom"-->
+                    <!--android:layout_weight="1">-->
+
+                    <!--<Button-->
+                        <!--android:id="@+id/record_btn_seemore"-->
+                        <!--android:layout_width="30dp"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:background="@drawable/icon_seemore_threelines"-->
+                        <!--android:layout_marginRight="12dp"-->
+                        <!--android:layout_marginBottom="3dp"-->
+                        <!--android:onClick="mOnClick"-->
+                        <!--/>-->
+
+                <!--</LinearLayout>-->
+
+            <!--</LinearLayout>-->
+
+
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="@color/colorSkyBlue"/>-->
+
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="25dp"-->
+                <!--android:paddingRight="25dp"-->
+                <!--android:paddingTop="15dp"-->
+                <!--android:paddingBottom="15dp"-->
+                <!--android:background="#eeeeee">-->
+
+                <!--<com.jjoe64.graphview.GraphView-->
+                    <!--android:id="@+id/week_bar_graph"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="160dp"/>-->
+
+                <!--&lt;!&ndash;<com.jjoe64.graphview.GraphView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="160dp"/>&ndash;&gt;-->
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginRight="8dp"-->
+                    <!--android:gravity="right"-->
+                    <!--android:text="*Size of graphs shows kcal"/>-->
+
+            <!--</LinearLayout>-->
+
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="15dp"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textColor="@color/colorSkyBlue"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="18dp"-->
+                <!--android:text="Equipment Usage Report"/>-->
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="@color/colorSkyBlue"/>-->
+
+            <!--<ListView-->
+                <!--android:id="@+id/equipment_record_list"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:paddingLeft="13sp"-->
+                <!--android:paddingRight="13sp"-->
+                <!--android:layout_height="400dp"-->
+                <!--android:background="#eeeeee"></ListView>-->
+
+            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:text="My exercise records"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textSize="25dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textStyle="bold"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textColor="@color/colorSkyBlue"/>&ndash;&gt;-->
+
+        <!--</LinearLayout>-->
+
+    <!--</ScrollView>-->
+
+</LinearLayout>

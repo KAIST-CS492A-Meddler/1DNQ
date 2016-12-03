@@ -2,20 +2,50 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
+    <item android:title="Database">
+        <menu>
+            <item
+                android:id="@+id/nav_dblocal"
+                android:icon="@drawable/odnq_nav_icon_db"
+                android:title="Local Database Test" />
+            <item
+                android:id="@+id/nav_dbserver"
+                android:icon="@drawable/odnq_nav_icon_db"
+                android:title="Server Database Test" />
+        </menu>
+    </item>
+
+    <item android:title="Test Menu">
+        <menu>
+            <item
+                android:id="@+id/nav_testnewcard"
+                android:icon="@drawable/odnq_nav_icon_card"
+                android:title="Make a New Card" />
+            <item
+                android:id="@+id/nav_testnewgroup"
+                android:icon="@drawable/odnq_nav_icon_group"
+                android:title="Make a New Group" />
+            <item
+                android:id="@+id/nav_testgraph"
+                android:icon="@drawable/odnq_nav_icon_graph"
+                android:title="Graph Test Activity" />
+        </menu>
+    </item>
+
     <item android:title="Exercise Management">
         <menu>
             <item
                 android:id="@+id/nav_myequipments"
                 android:icon="@drawable/nav_icon_myagents"
-                android:title="My HERE Agents" />
+                android:title="My Study Review" />
             <item
                 android:id="@+id/nav_myroutine"
                 android:icon="@drawable/nav_icon_myroutines"
-                android:title="My Exercise Routines" />
+                android:title="My Achievements" />
             <item
                 android:id="@+id/nav_myrecord"
                 android:icon="@drawable/nav_icon_myrecords"
-                android:title="My Exercise Records" />
+                android:title="My Study Groups" />
         </menu>
     </item>
 

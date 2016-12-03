@@ -1,14 +1,11 @@
 package com.example.user.onedaynquestions.view.activity;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -33,6 +30,9 @@ import com.example.user.onedaynquestions.model.MyRecord;
 import com.example.user.onedaynquestions.model.MyRoutine;
 import com.example.user.onedaynquestions.utility.DatabaseHelper;
 import com.example.user.onedaynquestions.view.fragment.SupportHelpFragment;
+import com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity;
+import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
+import com.example.user.onedaynquestions.view.testactivity.GraphTestActivity;
 
 import java.util.ArrayList;
 
@@ -97,9 +97,9 @@ public class MainActivity extends AppCompatActivity
 
         tabLayout = (TabLayout) findViewById(R.id.main_tablayout);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Review"));
-        tabLayout.addTab(tabLayout.newTab().setText("Achievement"));
-        tabLayout.addTab(tabLayout.newTab().setText("Group"));
+        tabLayout.addTab(tabLayout.newTab().setText("My Achievement"));
+        tabLayout.addTab(tabLayout.newTab().setText("Study Note"));
+        //tabLayout.addTab(tabLayout.newTab().setText("Group"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewPager = (ViewPager) findViewById(R.id.main_viewpager);
@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                Log.d("MainActivity-TabLayout", "tab.getPosition = " + tab.getPosition());
             }
 
             @Override
@@ -136,19 +137,23 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                if (mySelectedRoutine == null) {
-                    Snackbar.make(view, "Please select your routine first", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                Intent intent_newcard = new Intent(getApplicationContext(), NewCardActivity.class);
+//                intent_newcard.putExtra("selectedRoutine", mySelectedRoutine);
+                startActivity(intent_newcard);
 
-                    if (viewPager != null) {
-                        viewPager.setCurrentItem(1);
-                    }
-                } else {
-                    //Send a selected routine by serializing MyRoutine object
-                    Intent intent_startexercise = new Intent(getApplicationContext(), StartExerciseActivity.class);
-                    intent_startexercise.putExtra("selectedRoutine", mySelectedRoutine);
-                    startActivity(intent_startexercise);
-                }
+//                if (mySelectedRoutine == null) {
+//                    Snackbar.make(view, "Please select your routine first", Snackbar.LENGTH_LONG)
+//                            .setAction("Action", null).show();
+//
+//                    if (viewPager != null) {
+//                        viewPager.setCurrentItem(1);
+//                    }
+//                } else {
+//                    //Send a selected routine by serializing MyRoutine object
+//                    Intent intent_startexercise = new Intent(getApplicationContext(), NewCardActivity.class);
+//                    intent_startexercise.putExtra("selectedRoutine", mySelectedRoutine);
+//                    startActivity(intent_startexercise);
+//                }
 
 
             }
@@ -264,22 +269,78 @@ public class MainActivity extends AppCompatActivity
 //                Intent testIntent = new Intent(this, WorkoutRecords.class);
 //                startActivity(testIntent);
 //                break;
+//            <item android:title="Database">
+//            <menu>
+//            <item
+//            android:id="@+id/nav_dblocal"
+//            android:icon="@drawable/odnq_nav_icon_db"
+//            android:title="Local Database Test" />
+//            <item
+//            android:id="@+id/nav_dbserver"
+//            android:icon="@drawable/odnq_nav_icon_db"
+//            android:title="Server Database Test" />
+//            </menu>
+//            </item>
+//
+//            <item android:title="Test Menu">
+//            <menu>
+//            <item
+//            android:id="@+id/nav_testnewcard"
+//            android:icon="@drawable/odnq_nav_icon_card"
+//            android:title="Make a New Card" />
+//            <item
+//            android:id="@+id/nav_testnewgroup"
+//            android:icon="@drawable/odnq_nav_icon_group"
+//            android:title="Make a New Group" />
+//            <item
+//            android:id="@+id/nav_testgraph"
+//            android:icon="@drawable/odnq_nav_icon_graph"
+//            android:title="Graph Test Activity" />
+//            </menu>
+//            </item>
+
+            case R.id.nav_dblocal:
+                Toast.makeText(getApplicationContext(), "Local DB Test Activity", Toast.LENGTH_SHORT).show();
+                Intent intent_dblocal = new Intent(getApplicationContext(), DBLocalTestActivity.class);
+                startActivity(intent_dblocal);
+                break;
+            case R.id.nav_dbserver:
+                Toast.makeText(getApplicationContext(), "Server DB Test Activity", Toast.LENGTH_SHORT).show();
+                Intent intent_dbserver = new Intent(getApplicationContext(), DBServerTestActivity.class);
+                startActivity(intent_dbserver);
+                break;
+            case R.id.nav_testnewcard:
+                Toast.makeText(getApplicationContext(), "Test a process to make a new card", Toast.LENGTH_SHORT).show();
+                Intent intent_newcard = new Intent(getApplicationContext(), NewCardActivity.class);
+                startActivity(intent_newcard);
+                break;
+            case R.id.nav_testnewgroup:
+                Toast.makeText(getApplicationContext(), "Test a process to make a new group", Toast.LENGTH_SHORT).show();
+                Intent intent_newgroup = new Intent(getApplicationContext(), NewGroupActivity.class);
+                startActivity(intent_newgroup);
+                break;
+            case R.id.nav_testgraph:
+                Toast.makeText(getApplicationContext(), "Test graph generation", Toast.LENGTH_SHORT).show();
+                Intent intent_testgraph = new Intent(getApplicationContext(), GraphTestActivity.class);
+                startActivity(intent_testgraph);
+                break;
+
             //My exercise equipments
             case R.id.nav_myequipments:
 //                Toast.makeText(getApplicationContext(), "MY EXERCISE EQUIPMENTS", Toast.LENGTH_SHORT).show();
-                Intent intent_myequipments = new Intent(getApplicationContext(), MyEquipmentsActivity.class);
+                Intent intent_myequipments = new Intent(getApplicationContext(), MyStudyReview.class);
                 startActivity(intent_myequipments);
                 break;
             //My exercise routines
             case R.id.nav_myroutine:
 //                Toast.makeText(getApplicationContext(), "MY EXERCISE ROUTINES", Toast.LENGTH_SHORT).show();
-                Intent intent_myroutines = new Intent(getApplicationContext(), MyRoutinesActivity.class);
+                Intent intent_myroutines = new Intent(getApplicationContext(), MyAchievements.class);
                 startActivity(intent_myroutines);
                 break;
             //My exercise record
             case R.id.nav_myrecord:
 //                Toast.makeText(getApplicationContext(), "MY EXERCISE RECORDS", Toast.LENGTH_SHORT).show();
-                Intent intent_myrecords = new Intent(getApplicationContext(), MyRecordsActivity.class);
+                Intent intent_myrecords = new Intent(getApplicationContext(), MyStudyGroups.class);
                 startActivity(intent_myrecords);
                 break;
             //My information setting

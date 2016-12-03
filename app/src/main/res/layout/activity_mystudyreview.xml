@@ -20,21 +20,21 @@
         android:background="@color/colorPrimaryDark"
         android:textColor="#ffffff"
         android:textStyle="bold"
-        android:text="Registered Agents"/>
+        android:text="Daily Study Record"/>
 
-    <ListView
-        android:id="@+id/setting_myeq_list_registered"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+    <!--<ListView-->
+        <!--android:id="@+id/setting_myeq_list_registered"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"></ListView>-->
 
-    <TextView
-        android:id="@+id/setting_myeq_tv_registered"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="30dp"
-        android:gravity="center"
-        android:textColor="#999999"
-        android:text="No registered HERE agents"/>
+    <!--<TextView-->
+        <!--android:id="@+id/setting_myeq_tv_registered"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="30dp"-->
+        <!--android:gravity="center"-->
+        <!--android:textColor="#999999"-->
+        <!--android:text="No registered HERE agents"/>-->
 
     <TextView
         android:layout_width="match_parent"
@@ -46,12 +46,12 @@
         android:background="@color/colorPrimaryDark"
         android:textColor="#ffffff"
         android:textStyle="bold"
-        android:text="Pairable Bluetooth Devices"/>
+        android:text="Wrong Answer Note"/>
 
-    <ListView
-        android:id="@+id/setting_myeq_list_bluetooth"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+    <!--<ListView-->
+        <!--android:id="@+id/setting_myeq_list_bluetooth"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"></ListView>-->
 
     <!--<TextView-->
         <!--android:layout_width="match_parent"-->

@@ -1,4 +1,4 @@
-package com.example.user.onedaynquestions.view.activity;
+package com.example.user.onedaynquestions.view.testactivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.example.user.onedaynquestions.model.MyHereAgent;
 import com.example.user.onedaynquestions.model.MyInformation;
 import com.example.user.onedaynquestions.model.MyRecord;
 import com.example.user.onedaynquestions.model.MyRoutine;
+import com.example.user.onedaynquestions.view.activity.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

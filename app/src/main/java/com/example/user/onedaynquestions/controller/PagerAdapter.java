@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.user.onedaynquestions.view.fragment.MyRoutinesFragment;
+import com.example.user.onedaynquestions.view.fragment.MyAchievementFragment;
 import com.example.user.onedaynquestions.view.fragment.MyRecordsFragment;
 
 /**
@@ -13,16 +13,16 @@ import com.example.user.onedaynquestions.view.fragment.MyRecordsFragment;
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
     int mNumOfTabs;
-    Fragment frontPage;
-    Fragment myRoutine;
-    Fragment myRecord;
+    Fragment myAchievement;
+    Fragment myStudyNote;
+    //Fragment myRecord;
 
     public PagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
-        frontPage = new MyRoutinesFragment();
-        myRoutine = new MyRoutinesFragment();
-        myRecord = new MyRecordsFragment();
+        myAchievement = new MyAchievementFragment();
+        myStudyNote = new MyRecordsFragment();
+        //myRecord = new MyRecordsFragment();
     }
 
     @Override
@@ -30,11 +30,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                return frontPage;
+                return myAchievement;
             case 1:
-                return myRoutine;
-            case 2:
-                return myRecord;
+                return myStudyNote;
             default:
                 return null;
 

@@ -29,17 +29,21 @@
         <activity android:name = "com.example.user.onedaynquestions.device.WorkoutRecord"/>
         <activity android:name = "com.example.user.onedaynquestions.device.WorkoutRecord2"/>
         <activity android:name = "com.example.user.onedaynquestions.device.EquipmentRecordTerminal"/>
-        <activity android:name="com.example.user.onedaynquestions.view.activity.MyEquipmentsActivity"/>
-        <activity android:name="com.example.user.onedaynquestions.view.activity.MyRecordsActivity"/>
-        <activity android:name="com.example.user.onedaynquestions.view.activity.MyRoutinesActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.MyStudyReview"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.MyStudyGroups"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.MyAchievements"/>
         <activity android:name="com.example.user.onedaynquestions.view.activity.SettingAppInfoActivity"/>
         <activity android:name="com.example.user.onedaynquestions.view.activity.SettingMyInfoActivity"/>
         <activity android:name="com.example.user.onedaynquestions.view.activity.SupportAppInfoActivity"/>
-        <activity android:name="com.example.user.onedaynquestions.view.activity.DatabaseTestActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.testactivity.DatabaseTestActivity"/>
         <activity android:name="com.example.user.onedaynquestions.view.activity.SupportHelpActivity"
             android:theme="@style/Theme.Transparent"/>
-        <activity android:name="com.example.user.onedaynquestions.view.activity.StartExerciseActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.NewCardActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.NewGroupActivity"/>
         <activity android:name="com.example.user.onedaynquestions.view.activity.FinishExerciseActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.testactivity.GraphTestActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity"/>
 
     </application>
 
