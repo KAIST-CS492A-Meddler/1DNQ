@@ -13,7 +13,6 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.user.onedaynquestions.R;
-import com.example.user.onedaynquestions.view.activity.MainActivity;
 import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -35,10 +34,10 @@ public class PushReceiver extends FirebaseMessagingService{
         Log.d(TAG, "notice");
         question = remote.getData().get("question");
         answer = remote.getData().get("answer");
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(".service.PushReceiver");
         intent.putExtra("question", question);
         intent.putExtra("answer", answer);
-        sendBroadcast(new Intent(question + " " + answer));
+        sendBroadcast(intent);
         pushNotification(question);
     }
 

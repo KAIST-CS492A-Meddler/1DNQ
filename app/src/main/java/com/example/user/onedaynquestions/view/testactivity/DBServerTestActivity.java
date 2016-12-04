@@ -1,7 +1,5 @@
 package com.example.user.onedaynquestions.view.testactivity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -12,7 +10,11 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.example.user.onedaynquestions.R;
-import com.example.user.onedaynquestions.service.BroadReceiver;
+import com.example.user.onedaynquestions.controller.QuestionListAdapter;
+import com.example.user.onedaynquestions.model.Question;
+import com.example.user.onedaynquestions.service.TemporalStorage;
+
+import java.util.ArrayList;
 
 /**
  * Created by ymbaek on 2016-04-18.
@@ -22,23 +24,16 @@ public class DBServerTestActivity extends AppCompatActivity {
     public static final String TAG = "MyAchievements";
 
     private Toolbar toolbar;
-    private BroadReceiver broadReceiver;
-    private ListView list;
+    private ListView lvQuestionList;
+
+    private ArrayList<Question> questionList;
+    private QuestionListAdapter questionListAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_testdb_server);
-
-        list = (ListView)findViewById(R.id.list);
-        broadReceiver = new BroadReceiver(){
-            @Override
-            public void onReceive(Context context, Intent intent) {
-
-                    toolbar.setTitle(intent.getExtras().getString("question"));
-                }
-        };
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -52,6 +47,29 @@ public class DBServerTestActivity extends AppCompatActivity {
 
         actionBar.setTitle("Database Test: Server Side");
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+        questionList = new ArrayList<>();
+        questionListAdapter = new QuestionListAdapter(this, questionList);
+
+        lvQuestionList = (ListView) findViewById(R.id.questionlistTest);
+
+        lvQuestionList.setAdapter(questionListAdapter);
+
+//        Question eq1 = new Question("Q01", "hi", "안녕", "2016-11-18");
+//        Question eq2 = new Question("Q02", "hello", "안녕", "2016-11-18");
+//        Question eq3 = new Question("Q03", "ah", "아", "2016-11-15");
+//        Question eq4 = new Question("Q04", "good night", "잘자", "2016-11-16");
+
+//        questionList.add(eq1);
+//        questionList.add(eq2);
+//        questionList.add(eq3);
+//        questionList.add(eq4);
+
+//        while(!TemporalStorage.isEmpty()){
+//            questionList.add(TemporalStorage.consumeReceivedQuestions());
+//        }
+        questionList.addAll(TemporalStorage.getReceivedQuestions());
+
+        questionListAdapter.notifyDataSetChanged();
 
 
     }

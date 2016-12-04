@@ -1,6 +1,7 @@
 package com.example.user.onedaynquestions.view.activity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
@@ -33,8 +34,9 @@ import com.example.user.onedaynquestions.view.fragment.SupportHelpFragment;
 import com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity;
 import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
 import com.example.user.onedaynquestions.view.testactivity.GraphTestActivity;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.example.user.onedaynquestions.view.testactivity.WidgetTestActivity;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 
@@ -513,7 +515,12 @@ public class MainActivity extends AppCompatActivity
         //awaken when screen is off
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
+        IntentFilter intentfilter = new IntentFilter();
+        intentfilter.addAction(".service.PushReceiver");
         //이 부분을 클라이언트마다 다르게 subscribe하면 가능?
-        FirebaseMessaging.getInstance().subscribeToTopic("notice");
+        FirebaseMessaging.getInstance().subscribeToTopic("test");
+        Log.d("TOKEN", FirebaseInstanceId.getInstance().getToken());
+
+
     }
 }

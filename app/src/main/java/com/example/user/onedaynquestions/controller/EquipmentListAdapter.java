@@ -46,7 +46,7 @@ public class EquipmentListAdapter extends BaseAdapter {
 
         if (convertView == null) {
             int res = 0;
-            res = R.layout.listitem_equipment;
+            res = R.layout.listitem_question;
             convertView = mInflater.inflate(res, parent, false);
 
         }

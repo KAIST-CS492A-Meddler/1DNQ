@@ -12,18 +12,13 @@
         android:background="@color/colorSkyBlue"/>
 
     <ListView
+        android:id="@+id/questionlistTest"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/list" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:text="Test your server DB here\n(Young-Min Baek, Sungjae Hong)"
-        android:textSize="15dp"
-        android:textStyle="bold"/>
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:paddingLeft="20sp"
+        android:paddingRight="20sp"
+        ></ListView>
 
 
 
