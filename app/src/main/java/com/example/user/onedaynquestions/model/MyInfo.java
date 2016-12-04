@@ -77,4 +77,100 @@ public class MyInfo {
         this.myInfoAnswerRight = myInfoAnswerRight;
         this.myInfoAnswerWrong = myInfoAnswerWrong;
     }
+
+    public String getMyInfoId() {
+        return myInfoId;
+    }
+
+    public void setMyInfoId(String myInfoId) {
+        this.myInfoId = myInfoId;
+    }
+
+    public String getMyInfoNick() {
+        return myInfoNick;
+    }
+
+    public void setMyInfoNick(String myInfoNick) {
+        this.myInfoNick = myInfoNick;
+    }
+
+    public String getMyInfoName() {
+        return myInfoName;
+    }
+
+    public void setMyInfoName(String myInfoName) {
+        this.myInfoName = myInfoName;
+    }
+
+    public int getMyInfoAge() {
+        return myInfoAge;
+    }
+
+    public void setMyInfoAge(int myInfoAge) {
+        this.myInfoAge = myInfoAge;
+    }
+
+    public int getMyInfoGender() {
+        return myInfoGender;
+    }
+
+    public void setMyInfoGender(int myInfoGender) {
+        this.myInfoGender = myInfoGender;
+    }
+
+    public String getMyInfoDeviceId() {
+        return myInfoDeviceId;
+    }
+
+    public void setMyInfoDeviceId(String myInfoDeviceId) {
+        this.myInfoDeviceId = myInfoDeviceId;
+    }
+
+    public int getMyInfoExp() {
+        return myInfoExp;
+    }
+
+    public void setMyInfoExp(int myInfoExp) {
+        this.myInfoExp = myInfoExp;
+    }
+
+    public float getMyInfoQuality() {
+        return myInfoQuality;
+    }
+
+    public void setMyInfoQuality(float myInfoQuality) {
+        this.myInfoQuality = myInfoQuality;
+    }
+
+    public int getMyInfoCardNum() {
+        return myInfoCardNum;
+    }
+
+    public void setMyInfoCardNum(int myInfoCardNum) {
+        this.myInfoCardNum = myInfoCardNum;
+    }
+
+    public int getMyInfoLoginNum() {
+        return myInfoLoginNum;
+    }
+
+    public void setMyInfoLoginNum(int myInfoLoginNum) {
+        this.myInfoLoginNum = myInfoLoginNum;
+    }
+
+    public int getMyInfoAnswerRight() {
+        return myInfoAnswerRight;
+    }
+
+    public void setMyInfoAnswerRight(int myInfoAnswerRight) {
+        this.myInfoAnswerRight = myInfoAnswerRight;
+    }
+
+    public int getMyInfoAnswerWrong() {
+        return myInfoAnswerWrong;
+    }
+
+    public void setMyInfoAnswerWrong(int myInfoAnswerWrong) {
+        this.myInfoAnswerWrong = myInfoAnswerWrong;
+    }
 }

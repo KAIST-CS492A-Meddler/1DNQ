@@ -4,11 +4,20 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.user.onedaynquestions.R;
+import com.example.user.onedaynquestions.controller.CardAdapter;
+import com.example.user.onedaynquestions.model.MyCard;
+
+import java.util.ArrayList;
 
 /**
  * Created by ymbaek on 2016-04-18.
@@ -19,6 +28,9 @@ public class WidgetTestActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
+    private RecyclerView rv;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +51,29 @@ public class WidgetTestActivity extends AppCompatActivity {
         actionBar.setTitle("Widget Test Activity");
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
 
+        initWidget();
+
+    }
+
+
+    private void initWidget() {
+        rv = (RecyclerView) findViewById(R.id.widgettest_rv);
+        rv.setHasFixedSize(true);
+
+        mLayoutManager = new LinearLayoutManager(this);
+        rv.setLayoutManager(mLayoutManager);
+
+        ArrayList<MyCard> cardListSample = new ArrayList<MyCard>();
+
+        MyCard card1 = new MyCard();
+        MyCard card2 = new MyCard();
+        MyCard card3 = new MyCard();
+
+        cardListSample.add(card1); cardListSample.add(card2); cardListSample.add(card3);
+
+        CardAdapter cardAdapter = new CardAdapter(cardListSample);
+        rv.setAdapter(cardAdapter);
+        cardAdapter.notifyDataSetChanged();
     }
 
 

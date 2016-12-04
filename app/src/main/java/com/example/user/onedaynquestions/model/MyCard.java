@@ -114,4 +114,92 @@ public class MyCard {
     public int getMyCardStarred(){
         return myCardStarred;
     }
+
+    public String getMyCardId() {
+        return myCardId;
+    }
+
+    public void setMyCardId(String myCardId) {
+        this.myCardId = myCardId;
+    }
+
+    public String getMyCardDateTime() {
+        return myCardDateTime;
+    }
+
+    public void setMyCardDateTime(String myCardDateTime) {
+        this.myCardDateTime = myCardDateTime;
+    }
+
+    public int getMyCardType() {
+        return myCardType;
+    }
+
+    public void setMyCardType(int myCardType) {
+        this.myCardType = myCardType;
+    }
+
+    public String getMyCardMaker() {
+        return myCardMaker;
+    }
+
+    public void setMyCardMaker(String myCardMaker) {
+        this.myCardMaker = myCardMaker;
+    }
+
+    public String getMyCardGroup() {
+        return myCardGroup;
+    }
+
+    public void setMyCardGroup(String myCardGroup) {
+        this.myCardGroup = myCardGroup;
+    }
+
+    public String getMyCardQuestion() {
+        return myCardQuestion;
+    }
+
+    public void setMyCardQuestion(String myCardQuestion) {
+        this.myCardQuestion = myCardQuestion;
+    }
+
+    public String getMyCardAnswer() {
+        return myCardAnswer;
+    }
+
+    public void setMyCardAnswer(String myCardAnswer) {
+        this.myCardAnswer = myCardAnswer;
+    }
+
+    public int getMyCardWrong() {
+        return myCardWrong;
+    }
+
+    public void setMyCardWrong(int myCardWrong) {
+        this.myCardWrong = myCardWrong;
+    }
+
+    public int getMyCardDifficulty() {
+        return myCardDifficulty;
+    }
+
+    public void setMyCardDifficulty(int myCardDifficulty) {
+        this.myCardDifficulty = myCardDifficulty;
+    }
+
+    public int getMyCardQuality() {
+        return myCardQuality;
+    }
+
+    public void setMyCardQuality(int myCardQuality) {
+        this.myCardQuality = myCardQuality;
+    }
+
+    public int getMyCardStarred() {
+        return myCardStarred;
+    }
+
+    public void setMyCardStarred(int myCardStarred) {
+        this.myCardStarred = myCardStarred;
+    }
 }

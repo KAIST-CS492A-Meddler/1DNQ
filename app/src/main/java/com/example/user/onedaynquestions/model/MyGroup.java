@@ -37,4 +37,36 @@ public class MyGroup {
         this.myGroupRegisDate = myGroupRegisDate;
         this.myGroupRanking = myGroupRanking;
     }
+
+    public String getMyGroupId() {
+        return myGroupId;
+    }
+
+    public void setMyGroupId(String myGroupId) {
+        this.myGroupId = myGroupId;
+    }
+
+    public String getMyGroupName() {
+        return myGroupName;
+    }
+
+    public void setMyGroupName(String myGroupName) {
+        this.myGroupName = myGroupName;
+    }
+
+    public String getMyGroupRegisDate() {
+        return myGroupRegisDate;
+    }
+
+    public void setMyGroupRegisDate(String myGroupRegisDate) {
+        this.myGroupRegisDate = myGroupRegisDate;
+    }
+
+    public int getMyGroupRanking() {
+        return myGroupRanking;
+    }
+
+    public void setMyGroupRanking(int myGroupRanking) {
+        this.myGroupRanking = myGroupRanking;
+    }
 }
