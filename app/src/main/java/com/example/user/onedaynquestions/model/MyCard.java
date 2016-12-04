@@ -75,45 +75,7 @@ public class MyCard {
     }
 
 
-    public String getMyCardId(){
-        return myCardId;
-    }
-    public String getMyCardDateTime(){
-        return myCardDateTime;
-    }
-    public String getMyCardType(){
-        switch (myCardType){
-            case 0:
-                return "What is the meaning\n of this word?";
-            default:
-                return "What is the meaning\n of this word?";
 
-        }
-    }
-    public String getMyCardMaker(){
-        return myCardMaker;
-    }
-    public String getMyCardGroup(){
-        return myCardGroup;
-    }
-    public String getMyCardQuestion(){
-        return myCardQuestion;
-    }
-    public String getMyCardAnswer(){
-        return myCardAnswer;
-    }
-    public int getMyCardWrong(){
-        return myCardWrong;
-    }
-    public int getMyCardDifficulty(){
-        return myCardDifficulty;
-    }
-    public int getMyCardQuality(){
-        return myCardQuality;
-    }
-    public int getMyCardStarred(){
-        return myCardStarred;
-    }
 
     public String getMyCardId() {
         return myCardId;
@@ -133,6 +95,14 @@ public class MyCard {
 
     public int getMyCardType() {
         return myCardType;
+//
+//        switch (myCardType){
+//            case 0:
+//                return "What is the meaning\n of this word?";
+//            default:
+//                return "What is the meaning\n of this word?";
+//
+//        }
     }
 
     public void setMyCardType(int myCardType) {

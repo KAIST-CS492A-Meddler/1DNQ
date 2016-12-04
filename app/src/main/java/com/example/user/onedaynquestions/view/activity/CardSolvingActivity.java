@@ -85,7 +85,16 @@ public class CardSolvingActivity extends AppCompatActivity {
             remainTime = TIME_LIMIT;
             timer.setText("" + remainTime);
             timer.postInvalidate();
-            type.setText(""+card.getMyCardType());
+
+            String cardType = "";
+
+            if (card.getMyCardType() == 1) {
+                cardType = "What is the meaning\n of this word?";
+            } else {
+                cardType = "What is the meaning\n of this question?";
+            }
+
+            type.setText(""+cardType);
             type.postInvalidate();
             question.setText(card.getMyCardQuestion());
             question.postInvalidate();

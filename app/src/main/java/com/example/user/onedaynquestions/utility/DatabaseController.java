@@ -1,9 +1,14 @@
 package com.example.user.onedaynquestions.utility;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.example.user.onedaynquestions.model.MyCard;
+import com.example.user.onedaynquestions.model.MyGroup;
+import com.example.user.onedaynquestions.model.MyInfo;
 
 /**
  * Created by user on 2016-12-04.
@@ -105,6 +110,67 @@ public class DatabaseController extends SQLiteOpenHelper{
                     ATTR_MYGROUP_RANKING + " INTEGER DEFAULT -1" +
                     ");";
 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /** INSERT QUERIES **/
+
+
+    public long insertMyInfo(MyInfo myInfo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ATTR_MYINFO_ID,myInfo.getMyInfoId());
+        values.put(ATTR_MYINFO_NICK,myInfo.getMyInfoNick());
+        values.put(ATTR_MYINFO_NAME,myInfo.getMyInfoName());
+        values.put(ATTR_MYINFO_AGE,myInfo.getMyInfoAge());
+        values.put(ATTR_MYINFO_GENDER,myInfo.getMyInfoGender());
+        values.put(ATTR_MYINFO_DEVICEID,myInfo.getMyInfoDeviceId());
+        values.put(ATTR_MYINFO_EXP,myInfo.getMyInfoExp());
+        values.put(ATTR_MYINFO_QUALITY,myInfo.getMyInfoQuality());
+        values.put(ATTR_MYINFO_CARDNUM,myInfo.getMyInfoCardNum());
+        values.put(ATTR_MYINFO_LOGINNUM,myInfo.getMyInfoLoginNum());
+        values.put(ATTR_MYINFO_ANSWERRIGHT,myInfo.getMyInfoAnswerRight());
+        values.put(ATTR_MYINFO_ANSWERWRONG,myInfo.getMyInfoAnswerWrong());
+
+        long myInfo_id = db.insert(TABLE_MYINFO, null, values);
+        return myInfo_id;
+
+    }
+
+
+    public long insertMyCard(MyCard myCard) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ATTR_MYCARD_ID,myCard.getMyCardId());
+        values.put(ATTR_MYCARD_DATETIME,myCard.getMyCardDateTime());
+        values.put(ATTR_MYCARD_TYPE,myCard.getMyCardType());
+        values.put(ATTR_MYCARD_MAKER,myCard.getMyCardMaker());
+        values.put(ATTR_MYCARD_GROUP,myCard.getMyCardGroup());
+        values.put(ATTR_MYCARD_QUESTION,myCard.getMyCardQuestion());
+        values.put(ATTR_MYCARD_ANSWER,myCard.getMyCardAnswer());
+        values.put(ATTR_MYCARD_WRONGNUM,myCard.getMyCardWrong());
+        values.put(ATTR_MYCARD_DIFFICULTY,myCard.getMyCardDifficulty());
+        values.put(ATTR_MYCARD_QUALITY,myCard.getMyCardQuality());
+        values.put(ATTR_MYCARD_STARRED,myCard.getMyCardStarred());
+
+        long myCard_id = db.insert(TABLE_MYCARD, null, values);
+        return myCard_id;
+    }
+
+
+    public long insertMyGroup(MyGroup myGroup) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ATTR_MYGROUP_ID,myGroup.getMyGroupId());
+        values.put(ATTR_MYGROUP_NAME,myGroup.getMyGroupName());
+        values.put(ATTR_MYGROUP_REGISDATE,myGroup.getMyGroupRegisDate());
+        values.put(ATTR_MYGROUP_RANKING,myGroup.getMyGroupRanking());
+
+        long myGroup_id = db.insert(TABLE_MYGROUP, null, values);
+        return myGroup_id;
+    }
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
