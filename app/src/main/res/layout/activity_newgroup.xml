@@ -1,114 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@color/colorSkyBlue"
-    android:gravity="center"
-    android:paddingBottom="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:text="Make a new group\nActivity"
-        android:textColor="#ffffff"
-        android:textSize="30dp"
-        android:textStyle="bold"/>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <!--<ImageView-->
-        <!--android:id="@+id/startexercise_btn_back"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@mipmap/ic_menu_arrow_back"-->
-        <!--android:layout_margin="15dp"-->
-        <!--android:layout_gravity="left"-->
-        <!--android:onClick="mOnClick"-->
-        <!--/>-->
+            <!--<android.support.v7.widget.Toolbar-->
+                <!--android:id="@+id/toolbar"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="56dp"-->
+                <!--android:background="@color/colorSkyBlue"/>-->
 
-    <!--<LinearLayout-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:gravity="center">-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:paddingTop="80dp"
+                android:paddingBottom="10dp"
+                android:background="@color/colorSkyBlue"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <!--<ImageView-->
-            <!--android:id="@+id/startexercise_iv_girl"-->
-            <!--android:layout_width="160dp"-->
-            <!--android:layout_height="160dp"-->
-            <!--android:src="@drawable/start_exercise_girl"-->
-            <!--/>-->
+                <ImageView
+                    android:id="@+id/setting_myinfo_iv_character"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:padding="@dimen/nav_header_vertical_spacing"
+                    android:src="@drawable/odnq_logo_charcter_white"/>
 
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Selected Routine"-->
-            <!--android:textColor="#dddddd"-->
-            <!--android:gravity="center_horizontal"/>-->
+                <TextView
+                    android:id="@+id/setting_myinfo_tv_nick"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textSize="25dp"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:text="Make a New Group"/>
 
-        <!--<TextView-->
-            <!--android:id="@+id/startexercise_tv_myroutine"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="자기전에 하기 좋은 운동"-->
-            <!--android:textColor="#ffffff"-->
-            <!--android:textSize="23dp"-->
-            <!--android:textStyle="bold"-->
-            <!--android:gravity="center_horizontal"/>-->
+            </LinearLayout>
 
-        <!--<TextView-->
-            <!--android:id="@+id/startexercise_tv_eq1"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:text="아령: 10개씩 8세트"-->
-            <!--android:textColor="#eeeeee"-->
-            <!--android:textSize="17dp"-->
-            <!--android:gravity="center_horizontal"/>-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:text="Group Information (mandatory)"/>
 
-        <!--<TextView-->
-            <!--android:id="@+id/startexercise_tv_eq2"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="줄넘기: 60초씩 5세트"-->
-            <!--android:textColor="#eeeeee"-->
-            <!--android:textSize="17dp"-->
-            <!--android:gravity="center_horizontal"/>-->
+            <!-- ID -->
 
-        <!--<TextView-->
-            <!--android:id="@+id/startexercise_tv_eq3"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="훌라후프: 100개씩 3세트"-->
-            <!--android:textColor="#eeeeee"-->
-            <!--android:textSize="17dp"-->
-            <!--android:gravity="center_horizontal"/>-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
 
-        <!--<TextView-->
-            <!--android:id="@+id/startexercise_tv_eq4"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="#eeeeee"-->
-            <!--android:textSize="17dp"-->
-            <!--android:gravity="center_horizontal"/>-->
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="Group name: "/>
 
-        <!--<TextView-->
-            <!--android:id="@+id/startexercise_tv_eq5"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="#eeeeee"-->
-            <!--android:textSize="17dp"-->
-            <!--android:gravity="center_horizontal"/>-->
+                <EditText
+                    android:id="@+id/newgroup_et_name"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="Your group name"
+                    android:maxLines="1"
+                    android:textSize="15dp"
+                    android:textColorHint="#999999"/>
 
-        <!--<ImageView-->
-            <!--android:id="@+id/startexercise_iv_start"-->
-            <!--android:layout_width="250dp"-->
-            <!--android:layout_height="100dp"-->
-            <!--android:src="@drawable/start_exercise_button"-->
-            <!--/>-->
+            </LinearLayout>
 
-    <!--</LinearLayout>-->
+            <!-- NICKNAME -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="Group goal: "/>
+
+                <EditText
+                    android:id="@+id/newgroup_et_goal"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="Word study, Idiom study, etc."
+                    android:maxLines="1"
+                    android:textSize="15dp"
+                    android:textColorHint="#999999"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:text="Group Description"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Introduce and describe your group:"/>
+
+            <EditText
+                android:id="@+id/newgroup_et_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:lines="10"
+                android:gravity="top|left"
+                android:maxLines="10"
+                android:maxLength="500"
+                android:scrollbars="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:padding="5dp"
+                android:background="#eeeeee"
+                android:hint="Learning style, management policy, etc.\n(Max length: 500)"
+                android:textSize="13dp"
+                android:textColorHint="#bbbbbb"
+            />
+
+            <Button
+                android:id="@+id/newgroup_bt_create"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_margin="10dp"
+                android:textColor="@color/colorSkyBlue"
+                android:textSize="20dp"
+                android:onClick="mOnClick"
+                android:text="Craete a group"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
 
 
