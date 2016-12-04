@@ -3,7 +3,7 @@
     package="com.example.user.onedaynquestions">
 
     <uses-permission android:name = "android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -55,11 +55,18 @@
         </service>
         <service android:name=".service.FirebaseInstanceIDservice">
             <intent-filter>
-                <action android:name="com.goolge.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.goolge.firebase.INSTANCE_ID_EVENT" />
 
             </intent-filter>
 
         </service>
+
+        <receiver android:name=".service.BroadReceiver">
+            <intent-filter>
+                <action android:name=".service.PushReceiver"></action>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

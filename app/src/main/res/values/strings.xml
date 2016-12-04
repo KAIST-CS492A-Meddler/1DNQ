@@ -22,5 +22,6 @@
 
     <string name="spinner_item_01">Male</string>
     <string name="spinner_item_02">Female</string>
+    <string name="title_activity_dictionary">Dictionary</string>
 
 </resources>

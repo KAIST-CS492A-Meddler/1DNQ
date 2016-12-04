@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "304140669062",
-    "firebase_url": "https://onedaynquestions-bc046.firebaseio.com",
-    "project_id": "onedaynquestions-bc046",
-    "storage_bucket": "onedaynquestions-bc046.appspot.com"
+    "project_number": "201418005976",
+    "firebase_url": "https://onedaynquestion-efce6.firebaseio.com",
+    "project_id": "onedaynquestion-efce6",
+    "storage_bucket": "onedaynquestion-efce6.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:304140669062:android:e349e7597ea2f0c7",
+        "mobilesdk_app_id": "1:201418005976:android:e349e7597ea2f0c7",
         "android_client_info": {
           "package_name": "com.example.user.onedaynquestions"
         }
       },
       "oauth_client": [
         {
-          "client_id": "304140669062-1pa6eeal6a2e7chstap8o37puu9foi1m.apps.googleusercontent.com",
+          "client_id": "201418005976-9ssn0ugehmh3ko1l5iah4r1ht1qvm8be.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB_sVGfbkAkfv-YmXeTM3_3k0TWHxss-aw"
+          "current_key": "AIzaSyDClA3C0mGZ1GlLDXmePGVh-RjRMYAs77k"
         }
       ],
       "services": {

@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.view.activity.MainActivity;
+import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -21,8 +22,10 @@ import com.google.firebase.messaging.RemoteMessage;
 public class PushReceiver extends FirebaseMessagingService{
 
     private static final String TAG = "PushReceiver";
-    public String pushTitle = "Here comes new Question!";
+    private static final String pushTitle = "Here comes new Question!";
 
+    private String question;
+    private String answer;
     public PushReceiver() {
     }
 
@@ -30,12 +33,18 @@ public class PushReceiver extends FirebaseMessagingService{
     public void onMessageReceived(RemoteMessage remote){
 
         Log.d(TAG, "notice");
-        pushNotification(remote.getData().get("question"));
+        question = remote.getData().get("question");
+        answer = remote.getData().get("answer");
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("question", question);
+        intent.putExtra("answer", answer);
+        sendBroadcast(new Intent(question + " " + answer));
+        pushNotification(question);
     }
 
     private void pushNotification(String msg){
         System.out.println("Received message: " + msg);
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, DBServerTestActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
         /*
         FLAG_UPDATE_CURRENT
@@ -43,20 +52,19 @@ public class PushReceiver extends FirebaseMessagingService{
         FLAG_NO_CREATE
         FLAG_ONE_SHOT
          */
-        PendingIntent pending = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pending = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder noti = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.odnq_logo)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.odnq_logo_rect))
-                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
+                .setSmallIcon(R.mipmap.odnq_app_icon_bulb)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.odnq_app_icon))
+                .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentTitle(pushTitle)
                 .setContentText(msg)
                 .setAutoCancel(true)
                 .setSound(sound)
                 .setLights(050030255, 500, 2000)
-                .setContentIntent(pending)
-                .setOngoing(true);
+                .setContentIntent(pending);
 
 
         NotificationManager notiM = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
