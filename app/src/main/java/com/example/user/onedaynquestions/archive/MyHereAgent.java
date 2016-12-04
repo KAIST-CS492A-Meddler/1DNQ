@@ -1,4 +1,4 @@
-package com.example.user.onedaynquestions.model;
+package com.example.user.onedaynquestions.archive;
 
 /**
  * Created by user on 2016-05-25.

@@ -1,7 +1,5 @@
 package com.example.user.onedaynquestions.view.fragment;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,35 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.user.onedaynquestions.R;
-import com.example.user.onedaynquestions.model.MyHereAgent;
-import com.example.user.onedaynquestions.model.MyInformation;
-import com.example.user.onedaynquestions.model.MyRecord;
-import com.example.user.onedaynquestions.model.RecordDateCalorie;
-import com.example.user.onedaynquestions.model.RecordEqDateDone;
-import com.example.user.onedaynquestions.model.RecordForGraph;
-import com.example.user.onedaynquestions.utility.CalorieCalculator;
-import com.example.user.onedaynquestions.view.activity.MainActivity;
-import com.example.user.onedaynquestions.view.activity.MyStudyGroups;
-import com.jjoe64.graphview.DefaultLabelFormatter;
-import com.jjoe64.graphview.ValueDependentColor;
-import com.jjoe64.graphview.helper.StaticLabelsFormatter;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.BarGraphSeries;
-import com.jjoe64.graphview.series.LineGraphSeries;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by ymbae on 2016-04-18.

@@ -1,7 +1,7 @@
 package com.example.user.onedaynquestions.utility;
 
-import com.example.user.onedaynquestions.model.MyHereAgent;
-import com.example.user.onedaynquestions.model.MyInformation;
+import com.example.user.onedaynquestions.archive.MyHereAgent;
+import com.example.user.onedaynquestions.archive.MyInformation;
 
 /**
  * Created by sarahsong on 2016-06-06.

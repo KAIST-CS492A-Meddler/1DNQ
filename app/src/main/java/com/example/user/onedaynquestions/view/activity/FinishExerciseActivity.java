@@ -13,8 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
-import com.example.user.onedaynquestions.model.RecordAgent;
-import com.example.user.onedaynquestions.model.MyRecord;
+import com.example.user.onedaynquestions.archive.RecordAgent;
+import com.example.user.onedaynquestions.archive.MyRecord;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

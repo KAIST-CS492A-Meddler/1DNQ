@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.onedaynquestions.R;
-import com.example.user.onedaynquestions.model.MyHereAgent;
-import com.example.user.onedaynquestions.model.MyRoutine;
+import com.example.user.onedaynquestions.archive.MyHereAgent;
+import com.example.user.onedaynquestions.archive.MyRoutine;
 import com.example.user.onedaynquestions.view.activity.MainActivity;
 
 import java.util.ArrayList;
