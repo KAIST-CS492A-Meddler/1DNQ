@@ -2,60 +2,63 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.user.onedaynquestions">
 
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name = "android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/odnq_app_icon_bulb"
         android:label="@string/app_name"
-        android:largeHeap="true"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.SplashActivity">
+
+        <activity android:name="com.example.user.onedaynquestions.view.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.activity.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".device.WorkoutRecords" />
-        <activity android:name=".device.WorkoutRecord" />
-        <activity android:name=".device.WorkoutRecord2" />
-        <activity android:name=".device.EquipmentRecordTerminal" />
-        <activity android:name=".view.activity.MyStudyReview" />
-        <activity android:name=".view.activity.MyStudyGroups" />
-        <activity android:name=".view.activity.MyAchievements" />
-        <activity android:name=".view.activity.SettingAppInfoActivity" />
-        <activity android:name=".view.activity.SettingMyInfoActivity" />
-        <activity android:name=".view.activity.SupportAppInfoActivity" />
-        <activity android:name=".view.testactivity.DatabaseTestActivity" />
-        <activity
-            android:name=".view.activity.SupportHelpActivity"
-            android:theme="@style/Theme.Transparent" />
-        <activity android:name=".view.activity.NewCardActivity" />
-        <activity android:name=".view.activity.NewGroupActivity" />
-        <activity android:name=".view.activity.FinishExerciseActivity" />
-        <activity android:name=".view.testactivity.GraphTestActivity" />
-        <activity android:name=".view.testactivity.DBLocalTestActivity" />
-        <activity android:name=".view.testactivity.DBServerTestActivity" />
 
-        <service
-            android:name=".service.PushReceiver"
-            android:enabled="true">
+        <activity
+            android:name="com.example.user.onedaynquestions.view.activity.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name = "com.example.user.onedaynquestions.device.WorkoutRecords"/>
+        <activity android:name = "com.example.user.onedaynquestions.device.WorkoutRecord"/>
+        <activity android:name = "com.example.user.onedaynquestions.device.WorkoutRecord2"/>
+        <activity android:name = "com.example.user.onedaynquestions.device.EquipmentRecordTerminal"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.MyStudyReview"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.MyStudyGroups"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.MyAchievements"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.SettingAppInfoActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.SettingMyInfoActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.SupportAppInfoActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.testactivity.DatabaseTestActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.SupportHelpActivity"
+            android:theme="@style/Theme.Transparent"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.NewCardActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.NewGroupActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.FinishExerciseActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.testactivity.GraphTestActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.testactivity.WidgetTestActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity"/>
+
+
+        <service android:name=".service.PushReceiver" android:enabled="true">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-        <service
-            android:name=".service.FirebaseInstanceIDservice">
+        <service android:name=".service.FirebaseInstanceIDservice">
             <intent-filter>
                 <action android:name="com.goolge.firebase.INSTANCE_ID_EVENT"/>
+
             </intent-filter>
+
         </service>
     </application>
 

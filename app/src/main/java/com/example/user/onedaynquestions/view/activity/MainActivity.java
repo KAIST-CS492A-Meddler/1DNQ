@@ -34,6 +34,7 @@ import com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity;
 import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
 import com.example.user.onedaynquestions.view.testactivity.GraphTestActivity;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.example.user.onedaynquestions.view.testactivity.WidgetTestActivity;
 
 import java.util.ArrayList;
 
@@ -261,47 +262,6 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         switch (item.getItemId()) {
-//            //Test page
-//            case R.id.nav_dbtest:
-//                //Move to test page
-//                Intent dbtestIntent = new Intent(this, DatabaseTestActivity.class);
-//                startActivity(dbtestIntent);
-//                break;
-//            //Test page
-//            case R.id.nav_testpage:
-//                //Move to test page
-//                Intent testIntent = new Intent(this, WorkoutRecords.class);
-//                startActivity(testIntent);
-//                break;
-//            <item android:title="Database">
-//            <menu>
-//            <item
-//            android:id="@+id/nav_dblocal"
-//            android:icon="@drawable/odnq_nav_icon_db"
-//            android:title="Local Database Test" />
-//            <item
-//            android:id="@+id/nav_dbserver"
-//            android:icon="@drawable/odnq_nav_icon_db"
-//            android:title="Server Database Test" />
-//            </menu>
-//            </item>
-//
-//            <item android:title="Test Menu">
-//            <menu>
-//            <item
-//            android:id="@+id/nav_testnewcard"
-//            android:icon="@drawable/odnq_nav_icon_card"
-//            android:title="Make a New Card" />
-//            <item
-//            android:id="@+id/nav_testnewgroup"
-//            android:icon="@drawable/odnq_nav_icon_group"
-//            android:title="Make a New Group" />
-//            <item
-//            android:id="@+id/nav_testgraph"
-//            android:icon="@drawable/odnq_nav_icon_graph"
-//            android:title="Graph Test Activity" />
-//            </menu>
-//            </item>
 
             case R.id.nav_dblocal:
                 Toast.makeText(getApplicationContext(), "Local DB Test Activity", Toast.LENGTH_SHORT).show();
@@ -328,7 +288,11 @@ public class MainActivity extends AppCompatActivity
                 Intent intent_testgraph = new Intent(getApplicationContext(), GraphTestActivity.class);
                 startActivity(intent_testgraph);
                 break;
-
+            case R.id.nav_testwidget:
+                Toast.makeText(getApplicationContext(), "Test widgets", Toast.LENGTH_SHORT).show();
+                Intent intent_testwidget = new Intent(getApplicationContext(), WidgetTestActivity.class);
+                startActivity(intent_testwidget);
+                break;
             //My exercise equipments
             case R.id.nav_myequipments:
 //                Toast.makeText(getApplicationContext(), "MY EXERCISE EQUIPMENTS", Toast.LENGTH_SHORT).show();
@@ -353,12 +317,6 @@ public class MainActivity extends AppCompatActivity
                 Intent intent_settingmyinfo = new Intent(getApplicationContext(), SettingMyInfoActivity.class);
                 startActivity(intent_settingmyinfo);
                 break;
-            //App setting
-//            case R.id.nav_mng_appsetting:
-////                Toast.makeText(getApplicationContext(), "APPLICATION SETTING", Toast.LENGTH_SHORT).show();
-//                Intent intent_settingappinfo = new Intent(getApplicationContext(), SettingAppInfoActivity.class);
-//                startActivity(intent_settingappinfo);
-//                break;
             //Help
             case R.id.nav_mng_showhelp:
 //                Toast.makeText(getApplicationContext(), "SHOW HELP DIALOG", Toast.LENGTH_SHORT).show();
@@ -384,176 +342,7 @@ public class MainActivity extends AppCompatActivity
                 Intent intent_supportappinfo = new Intent(getApplicationContext(), SupportAppInfoActivity.class);
                 startActivity(intent_supportappinfo);
                 break;
-//            case R.id.nav_db_add_myinformation:
-//                //Android device id
-//                String android_deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
-//                        Settings.Secure.ANDROID_ID);
-//
-//                MyInformation tmpMyInformation = new MyInformation();
-//
-//                tmpMyInformation.setUserId("ThisIsAnId");
-//                tmpMyInformation.setUserName("UserName");
-//                tmpMyInformation.setUserNick("Nickname");
-//                tmpMyInformation.setUserAge(25);
-//                tmpMyInformation.setUserSex(1);
-//                tmpMyInformation.setUserHeight(180);
-//                tmpMyInformation.setUserWeight(75);
-//                tmpMyInformation.setUserRegistered(1);
-//                tmpMyInformation.setUserDeviceId(android_deviceId);
-//
-//                hereDB.insertMyInformation(tmpMyInformation);
-//                Toast.makeText(getApplicationContext(), "MyInformation is added into DB.", Toast.LENGTH_SHORT).show();
-//
-//                initMyInfo();
-//                break;
-//            case R.id.nav_db_add_myagents:
-//                MyHereAgent tmpMyHereAgent1 = new MyHereAgent();
-//                tmpMyHereAgent1.setMyeqMacId("11:22:33:44:55:66");
-//                tmpMyHereAgent1.setMyeqName("아령");
-//                tmpMyHereAgent1.setMyeqType(1);
-//                tmpMyHereAgent1.setMyeqBeaconMajorId("Major1");
-//                tmpMyHereAgent1.setMyeqBeaconMinorId("Minor1");
-//
-//                MyHereAgent tmpMyHereAgent2 = new MyHereAgent();
-//                tmpMyHereAgent2.setMyeqMacId("22:33:44:55:66:77");
-//                tmpMyHereAgent2.setMyeqName("푸쉬업바");
-//                tmpMyHereAgent2.setMyeqType(2);
-//                tmpMyHereAgent2.setMyeqBeaconMajorId("Major2");
-//                tmpMyHereAgent2.setMyeqBeaconMinorId("Minor2");
-//
-//                MyHereAgent tmpMyHereAgent3 = new MyHereAgent();
-//                tmpMyHereAgent3.setMyeqMacId("33:44:55:66:77:88");
-//                tmpMyHereAgent3.setMyeqName("훌라후프");
-//                tmpMyHereAgent3.setMyeqType(4);
-//                tmpMyHereAgent3.setMyeqBeaconMajorId("Major3");
-//                tmpMyHereAgent3.setMyeqBeaconMinorId("Minor3");
-//
-//                hereDB.insertHereAgent(tmpMyHereAgent1);
-//                hereDB.insertHereAgent(tmpMyHereAgent2);
-//                hereDB.insertHereAgent(tmpMyHereAgent3);
-//                Toast.makeText(getApplicationContext(), "Three agents are added into DB.", Toast.LENGTH_SHORT).show();
-//
-//                break;
-//            case R.id.nav_db_add_myroutines:
-//                MyRoutine tmpMyRoutine1 = new MyRoutine();
-//                tmpMyRoutine1.setRoutineId("ROUTINE01");
-//                tmpMyRoutine1.setRoutineName("아령푸쉬업훌라후프");
-//                tmpMyRoutine1.setRoutineEq1Id("11:22:33:44:55:66");
-//                tmpMyRoutine1.setRoutineEq1Goal("3|15|-1");
-//                tmpMyRoutine1.setRoutineEq2Id("22:33:44:55:66:77");
-//                tmpMyRoutine1.setRoutineEq2Goal("2|20|-1");
-//                tmpMyRoutine1.setRoutineEq3Id("33:44:55:66:77:88");
-//                tmpMyRoutine1.setRoutineEq3Goal("5|-1|60");
-//
-//                MyRoutine tmpMyRoutine2 = new MyRoutine();
-//                tmpMyRoutine2.setRoutineId("ROUTINE02");
-//                tmpMyRoutine2.setRoutineName("푸쉬업훌라후프");
-//                tmpMyRoutine2.setRoutineEq1Id("22:33:44:55:66:77");
-//                tmpMyRoutine2.setRoutineEq1Goal("2|20|-1");
-//                tmpMyRoutine2.setRoutineEq2Id("33:44:55:66:77:88");
-//                tmpMyRoutine2.setRoutineEq2Goal("1|50|-1");
-//
-//                hereDB.insertRoutine(tmpMyRoutine1);
-//                hereDB.insertRoutine(tmpMyRoutine2);
-//                Toast.makeText(getApplicationContext(), "Two routines are added into DB.", Toast.LENGTH_SHORT).show();
-//
-//                break;
-//            case R.id.nav_db_add_myrecords:
-//                //3 Days, 6 Records,
-//                MyRecord tmpMyRecord1 = new MyRecord();
-//                tmpMyRecord1.setRecordId("RECORD01");   // 3 steps
-//                tmpMyRecord1.setRecordName("This is a record01");
-//                tmpMyRecord1.setRecordDateTime("2016-06-06 20:20:20");
-//                tmpMyRecord1.setRecordEq1Id("11:22:33:44:55:66");
-//                tmpMyRecord1.setRecordEq1Done(350);
-//                tmpMyRecord1.setRecordEq2Id("22:33:44:55:66:77");
-//                tmpMyRecord1.setRecordEq2Done(120);
-//                tmpMyRecord1.setRecordEq3Id("33:44:55:66:77:88");
-//                tmpMyRecord1.setRecordEq3Done(50);
-//
-//                MyRecord tmpMyRecord2 = new MyRecord();
-//                tmpMyRecord2.setRecordId("RECORD02");   // 2 steps (5)
-//                tmpMyRecord2.setRecordName("This is a record02");
-//                tmpMyRecord2.setRecordDateTime("2016-06-06 23:20:20");
-//                tmpMyRecord2.setRecordEq1Id("22:33:44:55:66:77");
-//                tmpMyRecord2.setRecordEq1Done(120);
-//                tmpMyRecord2.setRecordEq2Id("33:44:55:66:77:88");
-//                tmpMyRecord2.setRecordEq2Done(50);
-//
-//                MyRecord tmpMyRecord3 = new MyRecord();
-//                tmpMyRecord3.setRecordId("RECORD03");   // 4 steps (9)
-//                tmpMyRecord3.setRecordName("This is a record03");
-//                tmpMyRecord3.setRecordDateTime("2016-06-07 20:20:20");
-//                tmpMyRecord3.setRecordEq1Id("11:22:33:44:55:66");
-//                tmpMyRecord3.setRecordEq1Done(350);
-//                tmpMyRecord3.setRecordEq2Id("22:33:44:55:66:77");
-//                tmpMyRecord3.setRecordEq2Done(120);
-//                tmpMyRecord3.setRecordEq3Id("33:44:55:66:77:88");
-//                tmpMyRecord3.setRecordEq3Done(50);
-//                tmpMyRecord3.setRecordEq4Id("22:33:44:55:66:77");
-//                tmpMyRecord3.setRecordEq4Done(120);
-//
-//                MyRecord tmpMyRecord4 = new MyRecord();
-//                tmpMyRecord4.setRecordId("RECORD04");   // 5 steps (14)
-//                tmpMyRecord4.setRecordName("This is a record04");
-//                tmpMyRecord4.setRecordDateTime("2016-06-08 20:20:20");
-//                tmpMyRecord4.setRecordEq1Id("11:22:33:44:55:66");
-//                tmpMyRecord4.setRecordEq1Done(350);
-//                tmpMyRecord4.setRecordEq2Id("22:33:44:55:66:77");
-//                tmpMyRecord4.setRecordEq2Done(120);
-//                tmpMyRecord4.setRecordEq3Id("33:44:55:66:77:88");
-//                tmpMyRecord4.setRecordEq3Done(50);
-//                tmpMyRecord4.setRecordEq4Id("33:44:55:66:77:88");
-//                tmpMyRecord4.setRecordEq4Done(50);
-//                tmpMyRecord4.setRecordEq5Id("33:44:55:66:77:88");
-//                tmpMyRecord4.setRecordEq5Done(50);
-//
-//                MyRecord tmpMyRecord5 = new MyRecord();
-//                tmpMyRecord5.setRecordId("RECORD05");   // 1 step (15)
-//                tmpMyRecord5.setRecordName("This is a record05");
-//                tmpMyRecord5.setRecordDateTime("2016-06-08 20:20:20");
-//                tmpMyRecord5.setRecordEq1Id("22:33:44:55:66:77");
-//                tmpMyRecord5.setRecordEq1Done(350);
-//
-//                MyRecord tmpMyRecord6 = new MyRecord();
-//                tmpMyRecord6.setRecordId("RECORD06");   // 3 steps (18)
-//                tmpMyRecord6.setRecordName("This is a record06");
-//                tmpMyRecord6.setRecordDateTime("2016-06-09 23:20:20");
-//                tmpMyRecord6.setRecordEq1Id("11:22:33:44:55:66");
-//                tmpMyRecord6.setRecordEq1Done(350);
-//                tmpMyRecord6.setRecordEq2Id("22:33:44:55:66:77");
-//                tmpMyRecord6.setRecordEq2Done(120);
-//                tmpMyRecord6.setRecordEq3Id("33:44:55:66:77:88");
-//                tmpMyRecord6.setRecordEq3Done(50);
-//
-//                hereDB.insertRecord(tmpMyRecord1);
-//                hereDB.insertRecord(tmpMyRecord2);
-//                hereDB.insertRecord(tmpMyRecord3);
-//                hereDB.insertRecord(tmpMyRecord4);
-//                hereDB.insertRecord(tmpMyRecord5);
-//                hereDB.insertRecord(tmpMyRecord6);
-//
-//                Toast.makeText(getApplicationContext(), "Six records are added into DB.", Toast.LENGTH_SHORT).show();
-//
-//                break;
         }
-
-
-
-//
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -723,6 +512,8 @@ public class MainActivity extends AppCompatActivity
     private void startFirebaseServices(){
         //awaken when screen is off
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+
+        //이 부분을 클라이언트마다 다르게 subscribe하면 가능?
         FirebaseMessaging.getInstance().subscribeToTopic("notice");
     }
 }

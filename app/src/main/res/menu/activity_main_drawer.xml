@@ -29,6 +29,10 @@
                 android:id="@+id/nav_testgraph"
                 android:icon="@drawable/odnq_nav_icon_graph"
                 android:title="Graph Test Activity" />
+            <item
+                android:id="@+id/nav_testwidget"
+                android:icon="@drawable/odnq_nav_icon_widget"
+                android:title="Widget Test Activity" />
         </menu>
     </item>
 

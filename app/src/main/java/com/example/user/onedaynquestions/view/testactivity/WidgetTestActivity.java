@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.BaseAdapter;
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.model.MyHereAgent;
 import com.example.user.onedaynquestions.model.MyRoutine;
-import com.example.user.onedaynquestions.utility.DatabaseController;
 import com.example.user.onedaynquestions.view.activity.MainActivity;
 
 import java.util.ArrayList;
@@ -25,12 +23,9 @@ import java.util.List;
 /**
  * Created by ymbaek on 2016-04-18.
  */
-public class DBLocalTestActivity extends AppCompatActivity {
+public class WidgetTestActivity extends AppCompatActivity {
 
     public static final String TAG = "MyAchievements";
-    public static final String TAG_DB = "DBLocalTestActivity";
-
-    public static DatabaseController odnqDB;
 
     private Toolbar toolbar;
 
@@ -38,11 +33,12 @@ public class DBLocalTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_testdb_local);
-
+        setContentView(R.layout.activity_testwidget);
+//        scrollView = (HorizontalScrollView) findViewById(R.id.add_routine_hscrollview);
+//        textView = (TextView) findViewById(R.id.setting_myroutine_tv_nonewroutine);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setTitle("Database Test: Local(Client) Side");
+        toolbar.setTitle("Widget Test Activity");
         toolbar.setNavigationIcon(R.mipmap.ic_menu_arrow_back);
         toolbar.setTitleTextColor(Color.WHITE);
 
@@ -50,19 +46,10 @@ public class DBLocalTestActivity extends AppCompatActivity {
 
         final ActionBar actionBar = getSupportActionBar();
 
-        actionBar.setTitle("Database Test: Local(Client) Side");
+        actionBar.setTitle("Widget Test Activity");
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
 
-
-        /* DATABASE */
-        odnqDB = new DatabaseController(getApplicationContext());
-
-        if (odnqDB != null) {
-            Log.d(TAG_DB, "[Database] DatabaseController is created.");
-        }
-
     }
-
 
 
 
