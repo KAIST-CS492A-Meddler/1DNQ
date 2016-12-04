@@ -42,10 +42,13 @@
         <activity android:name="com.example.user.onedaynquestions.view.activity.NewCardActivity"/>
         <activity android:name="com.example.user.onedaynquestions.view.activity.NewGroupActivity"/>
         <activity android:name="com.example.user.onedaynquestions.view.activity.FinishExerciseActivity"/>
+        <activity android:name="com.example.user.onedaynquestions.view.activity.CardSolvingActivity"/>
+
         <activity android:name="com.example.user.onedaynquestions.view.testactivity.GraphTestActivity"/>
         <activity android:name="com.example.user.onedaynquestions.view.testactivity.WidgetTestActivity"/>
         <activity android:name="com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity"/>
         <activity android:name="com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity"/>
+
 
 
         <service android:name=".service.PushReceiver" android:enabled="true">
