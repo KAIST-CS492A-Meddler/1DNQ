@@ -29,8 +29,6 @@ public class CardSolvingActivity extends AppCompatActivity {
 
 
         thisActivity = this;
-
-
     }
 
 

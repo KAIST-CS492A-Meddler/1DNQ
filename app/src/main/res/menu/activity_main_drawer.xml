@@ -18,9 +18,9 @@
     <item android:title="Test Menu">
         <menu>
             <item
-                android:id="@+id/nav_testnewcard"
+                android:id="@+id/nav_testcardsolving"
                 android:icon="@drawable/odnq_nav_icon_card"
-                android:title="Make a New Card" />
+                android:title="Card Solving Activity" />
             <item
                 android:id="@+id/nav_testnewgroup"
                 android:icon="@drawable/odnq_nav_icon_group"

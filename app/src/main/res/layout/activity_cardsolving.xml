@@ -3,114 +3,235 @@
     android:orientation="vertical"
     android:background="@color/colorSkyBlue"
     android:gravity="center"
-    android:paddingBottom="20dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:text="Card solving activity"
-        android:textSize="30dp"
-        android:textColor="#ffffff"
-        android:textStyle="bold"/>
+        android:layout_height="match_parent">
 
-    <!--<ImageView-->
-        <!--android:id="@+id/startexercise_btn_back"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@mipmap/ic_menu_arrow_back"-->
-        <!--android:layout_margin="15dp"-->
-        <!--android:layout_gravity="left"-->
-        <!--android:onClick="mOnClick"-->
-        <!--/>-->
-
-    <!--<LinearLayout-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:gravity="center">-->
-
-        <!--<ImageView-->
-            <!--android:id="@+id/startexercise_iv_girl"-->
-            <!--android:layout_width="160dp"-->
-            <!--android:layout_height="160dp"-->
-            <!--android:src="@drawable/start_exercise_girl"-->
-            <!--/>-->
-
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Selected Routine"-->
-            <!--android:textColor="#dddddd"-->
-            <!--android:gravity="center_horizontal"/>-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/startexercise_tv_myroutine"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="자기전에 하기 좋은 운동"-->
-            <!--android:textColor="#ffffff"-->
-            <!--android:textSize="23dp"-->
-            <!--android:textStyle="bold"-->
-            <!--android:gravity="center_horizontal"/>-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/startexercise_tv_eq1"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:text="아령: 10개씩 8세트"-->
-            <!--android:textColor="#eeeeee"-->
-            <!--android:textSize="17dp"-->
-            <!--android:gravity="center_horizontal"/>-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/startexercise_tv_eq2"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="줄넘기: 60초씩 5세트"-->
-            <!--android:textColor="#eeeeee"-->
-            <!--android:textSize="17dp"-->
-            <!--android:gravity="center_horizontal"/>-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/startexercise_tv_eq3"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="훌라후프: 100개씩 3세트"-->
-            <!--android:textColor="#eeeeee"-->
-            <!--android:textSize="17dp"-->
-            <!--android:gravity="center_horizontal"/>-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/startexercise_tv_eq4"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="#eeeeee"-->
-            <!--android:textSize="17dp"-->
-            <!--android:gravity="center_horizontal"/>-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/startexercise_tv_eq5"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="#eeeeee"-->
-            <!--android:textSize="17dp"-->
-            <!--android:gravity="center_horizontal"/>-->
-
-        <!--<ImageView-->
-            <!--android:id="@+id/startexercise_iv_start"-->
-            <!--android:layout_width="250dp"-->
-            <!--android:layout_height="100dp"-->
-            <!--android:src="@drawable/start_exercise_button"-->
-            <!--/>-->
-
-    <!--</LinearLayout>-->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
 
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <ImageView
+                    android:id="@+id/nav_header_icon"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:paddingTop="@dimen/nav_header_vertical_spacing"
+                    android:src="@drawable/odnq_logo_charcter_white"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:layout_gravity="center"
+                    android:text="A NEW QUESTION CARD\nHAS ARRIVED"
+                    android:textSize="20dp"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="30dp"
+                android:descendantFocusability="beforeDescendants"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0px"
+                        android:layout_height="80dp"
+                        android:layout_weight="10"
+                        android:gravity="left|center_vertical"
+                        android:paddingLeft="10dp"
+                        android:background="#eeeeee">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Examiner" />
+
+                        <TextView
+                            android:id="@+id/cardsolving_tv_examiner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Young-Min Baek"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+
+                        <TextView
+                            android:id="@+id/cardsolving_tv_group"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="from [Word Conquerer] Group"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="2px"
+                        android:layout_height="80dp"
+                        android:background="#cccccc"/>
+
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0px"
+                        android:layout_height="80dp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:background="#eeeeee">
+
+                        <TextView
+                            android:id="@+id/cardsolving_tv_timer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="15"
+                            android:textSize="35dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="secs left"
+                            android:textSize="15dp"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/cardsolving_tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingTop="30dp"
+                    android:text="What is the meaning of\nthis word?"
+                    android:textSize="18dp"
+                    android:textColor="#777777"
+                    />
+
+                <TextView
+                    android:id="@+id/cardsolving_tv_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp"
+                    android:text="IMMIGRATION"
+                    android:textSize="21dp"
+                    android:textColor="@color/colorSkyBlue"
+                    android:textStyle="bold"
+                    android:background="@color/colorLightSkyBlue"
+                    />
+
+                <EditText
+                    android:id="@+id/cardsolving_et_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:hint="Write your answer here"
+                    android:textColorHint="#bbbbbb"
+                    android:maxLines="1"
+                    />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#eeeeee"
+                    >
+
+                    <Button
+                        android:id="@+id/cardsolving_btn_showhint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Show hint"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="13dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="#eeeeee"/>
+
+                    <TextView
+                        android:id="@+id/cardsolving_tv_hint"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="11dp"
+                        android:text="hints"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/cardsolving_btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:padding="10dp"
+                android:textColor="@color/colorSkyBlue"
+                android:textSize="20dp"
+                android:onClick="mOnClick"
+                android:background="#ffffff"
+                android:enabled="false"
+                android:text="SUBMIT MY ANSWER"/>
+            <!--android:shadowRadius="10"-->
+            <!--android:shadowColor="@color/colorSkyBlue"-->
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
 
 </LinearLayout>

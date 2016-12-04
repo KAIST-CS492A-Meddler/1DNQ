@@ -275,10 +275,10 @@ public class MainActivity extends AppCompatActivity
                 Intent intent_dbserver = new Intent(getApplicationContext(), DBServerTestActivity.class);
                 startActivity(intent_dbserver);
                 break;
-            case R.id.nav_testnewcard:
-                Toast.makeText(getApplicationContext(), "Test a process to make a new card", Toast.LENGTH_SHORT).show();
-                Intent intent_newcard = new Intent(getApplicationContext(), NewCardActivity.class);
-                startActivity(intent_newcard);
+            case R.id.nav_testcardsolving:
+                Toast.makeText(getApplicationContext(), "Test a card-solving activity", Toast.LENGTH_SHORT).show();
+                Intent intent_cardsolving = new Intent(getApplicationContext(), CardSolvingActivity.class);
+                startActivity(intent_cardsolving);
                 break;
             case R.id.nav_testnewgroup:
                 Toast.makeText(getApplicationContext(), "Test a process to make a new group", Toast.LENGTH_SHORT).show();
