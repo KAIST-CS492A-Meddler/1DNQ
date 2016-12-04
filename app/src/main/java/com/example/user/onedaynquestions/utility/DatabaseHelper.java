@@ -7,10 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.user.onedaynquestions.model.MyHereAgent;
-import com.example.user.onedaynquestions.model.MyInformation;
-import com.example.user.onedaynquestions.model.MyRecord;
-import com.example.user.onedaynquestions.model.MyRoutine;
+import com.example.user.onedaynquestions.archive.MyHereAgent;
+import com.example.user.onedaynquestions.archive.MyInformation;
+import com.example.user.onedaynquestions.archive.MyRecord;
+import com.example.user.onedaynquestions.archive.MyRoutine;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

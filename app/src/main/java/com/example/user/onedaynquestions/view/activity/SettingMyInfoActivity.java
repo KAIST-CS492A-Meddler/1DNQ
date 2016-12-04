@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
-import com.example.user.onedaynquestions.model.MyInformation;
+import com.example.user.onedaynquestions.archive.MyInformation;
 
 /**
  * Created by ymbaek on 2016-04-18.

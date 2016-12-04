@@ -1,4 +1,4 @@
-package com.example.user.onedaynquestions.model;
+package com.example.user.onedaynquestions.archive;
 
 import java.util.Calendar;
 import java.util.Date;

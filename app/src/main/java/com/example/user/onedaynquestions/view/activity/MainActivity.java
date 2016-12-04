@@ -24,10 +24,10 @@ import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.PagerAdapter;
-import com.example.user.onedaynquestions.model.MyHereAgent;
-import com.example.user.onedaynquestions.model.MyInformation;
-import com.example.user.onedaynquestions.model.MyRecord;
-import com.example.user.onedaynquestions.model.MyRoutine;
+import com.example.user.onedaynquestions.archive.MyHereAgent;
+import com.example.user.onedaynquestions.archive.MyInformation;
+import com.example.user.onedaynquestions.archive.MyRecord;
+import com.example.user.onedaynquestions.archive.MyRoutine;
 import com.example.user.onedaynquestions.utility.DatabaseHelper;
 import com.example.user.onedaynquestions.view.fragment.SupportHelpFragment;
 import com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity;

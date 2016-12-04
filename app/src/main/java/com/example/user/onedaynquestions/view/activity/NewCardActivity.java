@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
-import com.example.user.onedaynquestions.model.MyRoutine;
+import com.example.user.onedaynquestions.archive.MyRoutine;
 
 import java.util.StringTokenizer;
 

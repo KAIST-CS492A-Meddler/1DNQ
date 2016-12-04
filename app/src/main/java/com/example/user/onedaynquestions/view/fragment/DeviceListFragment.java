@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.EquipmentListAdapter;
-import com.example.user.onedaynquestions.model.Equipment;
+import com.example.user.onedaynquestions.archive.Equipment;
 
 import java.util.ArrayList;
 

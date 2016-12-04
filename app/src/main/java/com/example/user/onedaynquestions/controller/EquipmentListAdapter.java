@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.onedaynquestions.R;
-import com.example.user.onedaynquestions.model.Equipment;
+import com.example.user.onedaynquestions.archive.Equipment;
 
 import java.util.ArrayList;
 
