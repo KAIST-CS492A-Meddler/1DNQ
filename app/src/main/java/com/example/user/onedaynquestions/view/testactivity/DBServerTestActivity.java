@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.QuestionListAdapter;
-import com.example.user.onedaynquestions.model.Question;
+import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.service.TemporalStorage;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class DBServerTestActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ListView lvQuestionList;
 
-    private ArrayList<Question> questionList;
+    private ArrayList<MyCard> questionList;
     private QuestionListAdapter questionListAdapter;
 
 
@@ -67,7 +67,7 @@ public class DBServerTestActivity extends AppCompatActivity {
 //        while(!TemporalStorage.isEmpty()){
 //            questionList.add(TemporalStorage.consumeReceivedQuestions());
 //        }
-        questionList.addAll(TemporalStorage.getReceivedQuestions());
+        questionList.addAll(TemporalStorage.getAllReceivedQuestions());
 
         questionListAdapter.notifyDataSetChanged();
 

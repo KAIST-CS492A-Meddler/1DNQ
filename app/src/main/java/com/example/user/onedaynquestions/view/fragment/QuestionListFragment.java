@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.QuestionListAdapter;
-import com.example.user.onedaynquestions.model.Question;
+import com.example.user.onedaynquestions.model.MyCard;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class QuestionListFragment extends Fragment{
 
     private ListView lvQuestionList;
 
-    private ArrayList<Question> questionList;
+    private ArrayList<MyCard> questionList;
     private QuestionListAdapter questionListAdapter;
 
     @Nullable
@@ -36,15 +36,6 @@ public class QuestionListFragment extends Fragment{
 
         lvQuestionList.setAdapter(questionListAdapter);
 
-        Question eq1 = new Question("Q01", "hi", "안녕", "2016-11-18");
-        Question eq2 = new Question("Q02", "hello", "안녕", "2016-11-18");
-        Question eq3 = new Question("Q03", "ah", "아", "2016-11-15");
-        Question eq4 = new Question("Q04", "good night", "잘자", "2016-11-16");
-
-        questionList.add(eq1);
-        questionList.add(eq2);
-        questionList.add(eq3);
-        questionList.add(eq4);
 
         questionListAdapter.notifyDataSetChanged();
 

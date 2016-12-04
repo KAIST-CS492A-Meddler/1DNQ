@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.onedaynquestions.R;
-import com.example.user.onedaynquestions.model.Question;
+import com.example.user.onedaynquestions.model.MyCard;
 
 import java.util.ArrayList;
 
@@ -19,9 +19,9 @@ import java.util.ArrayList;
 public class QuestionListAdapter extends BaseAdapter {
 
     LayoutInflater mInflater;
-    ArrayList<Question> arrQuestion;
+    ArrayList<MyCard> arrQuestion;
 
-    public QuestionListAdapter(Context context, ArrayList<Question> arrQuestion) {
+    public QuestionListAdapter(Context context, ArrayList<MyCard> arrQuestion) {
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.arrQuestion = arrQuestion;
     }
@@ -62,9 +62,9 @@ public class QuestionListAdapter extends BaseAdapter {
 
         icon.setImageResource(R.mipmap.odnq_app_icon_bulb);
 
-        quesion.setText(arrQuestion.get(position).getQuesion());
-        group.setText(arrQuestion.get(position).getGroup());
-        answer.setText(arrQuestion.get(position).getAnswer());
+        quesion.setText(arrQuestion.get(position).getMyCardQuestion());
+        group.setText(arrQuestion.get(position).getMyCardGroup());
+        answer.setText(arrQuestion.get(position).getMyCardMaker());
 
         return convertView;
     }

@@ -13,7 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.user.onedaynquestions.R;
-import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
+import com.example.user.onedaynquestions.view.activity.CardSolvingActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -23,27 +23,44 @@ public class PushReceiver extends FirebaseMessagingService{
     private static final String TAG = "PushReceiver";
     private static final String pushTitle = "Here comes new Question!";
 
-    private String question;
+
+
+    private String question, examiner, hint, type;
     private String answer;
+    private String group;
     public PushReceiver() {
     }
 
     @Override
     public void onMessageReceived(RemoteMessage remote){
 
+        question = "none";
+        examiner = "none";
+        hint = "none";
+        type = "none";
+        answer = "none";
+        group = "none";
         Log.d(TAG, "notice");
         question = remote.getData().get("question");
         answer = remote.getData().get("answer");
+        group = remote.getData().get("group");
+        examiner = remote.getData().get("examiner");
+        hint = remote.getData().get("hint");
+        type = remote.getData().get("type");
         Intent intent = new Intent(".service.PushReceiver");
         intent.putExtra("question", question);
         intent.putExtra("answer", answer);
+        intent.putExtra("group", group);
+        intent.putExtra("examiner", examiner);
+        intent.putExtra("type", type);
+        intent.putExtra("hint", hint);
         sendBroadcast(intent);
         pushNotification(question);
     }
 
     private void pushNotification(String msg){
         System.out.println("Received message: " + msg);
-        Intent intent = new Intent(this, DBServerTestActivity.class);
+        Intent intent = new Intent(this, CardSolvingActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
         /*
         FLAG_UPDATE_CURRENT
