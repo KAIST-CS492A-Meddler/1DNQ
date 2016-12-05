@@ -1,5 +1,6 @@
 package com.example.user.onedaynquestions.view.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,8 +15,15 @@ import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.archive.MyHereAgent;
 import com.example.user.onedaynquestions.archive.MyRoutine;
 import com.example.user.onedaynquestions.view.activity.MainActivity;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
+import com.jjoe64.graphview.series.BarGraphSeries;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -32,14 +40,75 @@ public class MyAchievementFragment extends Fragment{
 //
 //    Button btn_refresh;
 
+    GraphView contribution, record;
+    Date[] days;
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         goals = new ArrayList<Goal>();
 
+
 //        listViewAdapter = new ListViewAdapter();
         final View viewFragmentRoutine = inflater.inflate(R.layout.fragment_myachievement, container, false);
+        contribution = (GraphView)viewFragmentRoutine.findViewById(R.id.weekly_contribution_gv);
+        record = (GraphView)viewFragmentRoutine.findViewById(R.id.weekly_record_gv);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -7);
+        days = new Date[7];
+        for(int i =0; i  < 7; i++){
+            days[i] = calendar.getTime();
+            calendar.add(Calendar.DATE, 1);
+        }
+
+        LineGraphSeries<DataPoint> contributionSeries = new LineGraphSeries<DataPoint>(new DataPoint[]{
+                new DataPoint(days[0], 1),
+                new DataPoint(days[1], 2),
+                new DataPoint(days[2], 5),
+                new DataPoint(days[3], 4),
+                new DataPoint(days[4], 6),
+                new DataPoint(days[5], 7),
+                new DataPoint(days[6], 10),
+        }) ;
+        BarGraphSeries<DataPoint> recordWrongSeries = new BarGraphSeries<DataPoint>(new DataPoint[]{
+                new DataPoint(days[0], 1),
+                new DataPoint(days[1], 2),
+                new DataPoint(days[2], 5),
+                new DataPoint(days[3], 4),
+                new DataPoint(days[4], 6),
+                new DataPoint(days[5], 7),
+                new DataPoint(days[6], 10),
+        }) ;
+
+        BarGraphSeries<DataPoint> recordTrueSeries = new BarGraphSeries<DataPoint>(new DataPoint[]{
+                new DataPoint(days[0], 3),
+                new DataPoint(days[1], 5),
+                new DataPoint(days[2], 8),
+                new DataPoint(days[3], 9),
+                new DataPoint(days[4], 11),
+                new DataPoint(days[5], 17),
+                new DataPoint(days[6], 25),
+        }) ;
+
+        contribution.getViewport().setMinX(days[0].getTime());
+        contribution.getViewport().setMaxX(days[6].getTime());
+        contribution.getViewport().setXAxisBoundsManual(true);
+        contribution.addSeries(contributionSeries);
+        contribution.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
+        contribution.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
+
+
+        record.getViewport().setMinX(days[0].getTime());
+        record.getViewport().setMaxX(days[6].getTime());
+        record.getViewport().setXAxisBoundsManual(true);
+        recordTrueSeries.setColor(Color.BLUE);
+        recordWrongSeries.setColor(Color.RED);
+        record.addSeries(recordTrueSeries);
+        record.addSeries(recordWrongSeries);
+        record.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
+        record.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
+
 //
 //        initWidgets(viewFragmentRoutine);
 //

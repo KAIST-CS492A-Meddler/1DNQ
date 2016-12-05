@@ -87,13 +87,12 @@
                 android:layout_height="1dp"
                 android:background="@color/colorSkyBlue"/>
 
-            <TextView
-                android:layout_width="match_parent"
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/weekly_contribution_gv"
+                android:layout_width="fill_parent"
                 android:layout_height="180dp"
                 android:background="#eeeeee"
                 android:gravity="center"
-                android:text="Weekly contribution graph"
-                android:textSize="15dp"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
                 android:paddingLeft="15dp"/>
@@ -115,13 +114,12 @@
                 android:layout_height="1dp"
                 android:background="@color/colorSkyBlue"/>
 
-            <TextView
-                android:layout_width="match_parent"
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/weekly_record_gv"
+                android:layout_width="fill_parent"
                 android:layout_height="180dp"
                 android:background="#eeeeee"
                 android:gravity="center"
-                android:text="Weekly study record graph"
-                android:textSize="15dp"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
                 android:paddingLeft="15dp"/>

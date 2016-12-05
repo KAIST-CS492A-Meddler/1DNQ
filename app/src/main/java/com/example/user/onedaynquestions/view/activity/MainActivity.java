@@ -1,9 +1,7 @@
 package com.example.user.onedaynquestions.view.activity;
 
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -25,10 +23,6 @@ import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.PagerAdapter;
-import com.example.user.onedaynquestions.archive.MyHereAgent;
-import com.example.user.onedaynquestions.archive.MyInformation;
-import com.example.user.onedaynquestions.archive.MyRecord;
-import com.example.user.onedaynquestions.archive.MyRoutine;
 import com.example.user.onedaynquestions.utility.DatabaseController;
 import com.example.user.onedaynquestions.utility.DatabaseHelper;
 import com.example.user.onedaynquestions.view.fragment.SupportHelpFragment;
@@ -38,8 +32,6 @@ import com.example.user.onedaynquestions.view.testactivity.GraphTestActivity;
 import com.example.user.onedaynquestions.view.testactivity.WidgetTestActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity
@@ -323,8 +315,8 @@ public class MainActivity extends AppCompatActivity
         //awaken when screen is off
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
-        IntentFilter intentfilter = new IntentFilter();
-        intentfilter.addAction(".service.PushReceiver");
+//        IntentFilter intentfilter = new IntentFilter();
+//        intentfilter.addAction(".service.PushReceiver");
         //이 부분을 클라이언트마다 다르게 subscribe하면 가능?
         FirebaseMessaging.getInstance().subscribeToTopic("test");
         Log.d("TOKEN", FirebaseInstanceId.getInstance().getToken());

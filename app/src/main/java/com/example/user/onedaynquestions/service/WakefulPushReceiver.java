@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.WakefulBroadcastReceiver;
@@ -37,8 +38,10 @@ public class WakefulPushReceiver  extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
+
         for (String key : intent.getExtras().keySet()) {
             //get all extras in the intent
+            int a = 0;
         }
         switch (action) {
             case ACTION_REGISTRATION:
@@ -56,6 +59,9 @@ public class WakefulPushReceiver  extends WakefulBroadcastReceiver {
 
     public void onMessageReceived(Context context, Intent intent){
         String id = intent.getStringExtra("card_id");
+        Bundle bundle = intent.getExtras();
+        ArrayList<String> temp = bundle.getStringArrayList("data");
+
         Log.d(TAG, "notice");
         if(id != null) {
             if (id.compareTo("1") == 0) {
