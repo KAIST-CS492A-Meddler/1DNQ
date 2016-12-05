@@ -219,9 +219,8 @@
                 android:padding="10dp"
                 android:textColor="@color/colorSkyBlue"
                 android:textSize="20dp"
-                android:onClick="mOnClick"
                 android:background="#ffffff"
-                android:enabled="false"
+                android:enabled="true"
                 android:text="SUBMIT MY ANSWER"/>
             <!--android:shadowRadius="10"-->
             <!--android:shadowColor="@color/colorSkyBlue"-->

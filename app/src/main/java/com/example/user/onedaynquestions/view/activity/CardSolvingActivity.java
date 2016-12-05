@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.model.MyCard;
-import com.example.user.onedaynquestions.service.TemporalStorage;
+import com.example.user.onedaynquestions.service.WakefulPushReceiver;
 
 /**
  * Created by user on 2016-06-07.
@@ -26,7 +26,7 @@ public class CardSolvingActivity extends AppCompatActivity {
     EditText answer;
     Button showHint, submit;
 
-    final int TIME_LIMIT = 15;
+    final int TIME_LIMIT = 15 + 1;
     int remainTime = TIME_LIMIT;
     CountDownTimer timeChecker;
 
@@ -47,6 +47,14 @@ public class CardSolvingActivity extends AppCompatActivity {
         answer = (EditText)findViewById(R.id.cardsolving_et_answer);
 
         submit = (Button)findViewById(R.id.cardsolving_btn_submit) ;
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCard();
+            }
+        });
+
         showHint = (Button)findViewById(R.id.cardsolving_btn_showhint);
 
         timeChecker = new CountDownTimer(TIME_LIMIT * 1000, 1000) {
@@ -74,10 +82,13 @@ public class CardSolvingActivity extends AppCompatActivity {
     }
 
     public void setCard(){
-        if(!TemporalStorage.isEmpty()){
+        timeChecker.cancel();
+        if(!WakefulPushReceiver.isEmpty()){
             //MyCard card  = TemporalStorage.consumeReceivedQuestions();
-            MyCard card  = TemporalStorage.getReceivedQuestion();
-            if(card == null) return;
+            MyCard card  = WakefulPushReceiver.getReceivedQuestion();
+            if(card == null){
+                card = new MyCard();
+            }
             examiner.setText(card.getMyCardMaker());
             examiner.postInvalidate();
             group.setText("from [" + card.getMyCardGroup()+ "] Group");
@@ -100,19 +111,8 @@ public class CardSolvingActivity extends AppCompatActivity {
             question.postInvalidate();
 
             card = null;
+            timeChecker.start();
         }
 
-        timeChecker.start();
     }
-
-
-
-
-    public void mOnClick(View v) {
-
-        if(remainTime < 0) {
-        }
-        setCard();
-    }
-
 }

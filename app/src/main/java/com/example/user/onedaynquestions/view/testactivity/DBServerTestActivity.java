@@ -12,7 +12,7 @@ import android.widget.ListView;
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.QuestionListAdapter;
 import com.example.user.onedaynquestions.model.MyCard;
-import com.example.user.onedaynquestions.service.TemporalStorage;
+import com.example.user.onedaynquestions.service.WakefulPushReceiver;
 
 import java.util.ArrayList;
 
@@ -67,7 +67,7 @@ public class DBServerTestActivity extends AppCompatActivity {
 //        while(!TemporalStorage.isEmpty()){
 //            questionList.add(TemporalStorage.consumeReceivedQuestions());
 //        }
-        questionList.addAll(TemporalStorage.getAllReceivedQuestions());
+        questionList.addAll(WakefulPushReceiver.getAllReceivedQuestions());
 
         questionListAdapter.notifyDataSetChanged();
 
