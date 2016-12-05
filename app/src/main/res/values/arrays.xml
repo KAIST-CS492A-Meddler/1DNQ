@@ -1,8 +1,9 @@
 <resources>
 
     <string-array name="spinner_list">
-        <item>@string/spinner_item_01</item>
-        <item>@string/spinner_item_02</item>
+        <item>@string/odnq_card_type_01</item>
+        <item>@string/odnq_card_type_02</item>
+        <item>@string/odnq_card_type_03</item>
     </string-array>
 
 </resources>

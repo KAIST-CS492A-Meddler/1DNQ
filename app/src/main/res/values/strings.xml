@@ -22,6 +22,11 @@
 
     <string name="spinner_item_01">Male</string>
     <string name="spinner_item_02">Female</string>
+
+    <string name="odnq_card_type_01">Word</string>
+    <string name="odnq_card_type_02">Sentence</string>
+    <string name="odnq_card_type_03">Idiom/Phrase</string>
+
     <string name="title_activity_dictionary">Dictionary</string>
 
 </resources>
