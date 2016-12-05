@@ -16,14 +16,17 @@ import android.widget.Toast;
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.model.MyGroup;
-import com.example.user.onedaynquestions.model.MyInfo;
+import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.utility.DatabaseController;
+import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 import com.example.user.onedaynquestions.view.activity.MainActivity;
+
+import java.util.HashMap;
 
 /**
  * Created by ymbaek on 2016-04-18.
  */
-public class DBLocalTestActivity extends AppCompatActivity {
+public class DBLocalTestActivity extends AppCompatActivity implements AsyncResponse {
 
     public static final String TAG = "MyAchievements";
     public static final String TAG_DB = "DBLocalTestActivity";
@@ -143,22 +146,59 @@ public class DBLocalTestActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.dbtest_local_btn_addinfo:
 
-                MyInfo tmpMyInfo;
+//                MyInfo tmpMyInfo;
+//
+//                String myinfo_id = dbtest_local_et_myinfo_id.getText().toString();
+//                String myinfo_nick = dbtest_local_et_myinfo_nick.getText().toString();
+//                String myinfo_name = dbtest_local_et_myinfo_name.getText().toString();
+//                int myinfo_age = Integer.parseInt(dbtest_local_et_myinfo_age.getText().toString());
+//                int myinfo_gender = Integer.parseInt(dbtest_local_et_myinfo_gender.getText().toString());
+//                String myinfo_deviceid = dbtest_local_et_myinfo_deviceid.getText().toString();
+//
+//                tmpMyInfo = new MyInfo(myinfo_deviceid, myinfo_id, myinfo_nick, myinfo_name, myinfo_age, myinfo_gender);
+//
+//                MainActivity.odnqDB.insertMyInfo(tmpMyInfo);
+//                Log.d(TAG_DB, "[DBLocalTestActivity] mOnClick: MyInfo is added to DB.");
+//                Toast.makeText(getApplicationContext(), "Table is updated.", Toast.LENGTH_SHORT).show();
+//
+//                initDB();
 
-                String myinfo_id = dbtest_local_et_myinfo_id.getText().toString();
-                String myinfo_nick = dbtest_local_et_myinfo_nick.getText().toString();
-                String myinfo_name = dbtest_local_et_myinfo_name.getText().toString();
-                int myinfo_age = Integer.parseInt(dbtest_local_et_myinfo_age.getText().toString());
-                int myinfo_gender = Integer.parseInt(dbtest_local_et_myinfo_gender.getText().toString());
-                String myinfo_deviceid = dbtest_local_et_myinfo_deviceid.getText().toString();
+//                EditText dbtest_local_et_myinfo_id;
+//                EditText dbtest_local_et_myinfo_nick;
+//                EditText dbtest_local_et_myinfo_name;
+//                EditText dbtest_local_et_myinfo_age;
+//                EditText dbtest_local_et_myinfo_gender;
+//                EditText dbtest_local_et_myinfo_deviceid;
 
-                tmpMyInfo = new MyInfo(myinfo_deviceid, myinfo_id, myinfo_nick, myinfo_name, myinfo_age, myinfo_gender);
+//                //Server request
+//                HashMap postData = new HashMap();
+//                postData.put("myinfo_id", "SampleId");
+//                postData.put("myinfo_nick","SampleNick");
+//                postData.put("myinfo_name","SampleName");
+//                postData.put("myinfo_age",25);
+//                postData.put("myinfo_gender",2);
+//                postData.put("myinfo_deviceid","SampleDeviceId");
+//                postData.put("myinfo_token", "dagEgIerjYo:APA91bFEttcM3VHC0kyltss3HwY1N4PVJ28FSmzFVWzCoqwHYoEmxONfGhesrV23oTLf5bYU18y0PHDoPDy1fhdzV81YayH1R1SESAVE0z6rNXcVspmp0-sb7x1yrOR-uufk2ftTR8-y");
+////                postData.put("myinfo_token", "SampleToken");
+//
+//                PostResponseAsyncTask insertMyInfoTask =
+//                        new PostResponseAsyncTask(DBLocalTestActivity.this, postData);
+//
+//                insertMyInfoTask.execute("http://110.76.95.150/create_user.php");
+////                insertMyInfoTask.execute("http://110.76.95.150/create_user_t.php");
 
-                MainActivity.odnqDB.insertMyInfo(tmpMyInfo);
-                Log.d(TAG_DB, "[DBLocalTestActivity] mOnClick: MyInfo is added to DB.");
-                Toast.makeText(getApplicationContext(), "Table is updated.", Toast.LENGTH_SHORT).show();
+                //Server request
+                HashMap<String, String> postData = new HashMap<String, String>();
+                postData.put("sample_id", "SampleId5673");
+//                postData.put("myinfo_token", "SampleToken");
 
-                initDB();
+                PostResponseAsyncTask insertMyInfoTask =
+                        new PostResponseAsyncTask(DBLocalTestActivity.this, postData);
+
+                insertMyInfoTask.execute("http://110.76.95.150/create_sample.php");
+//                insertMyInfoTask.execute("http://110.76.95.150/create_user_t.php");
+
+
                 break;
             case R.id.dbtest_local_btn_addcard:
                 MyCard tmpMyCard;
@@ -214,4 +254,9 @@ public class DBLocalTestActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void processFinish(String output) {
+        Toast.makeText(getApplicationContext(), output, Toast.LENGTH_SHORT).show();
+        Log.d("PostResponseAsyncTask", "[DBLocalTestActivity] processFinish(): \n" + output);
+    }
 }
