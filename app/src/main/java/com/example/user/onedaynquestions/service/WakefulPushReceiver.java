@@ -19,7 +19,6 @@ import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.view.activity.CardSolvingActivity;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 //To handle FCM in manual way
 public class WakefulPushReceiver  extends WakefulBroadcastReceiver {
@@ -106,7 +105,7 @@ public class WakefulPushReceiver  extends WakefulBroadcastReceiver {
 
     public static void addReceivedQuestion(Intent intent){
         //MyCard(String myCardId, String myCardDateTime, int myCardType, String myCardMaker, String myCardGroup, String myCardQuestion, String myCardAnswer) {
-        receivedQuestions.add(new MyCard(intent.getStringExtra("id") , Calendar.getInstance().getTime().toString(), intent.getIntExtra("type", 0), intent.getStringExtra("examiner"), intent.getStringExtra("group"), intent.getStringExtra("question"), intent.getStringExtra("answer")));
+        receivedQuestions.add(new MyCard(intent));
     }
 
     public static void clearReceivedQuestions(){

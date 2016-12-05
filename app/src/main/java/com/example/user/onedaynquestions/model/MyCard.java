@@ -1,11 +1,23 @@
 package com.example.user.onedaynquestions.model;
 
+import android.content.Intent;
+import android.util.Log;
+
 /**
  * Created by user on 2016-12-04.
  */
 
 public class MyCard {
+    private static final String TAG = "MyCard";
 
+    private static final String ATTRIBUTE_CARD_ID = "card_id";
+    private static final String ATTRIBUTE_DATE = "card_datetime";
+    private static final String ATTRIBUTE_CARD_TYPE = "card_type";
+    private static final String ATTRIBUTE_CARD_MAKER = "card_maker";
+    private static final String ATTRIBUTE_CARD_GROUP = "card_group";
+    private static final String ATTRIBUTE_CARD_QUESTION = "card_question";
+    private static final String ATTRIBUTE_CARD_ANSWER = "card_answer";
+    private static final String ATTRIBUTE_CARD_DIFFICULTY = "card_difficulty";
     String myCardId;
     String myCardDateTime;
     int myCardType;
@@ -36,6 +48,27 @@ public class MyCard {
         initMyCard();
     }
 
+    public MyCard(Intent intent){
+        myCardId = intent.getStringExtra(ATTRIBUTE_CARD_ID);
+        myCardDateTime = intent.getStringExtra(ATTRIBUTE_DATE);
+        try {
+            myCardType = Integer.valueOf(intent.getStringExtra(ATTRIBUTE_CARD_TYPE));
+        }catch (Exception e){
+            Log.e(TAG, e.getMessage());
+        }
+        myCardMaker = intent.getStringExtra(ATTRIBUTE_CARD_MAKER);
+        myCardGroup = intent.getStringExtra(ATTRIBUTE_CARD_GROUP);
+        myCardQuestion = intent.getStringExtra(ATTRIBUTE_CARD_QUESTION);
+        myCardAnswer = intent.getStringExtra(ATTRIBUTE_CARD_ANSWER);
+        myCardWrong = 0;
+        try {
+            myCardDifficulty = Integer.valueOf(intent.getStringExtra(ATTRIBUTE_CARD_DIFFICULTY));
+        }catch (Exception e){
+            Log.e(TAG, e.getMessage());
+        }
+        myCardQuality = -1;
+        myCardStarred = 0;
+    }
     public MyCard(String myCardId, String myCardDateTime, int myCardType, String myCardMaker, String myCardGroup) {
         initMyCard();
 
