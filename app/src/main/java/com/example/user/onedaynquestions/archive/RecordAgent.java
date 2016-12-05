@@ -38,9 +38,9 @@ public class RecordAgent implements Serializable{
     public RecordAgent(String agentMacId) {
         this.agentMacId = agentMacId;
 
-        MyHereAgent tmpAgent = MainActivity.hereDB.getMyHereAgent(agentMacId);
-        this.agentName = tmpAgent.getMyeqName();
-        this.agentType = tmpAgent.getMyeqType();
+//        MyHereAgent tmpAgent = MainActivity.hereDB.getMyHereAgent(agentMacId);
+//        this.agentName = tmpAgent.getMyeqName();
+//        this.agentType = tmpAgent.getMyeqType();
 
         goalSet = -1;
         goalCount = -1;

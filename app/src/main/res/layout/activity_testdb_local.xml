@@ -5,22 +5,646 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/colorSkyBlue"/>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:text="Test your local DB here\n(Young-Min Baek)"
-        android:textSize="15dp"
-        android:textStyle="bold"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@color/colorSkyBlue"/>
 
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:text="Test your local DB here\n(Young-Min Baek)"-->
+            <!--android:textSize="15dp"-->
+            <!--android:textStyle="bold"/>-->
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="14dp"
+                android:text="Status of Local DB Tables"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:background="@color/colorLightSkyBlue"/>
+
+            <TextView
+                android:id="@+id/dbtest_local_tv_status_myinfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:text="table MyInfo status: "/>
+
+            <TextView
+                android:id="@+id/dbtest_local_tv_status_mycard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:text="table MyCard status: "/>
+
+            <TextView
+                android:id="@+id/dbtest_local_tv_status_mygroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:text="table MyGroup status: "/>
+
+
+            <!-- ////////////////////////////////////////////////////////////////////// -->
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorSkyBlue"/>
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="5px"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:background="@color/colorSkyBlue"/>-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="14dp"
+                android:text="table MyInfo"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:background="#dddddd"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myInfoId"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_myinfo_id"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myInfoNick"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_myinfo_nick"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myInfoName"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_myinfo_name"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myInfoAge"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_myinfo_age"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myInfoGender"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_myinfo_gender"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myInfoDeviceId"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_myinfo_deviceid"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text=""/>
+
+                <Button
+                    android:id="@+id/dbtest_local_btn_addinfo"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:text="Add a tuple"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:onClick="mOnClick"
+                    android:layout_marginRight="10dp" />
+            </LinearLayout>
+
+
+            <!-- ////////////////////////////////////////////////////////////////////// -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5px"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorSkyBlue"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="14dp"
+                android:text="table MyCard"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:background="#dddddd"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myCardId"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_mycard_id"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myCardDateTime"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_mycard_datetime"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myCardType"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_mycard_type"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myCardMaker"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_mycard_maker"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myCardGroup"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_mycard_group"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myCardQuestion"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_mycard_question"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myCardAnswer"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_mycard_answer"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text=""/>
+
+                <Button
+                    android:id="@+id/dbtest_local_btn_addcard"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:text="Add a tuple"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:onClick="mOnClick"
+                    android:layout_marginRight="10dp" />
+            </LinearLayout>
+
+
+            <!-- ////////////////////////////////////////////////////////////////////// -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5px"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorSkyBlue"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="14dp"
+                android:text="table MyGroup"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:background="#dddddd"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myGroupId"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_mygroup_id"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myGroupName"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_mygroup_name"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text="myGroupRegisDate"/>
+
+                <EditText
+                    android:id="@+id/dbtest_local_et_mygroup_regisdate"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:hint="Write value"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#aaaaaa"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:textStyle="bold"
+                    android:text=""/>
+
+                <Button
+                    android:id="@+id/dbtest_local_btn_addgroup"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:text="Add a tuple"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:onClick="mOnClick"
+                    android:layout_marginRight="10dp" />
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

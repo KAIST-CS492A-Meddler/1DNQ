@@ -86,8 +86,8 @@ public class CardSolvingActivity extends AppCompatActivity {
             timer.setText("" + remainTime);
             timer.postInvalidate();
 
+            //Modified
             String cardType = "";
-
             if (card.getMyCardType() == 1) {
                 cardType = "What is the meaning\n of this word?";
             } else {
