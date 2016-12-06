@@ -30,17 +30,26 @@
                 android:layout_height="1dp"
                 android:background="@color/colorSkyBlue"/>
 
-            <TextView
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="180dp"-->
+                <!--android:background="#eeeeee"-->
+                <!--android:gravity="center"-->
+                <!--android:text="Starred Question View\n(Horizontal scroll view OR CardView)"-->
+                <!--android:textSize="15dp"-->
+                <!--android:paddingTop="6dp"-->
+                <!--android:paddingBottom="6dp"-->
+                <!--android:paddingLeft="15dp"/>-->
+
+            <ListView
+                android:id="@+id/starred_question_lv"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:background="#eeeeee"
+                android:background="#eeeef0"
                 android:gravity="center"
-                android:text="Starred Question View\n(Horizontal scroll view OR CardView)"
-                android:textSize="15dp"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
                 android:paddingLeft="15dp"/>
-
 
             <TextView
                 android:layout_width="match_parent"
@@ -59,17 +68,26 @@
                 android:layout_height="1dp"
                 android:background="@color/colorSkyBlue"/>
 
-            <TextView
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="180dp"-->
+                <!--android:background="#eeeeee"-->
+                <!--android:gravity="center"-->
+                <!--android:text="Frequently Wrong Cards\n(Horizontal scroll view OR CardView)"-->
+                <!--android:textSize="15dp"-->
+                <!--android:paddingTop="6dp"-->
+                <!--android:paddingBottom="6dp"-->
+                <!--android:paddingLeft="15dp"/>-->
+
+            <ListView
+                android:id="@+id/frequently_wrong_question_lv"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:background="#eeeeee"
+                android:background="#eeeef0"
                 android:gravity="center"
-                android:text="Frequently Wrong Cards\n(Horizontal scroll view OR CardView)"
-                android:textSize="15dp"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
                 android:paddingLeft="15dp"/>
-
 
             <TextView
                 android:layout_width="match_parent"
@@ -88,13 +106,23 @@
                 android:layout_height="1dp"
                 android:background="@color/colorSkyBlue"/>
 
-            <TextView
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="180dp"-->
+                <!--android:background="#eeeeee"-->
+                <!--android:gravity="center"-->
+                <!--android:text="Recommended Cards (by System/Group)\n(Horizontal scroll view OR CardView)"-->
+                <!--android:textSize="15dp"-->
+                <!--android:paddingTop="6dp"-->
+                <!--android:paddingBottom="6dp"-->
+                <!--android:paddingLeft="15dp"/>-->
+
+            <ListView
+                android:id="@+id/recommended_question_lv"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:background="#eeeeee"
+                android:background="#eeeef0"
                 android:gravity="center"
-                android:text="Recommended Cards (by System/Group)\n(Horizontal scroll view OR CardView)"
-                android:textSize="15dp"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
                 android:paddingLeft="15dp"/>

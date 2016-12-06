@@ -9,11 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.archive.MyHereAgent;
 import com.example.user.onedaynquestions.archive.MyRoutine;
+import com.example.user.onedaynquestions.controller.QuestionListAdapter;
+import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.view.activity.MainActivity;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
@@ -42,6 +45,10 @@ public class MyAchievementFragment extends Fragment{
 
     GraphView contribution, record;
     Date[] days;
+    private ListView lvQuestionList;
+
+    private ArrayList<MyCard> questionList;
+    private QuestionListAdapter questionListAdapter;
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +58,7 @@ public class MyAchievementFragment extends Fragment{
 
 //        listViewAdapter = new ListViewAdapter();
         final View viewFragmentRoutine = inflater.inflate(R.layout.fragment_myachievement, container, false);
+
         contribution = (GraphView)viewFragmentRoutine.findViewById(R.id.weekly_contribution_gv);
         record = (GraphView)viewFragmentRoutine.findViewById(R.id.weekly_record_gv);
 

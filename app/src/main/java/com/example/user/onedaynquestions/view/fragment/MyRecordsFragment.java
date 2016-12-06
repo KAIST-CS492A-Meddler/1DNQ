@@ -1,5 +1,6 @@
 package com.example.user.onedaynquestions.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,8 +8,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.example.user.onedaynquestions.R;
+import com.example.user.onedaynquestions.controller.QuestionListAdapter;
+import com.example.user.onedaynquestions.model.MyCard;
+import com.example.user.onedaynquestions.service.WakefulPushReceiver;
+
+import java.util.ArrayList;
 
 /**
  * Created by ymbae on 2016-04-18.
@@ -38,12 +45,18 @@ public class MyRecordsFragment extends Fragment{
 //    HashMap<String, List<RecordEqDateDone>> mapGroupByEq;
 //    ArrayList<String> agentIDs;
 
+    private Context inflatorContext;
+    public static final int FREQUENTLY_WRONG = 0;
+    public static final int STARRED = 1;
+    public static final int RECOMMENDED = 2;
+    private ArrayList<MyCard> frequentlyWrongQuestionList, starredQuestionList,recommendedQuestionList;
+    private QuestionListAdapter frequentlyWrongQuestionListAdapter,starredQuestionListAdapter,recommendedQuestionListAdapter;
+    private ListView frequentlyWrongList, starredList, recommendList;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         currentView = inflater.inflate(R.layout.fragment_mystudynote, container, false);
-
         /**
          * Youngmin
          */
@@ -59,6 +72,8 @@ public class MyRecordsFragment extends Fragment{
 
 
         initEquipRecord();
+
+        initQuestionList();
 
 
 //        /**
@@ -110,6 +125,125 @@ public class MyRecordsFragment extends Fragment{
         //return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    public void initQuestionList(){
+        frequentlyWrongList = (ListView)currentView.findViewById(R.id.frequently_wrong_question_lv);
+        starredList = (ListView)currentView.findViewById(R.id.starred_question_lv);
+        recommendList = (ListView)currentView.findViewById(R.id.recommended_question_lv);
+
+
+        frequentlyWrongQuestionList = new ArrayList<>();
+        frequentlyWrongQuestionListAdapter = new QuestionListAdapter(getActivity(), frequentlyWrongQuestionList);
+        starredQuestionList = new ArrayList<>();
+        starredQuestionListAdapter = new QuestionListAdapter(getActivity(), starredQuestionList);
+        recommendedQuestionList = new ArrayList<>();
+        recommendedQuestionListAdapter = new QuestionListAdapter(getActivity(), recommendedQuestionList);
+
+        frequentlyWrongList.setAdapter(frequentlyWrongQuestionListAdapter);
+        starredList.setAdapter(starredQuestionListAdapter);
+        recommendList.setAdapter(recommendedQuestionListAdapter);
+
+        //temporal list
+        ArrayList<MyCard> nullList = new ArrayList<MyCard>();
+        nullList.add(new MyCard());
+        nullList.add(new MyCard());
+        nullList.add(new MyCard());
+        nullList.add(new MyCard());
+        appendQuestion(STARRED, new MyCard());
+
+        setQuestions(STARRED, nullList);
+        setQuestions(FREQUENTLY_WRONG, nullList);
+        if(WakefulPushReceiver.numReceivedQuestions() > 0) {
+            setQuestions(RECOMMENDED, WakefulPushReceiver.getAllReceivedQuestions());
+        }
+    }
+
+    public boolean setQuestion(int where, int position, MyCard question){
+        switch (where){
+            case STARRED:
+                starredQuestionList.add(position, question);
+                starredQuestionListAdapter.notifyDataSetChanged();
+                break;
+            case FREQUENTLY_WRONG:
+                frequentlyWrongQuestionList.add(position, question);
+                frequentlyWrongQuestionListAdapter.notifyDataSetChanged();
+                break;
+            case RECOMMENDED:
+                recommendedQuestionList.add(position, question);
+                recommendedQuestionListAdapter.notifyDataSetChanged();
+                break;
+            default:
+                return false;
+        }
+        currentView.postInvalidate();
+        return true;
+    };
+
+    public boolean appendQuestion(int where, MyCard question){
+        switch (where){
+            case STARRED:
+                starredQuestionList.add( question);
+                starredQuestionListAdapter.notifyDataSetChanged();
+                break;
+            case FREQUENTLY_WRONG:
+                frequentlyWrongQuestionList.add( question);
+                frequentlyWrongQuestionListAdapter.notifyDataSetChanged();
+                break;
+            case RECOMMENDED:
+                recommendedQuestionList.add( question);
+                recommendedQuestionListAdapter.notifyDataSetChanged();
+                break;
+            default:
+                return false;
+        }
+        currentView.postInvalidate();
+        return true;
+    };
+
+    public boolean deleteQuestion(int where, int position){
+        switch (where){
+            case STARRED:
+                starredQuestionList.remove(position);
+                starredQuestionListAdapter.notifyDataSetChanged();
+                break;
+            case FREQUENTLY_WRONG:
+                frequentlyWrongQuestionList.remove(position);
+                frequentlyWrongQuestionListAdapter.notifyDataSetChanged();
+                break;
+            case RECOMMENDED:
+                recommendedQuestionList.remove(position);
+                recommendedQuestionListAdapter.notifyDataSetChanged();
+                break;
+            default:
+                return false;
+        }
+        currentView.postInvalidate();
+        return true;
+    };
+
+
+    public boolean setQuestions(int where, ArrayList<MyCard> list){
+        switch (where){
+            case STARRED:
+                starredQuestionList.clear();
+                starredQuestionList.addAll(list);
+                starredQuestionListAdapter.notifyDataSetChanged();
+                break;
+            case FREQUENTLY_WRONG:
+                frequentlyWrongQuestionList.clear();
+                frequentlyWrongQuestionList.addAll(list);
+                frequentlyWrongQuestionListAdapter.notifyDataSetChanged();
+                break;
+            case RECOMMENDED:
+                recommendedQuestionList.clear();
+                recommendedQuestionList.addAll(list);
+                recommendedQuestionListAdapter.notifyDataSetChanged();
+                break;
+            default:
+                return false;
+        }
+        currentView.postInvalidate();
+        return true;
+    };
 
     @Override
     public void onResume() {
@@ -117,6 +251,7 @@ public class MyRecordsFragment extends Fragment{
         initDailyRecord();
         drawDailyCalorieGraph(getView());
         initEquipRecord();
+        initQuestionList();
 //        equipListAdapter.notifyDataSetChanged();
         super.onResume();
     }

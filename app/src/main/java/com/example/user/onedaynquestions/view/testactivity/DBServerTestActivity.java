@@ -52,6 +52,13 @@ public class DBServerTestActivity extends AppCompatActivity {
 
         lvQuestionList = (ListView) findViewById(R.id.questionlistTest);
 
+        //temporal list
+        ArrayList<MyCard> nullList = new ArrayList<MyCard>();
+        nullList.add(new MyCard());
+        nullList.add(new MyCard());
+        nullList.add(new MyCard());
+        nullList.add(new MyCard());
+        questionList.addAll(nullList);
         lvQuestionList.setAdapter(questionListAdapter);
 
 //        Question eq1 = new Question("Q01", "hi", "안녕", "2016-11-18");
