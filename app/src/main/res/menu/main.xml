@@ -6,6 +6,11 @@
         android:orderInCategory="100"
         android:title="Help"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_request_question"
+        android:orderInCategory="100"
+        android:title="Request New Question"
+        app:showAsAction="never" />
 
     <!-- android:icon -->
 

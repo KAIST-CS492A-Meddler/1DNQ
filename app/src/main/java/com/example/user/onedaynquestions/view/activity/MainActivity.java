@@ -214,6 +214,9 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_help) {
 
+        }
+        if (id == R.id.action_request_question) {
+
             PostResponseAsyncTask loginTask =
                     new PostResponseAsyncTask(MainActivity.this);
             loginTask.execute("http://110.76.95.150/push_notification2.php");
@@ -336,7 +339,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void processFinish(String output) {
         String temp = output.replaceAll("<br>", "\n");
-        Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
     }
 
 }

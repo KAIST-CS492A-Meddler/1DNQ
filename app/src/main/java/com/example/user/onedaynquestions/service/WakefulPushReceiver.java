@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.WakefulBroadcastReceiver;
@@ -59,17 +58,14 @@ public class WakefulPushReceiver  extends WakefulBroadcastReceiver {
 
     public void onMessageReceived(Context context, Intent intent){
         String id = intent.getStringExtra("card_id");
-        Bundle bundle = intent.getExtras();
-        ArrayList<String> temp = bundle.getStringArrayList("data");
-
         Log.d(TAG, "notice");
         if(id != null) {
-            if (id.compareTo("1") == 0) {
+            //if (id.compareTo("1") == 0) {
                 WakefulPushReceiver.addReceivedQuestion(intent);
                 pushNotification(context, intent.getStringExtra("question"));
                 Toast.makeText
                         (context, "A new Question card has arrived!", Toast.LENGTH_SHORT).show();
-            }
+            //}
         }
     }
 
