@@ -1,6 +1,7 @@
 package com.example.user.onedaynquestions.view.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.user.onedaynquestions.R;
@@ -155,6 +157,28 @@ public class MyRecordsFragment extends Fragment{
         if(WakefulPushReceiver.numReceivedQuestions() > 0) {
             setQuestions(RECOMMENDED, WakefulPushReceiver.getAllReceivedQuestions());
         }
+
+        frequentlyWrongList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = frequentlyWrongQuestionList.get(position).getCardSolvingIntent(getActivity());
+                startActivity(intent);
+            }
+        });
+        starredList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = starredQuestionList.get(position).getCardSolvingIntent(getActivity());
+                startActivity(intent);
+            }
+        });
+        recommendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = recommendedQuestionList.get(position).getCardSolvingIntent(getActivity());
+                startActivity(intent);
+            }
+        });
     }
 
     public boolean setQuestion(int where, int position, MyCard question){

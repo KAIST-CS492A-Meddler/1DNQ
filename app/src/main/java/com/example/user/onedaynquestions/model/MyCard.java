@@ -1,7 +1,10 @@
 package com.example.user.onedaynquestions.model;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+
+import com.example.user.onedaynquestions.view.activity.CardSolvingActivity;
 
 /**
  * Created by user on 2016-12-04.
@@ -44,6 +47,19 @@ public class MyCard {
         myCardStarred = 0;
     }
 
+    public Intent getCardSolvingIntent(Context current){
+        Intent result = new Intent(current, CardSolvingActivity.class);
+        result.putExtra(ATTRIBUTE_CARD_ID, myCardId);
+        result.putExtra(ATTRIBUTE_DATE, myCardDateTime);
+        result.putExtra(ATTRIBUTE_CARD_TYPE, myCardType);
+        result.putExtra(ATTRIBUTE_CARD_MAKER, myCardMaker);
+        result.putExtra(ATTRIBUTE_CARD_GROUP, myCardGroup);
+        result.putExtra(ATTRIBUTE_CARD_QUESTION, myCardQuestion);
+        result.putExtra(ATTRIBUTE_CARD_ANSWER, myCardAnswer);
+        result.putExtra(ATTRIBUTE_CARD_DIFFICULTY, ""+myCardDifficulty);
+
+        return  result;
+    }
     public MyCard() {
         initMyCard();
     }
