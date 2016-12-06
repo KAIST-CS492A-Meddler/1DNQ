@@ -14,13 +14,16 @@ import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.archive.MyRoutine;
+import com.example.user.onedaynquestions.model.AsyncResponse;
+import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 
+import java.util.HashMap;
 import java.util.StringTokenizer;
 
 /**
  * Created by user on 2016-06-07.
  */
-public class NewCardActivity extends AppCompatActivity {
+public class NewCardActivity extends AppCompatActivity implements AsyncResponse {
 
     MyRoutine selectedRoutine;
 
@@ -175,9 +178,30 @@ public class NewCardActivity extends AppCompatActivity {
                 cardType = newCard_spinner_type.getSelectedItemPosition();
 
 
-                Toast.makeText(getApplicationContext(), "Make a new card\nInsert card data to Server DB\nSelect saved card data\nInsert selected card data to local DB", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Make a new card\nInsert card data to Server DB\nSelect saved card data\nInsert selected card data to local DB", Toast.LENGTH_LONG).show();
+
+                HashMap postData = new HashMap();
+                postData.put("cinfo_answer", newCard_et_answer.getText().toString());
+                //postData.put("cinfo_maker", newCard_et_maker.getText());
+                postData.put("cinfo_maker", "Sunggeun");
+                //postData.put(, newCard_et_datetime.getText());
+                postData.put("cinfo_question", newCard_et_question.getText().toString());
+                postData.put("cinfo_group", "Meddler");
+                postData.put("cinfo_hint", newCard_et_hint.getText().toString());
+                postData.put("cinfo_type", ""+cardType);
+
+                PostResponseAsyncTask loginTask =
+                        new PostResponseAsyncTask(NewCardActivity.this, postData);
+                loginTask.execute("http://110.76.95.150/create_card2.php");
+                //loginTask.execute("http://110.76.95.150/push_notification2.php");
                 break;
         }
+    }
+
+    @Override
+    public void processFinish(String output) {
+        String temp = output.replaceAll("<br>", "\n");
+        Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
     }
 
 }

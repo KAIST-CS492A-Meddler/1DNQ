@@ -23,8 +23,10 @@ import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.PagerAdapter;
+import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.utility.DatabaseController;
 import com.example.user.onedaynquestions.utility.DatabaseHelper;
+import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 import com.example.user.onedaynquestions.view.fragment.SupportHelpFragment;
 import com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity;
 import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
@@ -35,7 +37,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AsyncResponse {
 
     private static final int REQUEST_CODE_LOCATION = 22;
 
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity
     private ImageView nav_header_icon;
     private TextView nav_header_nick;
     private TextView nav_header_name_id;
+
+    private String token;
 
     private View header;
 
@@ -209,6 +213,10 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_help) {
+
+            PostResponseAsyncTask loginTask =
+                    new PostResponseAsyncTask(MainActivity.this);
+            loginTask.execute("http://110.76.95.150/push_notification2.php");
             return true;
         }
 
@@ -319,8 +327,16 @@ public class MainActivity extends AppCompatActivity
 //        intentfilter.addAction(".service.PushReceiver");
         //이 부분을 클라이언트마다 다르게 subscribe하면 가능?
         FirebaseMessaging.getInstance().subscribeToTopic("test");
-        Log.d("TOKEN", FirebaseInstanceId.getInstance().getToken());
+        token = FirebaseInstanceId.getInstance().getToken();
+        Log.d("TOKEN", token);
 
 
     }
+
+    @Override
+    public void processFinish(String output) {
+        String temp = output.replaceAll("<br>", "\n");
+        Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
+    }
+
 }

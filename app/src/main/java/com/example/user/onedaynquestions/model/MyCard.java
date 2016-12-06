@@ -13,14 +13,14 @@ import com.example.user.onedaynquestions.view.activity.CardSolvingActivity;
 public class MyCard {
     private static final String TAG = "MyCard";
 
-    private static final String ATTRIBUTE_CARD_ID = "card_id";
-    private static final String ATTRIBUTE_DATE = "card_datetime";
-    private static final String ATTRIBUTE_CARD_TYPE = "card_type";
-    private static final String ATTRIBUTE_CARD_MAKER = "card_maker";
-    private static final String ATTRIBUTE_CARD_GROUP = "card_group";
-    private static final String ATTRIBUTE_CARD_QUESTION = "card_question";
-    private static final String ATTRIBUTE_CARD_ANSWER = "card_answer";
-    private static final String ATTRIBUTE_CARD_DIFFICULTY = "card_difficulty";
+    public static final String ATTRIBUTE_CARD_ID = "card_id";
+    public static final String ATTRIBUTE_DATE = "card_datetime";
+    public static final String ATTRIBUTE_CARD_TYPE = "card_type";
+    public static final String ATTRIBUTE_CARD_MAKER = "card_maker";
+    public static final String ATTRIBUTE_CARD_GROUP = "card_group";
+    public static final String ATTRIBUTE_CARD_QUESTION = "card_question";
+    public static final String ATTRIBUTE_CARD_ANSWER = "card_answer";
+    public static final String ATTRIBUTE_CARD_DIFFICULTY = "card_difficulty";
     String myCardId;
     String myCardDateTime;
     int myCardType;

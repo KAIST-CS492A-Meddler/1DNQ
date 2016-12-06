@@ -138,34 +138,31 @@ public class PostResponseAsyncTask extends AsyncTask<String, Void, String> {
         StringBuilder result = new StringBuilder();
         boolean first = true;
 
-//        for(Map.Entry<String, String> entry : params.entrySet()){
-//            if (first)
-//                first = false;
-//            else
-//                result.append("&");
-//
-//            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-//            result.append("=");
-//
-//            Log.d("PostResponseAsyncTask", "[getValue] - entry.getValue().getClass(): " + entry.getValue());
-//            Log.d("PostResponseAsyncTask", "[getValue] - entry.getValue().getClass(): " + entry.getValue().getClass());
-//            Log.d("PostResponseAsyncTask", "[getValue] - String.class: " + String.class);
-//            Log.d("PostResponseAsyncTask", "[getValue] - Integer.class: " + Integer.class);
-//
-//
-////            if (entry.getValue().getClass().equals(String.class)) {
-////                result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-////            } else {
-////                result.append(entry.getValue().toString());
-////            }
-//
-////            else if (entry.getValue().getClass().equals(Integer.class)) {
-////                result.append("" + entry.getValue());
-////            } else if (entry.getValue().getClass().equals(Float.class)) {
-////                result.append("" + entry.getValue());
-////            }
-//
-//        }
+        for(Map.Entry<String, String> entry : params.entrySet()){
+            if (first)
+                first = false;
+            else
+                result.append("&");
+
+            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+
+
+
+//            if (entry.getValue().getClass().equals(String.class)) {
+//                result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+//            } else {
+//                result.append(entry.getValue().toString());
+//            }
+
+//            else if (entry.getValue().getClass().equals(Integer.class)) {
+//                result.append("" + entry.getValue());
+//            } else if (entry.getValue().getClass().equals(Float.class)) {
+//                result.append("" + entry.getValue());
+//            }
+
+        }
 
         return result.toString();
     }//getPostDataString
