@@ -18,13 +18,13 @@
         android:orientation="vertical"
         android:paddingLeft="15sp"
         android:layout_width="0px"
-        android:layout_height="100sp"
+        android:layout_height="60dp"
         android:layout_weight="5">
 
         <TextView
             android:id="@+id/questionlist_question"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize = "20sp"
+            android:textSize = "15sp"
             android:textStyle="bold"
             android:text="Question"
             android:layout_width="match_parent"
@@ -33,7 +33,7 @@
         <TextView
             android:id="@+id/questionlist_answer"
             android:textColor="@color/colorSkyBlue"
-            android:textSize="15sp"
+            android:textSize="10sp"
             android:text="Answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -41,7 +41,7 @@
         <TextView
             android:id="@+id/questionlist_group"
             android:textColor="#555555"
-            android:textSize="15sp"
+            android:textSize="10sp"
             android:text="Group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

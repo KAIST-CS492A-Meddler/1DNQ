@@ -1,7 +1,9 @@
 package com.example.user.onedaynquestions.view.fragment;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -54,6 +56,8 @@ public class MyRecordsFragment extends Fragment{
     private ArrayList<MyCard> frequentlyWrongQuestionList, starredQuestionList,recommendedQuestionList;
     private QuestionListAdapter frequentlyWrongQuestionListAdapter,starredQuestionListAdapter,recommendedQuestionListAdapter;
     private ListView frequentlyWrongList, starredList, recommendList;
+    private BroadcastReceiver updateListener;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -144,20 +148,6 @@ public class MyRecordsFragment extends Fragment{
         starredList.setAdapter(starredQuestionListAdapter);
         recommendList.setAdapter(recommendedQuestionListAdapter);
 
-        //temporal list
-        ArrayList<MyCard> nullList = new ArrayList<MyCard>();
-        nullList.add(new MyCard());
-        nullList.add(new MyCard());
-        nullList.add(new MyCard());
-        nullList.add(new MyCard());
-        appendQuestion(STARRED, new MyCard());
-
-        setQuestions(STARRED, nullList);
-        setQuestions(FREQUENTLY_WRONG, nullList);
-        if(WakefulPushReceiver.numReceivedQuestions() > 0) {
-            setQuestions(RECOMMENDED, WakefulPushReceiver.getAllReceivedQuestions());
-        }
-
         frequentlyWrongList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -179,6 +169,30 @@ public class MyRecordsFragment extends Fragment{
                 startActivity(intent);
             }
         });
+
+
+        IntentFilter updateListenerFilter = new IntentFilter();
+        updateListenerFilter.addAction("REFRESH_QUESTION_LIST");
+
+        updateListener = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                MyRecordsFragment.this.appendQuestion(RECOMMENDED, new MyCard(intent));
+            }
+        };
+        getActivity().registerReceiver(updateListener, updateListenerFilter);
+
+        if(WakefulPushReceiver.numReceivedQuestions() > 0) {
+            setQuestions(RECOMMENDED, WakefulPushReceiver.getAllReceivedQuestions());
+            setQuestions(STARRED, WakefulPushReceiver.getAllReceivedQuestions());
+            setQuestions(FREQUENTLY_WRONG, WakefulPushReceiver.getAllReceivedQuestions());
+        }
+    }
+
+    public void resetAllList(){
+        if(WakefulPushReceiver.numReceivedQuestions() > 0) {
+            setQuestions(RECOMMENDED, WakefulPushReceiver.getAllReceivedQuestions());
+        }
     }
 
     public boolean setQuestion(int where, int position, MyCard question){
@@ -276,6 +290,7 @@ public class MyRecordsFragment extends Fragment{
         drawDailyCalorieGraph(getView());
         initEquipRecord();
         initQuestionList();
+
 //        equipListAdapter.notifyDataSetChanged();
         super.onResume();
     }

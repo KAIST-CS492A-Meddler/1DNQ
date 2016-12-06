@@ -48,6 +48,7 @@ public class WakefulPushReceiver  extends WakefulBroadcastReceiver {
 
             case ACTION_RECEIVE:
                 onMessageReceived(context, intent);
+
                 break;
 
             default:
@@ -66,6 +67,9 @@ public class WakefulPushReceiver  extends WakefulBroadcastReceiver {
                 Toast.makeText
                         (context, "A new Question card has arrived!", Toast.LENGTH_SHORT).show();
             //}
+            intent.setAction("REFRESH_QUESTION_LIST");
+
+            context.sendBroadcast(intent);
         }
     }
 

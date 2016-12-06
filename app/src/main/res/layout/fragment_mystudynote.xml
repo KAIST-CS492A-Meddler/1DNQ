@@ -44,8 +44,8 @@
             <ListView
                 android:id="@+id/starred_question_lv"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:background="#eeeef0"
+                android:layout_height="192dp"
+                android:background="#eeeeee"
                 android:gravity="center"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
@@ -82,8 +82,8 @@
             <ListView
                 android:id="@+id/frequently_wrong_question_lv"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:background="#eeeef0"
+                android:layout_height="192dp"
+                android:background="#eeeeee"
                 android:gravity="center"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
@@ -120,8 +120,8 @@
             <ListView
                 android:id="@+id/recommended_question_lv"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:background="#eeeef0"
+                android:layout_height="192dp"
+                android:background="#eeeeee"
                 android:gravity="center"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
