@@ -67,8 +67,6 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".view.activity.FloatingWidget" />
-
         <service
             android:name=".service.FloatingButtonService">
         </service>
