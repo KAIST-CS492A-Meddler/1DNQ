@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.PagerAdapter;
 import com.example.user.onedaynquestions.model.AsyncResponse;
+import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.utility.DatabaseController;
 import com.example.user.onedaynquestions.utility.DatabaseHelper;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity
 
         /* Push Notification from Firebase*/
         startFirebaseServices();
+        initFloatingWidget();
 
         /* Initialize Database */
         odnqDB = new DatabaseController(getApplicationContext());
@@ -332,14 +334,18 @@ public class MainActivity extends AppCompatActivity
         FirebaseMessaging.getInstance().subscribeToTopic("test");
         token = FirebaseInstanceId.getInstance().getToken();
         Log.d("TOKEN", token);
-
-
     }
+
+    public void initFloatingWidget(){
+        startService(new Intent(this, FloatingButtonService.class));
+    }
+
 
     @Override
     public void processFinish(String output) {
         String temp = output.replaceAll("<br>", "\n");
         //Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
     }
+
 
 }

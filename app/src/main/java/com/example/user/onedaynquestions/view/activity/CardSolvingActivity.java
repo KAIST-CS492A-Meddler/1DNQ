@@ -115,4 +115,9 @@ public class CardSolvingActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    public void onPause(){
+        timeChecker.cancel();
+    }
 }
