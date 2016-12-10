@@ -127,7 +127,7 @@ public class FloatingButtonService extends Service {
         });
 
 
-        windowManager.addView(floatView, layoutParams);
+        //windowManager.addView(floatView, layoutParams);
 
 
         anim = new CountDownTimer(total, dt) {

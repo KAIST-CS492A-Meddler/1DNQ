@@ -2,6 +2,7 @@ package com.example.user.onedaynquestions.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
@@ -118,16 +119,16 @@ public class MainActivity extends AppCompatActivity
 
         System.out.print("GOOD");
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent_newcard = new Intent(getApplicationContext(), NewCardActivity.class);
-//                startActivity(intent_newcard);
-//
-//            }
-//        });
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent_newcard = new Intent(getApplicationContext(), NewCardActivity.class);
+                startActivity(intent_newcard);
+
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -249,6 +250,11 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "Test a card-solving activity", Toast.LENGTH_SHORT).show();
                 Intent intent_cardsolving = new Intent(getApplicationContext(), CardSolvingActivity.class);
                 startActivity(intent_cardsolving);
+                break;
+            case R.id.nav_testcardevaluation:
+                Toast.makeText(getApplicationContext(), "Test a card-evaluation activity", Toast.LENGTH_SHORT).show();
+                Intent intent_cardanswersheet = new Intent(getApplicationContext(), CardAnswerSheetActivity.class);
+                startActivity(intent_cardanswersheet);
                 break;
             case R.id.nav_testnewgroup:
                 Toast.makeText(getApplicationContext(), "Test a process to make a new group", Toast.LENGTH_SHORT).show();

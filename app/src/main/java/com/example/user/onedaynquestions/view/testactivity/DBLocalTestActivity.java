@@ -188,7 +188,7 @@ public class DBLocalTestActivity extends AppCompatActivity implements AsyncRespo
 ////                insertMyInfoTask.execute("http://110.76.95.150/create_user_t.php");
 
                 //Server request
-                HashMap<String, String> postData = new HashMap<String, String>();
+                HashMap postData = new HashMap();
                 postData.put("sample_id", "SampleId5673");
 //                postData.put("myinfo_token", "SampleToken");
 

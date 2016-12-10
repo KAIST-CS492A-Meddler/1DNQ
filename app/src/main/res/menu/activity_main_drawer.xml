@@ -22,6 +22,10 @@
                 android:icon="@drawable/odnq_nav_icon_card"
                 android:title="Card Solving Activity" />
             <item
+                android:id="@+id/nav_testcardevaluation"
+                android:icon="@drawable/odnq_nav_icon_card"
+                android:title="Card Evaluation Activity" />
+            <item
                 android:id="@+id/nav_testnewgroup"
                 android:icon="@drawable/odnq_nav_icon_group"
                 android:title="Make a New Group" />

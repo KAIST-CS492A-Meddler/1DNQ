@@ -44,7 +44,9 @@
         <activity android:name=".view.activity.NewCardActivity" />
         <activity android:name=".view.activity.NewGroupActivity" />
         <activity android:name=".view.activity.FinishExerciseActivity" />
-        <activity android:name=".view.activity.CardSolvingActivity" />
+        <activity android:name=".view.activity.CardSolvingActivity" android:noHistory="true" />
+        <activity android:name=".view.activity.CardAnswerSheetActivity" android:noHistory="true" />
+        <activity android:name=".view.activity.CardEvaluationActivity"/>
         <activity android:name=".view.testactivity.GraphTestActivity" />
         <activity android:name=".view.testactivity.WidgetTestActivity" />
         <activity android:name=".view.testactivity.DBLocalTestActivity" />
