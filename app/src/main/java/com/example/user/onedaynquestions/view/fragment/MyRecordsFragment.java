@@ -7,15 +7,15 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.example.user.onedaynquestions.R;
-import com.example.user.onedaynquestions.controller.QuestionListAdapter;
+import com.example.user.onedaynquestions.controller.CardAdapter;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.service.WakefulPushReceiver;
 
@@ -53,9 +53,12 @@ public class MyRecordsFragment extends Fragment{
     public static final int FREQUENTLY_WRONG = 0;
     public static final int STARRED = 1;
     public static final int RECOMMENDED = 2;
+
+    private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<MyCard> frequentlyWrongQuestionList, starredQuestionList,recommendedQuestionList;
-    private QuestionListAdapter frequentlyWrongQuestionListAdapter,starredQuestionListAdapter,recommendedQuestionListAdapter;
-    private ListView frequentlyWrongList, starredList, recommendList;
+
+    private CardAdapter frequentlyWrongQuestionListAdapter,starredQuestionListAdapter,recommendedQuestionListAdapter;
+    private RecyclerView frequentlyWrongList, starredList, recommendList;
     private BroadcastReceiver updateListener;
 
     @Nullable
@@ -78,97 +81,21 @@ public class MyRecordsFragment extends Fragment{
 
 
         initEquipRecord();
-
         initQuestionList();
-
-
-//        /**
-//         * Jiyoung
-//         */
-//        arrDateCalorie = new ArrayList<RecordDateCalorie>();
-//        //Draw calorie graph using dailyCalorie arraylist
-//        drawDailyCalorieGraph(currentView);
-//
-//
-//        equipListAdapter = new HERE_DeviceListAdapter();
-//        lvEquipList = (ListView) currentView.findViewById(R.id.equipment_record_list);
-//        lvEquipList.setAdapter(equipListAdapter);
-//        //equipment added
-//
-//        ArrayList<MyHereAgent> myAllAgents = new ArrayList<MyHereAgent>();
-//        if(MainActivity.hereDB.getAllMyHereAgents() != null)
-//            myAllAgents = (ArrayList<MyHereAgent>) MainActivity.hereDB.getAllMyHereAgents();
-//
-//        for (int i = 0; i < myAllAgents.size(); i++) {
-//            equipListAdapter.addDevice(myAllAgents.get(i));
-//        }
-
-//        equipListAdapter.addDevice(new MyHereAgent("11:22:33:44:55:66", "DUMBBELL", 1, "MAJORID", "MINORID"));
-//        equipListAdapter.addDevice(new Equipment("EQ01", "DUMBBELL", "Sensor-Q03-87A", "2016-04-18", 2));
-//        equipListAdapter.addDevice(new Equipment("EQ02", "HOOLA-HOOP", "Accelerometer-X-3", "2016-04-18", 1));
-//        equipListAdapter.addDevice(new Equipment("EQ03", "PLANK", "FORCE-ss-2033", "2016-04-15", 1));
-//        equipListAdapter.addDevice(new Equipment("EQ04", "JUMP-ROPE", "ZEROZERO", "2016-04-16", 0));
-
-//        equipListAdapter.notifyDataSetChanged();
-//
-//        lvEquipList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-////                final Equipment device = equipmentList.get(position);
-////                if (device == null) return;
-////                final Intent intent = new Intent(getActivity(), EquipmentRecordTerminal.class);
-////
-////                //deliver data --> should be modified
-////                intent.putExtra(EquipmentRecordTerminal.EXTRAS_DEVICE_NAME, device.getEquipmentName());
-////                intent.putExtra(EquipmentRecordTerminal.EXTRAS_DEVICE_RECORD, device.getEquipmentID());
-////
-////                startActivity(intent);
-//            }
-//        });
 
         return currentView;
         //return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     public void initQuestionList(){
-        frequentlyWrongList = (ListView)currentView.findViewById(R.id.frequently_wrong_question_lv);
-        starredList = (ListView)currentView.findViewById(R.id.starred_question_lv);
-        recommendList = (ListView)currentView.findViewById(R.id.recommended_question_lv);
+        starredList = (RecyclerView) currentView.findViewById(R.id.starred_question_lv);
+        mLayoutManager = new LinearLayoutManager(currentView.getContext(), LinearLayoutManager.HORIZONTAL, false);
 
-
-        frequentlyWrongQuestionList = new ArrayList<>();
-        frequentlyWrongQuestionListAdapter = new QuestionListAdapter(getActivity(), frequentlyWrongQuestionList);
+        starredList.setLayoutManager(mLayoutManager);
+        starredList.setHasFixedSize(true);
         starredQuestionList = new ArrayList<>();
-        starredQuestionListAdapter = new QuestionListAdapter(getActivity(), starredQuestionList);
-        recommendedQuestionList = new ArrayList<>();
-        recommendedQuestionListAdapter = new QuestionListAdapter(getActivity(), recommendedQuestionList);
-
-        frequentlyWrongList.setAdapter(frequentlyWrongQuestionListAdapter);
+        starredQuestionListAdapter = new CardAdapter(starredQuestionList);
         starredList.setAdapter(starredQuestionListAdapter);
-        recommendList.setAdapter(recommendedQuestionListAdapter);
-
-        frequentlyWrongList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = frequentlyWrongQuestionList.get(position).getCardSolvingIntent(getActivity());
-                startActivity(intent);
-            }
-        });
-        starredList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = starredQuestionList.get(position).getCardSolvingIntent(getActivity());
-                startActivity(intent);
-            }
-        });
-        recommendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = recommendedQuestionList.get(position).getCardSolvingIntent(getActivity());
-                startActivity(intent);
-            }
-        });
 
 
         IntentFilter updateListenerFilter = new IntentFilter();
@@ -183,9 +110,9 @@ public class MyRecordsFragment extends Fragment{
         getActivity().registerReceiver(updateListener, updateListenerFilter);
 
         if(WakefulPushReceiver.numReceivedQuestions() > 0) {
-            setQuestions(RECOMMENDED, WakefulPushReceiver.getAllReceivedQuestions());
-            setQuestions(STARRED, WakefulPushReceiver.getAllReceivedQuestions());
-            setQuestions(FREQUENTLY_WRONG, WakefulPushReceiver.getAllReceivedQuestions());
+//            setQuestions(RECOMMENDED, WakefulPushReceiver.getAllReceivedQuestions());
+              setQuestions(STARRED, WakefulPushReceiver.getAllReceivedQuestions());
+//            setQuestions(FREQUENTLY_WRONG, WakefulPushReceiver.getAllReceivedQuestions());
         }
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -41,15 +42,18 @@
                 <!--android:paddingBottom="6dp"-->
                 <!--android:paddingLeft="15dp"/>-->
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/starred_question_lv"
                 android:layout_width="match_parent"
-                android:layout_height="192dp"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                android:layout_height="100dp"
                 android:background="#eeeeee"
                 android:gravity="center"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
-                android:paddingLeft="15dp"/>
+                android:paddingLeft="15dp">
+            </android.support.v7.widget.RecyclerView>
 
             <TextView
                 android:layout_width="match_parent"
@@ -79,15 +83,6 @@
                 <!--android:paddingBottom="6dp"-->
                 <!--android:paddingLeft="15dp"/>-->
 
-            <ListView
-                android:id="@+id/frequently_wrong_question_lv"
-                android:layout_width="match_parent"
-                android:layout_height="192dp"
-                android:background="#eeeeee"
-                android:gravity="center"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:paddingLeft="15dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -117,15 +112,6 @@
                 <!--android:paddingBottom="6dp"-->
                 <!--android:paddingLeft="15dp"/>-->
 
-            <ListView
-                android:id="@+id/recommended_question_lv"
-                android:layout_width="match_parent"
-                android:layout_height="192dp"
-                android:background="#eeeeee"
-                android:gravity="center"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:paddingLeft="15dp"/>
 
         </LinearLayout>
 

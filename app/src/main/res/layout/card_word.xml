@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        app:cardCornerRadius="5dp"
-        app:cardBackgroundColor="#eeeeee">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        card:cardCornerRadius="5dp"
+        android:layout_marginLeft="20dp"
+        card:cardBackgroundColor="#e5e5e5">
 
         <!--<TextView-->
             <!--android:id="@+id/cardtext"-->
@@ -20,14 +19,10 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp">
 
-            <ImageView
-                android:id="@+id/cardicon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/odnq_card_word"/>
 
             <TextView
                 android:id="@+id/card_question"
@@ -40,14 +35,6 @@
                 android:text="QUESTION"/>
 
             <TextView
-                android:id="@+id/card_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textSize="11dp"
-                android:text="card date"/>
-
-            <TextView
                 android:id="@+id/card_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,8 +42,24 @@
                 android:textSize="11dp"
                 android:text="group"/>
 
+            <TextView
+                android:id="@+id/card_examiner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="11dp"
+                android:text="examiner"/>
+            <TextView
+                android:id="@+id/card_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="11dp"
+                android:text="date"/>
+
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
-</LinearLayout>
+</RelativeLayout>
