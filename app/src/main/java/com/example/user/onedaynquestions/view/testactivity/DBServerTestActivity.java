@@ -54,6 +54,24 @@ public class DBServerTestActivity extends AppCompatActivity implements AsyncResp
     private Button dbtest_server_btn_getgroup;
     private TextView dbtest_server_tv_selectedgroup;
 
+    /* Get group information */
+    private EditText dbtest_server_et_cardsolveid;
+    private EditText dbtest_server_et_carddifficulty;
+    private EditText dbtest_server_et_cardquality;
+    private EditText dbtest_server_et_cardsolved;
+    private Button dbtest_server_btn_solvecard;
+    private TextView dbtest_server_tv_updatedcard;
+
+    /* Get user's cards */
+    private EditText dbtest_server_et_useridforcards;
+    private Button dbtest_server_btn_getuserscards;
+    private TextView dbtest_server_tv_userscards;
+
+    /* Get user's groups */
+    private EditText dbtest_server_et_useridforgroups;
+    private Button dbtest_server_btn_getusersgroups;
+    private TextView dbtest_server_tv_usersgroups;
+
     private ArrayList<MyCard> questionList;
     private QuestionListAdapter questionListAdapter;
 
@@ -112,7 +130,20 @@ public class DBServerTestActivity extends AppCompatActivity implements AsyncResp
         dbtest_server_btn_getgroup = (Button) findViewById(R.id.dbtest_server_btn_getgroup);
         dbtest_server_tv_selectedgroup = (TextView) findViewById(R.id.dbtest_server_tv_selectedgroup);
 
+        dbtest_server_et_cardsolveid = (EditText) findViewById(R.id.dbtest_server_et_cardsolveid);
+        dbtest_server_et_carddifficulty = (EditText) findViewById(R.id.dbtest_server_et_carddifficulty);
+        dbtest_server_et_cardquality = (EditText) findViewById(R.id.dbtest_server_et_cardquality);
+        dbtest_server_et_cardsolved = (EditText) findViewById(R.id.dbtest_server_et_cardsolved);
+        dbtest_server_btn_solvecard = (Button) findViewById(R.id.dbtest_server_btn_solvecard);
+        dbtest_server_tv_updatedcard = (TextView) findViewById(R.id.dbtest_server_tv_updatedcard);
 
+        dbtest_server_et_useridforcards = (EditText) findViewById(R.id.dbtest_server_et_useridforcards);
+        dbtest_server_btn_getuserscards = (Button) findViewById(R.id.dbtest_server_btn_getuserscards);
+        dbtest_server_tv_userscards = (TextView) findViewById(R.id.dbtest_server_tv_userscards);
+
+        dbtest_server_et_useridforgroups = (EditText) findViewById(R.id.dbtest_server_et_useridforgroups);
+        dbtest_server_btn_getusersgroups = (Button) findViewById(R.id.dbtest_server_btn_getusersgroups);
+        dbtest_server_tv_usersgroups = (TextView) findViewById(R.id.dbtest_server_tv_usersgroups);
     }
 
 
@@ -165,6 +196,61 @@ public class DBServerTestActivity extends AppCompatActivity implements AsyncResp
                     Toast.makeText(getApplicationContext(), "Group information is extracted", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Please fill out group_id to be selected", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.dbtest_server_btn_solvecard:
+                String cardSolveId = "";
+                cardSolveId = dbtest_server_et_cardsolveid.getText().toString();
+//                int cardDifficulty = Integer.parseInt(dbtest_server_et_carddifficulty.getText().toString());
+//                int cardQuality = Integer.parseInt(dbtest_server_et_cardquality.getText().toString());
+//                int cardSolved = Integer.parseInt(dbtest_server_et_cardsolveid.getText().toString());
+
+                if (!cardSolveId.equals("")) {
+                    HashMap postData = new HashMap();
+                    postData.put("cinfo_id", dbtest_server_et_cardsolveid.getText().toString());
+                    postData.put("cinfo_difficulty", dbtest_server_et_carddifficulty.getText().toString());
+                    postData.put("cinfo_quality", dbtest_server_et_cardquality.getText().toString());
+                    postData.put("cinfo_right", dbtest_server_et_cardsolveid.getText().toString());
+
+                    PostResponseAsyncTask updateCardTask =
+                            new PostResponseAsyncTask(DBServerTestActivity.this, postData);
+
+                    updateCardTask.execute("http://110.76.95.150/solve_problem.php");
+
+                    Toast.makeText(getApplicationContext(), "Card information is updated", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please fill out card_id to be updated", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.dbtest_server_btn_getuserscards:
+                if (dbtest_server_et_useridforcards.getText().toString().length() != 0) {
+                    HashMap postData = new HashMap();
+                    postData.put("cinfo_maker", dbtest_server_et_useridforcards.getText().toString());
+
+                    PostResponseAsyncTask getUsersCardsTask =
+                            new PostResponseAsyncTask(DBServerTestActivity.this, postData);
+
+                    getUsersCardsTask.execute("http://110.76.95.150/get_cardbymaker.php");
+
+                    Toast.makeText(getApplicationContext(), "User's cards are selected", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please fill out user_id to be selected", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+            case R.id.dbtest_server_btn_getusersgroups:
+                if (dbtest_server_et_useridforgroups.getText().toString().length() != 0) {
+                    HashMap postData = new HashMap();
+                    postData.put("userinfo_id", dbtest_server_et_useridforgroups.getText().toString());
+
+                    PostResponseAsyncTask getUsersGroupsTask =
+                            new PostResponseAsyncTask(DBServerTestActivity.this, postData);
+
+                    getUsersGroupsTask.execute("http://110.76.95.150/get_groupbyuser.php");
+
+                    Toast.makeText(getApplicationContext(), "User's groups are selected", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please fill out user_id to be selected", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -340,10 +426,167 @@ public class DBServerTestActivity extends AppCompatActivity implements AsyncResp
         // PARSE USER-GROUP
         else if (output.contains("{\"result_usergroup\":")) {
 
+        }        // PARSE USER-GROUP
+        else if (output.contains("{\"result_solveproblem\":")) {
+
+            dbtest_server_tv_updatedcard.setText(temp + "\n");
+
+            String jsonString = output.replace("{\"result_solveproblem\":", "");
+            Log.d("JSONParser", "[DBServerTestActivity] (solveproblem) jsonString-1: " + jsonString);
+            jsonString = jsonString.substring(0, jsonString.length() - 1);
+            Log.d("JSONParser", "[DBServerTestActivity] (solveproblem) jsonString-2: " + jsonString);
+
+            try {
+                Log.d("JSONParser", "[DBServerTestActivity] (solveproblem) jarray is created.");
+                JSONArray jarray = new JSONArray(jsonString);
+
+                Log.d("JSONParser", "[DBServerTestActivity] (solveproblem) jarray.length(): " + jarray.length());
+
+                for (int i = 0; i < jarray.length(); i++) {
+                    JSONObject jObject = jarray.getJSONObject(i);
+
+                    String tmpCardId = jObject.getString("card_id");
+                    String tmpCardDateTime = jObject.getString("card_datetime");
+                    int tmpCardType = jObject.getInt("card_type");
+                    String tmpCardMaker = jObject.getString("card_maker");
+                    String tmpCardGroup = jObject.getString("card_group");
+                    String tmpCardQuestion = jObject.getString("card_question");
+                    String tmpCardAnswer = jObject.getString("card_answer");
+                    String tmpCardHint = jObject.getString("card_hint");
+                    float tmpCardDifficulty = (float) jObject.getDouble("card_difficulty");
+                    float tmpCardQuality = (float) jObject.getDouble("card_quality");
+                    int tmpCardSolvedNum = jObject.getInt("card_solvednum");
+                    int tmpCardEvalNum = jObject.getInt("card_evalnum");
+
+
+                    dbtest_server_tv_updatedcard.append("\n" + tmpCardId);
+                    dbtest_server_tv_updatedcard.append("\n" + tmpCardDateTime);
+                    dbtest_server_tv_updatedcard.append("\n" + tmpCardType);
+                    dbtest_server_tv_updatedcard.append("\n" + tmpCardMaker);
+                    dbtest_server_tv_updatedcard.append("\n" + tmpCardGroup);
+                    dbtest_server_tv_updatedcard.append("\n" + tmpCardQuestion);
+                    dbtest_server_tv_updatedcard.append("\n" + tmpCardAnswer);
+                    dbtest_server_tv_updatedcard.append("\n" + tmpCardHint);
+                    dbtest_server_tv_updatedcard.append("\n" + tmpCardDifficulty);
+                    dbtest_server_tv_updatedcard.append("\n" + tmpCardQuality);
+                    dbtest_server_tv_updatedcard.append("\n" + tmpCardSolvedNum);
+                    dbtest_server_tv_updatedcard.append("\n" + tmpCardEvalNum);
+
+
+//                    Log.d("JSONParser", "[DBServerTestActivity] user_name: " + tmpUserName);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        // PARSE USER'S CARDS
+        else if (output.contains("{\"result_userscards\":")) {
+            dbtest_server_tv_userscards.setText(temp + "\n");
+
+            String jsonString = output.replace("{\"result_userscards\":", "");
+            Log.d("JSONParser", "[DBServerTestActivity] (userscards) jsonString-1: " + jsonString);
+            jsonString = jsonString.substring(0, jsonString.length() - 1);
+            Log.d("JSONParser", "[DBServerTestActivity] (userscards) jsonString-2: " + jsonString);
+
+            //TODO: JSON Parsing
+            try {
+                Log.d("JSONParser", "[DBServerTestActivity] (userscards) jarray is created.");
+                JSONArray jarray = new JSONArray(jsonString);
+
+                Log.d("JSONParser", "[DBServerTestActivity] (userscards) jarray.length(): " + jarray.length());
+
+                dbtest_server_tv_userscards.setText("");
+
+                for (int i = 0; i < jarray.length(); i++) {
+                    JSONObject jObject = jarray.getJSONObject(i);
+
+                    String tmpCardId = jObject.getString("card_id");
+                    String tmpCardDateTime = jObject.getString("card_datetime");
+                    int tmpCardType = jObject.getInt("card_type");
+                    String tmpCardMaker = jObject.getString("card_maker");
+                    String tmpCardGroup = jObject.getString("card_group");
+                    String tmpCardQuestion = jObject.getString("card_question");
+                    String tmpCardAnswer = jObject.getString("card_answer");
+                    String tmpCardHint = jObject.getString("card_hint");
+                    float tmpCardDifficulty = (float) jObject.getDouble("card_difficulty");
+                    float tmpCardQuality = (float) jObject.getDouble("card_quality");
+                    int tmpCardSolvedNum = jObject.getInt("card_solvednum");
+                    int tmpCardEvalNum = jObject.getInt("card_evalnum");
+
+                    dbtest_server_tv_userscards.append("\n" + tmpCardId);
+                    dbtest_server_tv_userscards.append(" " + tmpCardDateTime);
+                    dbtest_server_tv_userscards.append(" " + tmpCardType);
+                    dbtest_server_tv_userscards.append(" " + tmpCardMaker);
+                    dbtest_server_tv_userscards.append(" " + tmpCardGroup);
+                    dbtest_server_tv_userscards.append(" " + tmpCardQuestion);
+                    dbtest_server_tv_userscards.append(" " + tmpCardAnswer);
+                    dbtest_server_tv_userscards.append(" " + tmpCardHint);
+                    dbtest_server_tv_userscards.append(" " + tmpCardDifficulty);
+                    dbtest_server_tv_userscards.append(" " + tmpCardQuality);
+                    dbtest_server_tv_userscards.append(" " + tmpCardSolvedNum);
+                    dbtest_server_tv_userscards.append(" " + tmpCardEvalNum + "\n");
+
+
+//                    Log.d("JSONParser", "[DBServerTestActivity] user_name: " + tmpUserName);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        // PARSE USER'S CARDS
+        else if (output.contains("{\"result_usersgroups\":")) {
+            dbtest_server_tv_usersgroups.setText(temp + "\n");
+
+
+            String jsonString = output.replace("{\"result_usersgroups\":", "");
+            Log.d("JSONParser", "[DBServerTestActivity] (usersgroups) jsonString-1: " + jsonString);
+            jsonString = jsonString.substring(0, jsonString.length() - 1);
+            Log.d("JSONParser", "[DBServerTestActivity] (usersgroups) jsonString-2: " + jsonString);
+
+            try {
+                Log.d("JSONParser", "[DBServerTestActivity] (usersgroups) jarray is created.");
+                JSONArray jarray = new JSONArray(jsonString);
+
+                Log.d("JSONParser", "[DBServerTestActivity] (usersgroups) jarray.length(): " + jarray.length());
+
+                if (jarray.length() != 0) {
+                    dbtest_server_tv_usersgroups.setText("");
+                }
+
+                for (int i = 0; i < jarray.length(); i++) {
+                    JSONObject jObject = jarray.getJSONObject(i);
+
+                    String tmpGroupId = jObject.getString("group_id");
+                    String tmpGroupGoal = jObject.getString("group_goal");
+                    String tmpGroupName = jObject.getString("group_name");
+                    String tmpGroupLeader = jObject.getString("group_leader");
+                    int tmpGroupUserNum = jObject.getInt("group_usernum");
+                    String tmpGroupDate = jObject.getString("group_date");
+                    String tmpGroupDesc = jObject.getString("group_desc");
+
+
+                    dbtest_server_tv_usersgroups.append("\n" + tmpGroupId);
+                    dbtest_server_tv_usersgroups.append(" " + tmpGroupGoal);
+                    dbtest_server_tv_usersgroups.append(" " + tmpGroupName);
+                    dbtest_server_tv_usersgroups.append(" " + tmpGroupLeader);
+                    dbtest_server_tv_usersgroups.append(" " + tmpGroupUserNum);
+                    dbtest_server_tv_usersgroups.append(" " + tmpGroupDate);
+                    dbtest_server_tv_usersgroups.append(" " + tmpGroupDesc + "\n");
+
+
+//                    Log.d("JSONParser", "[DBServerTestActivity] user_name: " + tmpUserName);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
 
 
 
-        Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
     }
 }
