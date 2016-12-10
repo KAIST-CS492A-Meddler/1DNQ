@@ -72,6 +72,18 @@
                 android:layout_height="1dp"
                 android:background="@color/colorSkyBlue"/>
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/frequently_wrong_question_lv"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                android:layout_height="100dp"
+                android:background="#eeeeee"
+                android:gravity="center"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="15dp">
+            </android.support.v7.widget.RecyclerView>
             <!--<TextView-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="180dp"-->
@@ -101,6 +113,18 @@
                 android:layout_height="1dp"
                 android:background="@color/colorSkyBlue"/>
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recommended_question_lv"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                android:layout_height="100dp"
+                android:background="#eeeeee"
+                android:gravity="center"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="15dp">
+            </android.support.v7.widget.RecyclerView>
             <!--<TextView-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="180dp"-->

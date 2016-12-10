@@ -88,9 +88,10 @@ public class MyRecordsFragment extends Fragment{
     }
 
     public void initQuestionList(){
-        starredList = (RecyclerView) currentView.findViewById(R.id.starred_question_lv);
         mLayoutManager = new LinearLayoutManager(currentView.getContext(), LinearLayoutManager.HORIZONTAL, false);
 
+
+        starredList = (RecyclerView) currentView.findViewById(R.id.starred_question_lv);
         starredList.setLayoutManager(mLayoutManager);
         starredList.setHasFixedSize(true);
         starredQuestionList = new ArrayList<>();
@@ -98,21 +99,29 @@ public class MyRecordsFragment extends Fragment{
         starredList.setAdapter(starredQuestionListAdapter);
 
 
-        IntentFilter updateListenerFilter = new IntentFilter();
-        updateListenerFilter.addAction("REFRESH_QUESTION_LIST");
 
-        updateListener = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                MyRecordsFragment.this.appendQuestion(RECOMMENDED, new MyCard(intent));
-            }
-        };
-        getActivity().registerReceiver(updateListener, updateListenerFilter);
+
+        mLayoutManager = new LinearLayoutManager(currentView.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        frequentlyWrongList = (RecyclerView) currentView.findViewById(R.id.frequently_wrong_question_lv);
+        frequentlyWrongList.setLayoutManager(mLayoutManager);
+        frequentlyWrongList.setHasFixedSize(true);
+        frequentlyWrongQuestionList = new ArrayList<>();
+        frequentlyWrongQuestionListAdapter = new CardAdapter(frequentlyWrongQuestionList);
+        frequentlyWrongList.setAdapter(frequentlyWrongQuestionListAdapter);
+
+
+        mLayoutManager = new LinearLayoutManager(currentView.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recommendList = (RecyclerView) currentView.findViewById(R.id.recommended_question_lv);
+        recommendList.setLayoutManager(mLayoutManager);
+        recommendList.setHasFixedSize(true);
+        recommendedQuestionList = new ArrayList<>();
+        recommendedQuestionListAdapter = new CardAdapter(recommendedQuestionList);
+        recommendList.setAdapter(recommendedQuestionListAdapter);
+
+
 
         if(WakefulPushReceiver.numReceivedQuestions() > 0) {
-//            setQuestions(RECOMMENDED, WakefulPushReceiver.getAllReceivedQuestions());
-              setQuestions(STARRED, WakefulPushReceiver.getAllReceivedQuestions());
-//            setQuestions(FREQUENTLY_WRONG, WakefulPushReceiver.getAllReceivedQuestions());
+            setQuestions(RECOMMENDED, WakefulPushReceiver.getAllReceivedQuestions());
         }
     }
 
@@ -122,19 +131,22 @@ public class MyRecordsFragment extends Fragment{
         }
     }
 
+    public void refrash(){
+        if(WakefulPushReceiver.numReceivedQuestions() > 0) {
+            setQuestions(RECOMMENDED, WakefulPushReceiver.getAllReceivedQuestions());
+        }
+
+    }
     public boolean setQuestion(int where, int position, MyCard question){
         switch (where){
             case STARRED:
                 starredQuestionList.add(position, question);
-                starredQuestionListAdapter.notifyDataSetChanged();
                 break;
             case FREQUENTLY_WRONG:
                 frequentlyWrongQuestionList.add(position, question);
-                frequentlyWrongQuestionListAdapter.notifyDataSetChanged();
                 break;
             case RECOMMENDED:
                 recommendedQuestionList.add(position, question);
-                recommendedQuestionListAdapter.notifyDataSetChanged();
                 break;
             default:
                 return false;
@@ -147,20 +159,17 @@ public class MyRecordsFragment extends Fragment{
         switch (where){
             case STARRED:
                 starredQuestionList.add( question);
-                starredQuestionListAdapter.notifyDataSetChanged();
                 break;
             case FREQUENTLY_WRONG:
                 frequentlyWrongQuestionList.add( question);
-                frequentlyWrongQuestionListAdapter.notifyDataSetChanged();
                 break;
             case RECOMMENDED:
                 recommendedQuestionList.add( question);
-                recommendedQuestionListAdapter.notifyDataSetChanged();
                 break;
             default:
                 return false;
         }
-        currentView.postInvalidate();
+        invalidate();
         return true;
     };
 
@@ -181,7 +190,7 @@ public class MyRecordsFragment extends Fragment{
             default:
                 return false;
         }
-        currentView.postInvalidate();
+        invalidate();
         return true;
     };
 
@@ -206,10 +215,18 @@ public class MyRecordsFragment extends Fragment{
             default:
                 return false;
         }
-        currentView.postInvalidate();
+        invalidate();
         return true;
     };
 
+    public void invalidate() {
+        currentView.post(new Runnable() {
+            @Override
+            public void run() {
+                currentView.invalidate();
+            }
+        });
+    }
     @Override
     public void onResume() {
         initArrayListFromDB();

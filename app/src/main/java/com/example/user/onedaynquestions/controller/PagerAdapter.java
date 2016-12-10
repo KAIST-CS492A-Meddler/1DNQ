@@ -44,4 +44,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return mNumOfTabs;
     }
+
+    public void refresh(){
+        myStudyNote.onResume();
+    }
 }

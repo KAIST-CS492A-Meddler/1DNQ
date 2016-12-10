@@ -44,16 +44,18 @@ public class WakefulPushReceiver  extends WakefulBroadcastReceiver {
         }
         switch (action) {
             case ACTION_REGISTRATION:
+                abortBroadcast();
                 break;
 
             case ACTION_RECEIVE:
                 onMessageReceived(context, intent);
 
+                abortBroadcast();
                 break;
-
+            case "REFRESH_QUESTION_LIST":
+                break;
             default:
         }
-        abortBroadcast();
     }
 
 
