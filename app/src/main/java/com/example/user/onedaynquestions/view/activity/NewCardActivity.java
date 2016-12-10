@@ -193,6 +193,8 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
 
                 PostResponseAsyncTask loginTask =
                         new PostResponseAsyncTask(NewCardActivity.this, postData);
+
+
                 loginTask.execute("http://110.76.95.150/create_card2.php");
                 //loginTask.execute("http://110.76.95.150/push_notification2.php");
                 break;

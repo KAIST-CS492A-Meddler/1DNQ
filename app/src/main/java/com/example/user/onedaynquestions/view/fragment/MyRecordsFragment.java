@@ -222,6 +222,11 @@ public class MyRecordsFragment extends Fragment{
         super.onResume();
     }
 
+    @Override
+    public void onDestroy() {
+        getActivity().unregisterReceiver(updateListener);
+        super.onDestroy();
+    }
 
     /**
      * Check if

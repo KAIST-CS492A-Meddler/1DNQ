@@ -1,11 +1,18 @@
 package com.example.user.onedaynquestions.view.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -40,7 +47,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AsyncResponse {
 
-    private static final int REQUEST_CODE_LOCATION = 22;
+    private static final int REQUEST_CODE_SYSTEM_ALERT_WINDOW = 22;
+    public static final int REQUEST_CODE = 59999;
 
 
     private static final String TAG = "MainActivityTag";
@@ -56,7 +64,7 @@ public class MainActivity extends AppCompatActivity
     private TextView nav_header_nick;
     private TextView nav_header_name_id;
 
-    private String token;
+    public static String token;
 
     private View header;
 
@@ -70,8 +78,23 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /* Push Notification from Firebase*/
-        startFirebaseServices();
+
+        /* Permission Request */
+
+//        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.SYSTEM_ALERT_WINDOW) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            Toast.makeText(getApplicationContext(), "Please allow system alert\nfor ", Toast.LENGTH_SHORT).show();
+//
+//            ActivityCompat.requestPermissions(MainActivity.this,
+//                    new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW,
+//                            Manifest.permission.SYSTEM_ALERT_WINDOW},
+//                    REQUEST_CODE_SYSTEM_ALERT_WINDOW);
+//            //return;
+//        } else {
+//            Toast.makeText(getApplicationContext(), "Granted", Toast.LENGTH_SHORT).show();
+//        }
+
+
+
 
 
         /* Initialize Database */
@@ -81,6 +104,10 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG_DB, "[Database] DatabaseController is created.");
         }
 
+
+
+        /* Push Notification from Firebase*/
+        startFirebaseServices();
 
 
         tabLayout = (TabLayout) findViewById(R.id.main_tablayout);
@@ -143,9 +170,37 @@ public class MainActivity extends AppCompatActivity
 
         initWidgets();
 
+        checkDrawOverlayPermission();
+
 
     }
 
+
+    public void checkDrawOverlayPermission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (!Settings.canDrawOverlays(getApplicationContext())) {
+                /** if not construct intent to request permission */
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                /** request permission via start activity for result */
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        } else {
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (requestCode == REQUEST_CODE) {
+                if (Settings.canDrawOverlays(this)) {
+                    Toast.makeText(getApplicationContext(), "Drawing overlay is permitted.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+//        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     private void initWidgets() {
 
@@ -187,14 +242,23 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         Log.d("MainInitWidgets", "onResume() is called");
         initMyInfo();
-        stopService(new Intent(this, FloatingButtonService.class));
+//        stopService(new Intent(this, FloatingButtonService.class));
         super.onResume();
     }
 
     @Override
     protected  void onPause(){
         //앱 꺼져 있을때 플로팅 버튼 뜨도록 서비스 on
-        startService(new Intent(this, FloatingButtonService.class));
+//        startService(new Intent(this, FloatingButtonService.class));
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (Settings.canDrawOverlays(this)) {
+                startService(new Intent(this, FloatingButtonService.class));
+            }
+        } else {
+            startService(new Intent(this, FloatingButtonService.class));
+        }
+
         super.onPause();
     }
 
@@ -355,7 +419,6 @@ public class MainActivity extends AppCompatActivity
         String temp = output.replaceAll("<br>", "\n");
         //Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
     }
-
 
 
 }

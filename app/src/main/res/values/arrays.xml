@@ -6,4 +6,9 @@
         <item>@string/odnq_card_type_03</item>
     </string-array>
 
+    <string-array name="spinner_gender">
+        <item>@string/spinner_gender_01</item>
+        <item>@string/spinner_gender_02</item>
+    </string-array>
+
 </resources>

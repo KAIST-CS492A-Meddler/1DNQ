@@ -19,11 +19,17 @@ import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.archive.MyInformation;
+import com.example.user.onedaynquestions.model.AsyncResponse;
+import com.example.user.onedaynquestions.model.MyInfo;
+import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
+import com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity;
+
+import java.util.HashMap;
 
 /**
  * Created by ymbaek on 2016-04-18.
  */
-public class SettingMyInfoActivity extends AppCompatActivity {
+public class SettingMyInfoActivity extends AppCompatActivity implements AsyncResponse {
 
     public static final String TAG = "SettingMyInfoActivity";
     public static final String TAG_DB = "DatabaseTestDBTag";
@@ -40,17 +46,14 @@ public class SettingMyInfoActivity extends AppCompatActivity {
     EditText settingMyInfo_et_nick;
     EditText settingMyInfo_et_name;
     EditText settingMyInfo_et_age;
-//    EditText settingMyInfo_et_sex;
-    EditText settingMyInfo_et_height;
-    EditText settingMyInfo_et_weight;
 
     Spinner settingMyInfo_spinner_sex;
-
     TextView settingMyInfo_tv_deviceid;
-
     Button settingMyInfo_btn_save;
 
-    MyInformation myInformation;
+    MyInfo myInfo;
+
+    //    MyInformation myInformation;
     String android_id;
 
     private ArrayAdapter<String> mSpinnerAdapter = null;
@@ -91,10 +94,7 @@ public class SettingMyInfoActivity extends AppCompatActivity {
         settingMyInfo_et_nick = (EditText) findViewById(R.id.setting_myinfo_et_nick);
         settingMyInfo_et_name = (EditText) findViewById(R.id.setting_myinfo_et_name);
         settingMyInfo_et_age = (EditText) findViewById(R.id.setting_myinfo_et_age);
-//        settingMyInfo_et_sex = (EditText) findViewById(R.id.setting_myinfo_et_sex);
-        settingMyInfo_spinner_sex = (Spinner) findViewById(R.id.setting_myinfo_spinner_sex);
-        settingMyInfo_et_height = (EditText) findViewById(R.id.setting_myinfo_et_height);
-        settingMyInfo_et_weight = (EditText) findViewById(R.id.setting_myinfo_et_weight);
+        settingMyInfo_spinner_sex = (Spinner) findViewById(R.id.setting_myinfo_spinner_gender);
 
         settingMyInfo_tv_deviceid = (TextView) findViewById(R.id.setting_myinfo_tv_deviceid);
 
@@ -118,53 +118,54 @@ public class SettingMyInfoActivity extends AppCompatActivity {
         int img_id_woman = getResources().getIdentifier(imgSrc_uri_woman, null, getPackageName());
 
         mSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
-                (String[])getResources().getStringArray(R.array.spinner_list));
+                (String[])getResources().getStringArray(R.array.spinner_gender));
         mSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         settingMyInfo_spinner_sex.setAdapter(mSpinnerAdapter);
 
-        //Toast.makeText(getApplicationContext(), "img_id: " + img_id, Toast.LENGTH_SHORT).show();
-
-        myInformation = MainActivity.hereDB.getMyInformation();
-
-        if (myInformation == null) {
-            Toast.makeText(getApplicationContext(), "There is no my information", Toast.LENGTH_SHORT).show();
-            settingMyInfo_iv_img.setImageResource(img_id_man);
-            settingMyInfo_spinner_sex.setSelection(0);
-
-        } else {
-            settingMyInfo_tv_nick.setText(myInformation.getUserNick());
-            settingMyInfo_tv_id.setText(myInformation.getUserId());
-            settingMyInfo_tv_name.setText(myInformation.getUserName());
-
-            settingMyInfo_et_id.setText(myInformation.getUserId());
-            settingMyInfo_et_id.setEnabled(false);
-            settingMyInfo_et_nick.setText(myInformation.getUserNick());
-            settingMyInfo_et_name.setText(myInformation.getUserName());
-            settingMyInfo_et_age.setText(String.valueOf(myInformation.getUserAge()));
-//            settingMyInfo_et_sex.setText(String.valueOf(myInformation.getUserSex()));
-
-            settingMyInfo_spinner_sex.setSelection(0);
+        settingMyInfo_tv_deviceid.setText(android_id);
 
 
-
-            if (myInformation.getUserSex() == 1) {
-                settingMyInfo_spinner_sex.setSelection(0);
-            } else {
-                settingMyInfo_spinner_sex.setSelection(1);
-            }
-
-
-            settingMyInfo_et_height.setText(String.valueOf(myInformation.getUserHeight()));
-            settingMyInfo_et_weight.setText(String.valueOf(myInformation.getUserWeight()));
-
-            settingMyInfo_tv_deviceid.setText(android_id);
-
-            if (myInformation.getUserSex() == 2) {
-                settingMyInfo_iv_img.setImageResource(img_id_woman);
-            } else {
-                settingMyInfo_iv_img.setImageResource(img_id_man);
-            }
-        }
+//        myInformation = MainActivity.hereDB.getMyInformation();
+//
+//        if (myInformation == null) {
+//            Toast.makeText(getApplicationContext(), "There is no my information", Toast.LENGTH_SHORT).show();
+//            settingMyInfo_iv_img.setImageResource(img_id_man);
+//            settingMyInfo_spinner_sex.setSelection(0);
+//
+//        } else {
+//            settingMyInfo_tv_nick.setText(myInformation.getUserNick());
+//            settingMyInfo_tv_id.setText(myInformation.getUserId());
+//            settingMyInfo_tv_name.setText(myInformation.getUserName());
+//
+//            settingMyInfo_et_id.setText(myInformation.getUserId());
+//            settingMyInfo_et_id.setEnabled(false);
+//            settingMyInfo_et_nick.setText(myInformation.getUserNick());
+//            settingMyInfo_et_name.setText(myInformation.getUserName());
+//            settingMyInfo_et_age.setText(String.valueOf(myInformation.getUserAge()));
+////            settingMyInfo_et_sex.setText(String.valueOf(myInformation.getUserSex()));
+//
+//            settingMyInfo_spinner_sex.setSelection(0);
+//
+//
+//
+//            if (myInformation.getUserSex() == 1) {
+//                settingMyInfo_spinner_sex.setSelection(0);
+//            } else {
+//                settingMyInfo_spinner_sex.setSelection(1);
+//            }
+//
+//
+//            settingMyInfo_et_height.setText(String.valueOf(myInformation.getUserHeight()));
+//            settingMyInfo_et_weight.setText(String.valueOf(myInformation.getUserWeight()));
+//
+//            settingMyInfo_tv_deviceid.setText(android_id);
+//
+//            if (myInformation.getUserSex() == 2) {
+//                settingMyInfo_iv_img.setImageResource(img_id_woman);
+//            } else {
+//                settingMyInfo_iv_img.setImageResource(img_id_man);
+//            }
+//        }
 
         //Toast.makeText(getApplicationContext(), "android_id: " + android_id, Toast.LENGTH_SHORT).show();
 
@@ -177,83 +178,161 @@ public class SettingMyInfoActivity extends AppCompatActivity {
         settingMyInfo_et_nick.setText("");
         settingMyInfo_et_name.setText("");
         settingMyInfo_et_age.setText("");
+        settingMyInfo_spinner_sex.setSelection(0);
 //        settingMyInfo_et_sex.setText("");
-        settingMyInfo_et_height.setText("");
-        settingMyInfo_et_weight.setText("");
+//        settingMyInfo_et_height.setText("");
+//        settingMyInfo_et_weight.setText("");
     }
 
 
     public void mOnClick(View v) {
         switch (v.getId()) {
             case R.id.setting_myinfo_btn_save:
-                MyInformation myInfo = new MyInformation();
 
-                //TODO: Integer.parseInt에서 "" 처리
-                String userId = settingMyInfo_et_id.getText().toString();
-                String userNick = settingMyInfo_et_nick.getText().toString();
-                String userName = settingMyInfo_et_name.getText().toString();
 
-                int userAge;
-                int userSex;
-                int userHeight;
-                int userWeight;
+                String curMyInfo_id = "";
+                String curMyInfo_nick = "";
+                String curMyInfo_name = "";
+                int curMyInfo_age = -1;
+                int curMyInfo_gender = 1;
+                String curMyInfo_deviceid = "";
 
-                if (!settingMyInfo_et_age.getText().toString().equals("")) {
-                    userAge = Integer.parseInt(settingMyInfo_et_age.getText().toString());
+                curMyInfo_id = settingMyInfo_et_id.getText().toString();
+                curMyInfo_nick = settingMyInfo_et_nick.getText().toString();
+                curMyInfo_name = settingMyInfo_et_name.getText().toString();
+                if (settingMyInfo_et_age.getText().toString().length() != 0)
+                    curMyInfo_age = Integer.parseInt(settingMyInfo_et_age.getText().toString());
+                curMyInfo_gender = settingMyInfo_spinner_sex.getSelectedItemPosition();
+                curMyInfo_deviceid = settingMyInfo_tv_deviceid.getText().toString();
+
+                if (curMyInfo_id.length() != 0 && curMyInfo_nick.length() != 0 && curMyInfo_name.length() != 0) {
+                    //Server request
+                    HashMap postData = new HashMap();
+
+                    String toastMessage = curMyInfo_id + "\n" +
+                            curMyInfo_nick + "\n" +
+                            curMyInfo_name + "\n" +
+                            curMyInfo_age + "\n" +
+                            curMyInfo_gender + "\n" +
+                            curMyInfo_deviceid + "\n" +
+                            MainActivity.token;
+                    Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
+
+                    postData.put("myinfo_id", curMyInfo_id);
+                    postData.put("myinfo_nick", curMyInfo_nick);
+                    postData.put("myinfo_name", curMyInfo_name);
+                    postData.put("myinfo_age", "-1");
+                    postData.put("myinfo_gender", "1");
+                    postData.put("myinfo_deviceid", curMyInfo_deviceid);
+                    postData.put("myinfo_token", MainActivity.token);
+
+                    PostResponseAsyncTask insertMyInfoTask =
+                            new PostResponseAsyncTask(SettingMyInfoActivity.this, postData);
+
+                    insertMyInfoTask.execute("http://110.76.95.150/create_user.php");
                 } else {
-                    userAge = 20;
+                    Toast.makeText(getApplicationContext(), "Please fill out mandatory information", Toast.LENGTH_SHORT).show();
                 }
 
-                //settingMyInfo_spinner_sex.isSelected()
-                if (settingMyInfo_spinner_sex.getSelectedItemPosition() == 0) {
-                    userSex = 1;
-                } else {
-                    userSex = 2;
-                }
 
-//                if (!settingMyInfo_et_sex.getText().toString().equals("")) {
-//                    userSex = Integer.parseInt(settingMyInfo_et_sex.getText().toString());
+//                boolean isTextOfId =
+
+//                MyInformation myInfo = new MyInformation();
+//
+//                //TODO: Integer.parseInt에서 "" 처리
+//                String userId = settingMyInfo_et_id.getText().toString();
+//                String userNick = settingMyInfo_et_nick.getText().toString();
+//                String userName = settingMyInfo_et_name.getText().toString();
+//
+//                int userAge;
+//                int userSex;
+//                int userHeight;
+//                int userWeight;
+//
+//                if (!settingMyInfo_et_age.getText().toString().equals("")) {
+//                    userAge = Integer.parseInt(settingMyInfo_et_age.getText().toString());
 //                } else {
-//                    userSex = 1;
+//                    userAge = 20;
 //                }
-
-                if (!settingMyInfo_et_height.getText().toString().equals("")) {
-                    userHeight = Integer.parseInt(settingMyInfo_et_height.getText().toString());
-                } else {
-                    userHeight = 170;
-                }
-
-                if (!settingMyInfo_et_weight.getText().toString().equals("")) {
-                    userWeight = Integer.parseInt(settingMyInfo_et_weight.getText().toString());
-                } else {
-                    userWeight = 65;
-                }
-
-
-                myInfo.setUserId(userId);
-                myInfo.setUserNick(userNick);
-                myInfo.setUserName(userName);
-                myInfo.setUserAge(userAge);
-                myInfo.setUserSex(userSex);
-                myInfo.setUserHeight(userHeight);
-                myInfo.setUserWeight(userWeight);
-                myInfo.setUserRegistered(1);
-                myInfo.setUserDeviceId(android_id);
-
-                //Update database
-                if (MainActivity.hereDB.getMyInformation() != null) {
-                    Log.d(TAG_DB, "[DatabaseTest] User information already exists in DB.");
-                    Log.d(TAG_DB, "[DatabaseTest] User information is updated.");
-                    MainActivity.hereDB.updateMyInformation(myInfo);
-                } else {
-                    Log.d(TAG_DB, "[DatabaseTest] User information is added into DB.");
-                    MainActivity.hereDB.insertMyInformation(myInfo);
-                }
-
-
-                initWidgetValues();
-
-                Toast.makeText(getApplicationContext(), "My information is updated.", Toast.LENGTH_SHORT).show();
+//
+//                //settingMyInfo_spinner_sex.isSelected()
+//                if (settingMyInfo_spinner_sex.getSelectedItemPosition() == 0) {
+//                    userSex = 1;
+//                } else {
+//                    userSex = 2;
+//                }
+//
+////                if (!settingMyInfo_et_sex.getText().toString().equals("")) {
+////                    userSex = Integer.parseInt(settingMyInfo_et_sex.getText().toString());
+////                } else {
+////                    userSex = 1;
+////                }
+//
+//                if (!settingMyInfo_et_height.getText().toString().equals("")) {
+//                    userHeight = Integer.parseInt(settingMyInfo_et_height.getText().toString());
+//                } else {
+//                    userHeight = 170;
+//                }
+//
+//                if (!settingMyInfo_et_weight.getText().toString().equals("")) {
+//                    userWeight = Integer.parseInt(settingMyInfo_et_weight.getText().toString());
+//                } else {
+//                    userWeight = 65;
+//                }
+//
+//
+//                myInfo.setUserId(userId);
+//                myInfo.setUserNick(userNick);
+//                myInfo.setUserName(userName);
+//                myInfo.setUserAge(userAge);
+//                myInfo.setUserSex(userSex);
+//                myInfo.setUserHeight(userHeight);
+//                myInfo.setUserWeight(userWeight);
+//                myInfo.setUserRegistered(1);
+//                myInfo.setUserDeviceId(android_id);
+//
+//                //Update database
+//                if (MainActivity.hereDB.getMyInformation() != null) {
+//                    Log.d(TAG_DB, "[DatabaseTest] User information already exists in DB.");
+//                    Log.d(TAG_DB, "[DatabaseTest] User information is updated.");
+//                    MainActivity.hereDB.updateMyInformation(myInfo);
+//                } else {
+//                    Log.d(TAG_DB, "[DatabaseTest] User information is added into DB.");
+//                    MainActivity.hereDB.insertMyInformation(myInfo);
+//                }
+//
+//
+//                initWidgetValues();
+//
+                //                //Server request
+//                HashMap postData = new HashMap();
+//                postData.put("myinfo_id", "SampleId");
+//                postData.put("myinfo_nick","SampleNick");
+//                postData.put("myinfo_name","SampleName");
+//                postData.put("myinfo_age",25);
+//                postData.put("myinfo_gender",2);
+//                postData.put("myinfo_deviceid","SampleDeviceId");
+//                postData.put("myinfo_token", "dagEgIerjYo:APA91bFEttcM3VHC0kyltss3HwY1N4PVJ28FSmzFVWzCoqwHYoEmxONfGhesrV23oTLf5bYU18y0PHDoPDy1fhdzV81YayH1R1SESAVE0z6rNXcVspmp0-sb7x1yrOR-uufk2ftTR8-y");
+////                postData.put("myinfo_token", "SampleToken");
+//
+//                PostResponseAsyncTask insertMyInfoTask =
+//                        new PostResponseAsyncTask(DBLocalTestActivity.this, postData);
+//
+//                insertMyInfoTask.execute("http://110.76.95.150/create_user.php");
+////                insertMyInfoTask.execute("http://110.76.95.150/create_user_t.php");
+//
+//                //Server request
+//                HashMap postData = new HashMap();
+//                postData.put("sample_id", "SampleId5673");
+//
+//                PostResponseAsyncTask insertMyInfoTask =
+//                        new PostResponseAsyncTask(SettingMyInfoActivity.this, postData);
+//
+//                insertMyInfoTask.execute("http://110.76.95.150/create_sample.php");
+////                insertMyInfoTask.execute("http://110.76.95.150/create_user_t.php");
+//
+//
+//                Toast.makeText(getApplicationContext(), "My information is updated.", Toast.LENGTH_SHORT).show();
 
 
                 break;
@@ -275,5 +354,11 @@ public class SettingMyInfoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    @Override
+    public void processFinish(String output) {
+        String temp = output.replaceAll("<br>", "\n");
+        Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
     }
 }

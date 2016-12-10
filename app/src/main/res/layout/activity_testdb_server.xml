@@ -11,14 +11,268 @@
         android:layout_height="56dp"
         android:background="@color/colorSkyBlue"/>
 
-    <ListView
-        android:id="@+id/questionlistTest"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
-        android:paddingLeft="20sp"
-        android:paddingRight="20sp"
-        ></ListView>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textSize="14dp"
+                android:gravity="right"
+                android:paddingRight="15dp"
+                android:text="user_id"/>
+
+            <EditText
+                android:id="@+id/dbtest_server_et_userid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint="insert user id"
+                android:text="ash"/>
+
+        </LinearLayout>
+
+            <TextView
+                android:id="@+id/dbtest_server_tv_selecteduser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/dbtest_server_btn_getuser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Get user information"
+                android:onClick="mOnClick"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="15dp"
+                    android:text="card_id"/>
+
+                <EditText
+                    android:id="@+id/dbtest_server_et_cardid"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="insert card id"
+                    android:text="sunggeun-4"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dbtest_server_tv_selectedcard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/dbtest_server_btn_getcard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Get card information"
+                android:onClick="mOnClick"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="15dp"
+                    android:text="group_id"/>
+
+                <EditText
+                    android:id="@+id/dbtest_server_et_groupid"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="insert group id"
+                    android:text="Meddler"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dbtest_server_tv_selectedgroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/dbtest_server_btn_getgroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Get group information"
+                android:onClick="mOnClick"/>
+
+            <!-- solve_problem.php -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="15dp"
+                    android:text="card_id"/>
+
+                <EditText
+                    android:id="@+id/dbtest_server_et_cardsolveid"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="insert card id"
+                    android:text="Sunggeun-4"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="15dp"
+                    android:text="card difficulty"/>
+
+                <EditText
+                    android:id="@+id/dbtest_server_et_carddifficulty"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="insert difficulty (1-5)"
+                    android:text="3"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="15dp"
+                    android:text="card quality"/>
+
+                <EditText
+                    android:id="@+id/dbtest_server_et_cardquality"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="insert quality (1-5)"
+                    android:text="4"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:paddingRight="15dp"
+                    android:text="card wrong/right"/>
+
+                <EditText
+                    android:id="@+id/dbtest_server_et_cardsolved"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="right or wrong"
+                    android:text="0"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dbtest_server_tv_updatedcard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/dbtest_server_btn_solvecard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Solve a problem"
+                android:onClick="mOnClick"/>
+
+
+
+            <ListView
+                android:id="@+id/questionlistTest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="20sp"
+                android:paddingRight="20sp"
+                ></ListView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 
 
