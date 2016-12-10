@@ -47,7 +47,9 @@ public class WakefulPushReceiver extends WakefulBroadcastReceiver {
 
             case ACTION_RECEIVE:
 
+                WakefulPushReceiver.updated = false;
                 onMessageReceived(context, intent);
+                WakefulPushReceiver.updated = true;
 
                 abortBroadcast();
                 break;
@@ -62,7 +64,6 @@ public class WakefulPushReceiver extends WakefulBroadcastReceiver {
 
 
     public void onMessageReceived(Context context, Intent intent){
-        WakefulPushReceiver.updated = false;
         String id = intent.getStringExtra("card_id");
         Log.d(TAG, "notice");
         if(id != null) {
@@ -72,7 +73,6 @@ public class WakefulPushReceiver extends WakefulBroadcastReceiver {
                 Toast.makeText
                         (context, "A new Question card has arrived!", Toast.LENGTH_SHORT).show();
             //}
-            WakefulPushReceiver.updated = true;
 //            intent.setAction("NEW_PROBLEM_HAS_COME");
             //context.sendBroadcast(intent);
         }
