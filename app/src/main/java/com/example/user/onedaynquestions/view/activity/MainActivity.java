@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         Log.d("MainInitWidgets", "onResume() is called");
         initMyInfo();
-//        stopService(new Intent(this, FloatingButtonService.class));
+        stopService(new Intent(this, FloatingButtonService.class));
         super.onResume();
     }
 
