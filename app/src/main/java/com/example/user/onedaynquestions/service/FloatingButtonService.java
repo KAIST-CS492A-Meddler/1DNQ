@@ -30,7 +30,7 @@ public class FloatingButtonService extends Service {
     private float xPos, yPos;
 
     private boolean isActivate;
-    final int dt = 20, total = 1000;
+    final int dt = 20, total = 500;
     float gap, gapSum;
     private ImageView floatBtn;
 
@@ -127,7 +127,7 @@ public class FloatingButtonService extends Service {
         });
 
 
-        //windowManager.addView(floatView, layoutParams);
+        windowManager.addView(floatView, layoutParams);
 
 
         anim = new CountDownTimer(total, dt) {

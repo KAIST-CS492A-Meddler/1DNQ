@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity
 
     private View header;
 
+
     // Modification
 
     @Override
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 
         /* Push Notification from Firebase*/
         startFirebaseServices();
-        initFloatingWidget();
+
 
         /* Initialize Database */
         odnqDB = new DatabaseController(getApplicationContext());
@@ -186,7 +187,15 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         Log.d("MainInitWidgets", "onResume() is called");
         initMyInfo();
+        stopService(new Intent(this, FloatingButtonService.class));
         super.onResume();
+    }
+
+    @Override
+    protected  void onPause(){
+        //앱 꺼져 있을때 플로팅 버튼 뜨도록 서비스 on
+        startService(new Intent(this, FloatingButtonService.class));
+        super.onPause();
     }
 
     @Override
@@ -341,16 +350,12 @@ public class MainActivity extends AppCompatActivity
         Log.d("TOKEN", token);
     }
 
-    public void initFloatingWidget(){
-        startService(new Intent(this, FloatingButtonService.class));
-    }
-
-
     @Override
     public void processFinish(String output) {
         String temp = output.replaceAll("<br>", "\n");
         //Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
     }
+
 
 
 }

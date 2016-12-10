@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.archive.MyRoutine;
 import com.example.user.onedaynquestions.model.AsyncResponse;
+import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 
 import java.util.HashMap;
@@ -203,5 +204,20 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
         String temp = output.replaceAll("<br>", "\n");
         Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void onResume(){
+        stopService(new Intent(this, FloatingButtonService.class));
+        super.onResume();
+    }
+
+
+    @Override
+    protected  void onPause(){
+        //앱 꺼져 있을때 플로팅 버튼 뜨도록 서비스 on
+        startService(new Intent(this, FloatingButtonService.class));
+        super.onPause();
+    }
+
 
 }
