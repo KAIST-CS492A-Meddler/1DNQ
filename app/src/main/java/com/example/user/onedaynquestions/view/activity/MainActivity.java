@@ -1,7 +1,10 @@
 package com.example.user.onedaynquestions.view.activity;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -32,9 +35,11 @@ import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.PagerAdapter;
 import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
+import com.example.user.onedaynquestions.service.WakefulPushReceiver;
 import com.example.user.onedaynquestions.utility.DatabaseController;
 import com.example.user.onedaynquestions.utility.DatabaseHelper;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
+import com.example.user.onedaynquestions.view.fragment.MyRecordsFragment;
 import com.example.user.onedaynquestions.view.fragment.SupportHelpFragment;
 import com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity;
 import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
@@ -43,9 +48,29 @@ import com.example.user.onedaynquestions.view.testactivity.WidgetTestActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTION_RECEIVE;
+import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTION_REGISTRATION;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AsyncResponse {
+
+    public class BroadReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            switch (action) {
+                case ACTION_RECEIVE:
+                    WakefulPushReceiver.updated = false;
+                    viewPager.getAdapter().notifyDataSetChanged();
+                    break;
+                case "NEW_PROBLEM_HAS_COME":
+                    int check = 0;
+                    break;
+                default:
+            }
+        }
+    }
 
     private static final int REQUEST_CODE_SYSTEM_ALERT_WINDOW = 22;
     public static final int REQUEST_CODE = 59999;
@@ -69,6 +94,8 @@ public class MainActivity extends AppCompatActivity
     private View header;
 
 
+    private BroadcastReceiver updateListener;
+    private IntentFilter filter;
     // Modification
 
     @Override
@@ -173,8 +200,10 @@ public class MainActivity extends AppCompatActivity
         checkDrawOverlayPermission();
 
 
-    }
+        filter = new IntentFilter("REFRESH_QUESTION_LIST");
+        filter.addAction("com.google.android.c2dm.intent.RECEIVE");
 
+    }
 
     public void checkDrawOverlayPermission() {
         if (Build.VERSION.SDK_INT >= 23) {
@@ -243,6 +272,9 @@ public class MainActivity extends AppCompatActivity
         Log.d("MainInitWidgets", "onResume() is called");
         initMyInfo();
         stopService(new Intent(this, FloatingButtonService.class));
+
+        updateListener = new BroadReceiver();
+        registerReceiver(updateListener, filter);
         super.onResume();
     }
 
@@ -409,9 +441,9 @@ public class MainActivity extends AppCompatActivity
 //        IntentFilter intentfilter = new IntentFilter();
 //        intentfilter.addAction(".service.PushReceiver");
         //이 부분을 클라이언트마다 다르게 subscribe하면 가능?
-        FirebaseMessaging.getInstance().subscribeToTopic("test");
         token = FirebaseInstanceId.getInstance().getToken();
         Log.d("TOKEN", token);
+        FirebaseMessaging.getInstance().subscribeToTopic("test");
     }
 
     @Override
@@ -420,5 +452,11 @@ public class MainActivity extends AppCompatActivity
         //Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
     }
 
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(updateListener);
+        super.onDestroy();
+    }
 
 }

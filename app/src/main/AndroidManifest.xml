@@ -62,10 +62,20 @@
             android:name=".service.WakefulPushReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
+                <action android:name="NEW_PROBLEM_HAS_COME" />
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
                 <category android:name=".service" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".view.activity.MainActivity$BroadReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name= "NEW_PROBLEM_HAS_COME" />
+
+                <category android:name=".view.activity" />
             </intent-filter>
         </receiver>
 

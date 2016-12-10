@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -59,7 +60,8 @@ public class MyRecordsFragment extends Fragment{
 
     private CardAdapter frequentlyWrongQuestionListAdapter,starredQuestionListAdapter,recommendedQuestionListAdapter;
     private RecyclerView frequentlyWrongList, starredList, recommendList;
-    private BroadcastReceiver updateListener;
+
+    public CountDownTimer cdt;
 
     @Nullable
     @Override
@@ -83,9 +85,25 @@ public class MyRecordsFragment extends Fragment{
         initEquipRecord();
         initQuestionList();
 
+        cdt = new CountDownTimer(5000, 100) {
+            @Override
+            public void onTick(long l) {
+                if(WakefulPushReceiver.updated){
+                    cdt.cancel();
+                    resetAllList();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
+
         return currentView;
         //return super.onCreateView(inflater, container, savedInstanceState);
     }
+
 
     public void initQuestionList(){
         mLayoutManager = new LinearLayoutManager(currentView.getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -131,12 +149,6 @@ public class MyRecordsFragment extends Fragment{
         }
     }
 
-    public void refrash(){
-        if(WakefulPushReceiver.numReceivedQuestions() > 0) {
-            setQuestions(RECOMMENDED, WakefulPushReceiver.getAllReceivedQuestions());
-        }
-
-    }
     public boolean setQuestion(int where, int position, MyCard question){
         switch (where){
             case STARRED:
@@ -241,7 +253,6 @@ public class MyRecordsFragment extends Fragment{
 
     @Override
     public void onDestroy() {
-        getActivity().unregisterReceiver(updateListener);
         super.onDestroy();
     }
 
@@ -658,6 +669,8 @@ public class MyRecordsFragment extends Fragment{
 ////        }
 
     }
+
+
 
     private String parseDateWithYear(String datetimeData) {
         //dateTimeData: 2016-06-10 00:21:32

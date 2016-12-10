@@ -10,6 +10,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,49 +18,51 @@ import android.widget.Toast;
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.view.activity.CardSolvingActivity;
+import com.example.user.onedaynquestions.view.activity.MainActivity;
 
 import java.util.ArrayList;
 
 //To handle FCM in manual way
-public class WakefulPushReceiver  extends WakefulBroadcastReceiver {
+public class WakefulPushReceiver extends WakefulBroadcastReceiver {
     private static ArrayList<MyCard> receivedQuestions = new ArrayList<>();
     private static int count = 0;
 
+    public static boolean updated = false;
     private static final String TAG = "WakefulPushReceiver";
     private static final String pushTitle = "Here comes new Question!";
 
-    private static final String ACTION_REGISTRATION
+    public static final String ACTION_REGISTRATION
             = "com.google.android.c2dm.intent.REGISTRATION";
-    private static final String ACTION_RECEIVE
+    public static final String ACTION_RECEIVE
             = "com.google.android.c2dm.intent.RECEIVE";
 
 
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-
-        for (String key : intent.getExtras().keySet()) {
-            //get all extras in the intent
-            int a = 0;
-        }
         switch (action) {
             case ACTION_REGISTRATION:
                 abortBroadcast();
                 break;
 
             case ACTION_RECEIVE:
+
                 onMessageReceived(context, intent);
 
                 abortBroadcast();
                 break;
-            case "REFRESH_QUESTION_LIST":
+            case "NEW_PROBLEM_HAS_COME":
+                int check = 0;
+                abortBroadcast();
                 break;
             default:
+                break;
         }
     }
 
 
     public void onMessageReceived(Context context, Intent intent){
+        WakefulPushReceiver.updated = false;
         String id = intent.getStringExtra("card_id");
         Log.d(TAG, "notice");
         if(id != null) {
@@ -69,9 +72,9 @@ public class WakefulPushReceiver  extends WakefulBroadcastReceiver {
                 Toast.makeText
                         (context, "A new Question card has arrived!", Toast.LENGTH_SHORT).show();
             //}
-            intent.setAction("REFRESH_QUESTION_LIST");
-
-            context.sendBroadcast(intent);
+            WakefulPushReceiver.updated = true;
+//            intent.setAction("NEW_PROBLEM_HAS_COME");
+            //context.sendBroadcast(intent);
         }
     }
 
