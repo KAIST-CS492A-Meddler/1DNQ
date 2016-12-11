@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
-        android:text="Jiyoung Song"
+        android:text="BAEKHORANG"
         android:textSize="23dp"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
@@ -39,7 +39,14 @@
         android:id="@+id/nav_header_username_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:text="jysong@se.kaist.ac.kr" />
+        android:textSize="14dp"
+        android:text="ymbaek1234" />
+
+    <TextView
+        android:id="@+id/nav_header_username_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:text="Young-Min Baek" />
 
 </LinearLayout>

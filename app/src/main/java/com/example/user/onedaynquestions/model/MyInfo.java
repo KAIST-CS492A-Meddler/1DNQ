@@ -13,6 +13,7 @@ public class MyInfo {
     int myInfoAge;
     int myInfoGender;
     String myInfoDeviceId;
+    String myInfoToken;
     int myInfoExp;
     float myInfoQuality;
     int myInfoCardNum;
@@ -70,6 +71,24 @@ public class MyInfo {
         this.myInfoAge = myInfoAge;
         this.myInfoGender = myInfoGender;
         this.myInfoDeviceId = myInfoDeviceId;
+        this.myInfoExp = myInfoExp;
+        this.myInfoQuality = myInfoQuality;
+        this.myInfoCardNum = myInfoCardNum;
+        this.myInfoLoginNum = myInfoLoginNum;
+        this.myInfoAnswerRight = myInfoAnswerRight;
+        this.myInfoAnswerWrong = myInfoAnswerWrong;
+    }
+
+    public MyInfo(String myInfoId, String myInfoNick, String myInfoName, int myInfoAge, int myInfoGender, String myInfoDeviceId, String myInfoToken, int myInfoExp, float myInfoQuality, int myInfoCardNum, int myInfoLoginNum, int myInfoAnswerRight, int myInfoAnswerWrong) {
+        initMyInfo();
+
+        this.myInfoId = myInfoId;
+        this.myInfoNick = myInfoNick;
+        this.myInfoName = myInfoName;
+        this.myInfoAge = myInfoAge;
+        this.myInfoGender = myInfoGender;
+        this.myInfoDeviceId = myInfoDeviceId;
+        this.myInfoToken = myInfoToken;
         this.myInfoExp = myInfoExp;
         this.myInfoQuality = myInfoQuality;
         this.myInfoCardNum = myInfoCardNum;
@@ -172,5 +191,13 @@ public class MyInfo {
 
     public void setMyInfoAnswerWrong(int myInfoAnswerWrong) {
         this.myInfoAnswerWrong = myInfoAnswerWrong;
+    }
+
+    public String getMyInfoToken() {
+        return myInfoToken;
+    }
+
+    public void setMyInfoToken(String myInfoToken) {
+        this.myInfoToken = myInfoToken;
     }
 }

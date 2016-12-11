@@ -13,74 +13,252 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorSkyBlue"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="My Achievement Summary"/>
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/prize_d" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="3dp"
+                    android:textColor="@color/colorSkyBlue"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:text="My Achievement Summary"/>
+
+            </LinearLayout>
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="15dp"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textColor="@color/colorSkyBlue"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="18dp"-->
+                <!--android:text="My Achievement Summary"/>-->
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorSkyBlue"/>
 
-            <TextView
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#eeeeee"
-                android:text="- Your submissions: 311"
-                android:textSize="15dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:paddingLeft="15dp"/>
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="12dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#eeeeee"
-                android:text="- Contribution level: 56Lv"
-                android:textSize="15dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:paddingLeft="15dp"/>
+                <!-- MY SUBMISSION -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#eeeeee"
+                    android:padding="5dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#eeeeee"
-                android:text="- My quality point: 8.92"
-                android:textSize="15dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:paddingLeft="15dp"/>
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/prize"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#eeeeee"
-                android:text="- Percentage of correct answer: 82%"
-                android:textSize="15dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:paddingLeft="15dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="SUBMISSION"
+                        android:textSize="10dp"
+                        android:gravity="center_horizontal"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="COUNT"
+                        android:textSize="10dp"
+                        android:gravity="center_horizontal"/>
 
-            <TextView
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="311"
+                        android:textSize="25dp"
+                        android:textColor="@color/colorSkyBlue"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal"/>
+
+                </LinearLayout>
+
+                <!-- MY SUBMISSION -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#e6e6e6"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/prize"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CONTRIBUTION"
+                        android:textSize="10dp"
+                        android:gravity="center_horizontal"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="LEVEL"
+                        android:textSize="10dp"
+                        android:gravity="center_horizontal"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="56Lv"
+                        android:textSize="25dp"
+                        android:textColor="@color/colorSkyBlue"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal"/>
+
+                </LinearLayout>
+
+                <!-- MY SUBMISSION -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#eeeeee"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/prize"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="QUALITY"
+                        android:textSize="10dp"
+                        android:gravity="center_horizontal"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="POINT"
+                        android:textSize="10dp"
+                        android:gravity="center_horizontal"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="8.92"
+                        android:textSize="25dp"
+                        android:textColor="@color/colorSkyBlue"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal"/>
+
+                </LinearLayout>
+
+                <!-- MY SUBMISSION -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#e6e6e6"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/prize"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CORRECTNESS"
+                        android:textSize="10dp"
+                        android:gravity="center_horizontal"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="PERCENTAGE"
+                        android:textSize="10dp"
+                        android:gravity="center_horizontal"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="82%"
+                        android:textSize="25dp"
+                        android:textColor="@color/colorSkyBlue"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorSkyBlue"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="Weekly Contribution"/>
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/prize_e" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/colorSkyBlue"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:text="Weekly Contribution"/>
+
+            </LinearLayout>
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="15dp"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textColor="@color/colorSkyBlue"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="18dp"-->
+                <!--android:text="Weekly Contribution"/>-->
 
             <View
                 android:layout_width="match_parent"
@@ -97,17 +275,42 @@
                 android:paddingBottom="6dp"
                 android:paddingLeft="15dp"/>
 
-            <TextView
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorSkyBlue"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="Weekly Study Record"/>
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/prize_p" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/colorSkyBlue"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:text="Weekly Study Record"/>
+
+            </LinearLayout>
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="15dp"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textColor="@color/colorSkyBlue"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="18dp"-->
+                <!--android:text="Weekly Study Record"/>-->
 
             <View
                 android:layout_width="match_parent"

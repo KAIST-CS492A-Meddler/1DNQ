@@ -19,11 +19,11 @@ import java.util.Locale;
  * Created by user on 2016-12-04.
  */
 
-public class DatabaseController extends SQLiteOpenHelper{
+public class LocalDBController extends SQLiteOpenHelper{
 
     SQLiteDatabase mDB;
 
-    private static final String TAG_DB = "DatabaseControllerTag";
+    private static final String TAG_DB = "LocalDBController";
 
     private static final String DATABASE_NAME = "odnqDB.db";
     private static final int DATABASE_VERSION = 1;
@@ -40,6 +40,7 @@ public class DatabaseController extends SQLiteOpenHelper{
     private static final String ATTR_MYINFO_AGE = "myinfo_age";
     private static final String ATTR_MYINFO_GENDER = "myinfo_gender";
     private static final String ATTR_MYINFO_DEVICEID = "myinfo_deviceid";
+    private static final String ATTR_MYINFO_TOKEN = "myinfo_token";
     private static final String ATTR_MYINFO_EXP = "myinfo_exp";
     private static final String ATTR_MYINFO_QUALITY = "myinfo_quality";
     private static final String ATTR_MYINFO_CARDNUM = "myinfo_cardnum";
@@ -82,6 +83,7 @@ public class DatabaseController extends SQLiteOpenHelper{
                     ATTR_MYINFO_AGE + " INTEGER DEFAULT 20, " +
                     ATTR_MYINFO_GENDER + " INTEGER DEFAULT 1, " +
                     ATTR_MYINFO_DEVICEID + " VARCHAR(100), " +
+                    ATTR_MYINFO_TOKEN + " VARCHAR(500), " +
                     ATTR_MYINFO_EXP + " INTEGER DEFAULT 0, " +
                     ATTR_MYINFO_QUALITY + " FLOAT DEFAULT 0, " +
                     ATTR_MYINFO_CARDNUM + " INTEGER DEFAULT 0, " +
@@ -130,6 +132,7 @@ public class DatabaseController extends SQLiteOpenHelper{
         values.put(ATTR_MYINFO_AGE,myInfo.getMyInfoAge());
         values.put(ATTR_MYINFO_GENDER,myInfo.getMyInfoGender());
         values.put(ATTR_MYINFO_DEVICEID,myInfo.getMyInfoDeviceId());
+        values.put(ATTR_MYINFO_TOKEN,myInfo.getMyInfoToken());
         values.put(ATTR_MYINFO_EXP,myInfo.getMyInfoExp());
         values.put(ATTR_MYINFO_QUALITY,myInfo.getMyInfoQuality());
         values.put(ATTR_MYINFO_CARDNUM,myInfo.getMyInfoCardNum());
@@ -200,6 +203,7 @@ public class DatabaseController extends SQLiteOpenHelper{
             tmpMyInfo.setMyInfoAge(c.getInt(c.getColumnIndex(ATTR_MYINFO_AGE)));
             tmpMyInfo.setMyInfoGender(c.getInt(c.getColumnIndex(ATTR_MYINFO_GENDER)));
             tmpMyInfo.setMyInfoDeviceId(c.getString(c.getColumnIndex(ATTR_MYINFO_DEVICEID)));
+            tmpMyInfo.setMyInfoToken(c.getString(c.getColumnIndex(ATTR_MYINFO_TOKEN)));
             tmpMyInfo.setMyInfoExp(c.getInt(c.getColumnIndex(ATTR_MYINFO_EXP)));
             tmpMyInfo.setMyInfoQuality(c.getFloat(c.getColumnIndex(ATTR_MYINFO_QUALITY)));
             tmpMyInfo.setMyInfoCardNum(c.getInt(c.getColumnIndex(ATTR_MYINFO_CARDNUM)));
@@ -340,33 +344,54 @@ public class DatabaseController extends SQLiteOpenHelper{
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    /** UPDATE TABLE QUERIES **/
+
+    public int updateMyInfo(MyInfo myInfo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ATTR_MYINFO_ID, myInfo.getMyInfoId());
+        values.put(ATTR_MYINFO_NICK, myInfo.getMyInfoNick());
+        values.put(ATTR_MYINFO_NAME, myInfo.getMyInfoName());
+        values.put(ATTR_MYINFO_AGE, myInfo.getMyInfoAge());
+        values.put(ATTR_MYINFO_GENDER, myInfo.getMyInfoGender());
+
+        int returnVal;
+        returnVal = db.update(TABLE_MYINFO, values, ATTR_MYINFO_ID + " = ?",
+                new String[] { String.valueOf(myInfo.getMyInfoId()) });
+
+        return returnVal;
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     /** DROP TABLE QUERIES **/
 
     public void dropTableMyInfo() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MYINFO);
-        Log.d(TAG_DB, "[Database] DatabaseController - dropTableMyInfo(): Table(" + TABLE_MYINFO + ") is dropped.");
+        Log.d(TAG_DB, "[Database] LocalDBController - dropTableMyInfo(): Table(" + TABLE_MYINFO + ") is dropped.");
 
         db.execSQL(CREATE_TABLE_MYINFO);
-        Log.d(TAG_DB, "[Database] DatabaseController - dropTableMyInfo(): Table(" + TABLE_MYINFO + ") is recreated.");
+        Log.d(TAG_DB, "[Database] LocalDBController - dropTableMyInfo(): Table(" + TABLE_MYINFO + ") is recreated.");
     }
 
     public void dropTableMyCard() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MYCARD);
-        Log.d(TAG_DB, "[Database] DatabaseController - dropTableMyInfo(): Table(" + TABLE_MYCARD + ") is dropped.");
+        Log.d(TAG_DB, "[Database] LocalDBController - dropTableMyInfo(): Table(" + TABLE_MYCARD + ") is dropped.");
 
         db.execSQL(CREATE_TABLE_MYCARD);
-        Log.d(TAG_DB, "[Database] DatabaseController - dropTableMyInfo(): Table(" + TABLE_MYCARD + ") is recreated.");
+        Log.d(TAG_DB, "[Database] LocalDBController - dropTableMyInfo(): Table(" + TABLE_MYCARD + ") is recreated.");
     }
 
     public void dropTableMyGroup() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MYGROUP);
-        Log.d(TAG_DB, "[Database] DatabaseController - dropTableMyInfo(): Table(" + TABLE_MYGROUP + ") is dropped.");
+        Log.d(TAG_DB, "[Database] LocalDBController - dropTableMyInfo(): Table(" + TABLE_MYGROUP + ") is dropped.");
 
         db.execSQL(CREATE_TABLE_MYGROUP);
-        Log.d(TAG_DB, "[Database] DatabaseController - dropTableMyInfo(): Table(" + TABLE_MYGROUP + ") is recreated.");
+        Log.d(TAG_DB, "[Database] LocalDBController - dropTableMyInfo(): Table(" + TABLE_MYGROUP + ") is recreated.");
     }
 
     public void dropAllTables() {
@@ -374,7 +399,7 @@ public class DatabaseController extends SQLiteOpenHelper{
         dropTableMyCard();
         dropTableMyGroup();
 
-        Log.d(TAG_DB, "[Database] DatabaseController - dropAllTables(): All tables are dropped & recreated.");
+        Log.d(TAG_DB, "[Database] LocalDBController - dropAllTables(): All tables are dropped & recreated.");
 
     }
 
@@ -400,13 +425,13 @@ public class DatabaseController extends SQLiteOpenHelper{
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public DatabaseController(Context context) {
+    public LocalDBController(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        Log.d(TAG_DB, "[Database-local] DatabaseController(): Constructor is called.");
+        Log.d(TAG_DB, "[Database-local] LocalDBController(): Constructor is called.");
 
         mDB = getWritableDatabase();
 
-        Log.d(TAG_DB, "[Database-local] DatabaseController(): getWritableDatabase() is succeeded.");
+        Log.d(TAG_DB, "[Database-local] LocalDBController(): getWritableDatabase() is succeeded.");
 
         //this.mDB = mDB;
     }
@@ -414,7 +439,7 @@ public class DatabaseController extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        Log.d(TAG_DB, "[Database-local] DatabaseController-onCreate(): Creating tables...");
+        Log.d(TAG_DB, "[Database-local] LocalDBController-onCreate(): Creating tables...");
 
         Log.d(TAG_DB, "[Database-local] CREATE_TABLE_MYINFO: " + CREATE_TABLE_MYINFO);
         Log.d(TAG_DB, "[Database-local] CREATE_TABLE_MYCARD: " + CREATE_TABLE_MYCARD);
@@ -424,13 +449,13 @@ public class DatabaseController extends SQLiteOpenHelper{
         db.execSQL(CREATE_TABLE_MYCARD);
         db.execSQL(CREATE_TABLE_MYGROUP);
 
-        Log.d(TAG_DB, "[Database-local] DatabaseController-onCreate(): Tables are created successfully.");
+        Log.d(TAG_DB, "[Database-local] LocalDBController-onCreate(): Tables are created successfully.");
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(TAG_DB, "[Database-local] DatabaseController-onUpgrade()");
+        Log.d(TAG_DB, "[Database-local] LocalDBController-onUpgrade()");
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MYINFO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MYCARD);

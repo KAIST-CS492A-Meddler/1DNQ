@@ -17,7 +17,7 @@ import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.model.MyGroup;
 import com.example.user.onedaynquestions.model.AsyncResponse;
-import com.example.user.onedaynquestions.utility.DatabaseController;
+import com.example.user.onedaynquestions.utility.LocalDBController;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 import com.example.user.onedaynquestions.view.activity.MainActivity;
 
@@ -29,9 +29,9 @@ import java.util.HashMap;
 public class DBLocalTestActivity extends AppCompatActivity implements AsyncResponse {
 
     public static final String TAG = "MyAchievements";
-    public static final String TAG_DB = "DBLocalTestActivity";
+    public static final String TAG_DB = "DatabaseTestDBTag";
 
-    public static DatabaseController odnqDB;
+    public static LocalDBController odnqDB;
 
     private Toolbar toolbar;
 
@@ -124,10 +124,10 @@ public class DBLocalTestActivity extends AppCompatActivity implements AsyncRespo
 
 
         /* DATABASE */
-        odnqDB = new DatabaseController(getApplicationContext());
+        odnqDB = new LocalDBController(getApplicationContext());
 
         if (odnqDB != null) {
-            Log.d(TAG_DB, "[Database] DatabaseController is created.");
+            Log.d(TAG_DB, "[Database] LocalDBController is created.");
         }
 
         initWidgets();
@@ -144,6 +144,19 @@ public class DBLocalTestActivity extends AppCompatActivity implements AsyncRespo
 
     public void mOnClick(View v) {
         switch (v.getId()) {
+            case R.id.dbtest_local_btn_drop_myinfo:
+                MainActivity.odnqDB.dropTableMyInfo();
+                Log.d(TAG_DB, "MyInfo table is dropped.");
+                break;
+            case R.id.dbtest_local_btn_drop_mygroup:
+                MainActivity.odnqDB.dropTableMyGroup();
+                Log.d(TAG_DB, "MyGroup table is dropped.");
+                break;
+            case R.id.dbtest_local_btn_drop_mycard:
+                MainActivity.odnqDB.dropTableMyCard();
+                Log.d(TAG_DB, "MyCard table is dropped.");
+                break;
+
             case R.id.dbtest_local_btn_addinfo:
 
 //                MyInfo tmpMyInfo;

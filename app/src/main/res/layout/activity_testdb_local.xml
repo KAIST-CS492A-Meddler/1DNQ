@@ -31,6 +31,28 @@
             <!--android:textStyle="bold"/>-->
 
 
+            <Button
+                android:id="@+id/dbtest_local_btn_drop_myinfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DROP MYINFO TABLE"
+                android:onClick="mOnClick"/>
+
+            <Button
+                android:id="@+id/dbtest_local_btn_drop_mycard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DROP MYCARD TABLE"
+                android:onClick="mOnClick"/>
+
+            <Button
+                android:id="@+id/dbtest_local_btn_drop_mygroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DROP MYGROUP TABLE"
+                android:onClick="mOnClick"/>
+
+
 
             <TextView
                 android:layout_width="match_parent"
