@@ -25,6 +25,9 @@ import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 import com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity;
 import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.HashMap;
 
 /**
@@ -54,6 +57,8 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
 
     MyInfo myInfo;
 
+    boolean isUserInfoInServer;
+
     //    MyInformation myInformation;
     String android_id;
 
@@ -77,6 +82,8 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
 
         actionBar.setTitle("My Information");
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+
+        isUserInfoInServer = false;
 
         initWidgets();
 
@@ -137,6 +144,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
             settingMyInfo_tv_name.setText(myInfo.getMyInfoName());
 
             settingMyInfo_et_id.setText(myInfo.getMyInfoId());
+            settingMyInfo_et_id.setEnabled(false);
             settingMyInfo_et_nick.setText(myInfo.getMyInfoNick());
             settingMyInfo_et_name.setText(myInfo.getMyInfoName());
             settingMyInfo_et_age.setText(myInfo.getMyInfoAge() + "");
@@ -192,40 +200,51 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
 
                     /** SERVER DB */
 
-                //TODO: Server DB에 User information(user_id)이 있는지 검사하는 branch
-//                    HashMap postData = new HashMap();
-//                    postData.put("userinfo_id", dbtest_server_et_userid.getText().toString());
-//
-//                    PostResponseAsyncTask getUserTask =
-//                            new PostResponseAsyncTask(DBServerTestActivity.this, postData);
-//
-//                    getUserTask.execute("http://110.76.95.150/get_user.php");
+                    //TODO: Server DB에 User information(user_id)이 있는지 검사하는 branch
+                    HashMap getPostData = new HashMap();
+                    getPostData.put("userinfo_id", curMyInfo_id);
+
+                    PostResponseAsyncTask getUserTask =
+                            new PostResponseAsyncTask(SettingMyInfoActivity.this, getPostData);
+
+                    getUserTask.execute("http://110.76.95.150/get_user.php");
+
+                    if (!isUserInfoInServer) {
+                        //Server request
+                        HashMap postData = new HashMap();
+
+                        postData.put("myinfo_id", curMyInfo_id);
+                        postData.put("myinfo_nick", curMyInfo_nick);
+                        postData.put("myinfo_name", curMyInfo_name);
+                        postData.put("myinfo_age", curMyInfo_age + "");
+                        postData.put("myinfo_gender", curMyInfo_gender + "");
+                        postData.put("myinfo_deviceid", curMyInfo_deviceid);
+                        postData.put("myinfo_token", MainActivity.token);
+
+                        PostResponseAsyncTask insertMyInfoTask =
+                                new PostResponseAsyncTask(SettingMyInfoActivity.this, postData);
+
+                        insertMyInfoTask.execute("http://110.76.95.150/create_user.php");
+                    } else {
+                        //Server request
+                        HashMap postData = new HashMap();
+
+                        postData.put("myinfo_id", curMyInfo_id);
+                        postData.put("myinfo_nick", curMyInfo_nick);
+                        postData.put("myinfo_name", curMyInfo_name);
+                        postData.put("myinfo_age", curMyInfo_age + "");
+                        postData.put("myinfo_gender", curMyInfo_gender + "");
+                        postData.put("myinfo_deviceid", curMyInfo_deviceid);
+                        postData.put("myinfo_token", MainActivity.token);
+
+                        PostResponseAsyncTask insertMyInfoTask =
+                                new PostResponseAsyncTask(SettingMyInfoActivity.this, postData);
+
+                        insertMyInfoTask.execute("http://110.76.95.150/update_user.php");
+                    }
 
 
-                    //Server request
-                    HashMap postData = new HashMap();
 
-                    String toastMessage = curMyInfo_id + "\n" +
-                            curMyInfo_nick + "\n" +
-                            curMyInfo_name + "\n" +
-                            curMyInfo_age + "\n" +
-                            curMyInfo_gender + "\n" +
-                            curMyInfo_deviceid + "\n" +
-                            MainActivity.token;
-//                    Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
-
-                    postData.put("myinfo_id", curMyInfo_id);
-                    postData.put("myinfo_nick", curMyInfo_nick);
-                    postData.put("myinfo_name", curMyInfo_name);
-                    postData.put("myinfo_age", curMyInfo_age + "");
-                    postData.put("myinfo_gender", curMyInfo_gender + "");
-                    postData.put("myinfo_deviceid", curMyInfo_deviceid);
-                    postData.put("myinfo_token", MainActivity.token);
-
-                    PostResponseAsyncTask insertMyInfoTask =
-                            new PostResponseAsyncTask(SettingMyInfoActivity.this, postData);
-
-                    insertMyInfoTask.execute("http://110.76.95.150/create_user.php");
 
                     /** LOCAL DB */
 
@@ -281,8 +300,36 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
     @Override
     public void processFinish(String output) {
         String temp = output.replaceAll("<br>", "\n");
+        Log.d("JSONParser", "[DBServerTestActivity] output: " + output);
 
-        Toast.makeText(getApplicationContext(), "Information is updated.", Toast.LENGTH_SHORT).show();
+        // PARSE USER
+        if (output.contains("{\"result_user\":")) {
+            String jsonString = output.replace("{\"result_user\":", "");
+            jsonString = jsonString.substring(0, jsonString.length() - 1);
+
+            try {
+                JSONArray jarray = new JSONArray(jsonString);
+
+                if (jarray.length() != 0) {
+                    Log.d("JSONParser", "[DBServerTestActivity] There is a user with the same user_id.");
+                    isUserInfoInServer = true;
+                } else {
+                    Log.d("JSONParser", "[DBServerTestActivity] This user_id is available.");
+                    isUserInfoInServer = false;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else if (output.contains("Account created")) {
+            Log.d("JSONParser", "[DBServerTestActivity] (processFinish) Account created");
+            Toast.makeText(getApplicationContext(), "An account is created.", Toast.LENGTH_SHORT).show();
+        } else if (output.contains("Account updated")) {
+            Log.d("JSONParser", "[DBServerTestActivity] (processFinish) Account updated");
+            Toast.makeText(getApplicationContext(), "An account is updated.", Toast.LENGTH_SHORT).show();
+        }
+
+
+//        Toast.makeText(getApplicationContext(), "Information is updated.", Toast.LENGTH_SHORT).show();
 //        Toast.makeText(getApplicationContext(), "temp.length(): " + temp.length(), Toast.LENGTH_SHORT).show();
 //        Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
     }
