@@ -41,7 +41,7 @@ import com.example.user.onedaynquestions.controller.PagerAdapter;
 import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.service.WakefulPushReceiver;
-import com.example.user.onedaynquestions.utility.DatabaseController;
+import com.example.user.onedaynquestions.utility.LocalDBController;
 import com.example.user.onedaynquestions.utility.DatabaseHelper;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 import com.example.user.onedaynquestions.view.fragment.MyRecordsFragment;
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG_DB = "MainActivityDBTag";
 
     public static DatabaseHelper hereDB;
-    public static DatabaseController odnqDB;
+    public static LocalDBController odnqDB;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity
 
 
         /* Initialize Database */
-        odnqDB = new DatabaseController(getApplicationContext());
+        odnqDB = new LocalDBController(getApplicationContext());
 
         if (odnqDB != null) {
             Log.d(TAG_DB, "[Database] DatabaseController is created.");
