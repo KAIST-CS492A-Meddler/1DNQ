@@ -86,7 +86,11 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
 
     private void initWidetValues() {
 
-        newCard_et_maker.setText(MainActivity.odnqDB.getMyInfo().getMyInfoName());
+        if(MainActivity.odnqDB.getMyInfo() != null) {
+            newCard_et_maker.setText(MainActivity.odnqDB.getMyInfo().getMyInfoName());
+        }else{
+            newCard_et_maker.setText("<empty>");
+        }
         newCard_et_maker.setTextColor(getResources().getColor(R.color.colorSkyBlue));
         newCard_et_maker.setTypeface(null, Typeface.BOLD);
 

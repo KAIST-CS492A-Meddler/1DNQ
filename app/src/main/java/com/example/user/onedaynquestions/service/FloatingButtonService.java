@@ -22,12 +22,14 @@ public class FloatingButtonService extends Service {
 
     private View floatView;
     private WindowManager windowManager;
-    WindowManager.LayoutParams layoutParams;
+    private WindowManager.LayoutParams layoutParams;
     private CountDownTimer anim;
 
     private int originWidth, originHeight;
     private int magWidth, magHeight;
-    private float xPos, yPos;
+    public static float xPos, yPos;
+    private float sum;
+    private int sumThreshold;
 
     private boolean isActivate;
     final int dt = 20, total = 500;
@@ -43,8 +45,6 @@ public class FloatingButtonService extends Service {
     @Override
     public void onCreate(){
         super.onCreate();
-        xPos = 0;
-        yPos = 0;
         isActivate = false;
 
         windowManager = (WindowManager)getSystemService(WINDOW_SERVICE);
@@ -56,6 +56,7 @@ public class FloatingButtonService extends Service {
         int min = screenWidth < screenHeight ? screenWidth: screenHeight;
         originHeight = min / 6;
         originWidth = originHeight;
+        sumThreshold = screenWidth / 3;
         gap = (float)originWidth / ((float)total/dt);
 
         magWidth = originWidth * 2;
@@ -67,8 +68,12 @@ public class FloatingButtonService extends Service {
                 WindowManager.LayoutParams.TYPE_PHONE,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
-        layoutParams.gravity = Gravity.RIGHT | Gravity.BOTTOM;
+        layoutParams .gravity = Gravity.LEFT | Gravity.TOP;
 
+        layoutParams.x = (int)(FloatingButtonService.xPos);
+        if(layoutParams.x > screenWidth / 2) layoutParams.x = screenWidth;
+        else layoutParams.x = 0;
+        layoutParams.y = (int)(FloatingButtonService.yPos);
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         floatView = inflater.inflate(R.layout.activity_floating_widget, null);
 
@@ -85,38 +90,48 @@ public class FloatingButtonService extends Service {
                         windowManager.updateViewLayout(floatView, layoutParams);
                         gapSum = 0;
                         anim.start();
-                        xPos = event.getRawX();
-                        yPos = event.getRawY();
-
+                        FloatingButtonService.xPos = event.getRawX() - layoutParams.width / 2;
+                        FloatingButtonService.yPos = event.getRawY() - layoutParams.height ;
+                        sum = 0;
                         isActivate = true;
                         wait = false;
                         break;
                     case MotionEvent.ACTION_MOVE:
-                            if(wait) return true;
-                            xPos = event.getRawX();
-                            yPos = event.getRawY();
-                            layoutParams.x = (int)(screenWidth - xPos);
-                            layoutParams.y = (int)(screenHeight - yPos);
-                            windowManager.updateViewLayout(floatView, layoutParams);
+                        if(wait) return true;
+                        float dx = FloatingButtonService.xPos - (event.getRawX() - layoutParams.width / 2);
+                        float dy = FloatingButtonService.yPos - (event.getRawY() - layoutParams.height);
+                        sum += Math.sqrt(dx * dx + dy * dy);
+                        FloatingButtonService.xPos = event.getRawX() - layoutParams.width / 2;
+                        FloatingButtonService.yPos = event.getRawY() - layoutParams.height;
+
+                        if(sum > sumThreshold){
+                            anim.onFinish();
+                        }
+
+                        layoutParams.x = (int)(FloatingButtonService.xPos);
+                        layoutParams.y = (int)(FloatingButtonService.yPos);
+                        windowManager.updateViewLayout(floatView, layoutParams);
 //                        layoutParams.x = (int)event.getRawX();
 //                        layoutParams.y = (int)event.getRawY();
                         break;
                     case MotionEvent.ACTION_UP:
-                        if(layoutParams.x > screenWidth /2)
-                            layoutParams.x = screenWidth;
-                        else
-                            layoutParams.x = 0;
-                        if(isActivate) {
-                            layoutParams.width = originWidth;
-                            layoutParams.height = originHeight;
-                            windowManager.updateViewLayout(floatView, layoutParams);
+                        anim.cancel();
+                        layoutParams.width = originWidth;
+                        layoutParams.height = originHeight;
 
+                        FloatingButtonService.xPos = event.getRawX() - layoutParams.width / 2;
+                        FloatingButtonService.yPos = event.getRawY() - layoutParams.height;
+                        layoutParams.x = (int)(FloatingButtonService.xPos);
+                        if(layoutParams.x > screenWidth / 2) layoutParams.x = screenWidth;
+                        else layoutParams.x = 0;
+                        layoutParams.y = (int)(FloatingButtonService.yPos);
+                        windowManager.updateViewLayout(floatView, layoutParams);
+                        if(isActivate ) {
                             Intent intent_newcard = new Intent(getBaseContext(), NewCardActivity.class);
                             intent_newcard.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent_newcard.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             startActivity(intent_newcard);
                         }
-                        anim.onFinish();
                         //Intent intent = new Intent(getBaseContext(), NewCardActivity.class);
                         //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         //startActivity(intent);
