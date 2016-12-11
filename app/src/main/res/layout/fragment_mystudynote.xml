@@ -14,17 +14,42 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorSkyBlue"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="Starred Question Cards"/>
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/odnq_card_word" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="3dp"
+                    android:textColor="@color/colorSkyBlue"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:text="Starred Question Cards"/>
+
+            </LinearLayout>
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="15dp"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textColor="@color/colorSkyBlue"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="18dp"-->
+                <!--android:text="Starred Question Cards"/>-->
 
             <View
                 android:layout_width="match_parent"
@@ -55,17 +80,42 @@
                 android:paddingLeft="15dp">
             </android.support.v7.widget.RecyclerView>
 
-            <TextView
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorSkyBlue"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="Frequently Wrong Cards"/>
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/odnq_card_idiom" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="3dp"
+                    android:textColor="@color/colorSkyBlue"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:text="Frequently Wrong Cards"/>
+
+            </LinearLayout>
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="15dp"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textColor="@color/colorSkyBlue"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="18dp"-->
+                <!--android:text="Frequently Wrong Cards"/>-->
 
             <View
                 android:layout_width="match_parent"
@@ -95,18 +145,42 @@
                 <!--android:paddingBottom="6dp"-->
                 <!--android:paddingLeft="15dp"/>-->
 
-
-            <TextView
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorSkyBlue"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="Recommended Cards"/>
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/odnq_card_sentence" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="3dp"
+                    android:textColor="@color/colorSkyBlue"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:text="Recommended Cards"/>
+
+            </LinearLayout>
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="15dp"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textColor="@color/colorSkyBlue"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="18dp"-->
+                <!--android:text="Recommended Cards"/>-->
 
             <View
                 android:layout_width="match_parent"
