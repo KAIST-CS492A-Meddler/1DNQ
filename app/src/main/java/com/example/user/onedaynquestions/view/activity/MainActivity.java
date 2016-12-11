@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
+                //TODO: User login되어 있지 않고 그룹에 속해있지 않으면, Card를 만들 수 없도록 예외처리
                 Intent intent_newcard = new Intent(getApplicationContext(), NewCardActivity.class);
                 startActivity(intent_newcard);
 
@@ -332,31 +333,31 @@ public class MainActivity extends AppCompatActivity
                 Intent intent_dbserver = new Intent(getApplicationContext(), DBServerTestActivity.class);
                 startActivity(intent_dbserver);
                 break;
-            case R.id.nav_testcardsolving:
-                Toast.makeText(getApplicationContext(), "Test a card-solving activity", Toast.LENGTH_SHORT).show();
-                Intent intent_cardsolving = new Intent(getApplicationContext(), CardSolvingActivity.class);
-                startActivity(intent_cardsolving);
-                break;
-            case R.id.nav_testcardevaluation:
-                Toast.makeText(getApplicationContext(), "Test a card-evaluation activity", Toast.LENGTH_SHORT).show();
-                Intent intent_cardanswersheet = new Intent(getApplicationContext(), CardAnswerSheetActivity.class);
-                startActivity(intent_cardanswersheet);
-                break;
+//            case R.id.nav_testcardsolving:
+//                Toast.makeText(getApplicationContext(), "Test a receivedCard-solving activity", Toast.LENGTH_SHORT).show();
+//                Intent intent_cardsolving = new Intent(getApplicationContext(), CardSolvingActivity.class);
+//                startActivity(intent_cardsolving);
+//                break;
+//            case R.id.nav_testcardevaluation:
+//                Toast.makeText(getApplicationContext(), "Test a receivedCard-evaluation activity", Toast.LENGTH_SHORT).show();
+//                Intent intent_cardanswersheet = new Intent(getApplicationContext(), CardAnswerSheetActivity.class);
+//                startActivity(intent_cardanswersheet);
+//                break;
             case R.id.nav_testnewgroup:
                 Toast.makeText(getApplicationContext(), "Test a process to make a new group", Toast.LENGTH_SHORT).show();
                 Intent intent_newgroup = new Intent(getApplicationContext(), NewGroupActivity.class);
                 startActivity(intent_newgroup);
                 break;
-            case R.id.nav_testgraph:
-                Toast.makeText(getApplicationContext(), "Test graph generation", Toast.LENGTH_SHORT).show();
-                Intent intent_testgraph = new Intent(getApplicationContext(), GraphTestActivity.class);
-                startActivity(intent_testgraph);
-                break;
-            case R.id.nav_testwidget:
-                Toast.makeText(getApplicationContext(), "Test widgets", Toast.LENGTH_SHORT).show();
-                Intent intent_testwidget = new Intent(getApplicationContext(), WidgetTestActivity.class);
-                startActivity(intent_testwidget);
-                break;
+//            case R.id.nav_testgraph:
+//                Toast.makeText(getApplicationContext(), "Test graph generation", Toast.LENGTH_SHORT).show();
+//                Intent intent_testgraph = new Intent(getApplicationContext(), GraphTestActivity.class);
+//                startActivity(intent_testgraph);
+//                break;
+//            case R.id.nav_testwidget:
+//                Toast.makeText(getApplicationContext(), "Test widgets", Toast.LENGTH_SHORT).show();
+//                Intent intent_testwidget = new Intent(getApplicationContext(), WidgetTestActivity.class);
+//                startActivity(intent_testwidget);
+//                break;
             //My exercise equipments
             case R.id.nav_myequipments:
 //                Toast.makeText(getApplicationContext(), "MY EXERCISE EQUIPMENTS", Toast.LENGTH_SHORT).show();
@@ -514,7 +515,9 @@ public class MainActivity extends AppCompatActivity
             switch (action) {
                 case ACTION_RECEIVE:
                     WakefulPushReceiver.updated = false;
-                    viewPager.getAdapter().notifyDataSetChanged();
+                    if (viewPager != null) {
+                        viewPager.getAdapter().notifyDataSetChanged();
+                    }
                     break;
                 case "NEW_PROBLEM_HAS_COME":
                     int check = 0;

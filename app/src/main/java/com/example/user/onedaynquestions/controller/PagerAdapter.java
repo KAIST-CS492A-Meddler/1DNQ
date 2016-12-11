@@ -53,7 +53,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public void notifyDataSetChanged() {
-        myStudyNote.cdt.start();
+        if (myStudyNote != null && myStudyNote.cdt != null) {
+            myStudyNote.cdt.start();
+        }
         super.notifyDataSetChanged();
     }
 

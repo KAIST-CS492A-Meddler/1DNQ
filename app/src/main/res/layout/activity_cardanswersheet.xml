@@ -71,6 +71,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/cardsolving_tv_question"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -102,6 +103,7 @@
                         android:layout_gravity="center_horizontal"/>
 
                     <TextView
+                        android:id="@+id/cardsolving_tv_answer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -125,6 +127,7 @@
                         android:layout_gravity="center_horizontal"/>
 
                     <TextView
+                        android:id="@+id/cardsolving_tv_myanswer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"

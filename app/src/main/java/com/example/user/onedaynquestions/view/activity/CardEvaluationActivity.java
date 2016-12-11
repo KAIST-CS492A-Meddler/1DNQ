@@ -7,29 +7,52 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
+import com.example.user.onedaynquestions.model.AsyncResponse;
+import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
+
+import org.w3c.dom.Text;
+
+import java.util.HashMap;
 
 /**
  * Created by user on 2016-06-07.
  */
-public class CardEvaluationActivity extends AppCompatActivity {
+public class CardEvaluationActivity extends AppCompatActivity implements AsyncResponse {
 
 
     public static Activity thisActivity;
 
     Context mContext;
 
+    private RatingBar cardeval_rb_usefulness;
+    private RatingBar cardeval_rb_difficulty;
+
+    private String card_id;
+    private int self_eval;
 
     int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        card_id = intent.getExtras().getString("card_id");
+        self_eval = intent.getExtras().getInt("self_eval");
+
         count = 0;
         thisActivity = this;
         setContentView(R.layout.activity_cardevaluation);
+
+        cardeval_rb_usefulness = (RatingBar) findViewById(R.id.cardeval_rb_usefulness);
+        cardeval_rb_difficulty = (RatingBar) findViewById(R.id.cardeval_rb_difficulty);
 
 
     }
@@ -43,72 +66,93 @@ public class CardEvaluationActivity extends AppCompatActivity {
     public void mOnClick(View v) {
         switch (v.getId()) {
             case R.id.cardeval_btn_submit:
+
+                Toast.makeText(getApplicationContext(), "card_id: " + card_id +
+                    "\nusefulness: " + cardeval_rb_usefulness.getRating() +
+                    "\ndifficulty: " + cardeval_rb_difficulty.getRating() +
+                    "\nself_eval: " + self_eval, Toast.LENGTH_SHORT).show();
+
+                HashMap postData = new HashMap();
+                postData.put("cinfo_id", card_id);
+                postData.put("cinfo_difficulty", cardeval_rb_usefulness.getRating() + "");
+                postData.put("cinfo_quality", cardeval_rb_difficulty.getRating() + "");
+                postData.put("cinfo_right", self_eval + "");
+
+                PostResponseAsyncTask updateCardTask =
+                        new PostResponseAsyncTask(CardEvaluationActivity.this, postData);
+
+                updateCardTask.execute("http://110.76.95.150/solve_problem.php");
+
+//                Toast.makeText(getApplicationContext(), "Card information is updated", Toast.LENGTH_SHORT).show();
+
                 showEndCardEvalDialog();
                 break;
+
         }
     }
 
     private void showEndCardEvalDialog() {
         LayoutInflater inflater = getLayoutInflater();
 
-        final View dialogView = inflater.inflate(R.layout.dialog_endevaluation, null);
+        final View dialogView = inflater.inflate(R.layout.dialog_finishprocess, null);
 
-//        EditText et_addagent_macid = (EditText) dialogView.findViewById(R.id.dialog_agent_macid);
-//        final EditText et_addagent_name = (EditText) dialogView.findViewById(R.id.dialog_agent_name);
-//        EditText et_addagent_majorid = (EditText) dialogView.findViewById(R.id.dialog_agent_majorid);
-//        EditText et_addagent_minorid = (EditText) dialogView.findViewById(R.id.dialog_agent_minorid);
-//
-//        et_addagent_macid.setText(selectedNewAgent.getMyeqMacId());
-//        et_addagent_majorid.setText(selectedNewAgent.getMyeqBeaconMajorId());
-//        et_addagent_minorid.setText(selectedNewAgent.getMyeqBeaconMinorId());
+        TextView dialog_endevaluation_tv_point = (TextView) dialogView.findViewById(R.id.dialog_finishprocess_point);
+        TextView dialog_endevaluation_tv_content = (TextView) dialogView.findViewById(R.id.dialog_finishprocess_content);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(CardEvaluationActivity.this);
-        builder.setTitle("");
+        builder.setTitle("Thanks for the evaluation");
         builder.setView(dialogView);
-        builder.setPositiveButton("Finish making a card", new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-//                if (selectedNewAgent.getMyeqBeaconMajorId() == "") {
-//                    Toast.makeText(getApplicationContext(), "This device is not compatible for HERE", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    selectedNewAgent.setMyeqName(et_addagent_name.getText().toString());
-//                    MainActivity.hereDB.insertHereAgent(selectedNewAgent);
-//                    Toast.makeText(getApplicationContext(), "An agent is added into DB", Toast.LENGTH_SHORT).show();
-//
-//                    myHereAgents.clear();
-//                    if (MainActivity.hereDB.getAllMyHereAgents() != null)
-//                        myHereAgents = MainActivity.hereDB.getAllMyHereAgents();
-//                    adapter.notifyDataSetChanged();
-//
-//                    TextView textView = (TextView) findViewById(R.id.setting_myeq_tv_registered);
-//                    if (myHereAgents.size() != 0) {
-//                        textView.setVisibility(View.GONE);
-//                    }
-//                }
-
-//                ((Activity) getApplicationContext()).finish();
-                finish();
+        dialog_endevaluation_tv_point.setText("+30");
 
 
-                dialog.dismiss();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        // If MainActivity is ready to return
+        if (MainActivity.isMainActivityReady) {
+            dialog_endevaluation_tv_content.setText("Your experience is increased.\nReturn to 1DNQ.");
+            builder.setPositiveButton("CLOSE", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
 
-                finish();
-                Intent intent_gomain = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent_gomain);
+                    dialog.dismiss();
+                }
+            });
+        }
+        // If MainActivity is not ready to return (making a new receivedCard from the floating button)
+        else {
+            dialog_endevaluation_tv_content.setText("Your experience is increased.\nDo you want to return to 1DNQ?");
+            builder.setPositiveButton("Go to 1DNQ", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-                dialog.dismiss();
-            }
-        });
+                    Intent intent_gomain = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent_gomain);
+                    finish();
+
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                    dialog.dismiss();
+                }
+            });
+        }
 
         AlertDialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
+    }
+
+    @Override
+    public void processFinish(String output) {
+        String temp = output.replaceAll("<br>", "\n");
+        Log.d("CardEvaluationActivity", "[DBServerTestActivity] output: " + output);
+
+        if (output.contains("{\"result_solveproblem\":")) {
+            Toast.makeText(getApplicationContext(), "Result is successfully reflected.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

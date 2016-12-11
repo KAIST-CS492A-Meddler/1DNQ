@@ -8,7 +8,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -24,15 +23,10 @@ import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.StringTokenizer;
 
 /**
  * Created by user on 2016-06-07.
@@ -213,7 +207,7 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
                 cardType = newCard_spinner_type.getSelectedItemPosition();
 
 
-                //Toast.makeText(getApplicationContext(), "Make a new card\nInsert card data to Server DB\nSelect saved card data\nInsert selected card data to local DB", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Make a new receivedCard\nInsert receivedCard data to Server DB\nSelect saved receivedCard data\nInsert selected receivedCard data to local DB", Toast.LENGTH_LONG).show();
 
                 HashMap postData = new HashMap();
                 postData.put("cinfo_answer", newCard_et_answer.getText().toString());
@@ -236,13 +230,16 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
     private void showEndNewCardDialog() {
         LayoutInflater inflater = getLayoutInflater();
 
-        final View dialogView = inflater.inflate(R.layout.dialog_endnewcard, null);
+        final View dialogView = inflater.inflate(R.layout.dialog_finishprocess, null);
 
-        TextView dialog_endnewcard_tv_content = (TextView) dialogView.findViewById(R.id.dialog_endnewcard_content);
+        TextView dialog_endnewcard_tv_point = (TextView) dialogView.findViewById(R.id.dialog_finishprocess_point);
+        TextView dialog_endnewcard_tv_content = (TextView) dialogView.findViewById(R.id.dialog_finishprocess_content);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(NewCardActivity.this);
-        builder.setTitle("A card is created successfully");
+        builder.setTitle("A receivedCard is created successfully");
         builder.setView(dialogView);
+
+        dialog_endnewcard_tv_point.setText("+100");
 
         // If MainActivity is ready to return
         if (MainActivity.isMainActivityReady) {
@@ -256,7 +253,7 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
                 }
             });
         }
-        // If MainActivity is not ready to return (making a new card from the floating button)
+        // If MainActivity is not ready to return (making a new receivedCard from the floating button)
         else {
             dialog_endnewcard_tv_content.setText("Your experience is increased.\nDo you want to return to 1DNQ?");
             builder.setPositiveButton("Go to 1DNQ", new DialogInterface.OnClickListener() {
@@ -290,7 +287,7 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
 //        Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
 
         if (output.contains("Card created")) {
-            Toast.makeText(getApplicationContext(), "A card is created.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "A receivedCard is created.", Toast.LENGTH_SHORT).show();
 
             showEndNewCardDialog();
         }

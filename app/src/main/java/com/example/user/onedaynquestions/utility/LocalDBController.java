@@ -63,6 +63,7 @@ public class LocalDBController extends SQLiteOpenHelper{
     private static final String ATTR_MYCARD_GROUP = "mycard_group";
     private static final String ATTR_MYCARD_QUESTION = "mycard_question";
     private static final String ATTR_MYCARD_ANSWER = "mycard_answer";
+    private static final String ATTR_MYCARD_HINT = "mycard_hint";
     private static final String ATTR_MYCARD_WRONGNUM = "mycard_wrongnum";
     private static final String ATTR_MYCARD_DIFFICULTY = "mycard_difficulty";
     private static final String ATTR_MYCARD_QUALITY = "mycard_quality";
@@ -109,6 +110,7 @@ public class LocalDBController extends SQLiteOpenHelper{
                     ATTR_MYCARD_GROUP + " VARCHAR(30) NOT NULL, " +
                     ATTR_MYCARD_QUESTION + " VARCHAR(50) NOT NULL, " +
                     ATTR_MYCARD_ANSWER + " VARCHAR(100) NOT NULL, " +
+                    ATTR_MYCARD_HINT + " VARCHAR(200) NOT NULL, " +
                     ATTR_MYCARD_WRONGNUM + " INTEGER DEFAULT 0, " +
                     ATTR_MYCARD_DIFFICULTY + " INTEGER DEFAULT -1, " +
                     ATTR_MYCARD_QUALITY + " INTEGER DEFAULT -1, " +
@@ -173,6 +175,7 @@ public class LocalDBController extends SQLiteOpenHelper{
         values.put(ATTR_MYCARD_GROUP,myCard.getMyCardGroup());
         values.put(ATTR_MYCARD_QUESTION,myCard.getMyCardQuestion());
         values.put(ATTR_MYCARD_ANSWER,myCard.getMyCardAnswer());
+        values.put(ATTR_MYCARD_HINT,myCard.getMyCardHint());
         values.put(ATTR_MYCARD_WRONGNUM,myCard.getMyCardWrong());
         values.put(ATTR_MYCARD_DIFFICULTY,myCard.getMyCardDifficulty());
         values.put(ATTR_MYCARD_QUALITY,myCard.getMyCardQuality());
@@ -304,6 +307,7 @@ public class LocalDBController extends SQLiteOpenHelper{
                 tmpMyCard.setMyCardGroup(c.getString(c.getColumnIndex(ATTR_MYCARD_GROUP)));
                 tmpMyCard.setMyCardQuestion(c.getString(c.getColumnIndex(ATTR_MYCARD_QUESTION)));
                 tmpMyCard.setMyCardAnswer(c.getString(c.getColumnIndex(ATTR_MYCARD_ANSWER)));
+                tmpMyCard.setMyCardHint(c.getString(c.getColumnIndex(ATTR_MYCARD_HINT)));
                 tmpMyCard.setMyCardWrong(c.getInt(c.getColumnIndex(ATTR_MYCARD_WRONGNUM)));
                 tmpMyCard.setMyCardDifficulty(c.getInt(c.getColumnIndex(ATTR_MYCARD_DIFFICULTY)));
                 tmpMyCard.setMyCardQuality(c.getInt(c.getColumnIndex(ATTR_MYCARD_QUALITY)));

@@ -1,9 +1,11 @@
 package com.example.user.onedaynquestions.view.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,10 +32,18 @@ public class CardSolvingActivity extends AppCompatActivity {
     int remainTime = TIME_LIMIT;
     CountDownTimer timeChecker;
 
+    MyCard receivedCard;
+
+    boolean isHintShown = false;
+
     int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        //TODO: Floating button 없애기
+
         count = 0;
         thisActivity = this;
         setContentView(R.layout.activity_cardsolving);
@@ -48,12 +58,12 @@ public class CardSolvingActivity extends AppCompatActivity {
 
         submit = (Button)findViewById(R.id.cardsolving_btn_submit) ;
 
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setCard();
-            }
-        });
+//        submit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setCard();
+//            }
+//        });
 
         showHint = (Button)findViewById(R.id.cardsolving_btn_showhint);
 
@@ -84,14 +94,15 @@ public class CardSolvingActivity extends AppCompatActivity {
     public void setCard(){
         timeChecker.cancel();
         if(!WakefulPushReceiver.isEmpty()){
-            //MyCard card  = TemporalStorage.consumeReceivedQuestions();
-            MyCard card  = WakefulPushReceiver.getReceivedQuestion();
-            if(card == null){
-                card = new MyCard();
+            //MyCard receivedCard  = TemporalStorage.consumeReceivedQuestions();
+            receivedCard = WakefulPushReceiver.getReceivedQuestion();
+
+            if(receivedCard == null){
+                receivedCard = new MyCard();
             }
-            examiner.setText(card.getMyCardMaker());
+            examiner.setText(receivedCard.getMyCardMaker());
             examiner.postInvalidate();
-            group.setText("from [" + card.getMyCardGroup()+ "] Group");
+            group.setText("from [" + receivedCard.getMyCardGroup()+ "] Group");
             group.postInvalidate();
             remainTime = TIME_LIMIT;
             timer.setText("" + remainTime);
@@ -99,7 +110,7 @@ public class CardSolvingActivity extends AppCompatActivity {
 
             //Modified
             String cardType = "";
-            if (card.getMyCardType() == 1) {
+            if (receivedCard.getMyCardType() == 1) {
                 cardType = "What is the meaning\n of this word?";
             } else {
                 cardType = "What is the meaning\n of this question?";
@@ -107,10 +118,12 @@ public class CardSolvingActivity extends AppCompatActivity {
 
             type.setText(""+cardType);
             type.postInvalidate();
-            question.setText(card.getMyCardQuestion());
+            question.setText(receivedCard.getMyCardQuestion());
             question.postInvalidate();
+            hint.setText(receivedCard.getMyCardHint());
+            hint.postInvalidate();
 
-            card = null;
+            //receivedCard = null;
             timeChecker.start();
         }
 
@@ -119,5 +132,36 @@ public class CardSolvingActivity extends AppCompatActivity {
     @Override
     public void onPause(){
         timeChecker.cancel();
+        super.onPause();
+    }
+
+    public void mOnClick(View v) {
+        switch (v.getId()) {
+            case R.id.cardsolving_btn_showhint:
+                if (isHintShown) {
+                    hint.setVisibility(View.GONE);
+                    showHint.setText("SHOW HINT");
+                    isHintShown = false;
+                } else {
+                    hint.setVisibility(View.VISIBLE);
+                    showHint.setText("HIDE HINT");
+                    isHintShown = true;
+                }
+                break;
+            case R.id.cardsolving_btn_submit:
+                if (receivedCard == null) {
+                    Log.d("CardSolvingActivity", "receivedCard is null");
+                } else {
+
+                    Intent intent_goanswer = new Intent(getApplicationContext(), CardAnswerSheetActivity.class);
+                    intent_goanswer.putExtra("card_id", receivedCard.getMyCardId());
+                    intent_goanswer.putExtra("card_type", receivedCard.getMyCardType());
+                    intent_goanswer.putExtra("card_question", receivedCard.getMyCardQuestion());
+                    intent_goanswer.putExtra("card_answer", receivedCard.getMyCardAnswer());
+                    intent_goanswer.putExtra("my_answer", answer.getText().toString());
+                    startActivity(intent_goanswer);
+                }
+                break;
+        }
     }
 }

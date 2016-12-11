@@ -194,6 +194,7 @@
                         android:text="Show hint"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="13dp"
+                        android:onClick="mOnClick"
                         android:layout_gravity="center_horizontal"
                         android:background="#eeeeee"/>
 
@@ -216,11 +217,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
+                android:layout_marginBottom="15dp"
                 android:padding="10dp"
                 android:textColor="@color/colorSkyBlue"
                 android:textSize="20dp"
                 android:background="#ffffff"
                 android:enabled="true"
+                android:onClick="mOnClick"
                 android:text="SUBMIT MY ANSWER"/>
             <!--android:shadowRadius="10"-->
             <!--android:shadowColor="@color/colorSkyBlue"-->

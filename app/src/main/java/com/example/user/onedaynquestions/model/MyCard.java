@@ -2,9 +2,13 @@ package com.example.user.onedaynquestions.model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.example.user.onedaynquestions.view.activity.CardSolvingActivity;
+
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by user on 2016-12-04.
@@ -20,7 +24,9 @@ public class MyCard {
     public static final String ATTRIBUTE_CARD_GROUP = "card_group";
     public static final String ATTRIBUTE_CARD_QUESTION = "card_question";
     public static final String ATTRIBUTE_CARD_ANSWER = "card_answer";
+    public static final String ATTRIBUTE_CARD_HINT = "card_hint";
     public static final String ATTRIBUTE_CARD_DIFFICULTY = "card_difficulty";
+
     String myCardId;
     String myCardDateTime;
     int myCardType;
@@ -28,6 +34,7 @@ public class MyCard {
     String myCardGroup;
     String myCardQuestion;
     String myCardAnswer;
+    String myCardHint;
     int myCardWrong;
     int myCardDifficulty;
     int myCardQuality;
@@ -41,6 +48,7 @@ public class MyCard {
         myCardGroup = "-1";
         myCardQuestion = "-1";
         myCardAnswer = "-1";
+        myCardHint = "-1";
         myCardWrong = 0;
         myCardDifficulty = -1;
         myCardQuality = -1;
@@ -56,6 +64,7 @@ public class MyCard {
         result.putExtra(ATTRIBUTE_CARD_GROUP, myCardGroup);
         result.putExtra(ATTRIBUTE_CARD_QUESTION, myCardQuestion);
         result.putExtra(ATTRIBUTE_CARD_ANSWER, myCardAnswer);
+        result.putExtra(ATTRIBUTE_CARD_HINT, myCardHint);
         result.putExtra(ATTRIBUTE_CARD_DIFFICULTY, ""+myCardDifficulty);
 
         return  result;
@@ -65,6 +74,19 @@ public class MyCard {
     }
 
     public MyCard(Intent intent){
+
+//        Bundle bundle = intent.getExtras();
+//        if (bundle != null) {
+//            Set<String> keys = bundle.keySet();
+//            Iterator<String> it = keys.iterator();
+//            Log.e(TAG,"Dumping Intent start");
+//            while (it.hasNext()) {
+//                String key = it.next();
+//                Log.e(TAG,"[" + key + "=" + bundle.get(key)+"]");
+//            }
+//            Log.e(TAG,"Dumping Intent end");
+//        }
+
         myCardId = intent.getStringExtra(ATTRIBUTE_CARD_ID);
         myCardDateTime = intent.getStringExtra(ATTRIBUTE_DATE);
         try {
@@ -76,6 +98,7 @@ public class MyCard {
         myCardGroup = intent.getStringExtra(ATTRIBUTE_CARD_GROUP);
         myCardQuestion = intent.getStringExtra(ATTRIBUTE_CARD_QUESTION);
         myCardAnswer = intent.getStringExtra(ATTRIBUTE_CARD_ANSWER);
+        myCardHint = intent.getStringExtra(ATTRIBUTE_CARD_HINT);
         myCardWrong = 0;
         try {
             myCardDifficulty = Integer.valueOf(intent.getStringExtra(ATTRIBUTE_CARD_DIFFICULTY));
@@ -220,5 +243,13 @@ public class MyCard {
 
     public void setMyCardStarred(int myCardStarred) {
         this.myCardStarred = myCardStarred;
+    }
+
+    public String getMyCardHint() {
+        return myCardHint;
+    }
+
+    public void setMyCardHint(String myCardHint) {
+        this.myCardHint = myCardHint;
     }
 }

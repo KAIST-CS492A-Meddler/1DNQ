@@ -25,26 +25,26 @@
 
     <item android:title="Test Menu">
         <menu>
-            <item
-                android:id="@+id/nav_testcardsolving"
-                android:icon="@drawable/odnq_nav_icon_card"
-                android:title="Card Solving Activity" />
-            <item
-                android:id="@+id/nav_testcardevaluation"
-                android:icon="@drawable/odnq_nav_icon_card"
-                android:title="Card Evaluation Activity" />
+            <!--<item-->
+                <!--android:id="@+id/nav_testcardsolving"-->
+                <!--android:icon="@drawable/odnq_nav_icon_card"-->
+                <!--android:title="Card Solving Activity" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_testcardevaluation"-->
+                <!--android:icon="@drawable/odnq_nav_icon_card"-->
+                <!--android:title="Card Evaluation Activity" />-->
             <item
                 android:id="@+id/nav_testnewgroup"
                 android:icon="@drawable/odnq_nav_icon_group"
                 android:title="Make a New Group" />
-            <item
-                android:id="@+id/nav_testgraph"
-                android:icon="@drawable/odnq_nav_icon_graph"
-                android:title="Graph Test Activity" />
-            <item
-                android:id="@+id/nav_testwidget"
-                android:icon="@drawable/odnq_nav_icon_widget"
-                android:title="Widget Test Activity" />
+            <!--<item-->
+                <!--android:id="@+id/nav_testgraph"-->
+                <!--android:icon="@drawable/odnq_nav_icon_graph"-->
+                <!--android:title="Graph Test Activity" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_testwidget"-->
+                <!--android:icon="@drawable/odnq_nav_icon_widget"-->
+                <!--android:title="Widget Test Activity" />-->
         </menu>
     </item>
 

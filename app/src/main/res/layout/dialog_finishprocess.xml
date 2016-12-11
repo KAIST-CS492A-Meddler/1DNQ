@@ -7,6 +7,7 @@
     android:layout_marginTop="15dp">
 
     <TextView
+        android:id="@+id/dialog_finishprocess_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -14,11 +15,12 @@
         android:textSize="45dp"
         android:textColor="@color/colorSkyBlue"
         android:background="@color/colorLightSkyBlue"
+        android:padding="15dp"
         android:text="+100"
         android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/dialog_endnewcard_content"
+        android:id="@+id/dialog_finishprocess_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"

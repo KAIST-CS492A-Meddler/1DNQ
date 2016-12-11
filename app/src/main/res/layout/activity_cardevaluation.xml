@@ -46,6 +46,33 @@
             </LinearLayout>
 
             <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:text="Star this card"
+                    android:textColor="#ffffff"
+                    android:textSize="14dp"
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:paddingRight="10dp"/>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/here_character_simple_girl"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,6 +126,7 @@
                 </LinearLayout>
 
                 <RatingBar
+                    android:id="@+id/cardeval_rb_usefulness"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,6 +177,7 @@
                 </LinearLayout>
 
                 <RatingBar
+                    android:id="@+id/cardeval_rb_difficulty"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -168,17 +197,6 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp">
 
-                <Button
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginRight="10dp"
-                    android:padding="10dp"
-                    android:textSize="18dp"
-                    android:textColor="#777777"
-                    android:background="#ffffff"
-                    android:enabled="true"
-                    android:text="SKIP"/>
 
                 <Button
                     android:id="@+id/cardeval_btn_submit"
@@ -186,6 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:padding="10dp"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/colorSkyBlue"
                     android:textSize="18dp"
                     android:textStyle="bold"
