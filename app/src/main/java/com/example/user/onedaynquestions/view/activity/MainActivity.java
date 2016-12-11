@@ -39,6 +39,7 @@ import android.widget.Toast;
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.PagerAdapter;
 import com.example.user.onedaynquestions.model.AsyncResponse;
+import com.example.user.onedaynquestions.model.MyInfo;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.service.WakefulPushReceiver;
 import com.example.user.onedaynquestions.utility.LocalDBController;
@@ -92,7 +93,8 @@ public class MainActivity extends AppCompatActivity
 
     private ImageView nav_header_icon;
     private TextView nav_header_nick;
-    private TextView nav_header_name_id;
+    private TextView nav_header_id;
+    private TextView nav_header_name;
 
     public static String token;
 
@@ -112,29 +114,11 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-        /* Permission Request */
-
-//        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.SYSTEM_ALERT_WINDOW) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            Toast.makeText(getApplicationContext(), "Please allow system alert\nfor ", Toast.LENGTH_SHORT).show();
-//
-//            ActivityCompat.requestPermissions(MainActivity.this,
-//                    new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW,
-//                            Manifest.permission.SYSTEM_ALERT_WINDOW},
-//                    REQUEST_CODE_SYSTEM_ALERT_WINDOW);
-//            //return;
-//        } else {
-//            Toast.makeText(getApplicationContext(), "Granted", Toast.LENGTH_SHORT).show();
-//        }
-
-
-
-
-
         /* Initialize Database */
         odnqDB = new LocalDBController(getApplicationContext());
 
         if (odnqDB != null) {
-            Log.d(TAG_DB, "[Database] DatabaseController is created.");
+            Log.d(TAG_DB, "[Database] LocalDBController is created.");
         }
 
 
@@ -241,36 +225,39 @@ public class MainActivity extends AppCompatActivity
 
         nav_header_icon = (ImageView) header.findViewById(R.id.nav_header_icon);
         nav_header_nick = (TextView) header.findViewById(R.id.nav_header_usernick);
-        nav_header_name_id = (TextView) header.findViewById(R.id.nav_header_username_id);
+        nav_header_id = (TextView) header.findViewById(R.id.nav_header_username_id);
+        nav_header_name = (TextView) header.findViewById(R.id.nav_header_username_name);
 
         initMyInfo();
     }
 
     private void initMyInfo() {
-//        MyInformation tmpMyInformation = hereDB.getMyInformation();
-//        if (tmpMyInformation == null) {
-//            nav_header_icon.setVisibility(View.INVISIBLE);
-//            nav_header_nick.setText("User");
-//            nav_header_name_id.setText("Insert user information");
-//        } else {
-//            Log.d("MainInitWidgets", "initMyInfo() is called");
-//            Log.d("MainInitWidgets", "user_sex: " + tmpMyInformation.getUserSex());
-//            Log.d("MainInitWidgets", "user_name: " + tmpMyInformation.getUserName());
-//            Log.d("MainInitWidgets", "user_nick: " + tmpMyInformation.getUserNick());
-//
-//            if (tmpMyInformation.getUserSex() == 2) {
-//                nav_header_icon.setVisibility(View.VISIBLE);
-//                nav_header_icon.setImageResource(R.drawable.here_character_simple_girl);
-//            } else {
-//                nav_header_icon.setVisibility(View.VISIBLE);
-//                nav_header_icon.setImageResource(R.drawable.here_character_simple_boy);
-//            }
-//
-//            nav_header_nick.setText(tmpMyInformation.getUserNick());
-//            String name_id = "";
-//            name_id = tmpMyInformation.getUserName() + " (" + tmpMyInformation.getUserId() + ")";
-//            nav_header_name_id.setText(name_id);
-//        }
+        MyInfo tmpMyInfo = odnqDB.getMyInfo();
+
+        if (tmpMyInfo == null) {
+            nav_header_icon.setVisibility(View.INVISIBLE);
+            nav_header_nick.setText("Unregistered User");
+            nav_header_id.setText("Insert user information");
+            nav_header_name.setText(" ");
+        } else {
+            Log.d(TAG, "initMyInfo() is called");
+            Log.d(TAG, "tmpMyInfo.getMyInfoId(): " + tmpMyInfo.getMyInfoId());
+            Log.d(TAG, "tmpMyInfo.getMyInfoNick(): " +  tmpMyInfo.getMyInfoNick());
+            Log.d(TAG, "tmpMyInfo.getMyInfoName(): " +  tmpMyInfo.getMyInfoName());
+            Log.d(TAG, "tmpMyInfo.getMyInfoGender(): " + tmpMyInfo.getMyInfoGender());
+
+            if (tmpMyInfo.getMyInfoGender() == 2) {
+                nav_header_icon.setVisibility(View.VISIBLE);
+                nav_header_icon.setImageResource(R.drawable.here_character_simple_girl);
+            } else {
+                nav_header_icon.setVisibility(View.VISIBLE);
+                nav_header_icon.setImageResource(R.drawable.here_character_simple_boy);
+            }
+
+            nav_header_nick.setText(tmpMyInfo.getMyInfoNick());
+            nav_header_id.setText(tmpMyInfo.getMyInfoId());
+            nav_header_name.setText(tmpMyInfo.getMyInfoName());
+        }
     }
 
     @Override

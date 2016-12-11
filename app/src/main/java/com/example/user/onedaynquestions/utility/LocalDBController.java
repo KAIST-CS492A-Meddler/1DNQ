@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.user.onedaynquestions.model.DailyRecord;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.model.MyGroup;
 import com.example.user.onedaynquestions.model.MyInfo;
@@ -32,6 +33,12 @@ public class LocalDBController extends SQLiteOpenHelper{
     private static final String TABLE_MYINFO = "MyInfo";
     private static final String TABLE_MYCARD = "MyCard";
     private static final String TABLE_MYGROUP = "MyGroup";
+    private static final String TABLE_DAILYRECORD = "DailyRecord";
+
+    /* DailyRecord table */
+    private static final String ATTR_DR_CONTRIBUTION = "dailyrecord_contribution";
+    private static final String ATTR_DR_STUDYRIGHT = "dailyrecord_studyright";
+    private static final String ATTR_DR_STUDYWRONG = "dailyrecord_studywrong";
 
     /* MyInfo table */
     private static final String ATTR_MYINFO_ID = "myinfo_id";
@@ -118,6 +125,15 @@ public class LocalDBController extends SQLiteOpenHelper{
                     ");";
 
 
+    //Create DailyRecord table
+    private static final String CREATE_TABLE_DAILYRECORD =
+            "CREATE TABLE " + TABLE_DAILYRECORD + "(" +
+                    ATTR_DR_CONTRIBUTION + " INTEGER DEFAULT 0, " +
+                    ATTR_DR_STUDYRIGHT + " INTEGER DEFAULT 0, " +
+                    ATTR_DR_STUDYWRONG + " INTEGER DEFAULT 0" +
+                    ");";
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /** INSERT QUERIES **/
 
@@ -180,6 +196,18 @@ public class LocalDBController extends SQLiteOpenHelper{
         return myGroup_id;
     }
 
+
+    public long insertDailyRecord(DailyRecord dailyRecord) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ATTR_DR_CONTRIBUTION, dailyRecord.getDailyRecordContribution());
+        values.put(ATTR_DR_STUDYRIGHT, dailyRecord.getDailyRecordStudyRight());
+        values.put(ATTR_DR_STUDYWRONG, dailyRecord.getDailyRecordStudyWrong());
+
+        long dailyRecord_id = db.insert(TABLE_DAILYRECORD, null, values);
+        return dailyRecord_id;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /** BASIC SELECT QUERIES **/

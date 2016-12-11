@@ -6,11 +6,20 @@ package com.example.user.onedaynquestions.model;
 
 public class DailyRecord {
 
+    String dailyRecordDate;
+
+    int previousDayExp;
+
     int dailyRecordContribution;
     int dailyRecordStudyRight;
     int dailyRecordStudyWrong;
 
     private void initDailyRecord() {
+
+        dailyRecordDate = "2016-01-01";
+
+        previousDayExp = 0;
+
         dailyRecordContribution = 0;
         dailyRecordStudyRight = 0;
         dailyRecordStudyWrong = 0;

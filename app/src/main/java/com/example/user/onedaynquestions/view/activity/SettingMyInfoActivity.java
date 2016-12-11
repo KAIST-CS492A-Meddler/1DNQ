@@ -224,7 +224,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
                         PostResponseAsyncTask insertMyInfoTask =
                                 new PostResponseAsyncTask(SettingMyInfoActivity.this, postData);
 
-                        insertMyInfoTask.execute("http://110.76.95.150/create_user.php");
+                        insertMyInfoTask.execute("http://110.76.95.150/create_user2.php");
                     } else {
                         //Server request
                         HashMap postData = new HashMap();

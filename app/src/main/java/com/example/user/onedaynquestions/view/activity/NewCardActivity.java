@@ -2,6 +2,8 @@ package com.example.user.onedaynquestions.view.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,7 +20,10 @@ import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.StringTokenizer;
 
 /**
@@ -59,8 +64,6 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
 
         initWidetValues();
 
-
-
         thisActivity = this;
 
 
@@ -83,6 +86,13 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
 
     private void initWidetValues() {
 
+        newCard_et_maker.setText(MainActivity.odnqDB.getMyInfo().getMyInfoName());
+        newCard_et_maker.setTextColor(getResources().getColor(R.color.colorSkyBlue));
+        newCard_et_maker.setTypeface(null, Typeface.BOLD);
+
+        newCard_et_datetime.setText(getDateTime());
+        newCard_et_datetime.setTextColor(Color.DKGRAY);
+
         mSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                 (String[])getResources().getStringArray(R.array.spinner_list));
         mSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -92,83 +102,89 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
     }
 
 
-    /**
-     *
-     * @param outputStyle   1:30개씩 2세트, 2:2세트 30개, 3:30 times X 2 sets
-     * @param rawGoal       Raw String
-     * @return              Parsed/Refined String
-     */
-    private String parseRoutineGoal(int outputStyle, String rawGoal) {
-
-        String goalSentence = "";
-
-        //Default: style 3
-        outputStyle = 3;
-
-        //Type 1. 3|15|-1
-        //Type 2. 2|-1|60
-
-        int goalType = 0;   //1: count times, 2: count secs, 3: count times & secs
-
-        String set = "";    //sets
-        String count = "";  //times
-        String time = "";   //secs
-
-        StringTokenizer tokens = new StringTokenizer(rawGoal, "|");
-        set = tokens.nextToken();
-        count = tokens.nextToken();
-        time = tokens.nextToken();
-
-        Log.d("TokenizerExercise", "set[" + set + "], count[" + count + "], time[" + "]");
-
-        //Single or multiple
-        int intSet = Integer.parseInt(set);
-        int intCount = Integer.parseInt(count);
-        int intTime = Integer.parseInt(time);
-
-        set += " SET";
-        count += " TIME";
-        time += " SEC";
-
-        //Check goal type
-        if (intCount == -1) {
-            goalType = 2;
-        }
-        if (intTime == -1) {
-            goalType = 1;
-        }
-        if (intTime != -1 && intCount != -1) {
-            goalType = 3;
-        }
-
-        if (intSet > 1) {
-            set += "S";
-        }
-        if (intCount > 1) {
-            count += "S";
-        }
-        if (intTime > 1) {
-            time += "S";
-        }
-
-        switch (goalType) {
-            //Count times (회수)
-            case 1:
-                goalSentence = count + " X " + set;
-                break;
-            //Count secs (시간)
-            case 2:
-                goalSentence = time + " X " + set;
-                break;
-            // Count both times & secs
-            case 3:
-                goalSentence = count + " X " + set + " (" + time + ")";
-                break;
-        }
-
-        return goalSentence;
-
+    public String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
+
+//    /**
+//     *
+//     * @param outputStyle   1:30개씩 2세트, 2:2세트 30개, 3:30 times X 2 sets
+//     * @param rawGoal       Raw String
+//     * @return              Parsed/Refined String
+//     */
+//    private String parseRoutineGoal(int outputStyle, String rawGoal) {
+//
+//        String goalSentence = "";
+//
+//        //Default: style 3
+//        outputStyle = 3;
+//
+//        //Type 1. 3|15|-1
+//        //Type 2. 2|-1|60
+//
+//        int goalType = 0;   //1: count times, 2: count secs, 3: count times & secs
+//
+//        String set = "";    //sets
+//        String count = "";  //times
+//        String time = "";   //secs
+//
+//        StringTokenizer tokens = new StringTokenizer(rawGoal, "|");
+//        set = tokens.nextToken();
+//        count = tokens.nextToken();
+//        time = tokens.nextToken();
+//
+//        Log.d("TokenizerExercise", "set[" + set + "], count[" + count + "], time[" + "]");
+//
+//        //Single or multiple
+//        int intSet = Integer.parseInt(set);
+//        int intCount = Integer.parseInt(count);
+//        int intTime = Integer.parseInt(time);
+//
+//        set += " SET";
+//        count += " TIME";
+//        time += " SEC";
+//
+//        //Check goal type
+//        if (intCount == -1) {
+//            goalType = 2;
+//        }
+//        if (intTime == -1) {
+//            goalType = 1;
+//        }
+//        if (intTime != -1 && intCount != -1) {
+//            goalType = 3;
+//        }
+//
+//        if (intSet > 1) {
+//            set += "S";
+//        }
+//        if (intCount > 1) {
+//            count += "S";
+//        }
+//        if (intTime > 1) {
+//            time += "S";
+//        }
+//
+//        switch (goalType) {
+//            //Count times (회수)
+//            case 1:
+//                goalSentence = count + " X " + set;
+//                break;
+//            //Count secs (시간)
+//            case 2:
+//                goalSentence = time + " X " + set;
+//                break;
+//            // Count both times & secs
+//            case 3:
+//                goalSentence = count + " X " + set + " (" + time + ")";
+//                break;
+//        }
+//
+//        return goalSentence;
+//
+//    }
 
     public void mOnClick(View v) {
         switch (v.getId()) {
@@ -183,20 +199,18 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
 
                 HashMap postData = new HashMap();
                 postData.put("cinfo_answer", newCard_et_answer.getText().toString());
-                //postData.put("cinfo_maker", newCard_et_maker.getText());
-                postData.put("cinfo_maker", "Sunggeun");
+                postData.put("cinfo_maker", newCard_et_maker.getText().toString());
                 //postData.put(, newCard_et_datetime.getText());
                 postData.put("cinfo_question", newCard_et_question.getText().toString());
                 postData.put("cinfo_group", "Meddler");
                 postData.put("cinfo_hint", newCard_et_hint.getText().toString());
                 postData.put("cinfo_type", ""+cardType);
 
-                PostResponseAsyncTask loginTask =
+                PostResponseAsyncTask newCardTask =
                         new PostResponseAsyncTask(NewCardActivity.this, postData);
 
 
-                loginTask.execute("http://110.76.95.150/create_card2.php");
-                //loginTask.execute("http://110.76.95.150/push_notification2.php");
+                newCardTask.execute("http://110.76.95.150/create_card.php");
                 break;
         }
     }
