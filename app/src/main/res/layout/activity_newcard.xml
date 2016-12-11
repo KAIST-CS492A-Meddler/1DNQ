@@ -90,6 +90,38 @@
                         android:background="@color/colorLightSkyBlue"
                         android:textColor="@color/colorPrimaryDark"
                         android:textStyle="bold"
+                        android:text="MAKER ID "/>
+
+                    <EditText
+                        android:id="@+id/newcard_et_makerid"
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:hint="Card maker id"
+                        android:text="Card maker id"
+                        android:enabled="false"
+                        android:textSize="15dp"
+                        android:textColorHint="#999999"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:background="#eeeeee">
+
+                    <TextView
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textSize="15dp"
+                        android:background="@color/colorLightSkyBlue"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold"
                         android:text="DATE  "/>
 
                     <EditText

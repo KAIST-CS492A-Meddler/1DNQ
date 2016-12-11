@@ -1,17 +1,21 @@
 package com.example.user.onedaynquestions.view.activity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
@@ -19,6 +23,10 @@ import com.example.user.onedaynquestions.archive.MyRoutine;
 import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,6 +44,7 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
     public static Activity thisActivity;
 
     EditText newCard_et_maker;
+    EditText newCard_et_makerid;
     EditText newCard_et_datetime;
     EditText newCard_et_question;
     EditText newCard_et_answer;
@@ -73,6 +82,7 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
     private void initWidgets() {
 
         newCard_et_maker = (EditText) findViewById(R.id.newcard_et_maker);
+        newCard_et_makerid = (EditText) findViewById(R.id.newcard_et_makerid);
         newCard_et_datetime = (EditText) findViewById(R.id.newcard_et_datetime);
         newCard_et_question = (EditText) findViewById(R.id.newcard_et_question);
         newCard_et_answer = (EditText) findViewById(R.id.newcard_et_answer);
@@ -93,6 +103,10 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
         }
         newCard_et_maker.setTextColor(getResources().getColor(R.color.colorSkyBlue));
         newCard_et_maker.setTypeface(null, Typeface.BOLD);
+
+        newCard_et_makerid.setText(MainActivity.odnqDB.getMyInfo().getMyInfoId());
+        newCard_et_makerid.setTextColor(getResources().getColor(R.color.colorSkyBlue));
+//        newCard_et_makerid.setTypeface(null, Typeface.BOLD);
 
         newCard_et_datetime.setText(getDateTime());
         newCard_et_datetime.setTextColor(Color.DKGRAY);
@@ -203,10 +217,10 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
 
                 HashMap postData = new HashMap();
                 postData.put("cinfo_answer", newCard_et_answer.getText().toString());
-                postData.put("cinfo_maker", newCard_et_maker.getText().toString());
+                postData.put("cinfo_maker", newCard_et_makerid.getText().toString());
                 //postData.put(, newCard_et_datetime.getText());
                 postData.put("cinfo_question", newCard_et_question.getText().toString());
-                postData.put("cinfo_group", "Meddler");
+                postData.put("cinfo_group", "group-1");
                 postData.put("cinfo_hint", newCard_et_hint.getText().toString());
                 postData.put("cinfo_type", ""+cardType);
 
@@ -219,10 +233,68 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
         }
     }
 
+    private void showEndNewCardDialog() {
+        LayoutInflater inflater = getLayoutInflater();
+
+        final View dialogView = inflater.inflate(R.layout.dialog_endnewcard, null);
+
+        TextView dialog_endnewcard_tv_content = (TextView) dialogView.findViewById(R.id.dialog_endnewcard_content);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(NewCardActivity.this);
+        builder.setTitle("A card is created successfully");
+        builder.setView(dialogView);
+
+        // If MainActivity is ready to return
+        if (MainActivity.isMainActivityReady) {
+            dialog_endnewcard_tv_content.setText("Your experience is increased.\nReturn to 1DNQ.");
+            builder.setPositiveButton("CLOSE", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+
+                    dialog.dismiss();
+                }
+            });
+        }
+        // If MainActivity is not ready to return (making a new card from the floating button)
+        else {
+            dialog_endnewcard_tv_content.setText("Your experience is increased.\nDo you want to return to 1DNQ?");
+            builder.setPositiveButton("Go to 1DNQ", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    Intent intent_gomain = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent_gomain);
+                    finish();
+
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                    dialog.dismiss();
+                }
+            });
+        }
+
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
+
     @Override
     public void processFinish(String output) {
         String temp = output.replaceAll("<br>", "\n");
-        Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
+
+        if (output.contains("Card created")) {
+            Toast.makeText(getApplicationContext(), "A card is created.", Toast.LENGTH_SHORT).show();
+
+            showEndNewCardDialog();
+        }
+
     }
 
     @Override

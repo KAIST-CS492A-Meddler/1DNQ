@@ -5,19 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
-import com.example.user.onedaynquestions.model.MyCard;
-import com.example.user.onedaynquestions.service.WakefulPushReceiver;
 
 /**
  * Created by user on 2016-06-07.
@@ -50,12 +43,12 @@ public class CardEvaluationActivity extends AppCompatActivity {
     public void mOnClick(View v) {
         switch (v.getId()) {
             case R.id.cardeval_btn_submit:
-                showAddAgentDialog();
+                showEndCardEvalDialog();
                 break;
         }
     }
 
-    private void showAddAgentDialog() {
+    private void showEndCardEvalDialog() {
         LayoutInflater inflater = getLayoutInflater();
 
         final View dialogView = inflater.inflate(R.layout.dialog_endevaluation, null);
@@ -72,7 +65,7 @@ public class CardEvaluationActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(CardEvaluationActivity.this);
         builder.setTitle("");
         builder.setView(dialogView);
-        builder.setPositiveButton("Add agent", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Finish making a card", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {

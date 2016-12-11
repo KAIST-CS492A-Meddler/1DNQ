@@ -21,7 +21,7 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:paddingTop="30dp"
+                android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:background="@color/colorSkyBlue"
                 android:paddingLeft="20dp"
@@ -33,7 +33,7 @@
                     android:id="@+id/setting_myinfo_iv_character"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:src="@drawable/here_logo_character"/>
 
                 <LinearLayout

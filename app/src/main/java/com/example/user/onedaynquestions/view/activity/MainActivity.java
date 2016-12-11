@@ -63,26 +63,11 @@ import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTI
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AsyncResponse {
 
-    public class BroadReceiver extends BroadcastReceiver{
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            switch (action) {
-                case ACTION_RECEIVE:
-                    WakefulPushReceiver.updated = false;
-                    viewPager.getAdapter().notifyDataSetChanged();
-                    break;
-                case "NEW_PROBLEM_HAS_COME":
-                    int check = 0;
-                    break;
-                default:
-            }
-        }
-    }
+
+    public static boolean isMainActivityReady = false;
 
     private static final int REQUEST_CODE_SYSTEM_ALERT_WINDOW = 22;
     public static final int REQUEST_CODE = 59999;
-
 
     private static final String TAG = "MainActivityTag";
     private static final String TAG_DB = "MainActivityDBTag";
@@ -115,6 +100,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        isMainActivityReady = true;
 
         /* Initialize Database */
         odnqDB = new LocalDBController(getApplicationContext());
@@ -515,7 +501,27 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         unregisterReceiver(updateListener);
+        isMainActivityReady = false;
         super.onDestroy();
+    }
+
+
+
+    public class BroadReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            switch (action) {
+                case ACTION_RECEIVE:
+                    WakefulPushReceiver.updated = false;
+                    viewPager.getAdapter().notifyDataSetChanged();
+                    break;
+                case "NEW_PROBLEM_HAS_COME":
+                    int check = 0;
+                    break;
+                default:
+            }
+        }
     }
 
 }
