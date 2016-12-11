@@ -1,9 +1,15 @@
 package com.example.user.onedaynquestions.view.activity;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,11 +17,14 @@ import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -30,12 +39,12 @@ import android.widget.Toast;
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.PagerAdapter;
 import com.example.user.onedaynquestions.model.AsyncResponse;
-import com.example.user.onedaynquestions.model.MyInfo;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.service.WakefulPushReceiver;
-import com.example.user.onedaynquestions.utility.LocalDBController;
+import com.example.user.onedaynquestions.utility.DatabaseController;
 import com.example.user.onedaynquestions.utility.DatabaseHelper;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
+import com.example.user.onedaynquestions.view.fragment.MyRecordsFragment;
 import com.example.user.onedaynquestions.view.fragment.SupportHelpFragment;
 import com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity;
 import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
@@ -45,6 +54,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTION_RECEIVE;
+import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTION_REGISTRATION;
 
 
 public class MainActivity extends AppCompatActivity
@@ -75,20 +85,20 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG_DB = "MainActivityDBTag";
 
     public static DatabaseHelper hereDB;
-    public static LocalDBController odnqDB;
+    public static DatabaseController odnqDB;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
     private ImageView nav_header_icon;
     private TextView nav_header_nick;
-    private TextView nav_header_id;
-    private TextView nav_header_name;
+    private TextView nav_header_name_id;
 
     public static String token;
 
     private View header;
-
+    NetworkInfo networkInfo;
+    ConnectivityManager connectivityManager;
 
     private BroadcastReceiver updateListener;
     private IntentFilter filter;
@@ -102,11 +112,29 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
+        /* Permission Request */
+
+//        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.SYSTEM_ALERT_WINDOW) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            Toast.makeText(getApplicationContext(), "Please allow system alert\nfor ", Toast.LENGTH_SHORT).show();
+//
+//            ActivityCompat.requestPermissions(MainActivity.this,
+//                    new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW,
+//                            Manifest.permission.SYSTEM_ALERT_WINDOW},
+//                    REQUEST_CODE_SYSTEM_ALERT_WINDOW);
+//            //return;
+//        } else {
+//            Toast.makeText(getApplicationContext(), "Granted", Toast.LENGTH_SHORT).show();
+//        }
+
+
+
+
+
         /* Initialize Database */
-        odnqDB = new LocalDBController(getApplicationContext());
+        odnqDB = new DatabaseController(getApplicationContext());
 
         if (odnqDB != null) {
-            Log.d(TAG_DB, "[Database] LocalDBController is created.");
+            Log.d(TAG_DB, "[Database] DatabaseController is created.");
         }
 
 
@@ -213,39 +241,36 @@ public class MainActivity extends AppCompatActivity
 
         nav_header_icon = (ImageView) header.findViewById(R.id.nav_header_icon);
         nav_header_nick = (TextView) header.findViewById(R.id.nav_header_usernick);
-        nav_header_id = (TextView) header.findViewById(R.id.nav_header_username_id);
-        nav_header_name = (TextView) header.findViewById(R.id.nav_header_username_name);
+        nav_header_name_id = (TextView) header.findViewById(R.id.nav_header_username_id);
 
         initMyInfo();
     }
 
     private void initMyInfo() {
-        MyInfo tmpMyInfo = odnqDB.getMyInfo();
-
-        if (tmpMyInfo == null) {
-            nav_header_icon.setVisibility(View.INVISIBLE);
-            nav_header_nick.setText("Unregistered User");
-            nav_header_id.setText("Insert user information");
-            nav_header_name.setText(" ");
-        } else {
-            Log.d(TAG, "initMyInfo() is called");
-            Log.d(TAG, "tmpMyInfo.getMyInfoId(): " + tmpMyInfo.getMyInfoId());
-            Log.d(TAG, "tmpMyInfo.getMyInfoNick(): " +  tmpMyInfo.getMyInfoNick());
-            Log.d(TAG, "tmpMyInfo.getMyInfoName(): " +  tmpMyInfo.getMyInfoName());
-            Log.d(TAG, "tmpMyInfo.getMyInfoGender(): " + tmpMyInfo.getMyInfoGender());
-
-            if (tmpMyInfo.getMyInfoGender() == 2) {
-                nav_header_icon.setVisibility(View.VISIBLE);
-                nav_header_icon.setImageResource(R.drawable.here_character_simple_girl);
-            } else {
-                nav_header_icon.setVisibility(View.VISIBLE);
-                nav_header_icon.setImageResource(R.drawable.here_character_simple_boy);
-            }
-
-            nav_header_nick.setText(tmpMyInfo.getMyInfoNick());
-            nav_header_id.setText(tmpMyInfo.getMyInfoId());
-            nav_header_name.setText(tmpMyInfo.getMyInfoName());
-        }
+//        MyInformation tmpMyInformation = hereDB.getMyInformation();
+//        if (tmpMyInformation == null) {
+//            nav_header_icon.setVisibility(View.INVISIBLE);
+//            nav_header_nick.setText("User");
+//            nav_header_name_id.setText("Insert user information");
+//        } else {
+//            Log.d("MainInitWidgets", "initMyInfo() is called");
+//            Log.d("MainInitWidgets", "user_sex: " + tmpMyInformation.getUserSex());
+//            Log.d("MainInitWidgets", "user_name: " + tmpMyInformation.getUserName());
+//            Log.d("MainInitWidgets", "user_nick: " + tmpMyInformation.getUserNick());
+//
+//            if (tmpMyInformation.getUserSex() == 2) {
+//                nav_header_icon.setVisibility(View.VISIBLE);
+//                nav_header_icon.setImageResource(R.drawable.here_character_simple_girl);
+//            } else {
+//                nav_header_icon.setVisibility(View.VISIBLE);
+//                nav_header_icon.setImageResource(R.drawable.here_character_simple_boy);
+//            }
+//
+//            nav_header_nick.setText(tmpMyInformation.getUserNick());
+//            String name_id = "";
+//            name_id = tmpMyInformation.getUserName() + " (" + tmpMyInformation.getUserId() + ")";
+//            nav_header_name_id.setText(name_id);
+//        }
     }
 
     @Override
@@ -422,9 +447,73 @@ public class MainActivity extends AppCompatActivity
 //        IntentFilter intentfilter = new IntentFilter();
 //        intentfilter.addAction(".service.PushReceiver");
         //이 부분을 클라이언트마다 다르게 subscribe하면 가능?
-        token = FirebaseInstanceId.getInstance().getToken();
-        Log.d("TOKEN", token);
-        FirebaseMessaging.getInstance().subscribeToTopic("test");
+        isOnline();
+        if(networkInfo == null){
+            showAlert();
+        }else {
+            if (networkInfo.isConnected()) {
+                token = FirebaseInstanceId.getInstance().getToken();
+                Log.d("TOKEN", token);
+                FirebaseMessaging.getInstance().subscribeToTopic("test");
+                Toast.makeText(this, "Connected to Firebase server.", Toast.LENGTH_LONG).show();
+            } else {
+                showAlert();
+            }
+        }
+    }
+
+    private void showAlert(){
+
+        AlertDialog alert = new AlertDialog.Builder(this).create();
+        alert.setTitle("Network is not connected");
+        alert.setMessage("Please check your network connection");
+        alert.setCancelable(true);
+
+
+        alert.setButton(AlertDialog.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                networkInfo = connectivityManager.getActiveNetworkInfo();
+                if (networkInfo == null) {
+                    startActivity(new Intent(Settings.ACTION_SETTINGS));
+                } else {
+                    while (!networkInfo.isConnected()) ;
+                    if (networkInfo.isConnected()) {
+                        token = FirebaseInstanceId.getInstance().getToken();
+                        Log.d("TOKEN", token);
+                        FirebaseMessaging.getInstance().subscribeToTopic("test");
+                        Toast.makeText(MainActivity.this, "Connected to Firebase server.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Please check your network connection.", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+
+        alert.setButton(AlertDialog.BUTTON_NEUTRAL, "Later", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+            }
+        });
+        alert.setButton(AlertDialog.BUTTON_NEGATIVE, "EXIT", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                finish();
+                android.os.Process.killProcess(android.os.Process.myPid());
+            }
+        });
+        alert.show();
+    }
+
+    private boolean isOnline(){
+        connectivityManager= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        networkInfo = connectivityManager.getActiveNetworkInfo();
+        if(networkInfo != null){
+            if( networkInfo.isConnectedOrConnecting()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
