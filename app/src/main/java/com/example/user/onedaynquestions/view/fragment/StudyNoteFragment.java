@@ -115,6 +115,8 @@ public class StudyNoteFragment extends Fragment{
 
         Log.d("AppendCardList", "MyCard table size: " + MainActivity.odnqDB.countTableMyCard());
 
+        clearAllCardList();
+
         ArrayList<MyCard> allCardList = new ArrayList<MyCard>();
         ArrayList<MyCard> starredCardList = new ArrayList<MyCard>();
         ArrayList<MyCard> wrongCardList = new ArrayList<MyCard>();
@@ -125,6 +127,7 @@ public class StudyNoteFragment extends Fragment{
 
         // STARRED CARD
         starredCardList = MainActivity.odnqDB.getMyCards(4, myInfoId);
+
         if (starredCardList != null){
             Log.d("AppendCardList", "starredCardList - size: " + starredCardList.size());
             for (int i = 0; i < starredCardList.size(); i++) {
@@ -150,6 +153,12 @@ public class StudyNoteFragment extends Fragment{
                 appendQuestion(RECOMMENDED, recommededCardList.get(i));
             }
         }
+    }
+
+    private void clearAllCardList() {
+        starredQuestionList.clear();
+        frequentlyWrongQuestionList.clear();
+        recommendedQuestionList.clear();
     }
 
 
