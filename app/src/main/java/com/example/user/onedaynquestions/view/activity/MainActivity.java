@@ -38,6 +38,7 @@ import com.example.user.onedaynquestions.controller.PagerAdapter;
 import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.model.MyInfo;
+import com.example.user.onedaynquestions.model.UnitRecord;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.service.MonitoringService;
 import com.example.user.onedaynquestions.service.WakefulPushReceiver;
@@ -54,6 +55,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTION_RECEIVE;
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity
 
     private BroadcastReceiver updateListener;
     private IntentFilter filter;
+
     // Modification
 
     @Override

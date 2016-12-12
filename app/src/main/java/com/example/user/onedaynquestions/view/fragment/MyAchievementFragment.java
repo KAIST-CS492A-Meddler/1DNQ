@@ -17,7 +17,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.archive.MyHereAgent;
@@ -25,7 +24,7 @@ import com.example.user.onedaynquestions.archive.MyRoutine;
 import com.example.user.onedaynquestions.controller.QuestionListAdapter;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.model.MyInfo;
-import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
+import com.example.user.onedaynquestions.model.UnitRecord;
 import com.example.user.onedaynquestions.view.activity.MainActivity;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
@@ -36,7 +35,6 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -63,16 +61,20 @@ public class MyAchievementFragment extends Fragment{
     private TextView myachievement_tv_regmessage;
 
     GraphView contribution, record;
+    private ArrayList<UnitRecord> records;
     Date[] days;
     private ListView lvQuestionList;
 
     private ArrayList<MyCard> questionList;
     private QuestionListAdapter questionListAdapter;
+    private int numOfShow = 7;
+    private int lastIndexOfRecords;
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         goals = new ArrayList<Goal>();
+
 
 
 //        listViewAdapter = new ListViewAdapter();
@@ -82,48 +84,61 @@ public class MyAchievementFragment extends Fragment{
         record = (GraphView)viewFragmentMyAchievement.findViewById(R.id.weekly_record_gv);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -7);
-        days = new Date[7];
-        for(int i =0; i  < 7; i++){
+        calendar.add(Calendar.DATE, -numOfShow);
+        days = new Date[numOfShow];
+        for(int i =0; i  < numOfShow; i++){
             days[i] = calendar.getTime();
             calendar.add(Calendar.DATE, 1);
         }
 
-        LineGraphSeries<DataPoint> contributionSeries = new LineGraphSeries<DataPoint>(new DataPoint[]{
-                new DataPoint(days[0], 1),
-                new DataPoint(days[1], 2),
-                new DataPoint(days[2], 5),
-                new DataPoint(days[3], 4),
-                new DataPoint(days[4], 6),
-                new DataPoint(days[5], 7),
-                new DataPoint(days[6], 10),
-        }) ;
-        BarGraphSeries<DataPoint> recordWrongSeries = new BarGraphSeries<DataPoint>(new DataPoint[]{
-                new DataPoint(days[0], 1),
-                new DataPoint(days[1], 2),
-                new DataPoint(days[2], 5),
-                new DataPoint(days[3], 4),
-                new DataPoint(days[4], 6),
-                new DataPoint(days[5], 7),
-                new DataPoint(days[6], 10),
-        }) ;
+        calendar.add(Calendar.DATE, -20);
+        Date[] daysTemp = new Date[20];
+        for(int i =0; i  < 20; i++){
+            daysTemp[i] = calendar.getTime();
+            calendar.add(Calendar.DATE, 1);
+        }
 
-        BarGraphSeries<DataPoint> recordTrueSeries = new BarGraphSeries<DataPoint>(new DataPoint[]{
-                new DataPoint(days[0], 3),
-                new DataPoint(days[1], 5),
-                new DataPoint(days[2], 8),
-                new DataPoint(days[3], 9),
-                new DataPoint(days[4], 11),
-                new DataPoint(days[5], 17),
-                new DataPoint(days[6], 25),
-        }) ;
+        records = new ArrayList<>();
+        //public UnitRecord(Date dailyRecordDateTime, int dailyRecordContribution, int dailyRecordStudyRight, int dailyRecordStudyWrong) {
+        records.add(new UnitRecord(daysTemp[0],5, 4,2 ));
+        records.add(new UnitRecord(daysTemp[1],6, 6,2 ));
+        records.add(new UnitRecord(daysTemp[2],15, 3,22 ));
+        records.add(new UnitRecord(daysTemp[3],25, 34,2 ));
+        records.add(new UnitRecord(daysTemp[4],15, 24,3 ));
+        records.add(new UnitRecord(daysTemp[5],45, 45,6 ));
+        records.add(new UnitRecord(daysTemp[6],56, 14,8 ));
+        records.add(new UnitRecord(daysTemp[7],50, 44,15 ));
+        records.add(new UnitRecord(daysTemp[8],67, 24,10 ));
+        records.add(new UnitRecord(daysTemp[9],78, 42,25 ));
+        records.add(new UnitRecord(daysTemp[10],90, 43,22 ));
+        records.add(new UnitRecord(daysTemp[11],105, 44,12 ));
+        records.add(new UnitRecord(daysTemp[12],145, 44,6 ));
+        records.add(new UnitRecord(daysTemp[14],205, 34,12 ));
+        records.add(new UnitRecord(daysTemp[15],255, 34,4 ));
+        records.add(new UnitRecord(daysTemp[17],405, 48,2 ));
+        records.add(new UnitRecord(daysTemp[18],565, 25,4 ));
+        records.add(new UnitRecord("2016-12-12 12:03:22",500, 34,7 ));
+
+        Date tempDateRecord;
+        lastIndexOfRecords = records.size();
+        do{
+            if(lastIndexOfRecords < 1)  break;
+            lastIndexOfRecords--;
+            tempDateRecord = records.get(lastIndexOfRecords).getDailyRecordDateTime_Date();
+        }while(days[0].before(tempDateRecord));
+
+
+        LineGraphSeries<DataPoint> contributionSeries = getContributionSeries();
+
+        BarGraphSeries<DataPoint> recordWrongSeries = getRecordWrongSeries();
+        BarGraphSeries<DataPoint> recordTrueSeries = getRecordTrueSeries();
 
         contribution.getViewport().setMinX(days[0].getTime());
         contribution.getViewport().setMaxX(days[6].getTime());
         contribution.getViewport().setXAxisBoundsManual(true);
         contribution.addSeries(contributionSeries);
         contribution.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
-        contribution.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
+        contribution.getGridLabelRenderer().setNumHorizontalLabels(0); // only 4 because of the space
 
 
         record.getViewport().setMinX(days[0].getTime());
@@ -134,7 +149,7 @@ public class MyAchievementFragment extends Fragment{
         record.addSeries(recordTrueSeries);
         record.addSeries(recordWrongSeries);
         record.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
-        record.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
+        record.getGridLabelRenderer().setNumHorizontalLabels(0); // only 4 because of the space
 
 //
 //        initWidgets(viewFragmentMyAchievement);
@@ -287,6 +302,37 @@ public class MyAchievementFragment extends Fragment{
 
         return viewFragmentMyAchievement;
         //return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+
+    private LineGraphSeries<DataPoint> getContributionSeries() {
+        LineGraphSeries<DataPoint> result = new LineGraphSeries<DataPoint>();
+        for(int i = lastIndexOfRecords; i < records.size(); i++){
+            Date temp = records.get(i).getDailyRecordDateTime_Date();
+            result.appendData(new DataPoint(temp, records.get(i).getDailyRecordContribution()), true, numOfShow);
+        }
+        return result;
+    }
+
+    private BarGraphSeries<DataPoint> getRecordWrongSeries() {
+
+        BarGraphSeries<DataPoint> result = new BarGraphSeries<DataPoint>();
+        for(int i = lastIndexOfRecords; i < records.size(); i++){
+            Date temp = records.get(i).getDailyRecordDateTime_Date();
+            result.appendData(new DataPoint(records.get(i).getDailyRecordDateTime_Date(),records.get(i).getDailyRecordStudyWrong()), true, numOfShow);
+
+        }
+        return result;
+    }
+    private BarGraphSeries<DataPoint> getRecordTrueSeries() {
+
+        BarGraphSeries<DataPoint> result = new BarGraphSeries<DataPoint>();
+        for(int i = lastIndexOfRecords; i < records.size(); i++){
+            Date temp = records.get(i).getDailyRecordDateTime_Date();
+            result.appendData(new DataPoint(records.get(i).getDailyRecordDateTime_Date(),records.get(i).getDailyRecordStudyRight()), true, numOfShow);
+
+        }
+        return result;
     }
 
 
