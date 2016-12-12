@@ -469,58 +469,58 @@ public class GraphTestActivity extends AppCompatActivity {
         finish();
     }
 
-    public class ListViewAdapter extends BaseAdapter {
-
-        public List<MyHereAgent> myHereAgents = new ArrayList<MyHereAgent>();
-
-        public List<MyHereAgent> getMyHereAgents(){
-            return myHereAgents;
-        }
-
-        public ListViewAdapter () {
-            super();
-            if(MainActivity.hereDB.getAllMyHereAgents() !=null)
-                myHereAgents = MainActivity.hereDB.getAllMyHereAgents();
-        }
-
-        @Override
-        public int getCount() {
-                return myHereAgents.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return myHereAgents.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-//            final int pos = position;
-//            final Context context = parent.getContext();
+//    public class ListViewAdapter extends BaseAdapter {
 //
-//            if (convertView == null){
-//                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//                convertView = inflater.inflate(R.layout.listitem_equipment_simple,parent,false);
-//            }
-//            ImageView eqTypeImage = (ImageView) convertView.findViewById(R.id.equiplist_img);
-//            TextView eqName = (TextView) convertView.findViewById(R.id.equiplist_name);
-//            TextView eqId = (TextView) convertView.findViewById(R.id.equiplist_id);
-//            TextView eqSensorType = (TextView) convertView.findViewById(R.id.equiplist_sensorid);
+//        public List<MyHereAgent> myHereAgents = new ArrayList<MyHereAgent>();
 //
-//            eqTypeImage.setImageResource(findImage(myHereAgents.get(pos).getMyeqType()));
+//        public List<MyHereAgent> getMyHereAgents(){
+//            return myHereAgents;
+//        }
 //
-//            eqName.setText(myHereAgents.get(pos).getMyeqName());
-//            eqId.setText(myHereAgents.get(pos).getMyeqMacId());
-//            //eqSensorType.setText(registeredAgents.get(pos).getMyeqType());
-
-            return convertView;
-        }
-    }
+//        public ListViewAdapter () {
+//            super();
+//            if(MainActivity.hereDB.getAllMyHereAgents() !=null)
+//                myHereAgents = MainActivity.hereDB.getAllMyHereAgents();
+//        }
+//
+//        @Override
+//        public int getCount() {
+//                return myHereAgents.size();
+//        }
+//
+//        @Override
+//        public Object getItem(int position) {
+//            return myHereAgents.get(position);
+//        }
+//
+//        @Override
+//        public long getItemId(int position) {
+//            return position;
+//        }
+//
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+////            final int pos = position;
+////            final Context context = parent.getContext();
+////
+////            if (convertView == null){
+////                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+////                convertView = inflater.inflate(R.layout.listitem_equipment_simple,parent,false);
+////            }
+////            ImageView eqTypeImage = (ImageView) convertView.findViewById(R.id.equiplist_img);
+////            TextView eqName = (TextView) convertView.findViewById(R.id.equiplist_name);
+////            TextView eqId = (TextView) convertView.findViewById(R.id.equiplist_id);
+////            TextView eqSensorType = (TextView) convertView.findViewById(R.id.equiplist_sensorid);
+////
+////            eqTypeImage.setImageResource(findImage(myHereAgents.get(pos).getMyeqType()));
+////
+////            eqName.setText(myHereAgents.get(pos).getMyeqName());
+////            eqId.setText(myHereAgents.get(pos).getMyeqMacId());
+////            //eqSensorType.setText(registeredAgents.get(pos).getMyeqType());
+//
+//            return convertView;
+//        }
+//    }
 
     private class RoutineListViewAdapter extends BaseAdapter {
 

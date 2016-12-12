@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="#ffffff"
+    android:background="@color/colorSkyBlue"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -40,7 +40,17 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
+                android:background="@color/colorPrimaryDark"
                 android:layout_height="80dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/here_character_simple_girl"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="5dp"/>
+
 
                 <TextView
                     android:id="@+id/leaderboard_tv_groupname"
@@ -52,13 +62,15 @@
                     android:textStyle="bold"
                     android:paddingLeft="10dp"
                     android:gravity="center_vertical"
-                    android:textColor="@color/colorSkyBlue"/>
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="#ffffff"/>
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="3"
+                    android:layout_weight="4"
+                    android:background="@color/colorPrimaryMoreDark"
                     android:gravity="center">
 
                     <TextView
@@ -66,23 +78,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="22"
-                        android:textSize="24dp"
+                        android:textSize="30dp"
+                        android:textColor="#ffffff"
                         android:gravity="center"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="members"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
+                        android:textColor="#dddddd"
                         android:gravity="center"/>
                 </LinearLayout>
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorSkyBlue"/>
 
             <TextView
                 android:id="@+id/leaderboard_tv_groupleader"
@@ -94,8 +104,7 @@
                 android:background="#dddddd"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"/>
+                android:paddingTop="5dp"/>
 
             <TextView
                 android:id="@+id/leaderboard_tv_groupgoal"
@@ -107,8 +116,12 @@
                 android:background="#dddddd"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="5dp"
                 android:paddingBottom="5dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#bbbbbb"/>
 
             <LinearLayout
                 android:orientation="vertical"

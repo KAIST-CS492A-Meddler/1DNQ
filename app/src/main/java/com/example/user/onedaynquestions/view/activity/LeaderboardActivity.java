@@ -6,56 +6,46 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.MemberListAdapter;
 import com.example.user.onedaynquestions.controller.QuestionListAdapter;
+import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
+import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
+import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Member;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.example.user.onedaynquestions.R.id.container;
 
 /**
  * Created by ymbaek on 2016-04-18.
  */
-public class LeaderboardActivity extends AppCompatActivity {
+public class LeaderboardActivity extends AppCompatActivity implements AsyncResponse {
 
     public static final String TAG = "Leaderboard";
 
     private Toolbar toolbar;
 
-//    private ListViewAdapter adapter;
-
-//    //Change
-//    int i = 0;
-//
-//    TextView textView;
-//    ListView listView;
-
-    public class UserInfo{
-        public String userName;
-        public boolean isMale;
-        public String userNickName;
-        public String userId;
-        public int userExp;
-
-        public UserInfo(boolean isMale, String userNickName, String userId, String userName, int userExp){
-            this.isMale =  isMale;
-            this.userNickName = userNickName;
-            this.userId = userId;
-            this.userExp = userExp;
-            this.userName = userName;
-
-        }
-    }
+    private TextView leaderboard_tv_groupname;
+    private TextView leaderboard_tv_groupmemnum;
+    private TextView leaderboard_tv_groupleader;
+    private TextView leaderboard_tv_groupgoal;
 
     private Button leaderboard_btn_findgroup;
     private ArrayList<UserInfo> memberList;
@@ -88,23 +78,53 @@ public class LeaderboardActivity extends AppCompatActivity {
         lvMemberList.setAdapter(memberListAdapter);
 
 
-        memberList.add(new UserInfo(true, "SG", "topmaze", "sunggeun", 231));
-        memberList.add(new UserInfo(false, "GS", "top", "sung", 31));
-        memberList.add(new UserInfo(false, "1S2G", "maze", "geun", 21));
-        memberList.add(new UserInfo(true, "S4G", "A431t9", "soony", 281));
-        memberList.add(new UserInfo(true, "S464G", "apsov93", "hyang", 631));
+//        memberList.add(new UserInfo(true, "SG", "topmaze", "sunggeun", 231));
+//        memberList.add(new UserInfo(false, "GS", "top", "sung", 31));
+//        memberList.add(new UserInfo(false, "1S2G", "maze", "geun", 21));
+//        memberList.add(new UserInfo(true, "S4G", "A431t9", "soony", 281));
+//        memberList.add(new UserInfo(true, "S464G", "apsov93", "hyang", 631));
 
         memberListAdapter.notifyDataSetChanged();
 
         initWidget();
+        initWidgetValue();
 
+        initLeaderBoard();
     }
 
 
     public void initWidget() {
         leaderboard_btn_findgroup = (Button) findViewById(R.id.leaderboard_btn_findgroup);
+
+        leaderboard_tv_groupname = (TextView) findViewById(R.id.leaderboard_tv_groupname);
+        leaderboard_tv_groupmemnum = (TextView) findViewById(R.id.leaderboard_tv_groupmemnum);
+        leaderboard_tv_groupleader = (TextView) findViewById(R.id.leaderboard_tv_groupleader);
+        leaderboard_tv_groupgoal = (TextView) findViewById(R.id.leaderboard_tv_groupgoal);
     }
 
+    public void initWidgetValue() {
+        HashMap postData = new HashMap();
+        postData.put("ginfo_id", "group-1");
+
+        PostResponseAsyncTask getGroupTask =
+                new PostResponseAsyncTask(LeaderboardActivity.this, postData);
+
+        getGroupTask.execute("http://110.76.95.150/get_group.php");
+
+        Toast.makeText(getApplicationContext(), "Group information is extracted", Toast.LENGTH_SHORT).show();
+    }
+
+    public void initLeaderBoard() {
+        HashMap postData = new HashMap();
+        postData.put("ginfo_id", "group-1");
+
+        PostResponseAsyncTask getGroupUsersTask =
+                new PostResponseAsyncTask(LeaderboardActivity.this, postData);
+
+        getGroupUsersTask.execute("http://110.76.95.150/get_groupusers.php");
+
+        Toast.makeText(getApplicationContext(), "Group's users are extracted", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -324,6 +344,143 @@ public class LeaderboardActivity extends AppCompatActivity {
                 leaderboard_btn_findgroup.setBackgroundColor(Color.GRAY);
                 leaderboard_btn_findgroup.setTextColor(Color.LTGRAY);
                 break;
+        }
+    }
+
+    @Override
+    public void processFinish(String output) {
+        String temp = output.replaceAll("<br>", "\n");
+        Log.d("ExtractGroupUsers", "[LeaderboardActivity] output: " + output);
+
+        memberList.add(new UserInfo(true, "SG", "topmaze", "sunggeun", 231));
+        memberList.add(new UserInfo(false, "GS", "top", "sung", 31));
+        memberList.add(new UserInfo(false, "1S2G", "maze", "geun", 21));
+        memberList.add(new UserInfo(true, "S4G", "A431t9", "soony", 281));
+        memberList.add(new UserInfo(true, "S464G", "apsov93", "hyang", 631));
+
+        memberListAdapter.notifyDataSetChanged();
+
+        if (output.contains("{\"result_groupusers\":")) {
+            String jsonString = output.replace("{\"result_groupusers\":", "");
+            jsonString = jsonString.substring(0, jsonString.length() - 1);
+
+            try {
+                JSONArray jarray = new JSONArray(jsonString);
+
+                for (int i = 0; i < jarray.length(); i++) {
+                    JSONObject jObject = jarray.getJSONObject(i);
+
+                    UserInfo tmpUserInfo = new UserInfo();
+
+                    if (jObject.getInt("user_gender") == 0) {
+                        tmpUserInfo.setMale(true);
+                    } else {
+                        tmpUserInfo.setMale(false);
+                    }
+                    tmpUserInfo.setUserId(jObject.getString("user_id"));
+                    tmpUserInfo.setUserName(jObject.getString("user_name"));
+                    tmpUserInfo.setUserNickName(jObject.getString("user_nick"));
+                    tmpUserInfo.setUserExp(jObject.getInt("user_exp"));
+
+                    memberList.add(tmpUserInfo);
+                }
+
+
+
+                memberListAdapter.notifyDataSetChanged();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        else if (output.contains("{\"result_group\":")) {
+
+            String jsonString = output.replace("{\"result_group\":", "");
+            jsonString = jsonString.substring(0, jsonString.length() - 1);
+
+            try {
+                JSONArray jarray = new JSONArray(jsonString);
+
+                for (int i = 0; i < jarray.length(); i++) {
+                    JSONObject jObject = jarray.getJSONObject(i);
+
+                    String tmpGroupId = jObject.getString("group_id");
+                    String tmpGroupGoal = jObject.getString("group_goal");
+                    String tmpGroupName = jObject.getString("group_name");
+                    String tmpGroupLeader = jObject.getString("group_leader");
+                    int tmpGroupUserNum = jObject.getInt("group_usernum");
+                    String tmpGroupDate = jObject.getString("group_date");
+                    String tmpGroupDesc = jObject.getString("group_desc");
+
+                    leaderboard_tv_groupname.setText(tmpGroupName);
+                    leaderboard_tv_groupgoal.setText(" - Group's goal: " + tmpGroupGoal);
+                    leaderboard_tv_groupleader.setText(" - Group's leader: " + tmpGroupLeader);
+                    leaderboard_tv_groupmemnum.setText(tmpGroupUserNum + "");
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public class UserInfo{
+        public String userName;
+        public boolean isMale;
+        public String userNickName;
+        public String userId;
+        public int userExp;
+
+        public UserInfo() {
+        }
+
+        public UserInfo(boolean isMale, String userNickName, String userId, String userName, int userExp){
+            this.isMale =  isMale;
+            this.userNickName = userNickName;
+            this.userId = userId;
+            this.userExp = userExp;
+            this.userName = userName;
+
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public boolean isMale() {
+            return isMale;
+        }
+
+        public void setMale(boolean male) {
+            isMale = male;
+        }
+
+        public String getUserNickName() {
+            return userNickName;
+        }
+
+        public void setUserNickName(String userNickName) {
+            this.userNickName = userNickName;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public int getUserExp() {
+            return userExp;
+        }
+
+        public void setUserExp(int userExp) {
+            this.userExp = userExp;
         }
     }
 

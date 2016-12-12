@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG_DB = "MainActivityDBTag";
 
     /** DATABASE **/
-    public static DatabaseHelper hereDB;
+//    public static DatabaseHelper hereDB;
     public static LocalDBController odnqDB;
 
     private TabLayout tabLayout;
