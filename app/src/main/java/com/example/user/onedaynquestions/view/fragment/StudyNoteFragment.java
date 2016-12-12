@@ -418,6 +418,7 @@ public class StudyNoteFragment extends Fragment{
         drawDailyCalorieGraph(getView());
         initEquipRecord();
         initQuestionList();
+        initCards();
 
 //        equipListAdapter.notifyDataSetChanged();
         super.onResume();
