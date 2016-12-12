@@ -17,10 +17,14 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -56,6 +60,12 @@ import com.example.user.onedaynquestions.view.testactivity.WidgetTestActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTION_RECEIVE;
 import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTION_REGISTRATION;
 
@@ -72,16 +82,22 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "MainActivityTag";
     private static final String TAG_DB = "MainActivityDBTag";
 
+    /** DATABASE **/
     public static DatabaseHelper hereDB;
     public static LocalDBController odnqDB;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    private ImageView nav_header_icon;
-    private TextView nav_header_nick;
-    private TextView nav_header_id;
-    private TextView nav_header_name;
+    private static ImageView nav_header_icon;
+    private static TextView nav_header_nick;
+    private static TextView nav_header_id;
+    private static TextView nav_header_name;
+
+
+
+    public static int myCardNum;
+    public static int myGroupNum;
 
     public static String token;
 
@@ -109,12 +125,35 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG_DB, "[Database] LocalDBController is created.");
         }
 
+        /** GLOBAL VARIABLE **/
+        //myCardNum = 0;
+
+
+        /** DB LOAD **/
+        if (odnqDB.getMyInfo() != null) {
+            countMyCardNum(odnqDB.getMyInfo().getMyInfoId());
+        }
 
 
         /* Push Notification from Firebase*/
         startFirebaseServices();
 
+        /** NAVIGATION DRAWER & HEADER **/
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        header = navigationView.getHeaderView(0);
+
+        /** Initialize Widget First **/
+        initWidgets();
+
+
+        /** TAB LAYOUT & FRAGMENTS **/
         tabLayout = (TabLayout) findViewById(R.id.main_tablayout);
 
         tabLayout.addTab(tabLayout.newTab().setText("My Achievement"));
@@ -134,6 +173,14 @@ public class MainActivity extends AppCompatActivity
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
                 Log.d("MainActivity-TabLayout", "tab.getPosition = " + tab.getPosition());
+
+                if (tab.getPosition() == 0) {
+
+                    LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(getApplicationContext());
+                    Intent i = new Intent("TAG_REFRESH");
+                    lbm.sendBroadcast(i);
+
+                }
             }
 
             @Override
@@ -148,33 +195,31 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        System.out.println("Modification test");
 
-        System.out.print("GOOD");
 
+        /** FLOATING ACTION BUTTON **/
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //TODO: User login되어 있지 않고 그룹에 속해있지 않으면, Card를 만들 수 없도록 예외처리
-                Intent intent_newcard = new Intent(getApplicationContext(), NewCardActivity.class);
-                startActivity(intent_newcard);
+                if (odnqDB.getMyInfo() == null) {
+                    Snackbar.make(view, "Please register your account first\nSide menu > My Information", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+//                    Intent intent_settingMyInfo = new Intent(getApplicationContext(), SettingMyInfoActivity.class);
+//                    startActivity(intent_settingMyInfo);
+                } else {
+                    Intent intent_newcard = new Intent(getApplicationContext(), NewCardActivity.class);
+                    startActivity(intent_newcard);
+                }
 
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        header = navigationView.getHeaderView(0);
 
-        initWidgets();
+
 
         checkDrawOverlayPermission();
 
@@ -221,6 +266,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initMyInfo() {
+
         MyInfo tmpMyInfo = odnqDB.getMyInfo();
 
         if (tmpMyInfo == null) {
@@ -229,6 +275,8 @@ public class MainActivity extends AppCompatActivity
             nav_header_id.setText("Insert user information");
             nav_header_name.setText(" ");
         } else {
+            //TODO: Get user information from server and update local MyInfo
+
             Log.d(TAG, "initMyInfo() is called");
             Log.d(TAG, "tmpMyInfo.getMyInfoId(): " + tmpMyInfo.getMyInfoId());
             Log.d(TAG, "tmpMyInfo.getMyInfoNick(): " +  tmpMyInfo.getMyInfoNick());
@@ -246,7 +294,32 @@ public class MainActivity extends AppCompatActivity
             nav_header_nick.setText(tmpMyInfo.getMyInfoNick());
             nav_header_id.setText(tmpMyInfo.getMyInfoId());
             nav_header_name.setText(tmpMyInfo.getMyInfoName());
+
+            countMyCardNum(tmpMyInfo.getMyInfoId());
+            updateMyInfo(tmpMyInfo.getMyInfoId());
         }
+    }
+
+    private void updateMyInfo(String myInfo_id) {
+        HashMap postData = new HashMap();
+        postData.put("userinfo_id", myInfo_id);
+
+        PostResponseAsyncTask getUserTask =
+                new PostResponseAsyncTask(MainActivity.this, postData);
+
+        getUserTask.execute("http://110.76.95.150/get_user.php");
+    }
+
+    private void countMyCardNum(String myInfo_id) {
+        HashMap postData = new HashMap();
+        postData.put("cinfo_maker", myInfo_id);
+
+        PostResponseAsyncTask countMyCardNumTask =
+                new PostResponseAsyncTask(MainActivity.this, postData);
+
+        countMyCardNumTask.execute("http://110.76.95.150/get_cardbymaker.php");
+
+        Toast.makeText(getApplicationContext(), "User's cards are selected", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -496,6 +569,89 @@ public class MainActivity extends AppCompatActivity
     public void processFinish(String output) {
         String temp = output.replaceAll("<br>", "\n");
         //Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
+
+        // My info
+        if (output.contains("{\"result_user\":")) {
+            MyInfo myInfoFromServer = odnqDB.getMyInfo();
+
+            String jsonString = output.replace("{\"result_user\":", "");
+            jsonString = jsonString.substring(0, jsonString.length() - 1);
+
+            Log.d("MainActivity_getuser", "output: " + output);
+
+            try {
+                JSONArray jarray = new JSONArray(jsonString);
+
+                JSONObject jObject = jarray.getJSONObject(0);
+
+                String tmpUserId = jObject.getString("user_id");
+                String tmpUserName = jObject.getString("user_name");
+                String tmpUserNick = jObject.getString("user_nick");
+                int tmpUserAge = jObject.getInt("user_age");
+                int tmpUserGender = jObject.getInt("user_gender");
+                String tmpUserDeviceId = jObject.getString("user_deviceid");
+                String tmpUserToken = jObject.getString("user_token");
+                int tmpUserExp = jObject.getInt("user_exp");
+                float tmpUserQuality = (float) jObject.getDouble("user_quality");
+
+                Log.d("MainActivity_getuser", "MyInfo from Server");
+                Log.d("MainActivity_getuser", " - id: " + tmpUserId);
+                Log.d("MainActivity_getuser", " - name: " + tmpUserName);
+                Log.d("MainActivity_getuser", " - nick: " + tmpUserNick);
+                Log.d("MainActivity_getuser", " - age: " + tmpUserAge);
+                Log.d("MainActivity_getuser", " - gender: " + tmpUserGender);
+                Log.d("MainActivity_getuser", " - deviceid: " + tmpUserDeviceId);
+                Log.d("MainActivity_getuser", " - token: " + tmpUserToken);
+                Log.d("MainActivity_getuser", " - exp: " + tmpUserExp);
+                Log.d("MainActivity_getuser", " - quality: " + tmpUserQuality);
+
+                myInfoFromServer.setMyInfoId(tmpUserId);
+                myInfoFromServer.setMyInfoName(tmpUserName);
+                myInfoFromServer.setMyInfoNick(tmpUserNick);
+                myInfoFromServer.setMyInfoAge(tmpUserAge);
+                myInfoFromServer.setMyInfoGender(tmpUserGender);
+                myInfoFromServer.setMyInfoDeviceId(tmpUserDeviceId);
+                myInfoFromServer.setMyInfoToken(tmpUserToken);
+                myInfoFromServer.setMyInfoExp(tmpUserExp);
+                myInfoFromServer.setMyInfoQuality(tmpUserQuality);
+
+                //Update local MyInfo with Server information
+                odnqDB.updateMyInfo(myInfoFromServer);
+
+                Log.d("MainActivity_getuser", "MyInfo in odnqDB");
+                Log.d("MainActivity_getuser", " - id: " + odnqDB.getMyInfo().getMyInfoId());
+                Log.d("MainActivity_getuser", " - name: " + odnqDB.getMyInfo().getMyInfoName());
+                Log.d("MainActivity_getuser", " - nick: " + odnqDB.getMyInfo().getMyInfoNick());
+                Log.d("MainActivity_getuser", " - age: " + odnqDB.getMyInfo().getMyInfoAge());
+                Log.d("MainActivity_getuser", " - gender: " + odnqDB.getMyInfo().getMyInfoGender());
+                Log.d("MainActivity_getuser", " - deviceid: " + odnqDB.getMyInfo().getMyInfoDeviceId());
+                Log.d("MainActivity_getuser", " - token: " + odnqDB.getMyInfo().getMyInfoToken());
+                Log.d("MainActivity_getuser", " - exp: " + odnqDB.getMyInfo().getMyInfoExp());
+                Log.d("MainActivity_getuser", " - quality: " + odnqDB.getMyInfo().getMyInfoQuality());
+                Log.d("MainActivity_getuser", " - cardnum: " + odnqDB.getMyInfo().getMyInfoCardNum());
+                Log.d("MainActivity_getuser", "========================================");
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        // My cards
+        else if (output.contains("{\"result_userscards\":")) {
+            String jsonString = output.replace("{\"result_userscards\":", "");
+            jsonString = jsonString.substring(0, jsonString.length() - 1);
+
+            try {
+                JSONArray jarray = new JSONArray(jsonString);
+                myCardNum = jarray.length();
+
+                odnqDB.updateMyInfoCardNum(odnqDB.getMyInfo().getMyInfoId(), myCardNum);
+
+                //TODO: Insert my cards into (public static) Arraylist
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

@@ -1,9 +1,15 @@
 package com.example.user.onedaynquestions.view.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +17,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.archive.MyHereAgent;
 import com.example.user.onedaynquestions.archive.MyRoutine;
 import com.example.user.onedaynquestions.controller.QuestionListAdapter;
 import com.example.user.onedaynquestions.model.MyCard;
+import com.example.user.onedaynquestions.model.MyInfo;
+import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 import com.example.user.onedaynquestions.view.activity.MainActivity;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
@@ -27,6 +36,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -35,6 +45,8 @@ import java.util.StringTokenizer;
  */
 public class MyAchievementFragment extends Fragment{
 
+    MyReceiver r;
+
     public List<Goal> goals;
     ListViewAdapter listViewAdapter;
 
@@ -42,6 +54,13 @@ public class MyAchievementFragment extends Fragment{
 //    HorizontalScrollView horizontalScrollView;
 //
 //    Button btn_refresh;
+    View viewFragmentMyAchievement;
+
+    private TextView myachievement_tv_submission;
+    private TextView myachievement_tv_contribution;
+    private TextView myachievement_tv_quality;
+    private TextView myachievement_tv_correctness;
+    private TextView myachievement_tv_regmessage;
 
     GraphView contribution, record;
     Date[] days;
@@ -57,10 +76,10 @@ public class MyAchievementFragment extends Fragment{
 
 
 //        listViewAdapter = new ListViewAdapter();
-        final View viewFragmentRoutine = inflater.inflate(R.layout.fragment_myachievement, container, false);
+        viewFragmentMyAchievement = inflater.inflate(R.layout.fragment_myachievement, container, false);
 
-        contribution = (GraphView)viewFragmentRoutine.findViewById(R.id.weekly_contribution_gv);
-        record = (GraphView)viewFragmentRoutine.findViewById(R.id.weekly_record_gv);
+        contribution = (GraphView)viewFragmentMyAchievement.findViewById(R.id.weekly_contribution_gv);
+        record = (GraphView)viewFragmentMyAchievement.findViewById(R.id.weekly_record_gv);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -7);
@@ -118,57 +137,57 @@ public class MyAchievementFragment extends Fragment{
         record.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
 
 //
-//        initWidgets(viewFragmentRoutine);
+//        initWidgets(viewFragmentMyAchievement);
 //
-//        ListView listView = (ListView) viewFragmentRoutine.findViewById(R.id.routine_list);
+//        ListView listView = (ListView) viewFragmentMyAchievement.findViewById(R.id.routine_list);
 //        listView.setAdapter(listViewAdapter);
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                List<MyRoutine> routines = listViewAdapter.getRoutine();
-//                TextView routineName = (TextView) viewFragmentRoutine.findViewById(R.id.selected_routine_name);
+//                TextView routineName = (TextView) viewFragmentMyAchievement.findViewById(R.id.selected_routine_name);
 //                boolean isRoutineOk = true;
 //                routineName.setText("Selected routine: " + routines.get(position).getRoutineName());
 //
 //                goals.clear();
 //
-//                TextView routineGoal = (TextView) viewFragmentRoutine.findViewById(R.id.selected_routine_goal1);
-//                TextView routineEquip = (TextView) viewFragmentRoutine.findViewById(R.id.selected_routine_equip1);
-//                ImageView equipImage = (ImageView) viewFragmentRoutine.findViewById(R.id.routine_equipment1_image);
-//                LinearLayout equipment1inList = (LinearLayout) viewFragmentRoutine.findViewById(R.id.routine_equipment1);
-//                TextView arrowOfEquipment1 = (TextView) viewFragmentRoutine.findViewById(R.id.routine_equipment1_arrow);
+//                TextView routineGoal = (TextView) viewFragmentMyAchievement.findViewById(R.id.selected_routine_goal1);
+//                TextView routineEquip = (TextView) viewFragmentMyAchievement.findViewById(R.id.selected_routine_equip1);
+//                ImageView equipImage = (ImageView) viewFragmentMyAchievement.findViewById(R.id.routine_equipment1_image);
+//                LinearLayout equipment1inList = (LinearLayout) viewFragmentMyAchievement.findViewById(R.id.routine_equipment1);
+//                TextView arrowOfEquipment1 = (TextView) viewFragmentMyAchievement.findViewById(R.id.routine_equipment1_arrow);
 //
-//                TextView routineGoal2 = (TextView) viewFragmentRoutine.findViewById(R.id.selected_routine_goal2);
-//                TextView routineEquip2 = (TextView) viewFragmentRoutine.findViewById(R.id.selected_routine_equip2);
-//                ImageView equipImage2 = (ImageView) viewFragmentRoutine.findViewById(R.id.routine_equipment2_image);
-//                LinearLayout equipment2inList = (LinearLayout) viewFragmentRoutine.findViewById(R.id.routine_equipment2);
-//                TextView arrowOfEquipment2 = (TextView) viewFragmentRoutine.findViewById(R.id.routine_equipment2_arrow);
+//                TextView routineGoal2 = (TextView) viewFragmentMyAchievement.findViewById(R.id.selected_routine_goal2);
+//                TextView routineEquip2 = (TextView) viewFragmentMyAchievement.findViewById(R.id.selected_routine_equip2);
+//                ImageView equipImage2 = (ImageView) viewFragmentMyAchievement.findViewById(R.id.routine_equipment2_image);
+//                LinearLayout equipment2inList = (LinearLayout) viewFragmentMyAchievement.findViewById(R.id.routine_equipment2);
+//                TextView arrowOfEquipment2 = (TextView) viewFragmentMyAchievement.findViewById(R.id.routine_equipment2_arrow);
 //
-//                TextView routineGoal3 = (TextView) viewFragmentRoutine.findViewById(R.id.selected_routine_goal3);
-//                TextView routineEquip3 = (TextView) viewFragmentRoutine.findViewById(R.id.selected_routine_equip3);
-//                ImageView equipImage3 = (ImageView) viewFragmentRoutine.findViewById(R.id.routine_equipment3_image);
-//                LinearLayout equipment3inList = (LinearLayout) viewFragmentRoutine.findViewById(R.id.routine_equipment3);
-//                TextView arrowOfEquipment3 = (TextView) viewFragmentRoutine.findViewById(R.id.routine_equipment3_arrow);
+//                TextView routineGoal3 = (TextView) viewFragmentMyAchievement.findViewById(R.id.selected_routine_goal3);
+//                TextView routineEquip3 = (TextView) viewFragmentMyAchievement.findViewById(R.id.selected_routine_equip3);
+//                ImageView equipImage3 = (ImageView) viewFragmentMyAchievement.findViewById(R.id.routine_equipment3_image);
+//                LinearLayout equipment3inList = (LinearLayout) viewFragmentMyAchievement.findViewById(R.id.routine_equipment3);
+//                TextView arrowOfEquipment3 = (TextView) viewFragmentMyAchievement.findViewById(R.id.routine_equipment3_arrow);
 //
-//                TextView routineGoal4 = (TextView) viewFragmentRoutine.findViewById(R.id.selected_routine_goal4);
-//                TextView routineEquip4 = (TextView) viewFragmentRoutine.findViewById(R.id.selected_routine_equip4);
-//                ImageView equipImage4 = (ImageView) viewFragmentRoutine.findViewById(R.id.routine_equipment4_image);
-//                LinearLayout equipment4inList = (LinearLayout) viewFragmentRoutine.findViewById(R.id.routine_equipment4);
-//                TextView arrowOfEquipment4 = (TextView) viewFragmentRoutine.findViewById(R.id.routine_equipment4_arrow);
+//                TextView routineGoal4 = (TextView) viewFragmentMyAchievement.findViewById(R.id.selected_routine_goal4);
+//                TextView routineEquip4 = (TextView) viewFragmentMyAchievement.findViewById(R.id.selected_routine_equip4);
+//                ImageView equipImage4 = (ImageView) viewFragmentMyAchievement.findViewById(R.id.routine_equipment4_image);
+//                LinearLayout equipment4inList = (LinearLayout) viewFragmentMyAchievement.findViewById(R.id.routine_equipment4);
+//                TextView arrowOfEquipment4 = (TextView) viewFragmentMyAchievement.findViewById(R.id.routine_equipment4_arrow);
 //
-//                TextView routineGoal5 = (TextView) viewFragmentRoutine.findViewById(R.id.selected_routine_goal5);
-//                TextView routineEquip5 = (TextView) viewFragmentRoutine.findViewById(R.id.selected_routine_equip5);
-//                ImageView equipImage5 = (ImageView) viewFragmentRoutine.findViewById(R.id.routine_equipment5_image);
-//                LinearLayout equipment5inList = (LinearLayout) viewFragmentRoutine.findViewById(R.id.routine_equipment5);
+//                TextView routineGoal5 = (TextView) viewFragmentMyAchievement.findViewById(R.id.selected_routine_goal5);
+//                TextView routineEquip5 = (TextView) viewFragmentMyAchievement.findViewById(R.id.selected_routine_equip5);
+//                ImageView equipImage5 = (ImageView) viewFragmentMyAchievement.findViewById(R.id.routine_equipment5_image);
+//                LinearLayout equipment5inList = (LinearLayout) viewFragmentMyAchievement.findViewById(R.id.routine_equipment5);
 //
-//                btn_refresh = (Button) viewFragmentRoutine.findViewById(R.id.routine_btn_refresh);
+//                btn_refresh = (Button) viewFragmentMyAchievement.findViewById(R.id.routine_btn_refresh);
 //                btn_refresh.setBackgroundResource(R.drawable.effect_refresh_press);
 //
 //                btn_refresh.setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View v) {
 //                        listViewAdapter.notifyDataSetChanged();
-//                        Toast.makeText(viewFragmentRoutine.getContext(), "List is updated", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(viewFragmentMyAchievement.getContext(), "List is updated", Toast.LENGTH_SHORT).show();
 //                    }
 //                });
 //
@@ -263,22 +282,62 @@ public class MyAchievementFragment extends Fragment{
 //        });
 //        listViewAdapter.notifyDataSetChanged();
 
-        return viewFragmentRoutine;
+        initWidgets(viewFragmentMyAchievement);
+        initMyInfo();
+
+        return viewFragmentMyAchievement;
         //return super.onCreateView(inflater, container, savedInstanceState);
     }
 
 
+    @Override
+    public void onStart() {
+        initWidgets(viewFragmentMyAchievement);
+        initMyInfo();
+        super.onStart();
+    }
+
+
     private void initWidgets(View fragmentView) {
-//        tv_noroutine = (TextView) fragmentView.findViewById(R.id.routine_noroutine);
-//        horizontalScrollView = (HorizontalScrollView) fragmentView.findViewById(R.id.routine_hscrollview);
-//
-//        tv_noroutine.setVisibility(View.VISIBLE);
-//        horizontalScrollView.setVisibility(View.GONE);
+        myachievement_tv_submission = (TextView) fragmentView.findViewById(R.id.f_myachievement_tv_submission);
+        myachievement_tv_contribution = (TextView) fragmentView.findViewById(R.id.f_myachievement_tv_contribution);
+        myachievement_tv_quality = (TextView) fragmentView.findViewById(R.id.f_myachievement_tv_quality);
+        myachievement_tv_correctness = (TextView) fragmentView.findViewById(R.id.f_myachievement_tv_correctness);
+        myachievement_tv_regmessage = (TextView) fragmentView.findViewById(R.id.f_myachievement_tv_regmessage);
+
+    }
+
+    private void initMyInfo() {
+        MyInfo tmpMyInfo = MainActivity.odnqDB.getMyInfo();
+
+        if (tmpMyInfo == null) {
+            myachievement_tv_submission.setText("-");
+            myachievement_tv_contribution.setText("-");
+            myachievement_tv_quality.setText("-");
+            myachievement_tv_correctness.setText("-");
+
+            myachievement_tv_regmessage.setVisibility(View.VISIBLE);
+        } else {
+            float tmpMyCorrectness = (float) tmpMyInfo.getMyInfoAnswerRight() / (float) (tmpMyInfo.getMyInfoAnswerRight() + tmpMyInfo.getMyInfoAnswerWrong());
+
+            myachievement_tv_submission.setText(tmpMyInfo.getMyInfoCardNum() + "");
+            myachievement_tv_contribution.setText(tmpMyInfo.getMyInfoExp() + "");
+            myachievement_tv_quality.setText(tmpMyInfo.getMyInfoQuality() + "");
+            myachievement_tv_correctness.setText(tmpMyCorrectness + "");
+
+            myachievement_tv_regmessage.setVisibility(View.GONE);
+
+        }
     }
 
     @Override
     public void onResume() {
+        initMyInfo();
+
         super.onResume();
+
+        r = new MyReceiver();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(r, new IntentFilter("TAG_REFRESH"));
 //        //if(MainActivity.hereDB.getAllMyRoutines() !=null) {
 //            listViewAdapter.setRoutine(MainActivity.hereDB.getAllMyRoutines());
 ////        } else {
@@ -451,6 +510,18 @@ public class MyAchievementFragment extends Fragment{
 
             return view;
         }
+    }
+
+    private class MyReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            MyAchievementFragment.this.refresh();
+        }
+    }
+
+    public void refresh() {
+        //yout code in refresh.
+        Log.i("Refresh", "YES");
     }
 
 }

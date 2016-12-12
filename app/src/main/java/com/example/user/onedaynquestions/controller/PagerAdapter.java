@@ -6,10 +6,14 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.View;
 
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.view.fragment.MyAchievementFragment;
 import com.example.user.onedaynquestions.view.fragment.MyRecordsFragment;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTION_RECEIVE;
 
@@ -18,14 +22,17 @@ import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTI
  */
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
+    private Map<Integer, String> mFragmentTags;
     int mNumOfTabs;
     Fragment myAchievement;
+    FragmentManager mFragmentManager;
     MyRecordsFragment myStudyNote;
     //Fragment myRecord;
 
     public PagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
+        mFragmentTags = new HashMap<Integer, String>();
         myAchievement = new MyAchievementFragment();
         myStudyNote = new MyRecordsFragment();
         //myRecord = new MyRecordsFragment();
@@ -59,5 +66,23 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         super.notifyDataSetChanged();
     }
 
+    @Override
+    public Object instantiateItem(View container, int position) {
+//        return super.instantiateItem(container, position);
+        Object obj = super.instantiateItem(container, position);
 
+        if (obj instanceof Fragment) {
+            Fragment f = (Fragment) obj;
+            String tag = f.getTag();
+            mFragmentTags.put(position, tag);
+        }
+        return obj;
+    }
+
+    public Fragment getFragment (int position) {
+        String tag = mFragmentTags.get(position);
+        if (tag == null)
+            return null;
+        return mFragmentManager.findFragmentByTag(tag);
+    }
 }

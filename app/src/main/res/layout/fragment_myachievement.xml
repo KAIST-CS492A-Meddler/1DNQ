@@ -92,6 +92,7 @@
                         android:gravity="center_horizontal"/>
 
                     <TextView
+                        android:id="@+id/f_myachievement_tv_submission"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="311"
@@ -131,6 +132,7 @@
                         android:gravity="center_horizontal"/>
 
                     <TextView
+                        android:id="@+id/f_myachievement_tv_contribution"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="56Lv"
@@ -170,6 +172,7 @@
                         android:gravity="center_horizontal"/>
 
                     <TextView
+                        android:id="@+id/f_myachievement_tv_quality"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="8.92"
@@ -209,6 +212,7 @@
                         android:gravity="center_horizontal"/>
 
                     <TextView
+                        android:id="@+id/f_myachievement_tv_correctness"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="82%"
@@ -221,6 +225,15 @@
 
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/f_myachievement_tv_regmessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Please register your account first"
+                android:paddingTop="5dp"
+                android:visibility="gone"/>
 
 
             <LinearLayout

@@ -387,10 +387,27 @@ public class LocalDBController extends SQLiteOpenHelper{
         values.put(ATTR_MYINFO_NAME, myInfo.getMyInfoName());
         values.put(ATTR_MYINFO_AGE, myInfo.getMyInfoAge());
         values.put(ATTR_MYINFO_GENDER, myInfo.getMyInfoGender());
+        values.put(ATTR_MYINFO_DEVICEID, myInfo.getMyInfoDeviceId());
+        values.put(ATTR_MYINFO_TOKEN, myInfo.getMyInfoToken());
+        values.put(ATTR_MYINFO_EXP, myInfo.getMyInfoExp());
+        values.put(ATTR_MYINFO_QUALITY, myInfo.getMyInfoQuality());
 
         int returnVal;
         returnVal = db.update(TABLE_MYINFO, values, ATTR_MYINFO_ID + " = ?",
                 new String[] { String.valueOf(myInfo.getMyInfoId()) });
+
+        return returnVal;
+    }
+
+    public int updateMyInfoCardNum (String myInfoId, int cardNum) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ATTR_MYINFO_CARDNUM, cardNum);
+
+        int returnVal;
+        returnVal = db.update(TABLE_MYINFO, values, ATTR_MYINFO_ID + " = ?",
+                new String[] { myInfoId });
 
         return returnVal;
     }
