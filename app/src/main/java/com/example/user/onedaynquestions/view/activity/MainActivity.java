@@ -36,6 +36,7 @@ import android.widget.Toast;
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.PagerAdapter;
 import com.example.user.onedaynquestions.model.AsyncResponse;
+import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.model.MyInfo;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.service.WakefulPushReceiver;
@@ -661,6 +662,7 @@ public class MainActivity extends AppCompatActivity
             String action = intent.getAction();
             switch (action) {
                 case ACTION_RECEIVE:
+
                     WakefulPushReceiver.updated = false;
                     if (viewPager != null) {
                         viewPager.getAdapter().notifyDataSetChanged();

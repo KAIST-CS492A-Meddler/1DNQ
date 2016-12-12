@@ -94,40 +94,42 @@ public class CardSolvingActivity extends AppCompatActivity {
 
     public void setCard(){
         timeChecker.cancel();
-        if(!WakefulPushReceiver.isEmpty()){
-            //MyCard receivedCard  = TemporalStorage.consumeReceivedQuestions();
-            receivedCard = WakefulPushReceiver.getReceivedQuestion();
+        Intent intent = getIntent();
 
-            if(receivedCard == null){
-                receivedCard = new MyCard();
-            }
-            examiner.setText(receivedCard.getMyCardMaker());
-            examiner.postInvalidate();
-            group.setText("from [" + receivedCard.getMyCardGroup()+ "] Group");
-            group.postInvalidate();
-            remainTime = TIME_LIMIT;
-            timer.setText("" + remainTime);
-            timer.postInvalidate();
+        if(intent != null) {
+            receivedCard = new MyCard(intent);
+        }
+        else if(!WakefulPushReceiver.isEmpty()){
+            //open from push notification
+            receivedCard = WakefulPushReceiver.consumeReceivedQuestions();
+        }else{
+            receivedCard = new MyCard();
+        }
+        examiner.setText(receivedCard.getMyCardMaker());
+        examiner.postInvalidate();
+        group.setText("from [" + receivedCard.getMyCardGroup()+ "] Group");
+        group.postInvalidate();
+        remainTime = TIME_LIMIT;
+        timer.setText("" + remainTime);
+        timer.postInvalidate();
 
-            //Modified
-            String cardType = "";
-            if (receivedCard.getMyCardType() == 1) {
-                cardType = "What is the meaning\n of this word?";
-            } else {
-                cardType = "What is the meaning\n of this question?";
-            }
-
-            type.setText(""+cardType);
-            type.postInvalidate();
-            question.setText(receivedCard.getMyCardQuestion());
-            question.postInvalidate();
-            hint.setText(receivedCard.getMyCardHint());
-            hint.postInvalidate();
-
-            //receivedCard = null;
-            timeChecker.start();
+        //Modified
+        String cardType = "";
+        if (receivedCard.getMyCardType() == 1) {
+            cardType = "What is the meaning\n of this word?";
+        } else {
+            cardType = "What is the meaning\n of this question?";
         }
 
+        type.setText(""+cardType);
+        type.postInvalidate();
+        question.setText(receivedCard.getMyCardQuestion());
+        question.postInvalidate();
+        hint.setText(receivedCard.getMyCardHint());
+        hint.postInvalidate();
+
+        //receivedCard = null;
+        timeChecker.start();
     }
 
     @Override

@@ -25,6 +25,7 @@ import java.util.ArrayList;
 //To handle FCM in manual way
 public class WakefulPushReceiver extends WakefulBroadcastReceiver {
     private static ArrayList<MyCard> receivedQuestions = new ArrayList<>();
+    private static ArrayList<MyCard> reccommendedQuestions = new ArrayList<>();
     private static int count = 0;
 
     public static boolean updated = false;
@@ -68,19 +69,25 @@ public class WakefulPushReceiver extends WakefulBroadcastReceiver {
         Log.d(TAG, "notice");
         if(id != null) {
             //if (id.compareTo("1") == 0) {
+            String maker = intent.getStringExtra(MyCard.ATTRIBUTE_CARD_ID);
+            if(maker.contains("[system]")) {
+                WakefulPushReceiver.addReccommendedQuestion(intent);
+            }else {
                 WakefulPushReceiver.addReceivedQuestion(intent);
-                pushNotification(context, intent.getStringExtra("question"));
+                pushNotification(context, new MyCard(intent));
                 Toast.makeText
                         (context, "A new Question card has arrived!", Toast.LENGTH_SHORT).show();
+            }
             //}
 //            intent.setAction("NEW_PROBLEM_HAS_COME");
             //context.sendBroadcast(intent);
         }
     }
 
-    private void pushNotification(Context context, String msg){
-        System.out.println("Received message: " + msg);
-        Intent intent = new Intent(context, CardSolvingActivity.class);
+    private void pushNotification(Context context, MyCard card){
+
+        Intent intent = card.getCardSolvingIntent(context);
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
         /*
         FLAG_UPDATE_CURRENT
@@ -96,7 +103,7 @@ public class WakefulPushReceiver extends WakefulBroadcastReceiver {
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.odnq_app_icon))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentTitle(pushTitle)
-                .setContentText(msg)
+                .setContentText(card.getMyCardQuestion())
                 .setAutoCancel(true)
                 .setSound(sound)
                 .setLights(050030255, 500, 2000)
@@ -129,7 +136,7 @@ public class WakefulPushReceiver extends WakefulBroadcastReceiver {
     public static MyCard consumeReceivedQuestions(){
         MyCard temp =null;
         if(!receivedQuestions.isEmpty()){
-            temp = receivedQuestions.remove(0);
+            temp = receivedQuestions.remove(receivedQuestions.size() - 1);
         }
         return temp;
     }
@@ -160,5 +167,15 @@ public class WakefulPushReceiver extends WakefulBroadcastReceiver {
 
     public static int numReceivedQuestions(){
         return receivedQuestions.size();
+    }
+
+    public static void addReccommendedQuestion(Intent intent){
+        //MyCard(String myCardId, String myCardDateTime, int myCardType, String myCardMaker, String myCardGroup, String myCardQuestion, String myCardAnswer) {
+        reccommendedQuestions.add(new MyCard(intent));
+    }
+
+    public static ArrayList<MyCard> getAllRecommendedQuestions(){
+        return reccommendedQuestions;
+
     }
 }

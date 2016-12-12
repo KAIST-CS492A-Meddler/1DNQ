@@ -257,14 +257,14 @@ public class MyRecordsFragment extends Fragment{
 
 
 
-        if(WakefulPushReceiver.numReceivedQuestions() > 0) {
-            setQuestions(RECOMMENDED, WakefulPushReceiver.getAllReceivedQuestions());
+        if(WakefulPushReceiver.getAllRecommendedQuestions().size() > 0) {
+            setQuestions(RECOMMENDED, WakefulPushReceiver.getAllRecommendedQuestions());
         }
     }
 
     public void resetAllList(){
-        if(WakefulPushReceiver.numReceivedQuestions() > 0) {
-            setQuestions(RECOMMENDED, WakefulPushReceiver.getAllReceivedQuestions());
+        if(WakefulPushReceiver.getAllRecommendedQuestions().size() > 0) {
+            setQuestions(RECOMMENDED, WakefulPushReceiver.getAllRecommendedQuestions());
         }
     }
 
