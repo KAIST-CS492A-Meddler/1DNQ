@@ -326,6 +326,110 @@ public class LocalDBController extends SQLiteOpenHelper{
         }
     }
 
+    // opt1: get all cards
+    // opt2: get cards without mine
+    // opt3: get only my cards
+    // opt4: get starred cards
+    // opt5: get wrong cards
+    // opt6: get recommended cards
+    public ArrayList<MyCard> getMyCards(int opt, String myUserId) {
+
+        ArrayList<MyCard> cardList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_MYCARD;
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null && c.getCount() != 0) {
+
+            c.moveToFirst();
+
+            Log.d("AppendCardList", "[LocalDBController] c.getCount(): " + c.getCount());
+
+            while (!c.isAfterLast()) {
+
+                String myCardId = c.getString(c.getColumnIndex(ATTR_MYCARD_ID));
+                String myCardDateTime = c.getString(c.getColumnIndex(ATTR_MYCARD_DATETIME));
+                int myCardType = c.getInt(c.getColumnIndex(ATTR_MYCARD_TYPE));
+                String myCardMaker = c.getString(c.getColumnIndex(ATTR_MYCARD_MAKER));
+                String myCardGroup = c.getString(c.getColumnIndex(ATTR_MYCARD_GROUP));
+                String myCardQuestion = c.getString(c.getColumnIndex(ATTR_MYCARD_QUESTION));
+                String myCardAnswer = c.getString(c.getColumnIndex(ATTR_MYCARD_ANSWER));
+                String myCardHint = c.getString(c.getColumnIndex(ATTR_MYCARD_HINT));
+                int myCardWrong = c.getInt(c.getColumnIndex(ATTR_MYCARD_WRONGNUM));
+                int myCardDifficulty = c.getInt(c.getColumnIndex(ATTR_MYCARD_DIFFICULTY));
+                int myCardQuality = c.getInt(c.getColumnIndex(ATTR_MYCARD_QUALITY));
+                int myCardStarred = c.getInt(c.getColumnIndex(ATTR_MYCARD_STARRED));
+
+                MyCard tmpMyCard = new MyCard();
+
+                tmpMyCard.setMyCardId(myCardId);
+                tmpMyCard.setMyCardDateTime(myCardDateTime);
+                tmpMyCard.setMyCardType(myCardType);
+                tmpMyCard.setMyCardMaker(myCardMaker);
+                tmpMyCard.setMyCardGroup(myCardGroup);
+                tmpMyCard.setMyCardQuestion(myCardQuestion);
+                tmpMyCard.setMyCardAnswer(myCardAnswer);
+                tmpMyCard.setMyCardHint(myCardHint);
+                tmpMyCard.setMyCardWrong(myCardWrong);
+                tmpMyCard.setMyCardDifficulty(myCardDifficulty);
+                tmpMyCard.setMyCardQuality(myCardQuality);
+                tmpMyCard.setMyCardStarred(myCardStarred);
+
+
+                switch (opt) {
+                    // opt1: get all cards
+                    case 1:
+                        Log.d("AppendCardList", "[LocalDBController] get all cards");
+                        cardList.add(tmpMyCard);
+                        break;
+                    // opt2: get cards without mine
+                    case 2:
+                        if (!myCardMaker.equals(myUserId)) {
+                            cardList.add(tmpMyCard);
+                        }
+                        break;
+                    // opt3: get only my cards
+                    case 3:
+                        if (myCardMaker.equals(myUserId)) {
+                            cardList.add(tmpMyCard);
+                        }
+                        break;
+                    // opt4: get starred cards
+                    case 4:
+                        if (myCardStarred == 1) {
+                            cardList.add(tmpMyCard);
+                        }
+                        break;
+                    // opt5: get wrong cards
+                    case 5:
+                        if (myCardWrong > 0) {
+                            cardList.add(tmpMyCard);
+                        }
+                        break;
+                    // opt6: get recommended cards
+                    case 6:
+                        if (myCardMaker.contains("[system]")) {
+                            cardList.add(tmpMyCard);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                c.moveToNext();
+            }
+
+            return cardList;
+
+        } else {
+            return null;
+        }
+
+    }
+
     public ArrayList<UnitRecord> getMyDailyRecords() {
         ArrayList<UnitRecord> recordList = new ArrayList<>();
 
@@ -435,6 +539,31 @@ public class LocalDBController extends SQLiteOpenHelper{
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /** UPDATE TABLE QUERIES **/
+
+    public int updateMyCard(MyCard myCard) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ATTR_MYCARD_ID, myCard.getMyCardId());
+        values.put(ATTR_MYCARD_DATETIME,myCard.getMyCardDateTime());
+        values.put(ATTR_MYCARD_TYPE,myCard.getMyCardType());
+        values.put(ATTR_MYCARD_MAKER,myCard.getMyCardMaker());
+        values.put(ATTR_MYCARD_GROUP,myCard.getMyCardGroup());
+        values.put(ATTR_MYCARD_QUESTION,myCard.getMyCardQuestion());
+        values.put(ATTR_MYCARD_ANSWER,myCard.getMyCardAnswer());
+        values.put(ATTR_MYCARD_HINT,myCard.getMyCardHint());
+        values.put(ATTR_MYCARD_WRONGNUM,myCard.getMyCardWrong());
+        values.put(ATTR_MYCARD_DIFFICULTY,myCard.getMyCardDifficulty());
+        values.put(ATTR_MYCARD_QUALITY,myCard.getMyCardQuality());
+        values.put(ATTR_MYCARD_STARRED,myCard.getMyCardStarred());
+
+        int returnVal;
+        returnVal = db.update(TABLE_MYCARD, values, ATTR_MYCARD_ID + " = ?",
+                new String[] { String.valueOf(myCard.getMyCardId()) });
+
+        return returnVal;
+
+    }
 
     public int updateMyInfo(MyInfo myInfo) {
         SQLiteDatabase db = this.getWritableDatabase();

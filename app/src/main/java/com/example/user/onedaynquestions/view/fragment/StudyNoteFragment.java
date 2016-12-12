@@ -20,15 +20,17 @@ import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.CardAdapter;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.service.WakefulPushReceiver;
+import com.example.user.onedaynquestions.view.activity.MainActivity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
  * Created by ymbae on 2016-04-18.
  */
-public class MyRecordsFragment extends Fragment{
+public class StudyNoteFragment extends Fragment{
 
-    private static final String TAG_RECORD_DATA = "MyRecordsFragment";
+    private static final String TAG_RECORD_DATA = "StudyNoteFragment";
 
     private View currentView;
 
@@ -79,16 +81,9 @@ public class MyRecordsFragment extends Fragment{
         //Initialize widgets
         initWidgets(currentView);
 
-        //Initialize arraylist from MyRecords table
-        //Divide a single record into multiple records (by equip)
-        initArrayListFromDB();
 
-        //Initialize DailyCalories arraylist using daily record
-        initDailyRecord();
-
-
-        initEquipRecord();
         initQuestionList();
+        initCards();
 
         cdt = new CountDownTimer(5000, 100) {
             @Override
@@ -107,6 +102,54 @@ public class MyRecordsFragment extends Fragment{
 
         return currentView;
         //return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    public void initCards() {
+        // opt1: get all cards
+        // opt2: get cards without mine
+        // opt3: get only my cards
+        // opt4: get starred cards
+        // opt5: get wrong cards
+        // opt6: get recommended cards
+        String myInfoId = MainActivity.odnqDB.getMyInfo().getMyInfoId();
+
+        Log.d("AppendCardList", "MyCard table size: " + MainActivity.odnqDB.countTableMyCard());
+
+        ArrayList<MyCard> allCardList = new ArrayList<MyCard>();
+        ArrayList<MyCard> starredCardList = new ArrayList<MyCard>();
+        ArrayList<MyCard> wrongCardList = new ArrayList<MyCard>();
+        ArrayList<MyCard> recommededCardList = new ArrayList<MyCard>();
+
+        allCardList = MainActivity.odnqDB.getMyCards(1, myInfoId);
+        if (allCardList != null) Log.d("AppendCardList", "allCardList - size: " + allCardList.size());
+
+        // STARRED CARD
+        starredCardList = MainActivity.odnqDB.getMyCards(4, myInfoId);
+        if (starredCardList != null){
+            Log.d("AppendCardList", "starredCardList - size: " + starredCardList.size());
+            for (int i = 0; i < starredCardList.size(); i++) {
+                appendQuestion(STARRED, starredCardList.get(i));
+            }
+
+        }
+
+        // WRONG CARD
+        wrongCardList = MainActivity.odnqDB.getMyCards(5, myInfoId);
+        if (wrongCardList != null){
+            Log.d("AppendCardList", "wrongCardList - size: " + wrongCardList.size());
+            for (int i = 0; i < wrongCardList.size(); i++) {
+                appendQuestion(FREQUENTLY_WRONG, wrongCardList.get(i));
+            }
+        }
+
+        // RECOMMENDED CARD
+        recommededCardList = MainActivity.odnqDB.getMyCards(6, myInfoId);
+        if (recommededCardList != null) {
+            Log.d("AppendCardList", "recommededCardList - size: " + recommededCardList.size());
+            for (int i = 0; i < recommededCardList.size(); i++) {
+                appendQuestion(RECOMMENDED, recommededCardList.get(i));
+            }
+        }
     }
 
 
@@ -141,7 +184,10 @@ public class MyRecordsFragment extends Fragment{
                     case MotionEvent.ACTION_UP:
                         if(dist < distThreshold) {
                             int id = frequentlyWrongList.getChildAdapterPosition(frequentlyWrongList.findChildViewUnder(e.getX(), e.getY()));
-                            startActivity(new Intent(frequentlyWrongQuestionList.get(id).getCardSolvingIntent(getActivity().getBaseContext())));
+                            if (id > -1) {
+                                startActivity(new Intent(frequentlyWrongQuestionList.get(id).getCardSolvingIntent(getActivity().getBaseContext())));
+
+                            }
                         }
 
                         break;
@@ -190,7 +236,9 @@ public class MyRecordsFragment extends Fragment{
                     case MotionEvent.ACTION_UP:
                         if(dist < distThreshold) {
                             int id = frequentlyWrongList.getChildAdapterPosition(frequentlyWrongList.findChildViewUnder(e.getX(), e.getY()));
-                            startActivity(new Intent(frequentlyWrongQuestionList.get(id).getCardSolvingIntent(getActivity().getBaseContext())));
+                            if (id > -1) {
+                                startActivity(new Intent(frequentlyWrongQuestionList.get(id).getCardSolvingIntent(getActivity().getBaseContext())));
+                            }
                         }
 
                         break;
@@ -237,7 +285,9 @@ public class MyRecordsFragment extends Fragment{
                     case MotionEvent.ACTION_UP:
                         if(dist < distThreshold) {
                             int id = recommendList.getChildAdapterPosition(recommendList.findChildViewUnder(e.getX(), e.getY()));
-                            startActivity(new Intent(recommendedQuestionList.get(id).getCardSolvingIntent(getActivity().getBaseContext())));
+                            if (id > -1) {
+                                startActivity(new Intent(recommendedQuestionList.get(id).getCardSolvingIntent(getActivity().getBaseContext())));
+                            }
                         }
 
                         break;
@@ -290,12 +340,15 @@ public class MyRecordsFragment extends Fragment{
         switch (where){
             case STARRED:
                 starredQuestionList.add( question);
+                starredQuestionListAdapter.notifyDataSetChanged();
                 break;
             case FREQUENTLY_WRONG:
                 frequentlyWrongQuestionList.add( question);
+                frequentlyWrongQuestionListAdapter.notifyDataSetChanged();
                 break;
             case RECOMMENDED:
                 recommendedQuestionList.add( question);
+                recommendedQuestionListAdapter.notifyDataSetChanged();
                 break;
             default:
                 return false;

@@ -1,21 +1,15 @@
 package com.example.user.onedaynquestions.controller;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.View;
 
-import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.view.fragment.MyAchievementFragment;
-import com.example.user.onedaynquestions.view.fragment.MyRecordsFragment;
+import com.example.user.onedaynquestions.view.fragment.StudyNoteFragment;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTION_RECEIVE;
 
 /**
  * Created by ymbae on 2016-04-18.
@@ -26,7 +20,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
     Fragment myAchievement;
     FragmentManager mFragmentManager;
-    MyRecordsFragment myStudyNote;
+    StudyNoteFragment myStudyNote;
     //Fragment myRecord;
 
     public PagerAdapter(FragmentManager fm, int NumOfTabs) {
@@ -34,8 +28,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         this.mNumOfTabs = NumOfTabs;
         mFragmentTags = new HashMap<Integer, String>();
         myAchievement = new MyAchievementFragment();
-        myStudyNote = new MyRecordsFragment();
-        //myRecord = new MyRecordsFragment();
+        myStudyNote = new StudyNoteFragment();
+        //myRecord = new StudyNoteFragment();
     }
 
     @Override

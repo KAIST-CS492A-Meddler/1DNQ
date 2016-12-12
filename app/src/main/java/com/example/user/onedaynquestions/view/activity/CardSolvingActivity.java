@@ -22,6 +22,8 @@ import com.example.user.onedaynquestions.service.WakefulPushReceiver;
  */
 public class CardSolvingActivity extends AppCompatActivity {
 
+    public static final String TAG_DB = "LocalDatabase";
+
 
     public static Activity thisActivity;
 
@@ -127,6 +129,18 @@ public class CardSolvingActivity extends AppCompatActivity {
         question.postInvalidate();
         hint.setText(receivedCard.getMyCardHint());
         hint.postInvalidate();
+
+        MyCard tmpMyCard = new MyCard();
+        tmpMyCard.setMyCardId(receivedCard.getMyCardId());
+        tmpMyCard.setMyCardMaker(receivedCard.getMyCardMaker());
+        tmpMyCard.setMyCardQuestion(receivedCard.getMyCardQuestion());
+        tmpMyCard.setMyCardAnswer(receivedCard.getMyCardAnswer());
+        tmpMyCard.setMyCardGroup("group-1");
+        tmpMyCard.setMyCardHint(receivedCard.getMyCardHint());
+        tmpMyCard.setMyCardType(receivedCard.getMyCardType());
+
+        MainActivity.odnqDB.insertMyCard(tmpMyCard);
+        Log.d(TAG_DB, "[NewCardActivity] A new card is added to local DB.");
 
         //receivedCard = null;
         timeChecker.start();

@@ -10,12 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.model.AsyncResponse;
+import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 
@@ -28,6 +30,8 @@ import java.util.HashMap;
  */
 public class CardEvaluationActivity extends AppCompatActivity implements AsyncResponse {
 
+    public static final String TAG_DB = "LocalDatabase";
+
 
     public static Activity thisActivity;
 
@@ -35,9 +39,11 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
 
     private RatingBar cardeval_rb_usefulness;
     private RatingBar cardeval_rb_difficulty;
+    private ImageView cardeval_iv_star;
 
     private String card_id;
     private int self_eval;
+    private int card_star = 0;
 
     int count;
     @Override
@@ -54,6 +60,7 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
 
         cardeval_rb_usefulness = (RatingBar) findViewById(R.id.cardeval_rb_usefulness);
         cardeval_rb_difficulty = (RatingBar) findViewById(R.id.cardeval_rb_difficulty);
+        cardeval_iv_star = (ImageView) findViewById(R.id.cardeval_iv_star);
 
 
     }
@@ -92,10 +99,38 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
                 updateCardTask.execute("http://110.76.95.150/solve_problem.php");
 
 //                Toast.makeText(getApplicationContext(), "Card information is updated", Toast.LENGTH_SHORT).show();
+                MyCard tmpMyCard = MainActivity.odnqDB.getMyCardWithId(card_id);
+
+                tmpMyCard.setMyCardDifficulty((int)cardeval_rb_difficulty.getRating());
+                tmpMyCard.setMyCardQuality((int)cardeval_rb_usefulness.getRating());
+                if (self_eval == 0) {
+                    tmpMyCard.setMyCardWrong(tmpMyCard.getMyCardWrong() + 1);
+                }
+                if (card_star == 0) {
+                    tmpMyCard.setMyCardStarred(0);
+                } else {
+                    tmpMyCard.setMyCardStarred(1);
+                }
+
+                MainActivity.odnqDB.updateMyCard(tmpMyCard);
+                Log.d(TAG_DB, "[CardEvaluationActivity] Card information is updated");
 
                 showEndCardEvalDialog();
                 break;
 
+            case R.id.cardeval_iv_star:
+                if (card_star == 0) {
+                    //nostar -> star
+                    Toast.makeText(getApplicationContext(), "This card is starred.", Toast.LENGTH_SHORT).show();
+                    cardeval_iv_star.setImageResource(R.drawable.odnq_star_full);
+                    card_star = 1;
+                } else {
+                    //star -> nostar
+                    Toast.makeText(getApplicationContext(), "Star is removed.", Toast.LENGTH_SHORT).show();
+                    cardeval_iv_star.setImageResource(R.drawable.odnq_star_empty);
+                    card_star = 0;
+                }
+                break;
         }
     }
 

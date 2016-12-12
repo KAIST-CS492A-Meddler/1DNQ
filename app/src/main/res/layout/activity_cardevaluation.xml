@@ -49,7 +49,6 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:padding="5dp">
@@ -66,9 +65,11 @@
                     android:paddingRight="10dp"/>
 
                 <ImageView
+                    android:id="@+id/cardeval_iv_star"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/odnq_star_empty"/>
+                    android:src="@drawable/odnq_star_empty"
+                    android:onClick="mOnClick"/>
 
             </LinearLayout>
 

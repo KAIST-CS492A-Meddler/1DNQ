@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity
         /** DB LOAD **/
         if (odnqDB.getMyInfo() != null) {
             countMyCardNum(odnqDB.getMyInfo().getMyInfoId());
+            odnqDB.updateMyInfoLoginNum(odnqDB.getMyInfo().getMyInfoId());
         }
 
 
@@ -318,6 +319,14 @@ public class MainActivity extends AppCompatActivity
         Log.d("MainInitWidgets", "onResume() is called");
         initMyInfo();
         stopService(new Intent(this, FloatingButtonService.class));
+
+        /** DB LOAD **/
+        if (odnqDB.getMyInfo() != null) {
+            countMyCardNum(odnqDB.getMyInfo().getMyInfoId());
+            odnqDB.updateMyInfoLoginNum(odnqDB.getMyInfo().getMyInfoId());
+
+            Log.d("LocalDatabase", "[MainActivity] userLoginNum: " + odnqDB.getMyInfo().getMyInfoLoginNum());
+        }
 
         updateListener = new BroadReceiver();
         registerReceiver(updateListener, filter);

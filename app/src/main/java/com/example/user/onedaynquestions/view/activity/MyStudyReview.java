@@ -17,7 +17,6 @@ import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.controller.CardAdapter;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
-import com.example.user.onedaynquestions.service.WakefulPushReceiver;
 
 import java.util.ArrayList;
 
@@ -26,19 +25,19 @@ import java.util.ArrayList;
  */
 public class MyStudyReview extends AppCompatActivity {
 
-    public static final int FREQUENTLY_WRONG = 0;
+    public static final int WRONGANSWER = 0;
     public static final int DAILY = 1;
 
     public static final String TAG = "MyStudyReview";
     public static final String TAG_DB = "MyEquipmentsDBTag";
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<MyCard> frequentlyWrongQuestionList, dailyRecordList;
+    private ArrayList<MyCard> wrongAnswerList, dailyRecordList;
     private float dist;
     private int prevX, prevY;
     private final int distThreshold = 100;
 
-    private CardAdapter frequentlyWrongQuestionListAdapter,dailyRecordListAdapter;
-    private RecyclerView frequentlyWrongListView, dailyRecordListView;
+    private CardAdapter wrongAnswerListAdapter,dailyRecordListAdapter;
+    private RecyclerView wrongAnswerListView, dailyRecordListView;
 
 //    public List<MyHereAgent> myHereAgents;
 //    private HERE_DeviceListAdapter equipListAdapter;
@@ -79,7 +78,7 @@ public class MyStudyReview extends AppCompatActivity {
 
         initQuestionList();
         appendQuestion(DAILY, new MyCard());
-        appendQuestion(FREQUENTLY_WRONG, new MyCard());
+        appendQuestion(WRONGANSWER, new MyCard());
 
 //        myHereAgents = new ArrayList<MyHereAgent>();
 //        selectedNewAgent = new MyHereAgent();
@@ -565,13 +564,13 @@ public class MyStudyReview extends AppCompatActivity {
 
 
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        frequentlyWrongListView = (RecyclerView) findViewById(R.id.frequently_wrong_question_onReview_lv);
-        frequentlyWrongListView.setLayoutManager(mLayoutManager);
-        frequentlyWrongListView.setHasFixedSize(true);
-        frequentlyWrongQuestionList = new ArrayList<>();
-        frequentlyWrongQuestionListAdapter = new CardAdapter(frequentlyWrongQuestionList);
-        frequentlyWrongListView.setAdapter(frequentlyWrongQuestionListAdapter);
-        frequentlyWrongListView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+        wrongAnswerListView = (RecyclerView) findViewById(R.id.frequently_wrong_question_onReview_lv);
+        wrongAnswerListView.setLayoutManager(mLayoutManager);
+        wrongAnswerListView.setHasFixedSize(true);
+        wrongAnswerList = new ArrayList<>();
+        wrongAnswerListAdapter = new CardAdapter(wrongAnswerList);
+        wrongAnswerListView.setAdapter(wrongAnswerListAdapter);
+        wrongAnswerListView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
                 switch (e.getAction()){
@@ -591,8 +590,8 @@ public class MyStudyReview extends AppCompatActivity {
                         break;
                     case MotionEvent.ACTION_UP:
                         if(dist < distThreshold) {
-                            int id = frequentlyWrongListView.getChildAdapterPosition(frequentlyWrongListView.findChildViewUnder(e.getX(), e.getY()));
-                            startActivity(new Intent(frequentlyWrongQuestionList.get(id).getCardSolvingIntent(MyStudyReview.this)));
+                            int id = wrongAnswerListView.getChildAdapterPosition(wrongAnswerListView.findChildViewUnder(e.getX(), e.getY()));
+                            startActivity(new Intent(wrongAnswerList.get(id).getCardSolvingIntent(MyStudyReview.this)));
                         }
 
                         break;
@@ -618,8 +617,8 @@ public class MyStudyReview extends AppCompatActivity {
             case DAILY:
                 dailyRecordList.add(position, question);
                 break;
-            case FREQUENTLY_WRONG:
-                frequentlyWrongQuestionList.add(position, question);
+            case WRONGANSWER:
+                wrongAnswerList.add(position, question);
                 break;
             default:
                 return false;
@@ -630,10 +629,10 @@ public class MyStudyReview extends AppCompatActivity {
     public boolean appendQuestion(int where, MyCard question){
         switch (where){
             case DAILY:
-                dailyRecordList.add( question);
+                dailyRecordList.add(question);
                 break;
-            case FREQUENTLY_WRONG:
-                frequentlyWrongQuestionList.add( question);
+            case WRONGANSWER:
+                wrongAnswerList.add(question);
                 break;
             default:
                 return false;
@@ -648,9 +647,9 @@ public class MyStudyReview extends AppCompatActivity {
                 dailyRecordList.remove(position);
                 dailyRecordListAdapter.notifyDataSetChanged();
                 break;
-            case FREQUENTLY_WRONG:
-                frequentlyWrongQuestionList.remove(position);
-                frequentlyWrongQuestionListAdapter.notifyDataSetChanged();
+            case WRONGANSWER:
+                wrongAnswerList.remove(position);
+                wrongAnswerListAdapter.notifyDataSetChanged();
                 break;
             default:
                 return false;
@@ -666,10 +665,10 @@ public class MyStudyReview extends AppCompatActivity {
                 dailyRecordList.addAll(list);
                 dailyRecordListAdapter.notifyDataSetChanged();
                 break;
-            case FREQUENTLY_WRONG:
-                frequentlyWrongQuestionList.clear();
-                frequentlyWrongQuestionList.addAll(list);
-                frequentlyWrongQuestionListAdapter.notifyDataSetChanged();
+            case WRONGANSWER:
+                wrongAnswerList.clear();
+                wrongAnswerList.addAll(list);
+                wrongAnswerListAdapter.notifyDataSetChanged();
                 break;
             default:
                 return false;
