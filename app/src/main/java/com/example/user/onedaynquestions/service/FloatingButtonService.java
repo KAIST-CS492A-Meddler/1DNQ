@@ -82,7 +82,7 @@ public class FloatingButtonService extends Service {
         floatView = inflater.inflate(R.layout.activity_floating_widget, null);
 
         backgroundView= inflater.inflate(R.layout.background_floating_button, null);
-        backgroundView.setBackgroundColor(Color.argb(125, 0,0,0));
+        backgroundView.setBackgroundColor(Color.argb(0, 0,0,0));
         backgroundView.setAlpha(0);
         exitButton = (ImageButton) backgroundView.findViewById(R.id.exitButton);
         layoutParamsBackground = new WindowManager.LayoutParams(
@@ -141,9 +141,9 @@ public class FloatingButtonService extends Service {
                         len = (int)Math.sqrt(distX * distX + distY * distY);
 
                         if(len < layoutParamsBackground.width / 2){
-                            backgroundView.setBackgroundColor(Color.argb(125, 255,0,0));
+                            exitButton.setColorFilter(Color.RED);
                         }else{
-                            backgroundView.setBackgroundColor(Color.argb(125, 0,0,0));
+                            exitButton.clearColorFilter();
                         }
 
                         windowManager.updateViewLayout(floatView, layoutParams);

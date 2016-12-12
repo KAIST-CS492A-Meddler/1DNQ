@@ -489,7 +489,11 @@ public class MainActivity extends AppCompatActivity
         }else {
             if (networkInfo.isConnected()) {
                 token = FirebaseInstanceId.getInstance().getToken();
-                Log.d("TOKEN", token);
+                if(token != null) {
+                    Log.d("TOKEN", token);
+                }else{
+
+                }
                 FirebaseMessaging.getInstance().subscribeToTopic("test");
                 Toast.makeText(this, "Connected to Firebase server.", Toast.LENGTH_LONG).show();
             } else {
