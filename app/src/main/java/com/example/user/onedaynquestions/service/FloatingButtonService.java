@@ -27,7 +27,7 @@ public class FloatingButtonService extends Service {
     private WindowManager.LayoutParams layoutParams;
     private WindowManager.LayoutParams layoutParamsBackground;
     private CountDownTimer anim;
-    private ImageButton exitButton;
+    private ImageView exitButton;
 
     private int originWidth, originHeight;
     private int magWidth, magHeight;
@@ -84,7 +84,7 @@ public class FloatingButtonService extends Service {
         backgroundView= inflater.inflate(R.layout.background_floating_button, null);
         backgroundView.setBackgroundColor(Color.argb(0, 0,0,0));
         backgroundView.setAlpha(0);
-        exitButton = (ImageButton) backgroundView.findViewById(R.id.exitButton);
+        exitButton = (ImageView) backgroundView.findViewById(R.id.exitButton);
         layoutParamsBackground = new WindowManager.LayoutParams(
                 magWidth,
                 magHeight,

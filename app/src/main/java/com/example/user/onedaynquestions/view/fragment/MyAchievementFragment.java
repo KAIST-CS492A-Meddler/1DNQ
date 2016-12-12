@@ -46,7 +46,7 @@ public class MyAchievementFragment extends Fragment{
     MyReceiver r;
 
     public List<Goal> goals;
-    ListViewAdapter listViewAdapter;
+//    ListViewAdapter listViewAdapter;
 
 //    TextView tv_noroutine;
 //    HorizontalScrollView horizontalScrollView;
@@ -451,116 +451,116 @@ public class MyAchievementFragment extends Fragment{
         String time;
     }
 
-    private class ListViewAdapter extends BaseAdapter {
-        private LayoutInflater mInflator;
-        private List<MyRoutine> myRoutines = new ArrayList<MyRoutine>();
-
-        public List<MyRoutine> getRoutine(){
-            return myRoutines;
-        }
-
-        public void setRoutine(List<MyRoutine> routines){
-            this.myRoutines = routines;
-        }
-
-        public ListViewAdapter() {
-            super();
-            if(MainActivity.hereDB.getAllMyRoutines() !=null) {
-                myRoutines = MainActivity.hereDB.getAllMyRoutines();
-            } else {
-                myRoutines.clear();
-            }
-
-            mInflator = getActivity().getLayoutInflater();
-        }
-
-        @Override
-        public int getCount() {
-            if (myRoutines != null)
-                return myRoutines.size();
-            else
-                return 0;
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return myRoutines.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-
-            // General ListView optimization code.
-            if (view == null) {
-                int res = 0;
-                res = R.layout.listitem_routine;
-                view = mInflator.inflate(res, viewGroup, false);
-
-            }
-
-            ImageView routineImage = (ImageView) view.findViewById(R.id.equiplist_img);
-            TextView routineName = (TextView) view.findViewById(R.id.equiplist_name);
-            TextView routineId = (TextView) view.findViewById(R.id.equiplist_id);
-            TextView routineSummary = (TextView) view.findViewById(R.id.equiplist_sensorid);
-
-//            switch (pairedEquipList.get(i).getEquipmentType()) {
-//                case 0:
-//                    eqTypeImage.setImageResource(R.mipmap.ic_setting_update_alarm);
-//                    break;
-//                case 1:
-//                    eqTypeImage.setImageResource(R.mipmap.ic_setting_best_interest);
-//                    break;
-//                case 2:
-//                    eqTypeImage.setImageResource(R.mipmap.ic_setting_user_information);
-//                    break;
-//                case 3:
-//                    break;
-//                default:
-//                    break;
+//    private class ListViewAdapter extends BaseAdapter {
+//        private LayoutInflater mInflator;
+//        private List<MyRoutine> myRoutines = new ArrayList<MyRoutine>();
+//
+//        public List<MyRoutine> getRoutine(){
+//            return myRoutines;
+//        }
+//
+//        public void setRoutine(List<MyRoutine> routines){
+//            this.myRoutines = routines;
+//        }
+//
+//        public ListViewAdapter() {
+//            super();
+//            if(MainActivity.hereDB.getAllMyRoutines() !=null) {
+//                myRoutines = MainActivity.hereDB.getAllMyRoutines();
+//            } else {
+//                myRoutines.clear();
 //            }
-
-            routineImage.setImageResource(R.drawable.list_routine_icon);
-
-            routineName.setText(myRoutines.get(i).getRoutineId());
-            routineId.setText(myRoutines.get(i).getRoutineName());
-            String summary = "";
-            MyHereAgent myHereAgent;
-            if(!myRoutines.get(i).getRoutineEq1Id().equals("-1")) {
-                myHereAgent = MainActivity.hereDB.getMyHereAgent(myRoutines.get(i).getRoutineEq1Id());
-                if(myHereAgent !=null)
-                    summary += myHereAgent.getMyeqName();
-            }
-            if(!myRoutines.get(i).getRoutineEq2Id().equals("-1")) {
-                myHereAgent =  MainActivity.hereDB.getMyHereAgent(myRoutines.get(i).getRoutineEq2Id());
-                if(myHereAgent != null)
-                    summary += " - " + myHereAgent.getMyeqName();
-            }
-            if(!myRoutines.get(i).getRoutineEq3Id().equals("-1")) {
-                myHereAgent = MainActivity.hereDB.getMyHereAgent(myRoutines.get(i).getRoutineEq3Id());
-                if(myHereAgent != null)
-                    summary += " - " + myHereAgent.getMyeqName();
-            }
-            if(!myRoutines.get(i).getRoutineEq4Id().equals("-1")) {
-                myHereAgent = MainActivity.hereDB.getMyHereAgent(myRoutines.get(i).getRoutineEq4Id());
-                if(myHereAgent != null)
-                    summary += " - " + myHereAgent.getMyeqName();
-            }
-            if(!myRoutines.get(i).getRoutineEq5Id().equals("-1")) {
-                myHereAgent =  MainActivity.hereDB.getMyHereAgent(myRoutines.get(i).getRoutineEq5Id());
-                if (myHereAgent != null)
-                    summary += " - " + myHereAgent.getMyeqName();
-            }
-
-            routineSummary.setText(summary);
-
-            return view;
-        }
-    }
+//
+//            mInflator = getActivity().getLayoutInflater();
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            if (myRoutines != null)
+//                return myRoutines.size();
+//            else
+//                return 0;
+//        }
+//
+//        @Override
+//        public Object getItem(int i) {
+//            return myRoutines.get(i);
+//        }
+//
+//        @Override
+//        public long getItemId(int i) {
+//            return i;
+//        }
+//
+//        @Override
+//        public View getView(int i, View view, ViewGroup viewGroup) {
+//
+//            // General ListView optimization code.
+//            if (view == null) {
+//                int res = 0;
+//                res = R.layout.listitem_routine;
+//                view = mInflator.inflate(res, viewGroup, false);
+//
+//            }
+//
+//            ImageView routineImage = (ImageView) view.findViewById(R.id.equiplist_img);
+//            TextView routineName = (TextView) view.findViewById(R.id.equiplist_name);
+//            TextView routineId = (TextView) view.findViewById(R.id.equiplist_id);
+//            TextView routineSummary = (TextView) view.findViewById(R.id.equiplist_sensorid);
+//
+////            switch (pairedEquipList.get(i).getEquipmentType()) {
+////                case 0:
+////                    eqTypeImage.setImageResource(R.mipmap.ic_setting_update_alarm);
+////                    break;
+////                case 1:
+////                    eqTypeImage.setImageResource(R.mipmap.ic_setting_best_interest);
+////                    break;
+////                case 2:
+////                    eqTypeImage.setImageResource(R.mipmap.ic_setting_user_information);
+////                    break;
+////                case 3:
+////                    break;
+////                default:
+////                    break;
+////            }
+//
+//            routineImage.setImageResource(R.drawable.list_routine_icon);
+//
+//            routineName.setText(myRoutines.get(i).getRoutineId());
+//            routineId.setText(myRoutines.get(i).getRoutineName());
+//            String summary = "";
+//            MyHereAgent myHereAgent;
+//            if(!myRoutines.get(i).getRoutineEq1Id().equals("-1")) {
+//                myHereAgent = MainActivity.hereDB.getMyHereAgent(myRoutines.get(i).getRoutineEq1Id());
+//                if(myHereAgent !=null)
+//                    summary += myHereAgent.getMyeqName();
+//            }
+//            if(!myRoutines.get(i).getRoutineEq2Id().equals("-1")) {
+//                myHereAgent =  MainActivity.hereDB.getMyHereAgent(myRoutines.get(i).getRoutineEq2Id());
+//                if(myHereAgent != null)
+//                    summary += " - " + myHereAgent.getMyeqName();
+//            }
+//            if(!myRoutines.get(i).getRoutineEq3Id().equals("-1")) {
+//                myHereAgent = MainActivity.hereDB.getMyHereAgent(myRoutines.get(i).getRoutineEq3Id());
+//                if(myHereAgent != null)
+//                    summary += " - " + myHereAgent.getMyeqName();
+//            }
+//            if(!myRoutines.get(i).getRoutineEq4Id().equals("-1")) {
+//                myHereAgent = MainActivity.hereDB.getMyHereAgent(myRoutines.get(i).getRoutineEq4Id());
+//                if(myHereAgent != null)
+//                    summary += " - " + myHereAgent.getMyeqName();
+//            }
+//            if(!myRoutines.get(i).getRoutineEq5Id().equals("-1")) {
+//                myHereAgent =  MainActivity.hereDB.getMyHereAgent(myRoutines.get(i).getRoutineEq5Id());
+//                if (myHereAgent != null)
+//                    summary += " - " + myHereAgent.getMyeqName();
+//            }
+//
+//            routineSummary.setText(summary);
+//
+//            return view;
+//        }
+//    }
 
     private class MyReceiver extends BroadcastReceiver {
         @Override
