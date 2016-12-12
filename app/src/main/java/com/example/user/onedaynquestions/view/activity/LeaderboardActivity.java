@@ -7,13 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 
 /**
  * Created by ymbaek on 2016-04-18.
  */
-public class MyStudyGroups extends AppCompatActivity {
+public class LeaderboardActivity extends AppCompatActivity {
 
     public static final String TAG = "Leaderboard";
 
@@ -27,10 +29,12 @@ public class MyStudyGroups extends AppCompatActivity {
 //    TextView textView;
 //    ListView listView;
 
+    private Button leaderboard_btn_findgroup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mystudygroups);
+        setContentView(R.layout.activity_leaderboard);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -51,8 +55,14 @@ public class MyStudyGroups extends AppCompatActivity {
 //        listView.setAdapter(adapter);
 //        adapter.notifyDataSetChanged();
 
+        initWidget();
+
     }
 
+
+    public void initWidget() {
+        leaderboard_btn_findgroup = (Button) findViewById(R.id.leaderboard_btn_findgroup);
+    }
 
 
     @Override
@@ -262,6 +272,10 @@ public class MyStudyGroups extends AppCompatActivity {
     public void mOnClick(View v) {
         switch (v.getId()) {
             case R.id.leaderboard_btn_findgroup:
+                Toast.makeText(getApplicationContext(), "We are sorry.\nThis version of prototype\ndoes not support\n<Find a new group> function.", Toast.LENGTH_LONG).show();
+                leaderboard_btn_findgroup.setEnabled(false);
+                leaderboard_btn_findgroup.setBackgroundColor(Color.GRAY);
+                leaderboard_btn_findgroup.setTextColor(Color.LTGRAY);
                 break;
         }
     }

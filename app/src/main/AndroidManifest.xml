@@ -32,7 +32,7 @@
         <activity android:name=".device.WorkoutRecord2" />
         <activity android:name=".device.EquipmentRecordTerminal" />
         <activity android:name=".view.activity.MyStudyReview" />
-        <activity android:name=".view.activity.MyStudyGroups" />
+        <activity android:name=".view.activity.LeaderboardActivity" />
         <activity android:name=".view.activity.MyAchievements" />
         <activity android:name=".view.activity.SettingAppInfoActivity" />
         <activity android:name=".view.activity.SettingMyInfoActivity" />

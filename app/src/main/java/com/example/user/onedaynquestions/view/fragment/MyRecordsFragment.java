@@ -845,7 +845,7 @@ public class MyRecordsFragment extends Fragment{
 //        btn_seemore.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent_myrecords = new Intent(getContext(), MyStudyGroups.class);
+//                Intent intent_myrecords = new Intent(getContext(), LeaderboardActivity.class);
 //                startActivity(intent_myrecords);
 //            }
 //        });

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorSkyBlue"/>
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingLeft="15dp"-->
+        <!--android:paddingTop="5dp"-->
+        <!--android:paddingBottom="5dp"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:textStyle="bold"-->
+        <!--android:text="My study group"/>-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#dddddd">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="80dp">
+
+                <TextView
+                    android:id="@+id/leaderboard_tv_groupname"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:text="Group name"
+                    android:textSize="26dp"
+                    android:textStyle="bold"
+                    android:paddingLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/colorSkyBlue"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/leaderboard_tv_groupmemnum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="22"
+                        android:textSize="24dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="members"
+                        android:textSize="10dp"
+                        android:gravity="center"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorSkyBlue"/>
+
+            <TextView
+                android:id="@+id/leaderboard_tv_groupleader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Group leader"
+                android:textSize="16dp"
+                android:textColor="#222222"
+                android:background="#dddddd"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/leaderboard_tv_groupgoal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Group goal"
+                android:textSize="16dp"
+                android:textColor="#222222"
+                android:background="#dddddd"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#eeeeee">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Group leaderboard"
+                    android:textSize="16dp"
+                    android:textColor="#222222"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"/>
+
+                <ListView
+                    android:id="@+id/leaderboard_lv_users"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#ffffff"></ListView>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/leaderboard_btn_findgroup"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#cccccc"
+                android:gravity="center"
+                android:textColor="#111111"
+                android:textSize="15dp"
+                android:onClick="mOnClick"
+                android:text="Find another group\n(Not supported)"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+
+
+
+
+
+
+</LinearLayout>

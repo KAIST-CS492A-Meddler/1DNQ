@@ -433,7 +433,7 @@ public class MainActivity extends AppCompatActivity
             //My exercise record
             case R.id.nav_leaderboard:
 //                Toast.makeText(getApplicationContext(), "MY EXERCISE RECORDS", Toast.LENGTH_SHORT).show();
-                Intent intent_myrecords = new Intent(getApplicationContext(), MyStudyGroups.class);
+                Intent intent_myrecords = new Intent(getApplicationContext(), LeaderboardActivity.class);
                 startActivity(intent_myrecords);
                 break;
             //My information setting
