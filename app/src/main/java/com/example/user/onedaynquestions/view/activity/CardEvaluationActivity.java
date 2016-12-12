@@ -73,6 +73,7 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
                     "\nself_eval: " + self_eval, Toast.LENGTH_SHORT).show();
 
                 HashMap postData = new HashMap();
+                postData.put("userinfo_id", MainActivity.odnqDB.getMyInfo().getMyInfoId());
                 postData.put("cinfo_id", card_id);
                 postData.put("cinfo_difficulty", cardeval_rb_usefulness.getRating() + "");
                 postData.put("cinfo_quality", cardeval_rb_difficulty.getRating() + "");

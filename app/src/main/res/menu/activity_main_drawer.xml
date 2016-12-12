@@ -10,6 +10,23 @@
 
         </menu>
     </item>
+    <item android:title="Card and Group">
+        <menu>
+            <item
+                android:id="@+id/nav_leaderboard"
+                android:icon="@drawable/nav_icon_myrecords"
+                android:title="Leaderboard" />
+            <item
+                android:id="@+id/nav_mycards"
+                android:icon="@drawable/nav_icon_myagents"
+                android:title="My Cards" />
+            <!--<item-->
+            <!--android:id="@+id/nav_myroutine"-->
+            <!--android:icon="@drawable/nav_icon_myroutines"-->
+            <!--android:title="My Achievements" />-->
+
+        </menu>
+    </item>
     <item android:title="Database">
         <menu>
             <item
@@ -48,22 +65,7 @@
         </menu>
     </item>
 
-    <item android:title="Exercise Management">
-        <menu>
-            <item
-                android:id="@+id/nav_myequipments"
-                android:icon="@drawable/nav_icon_myagents"
-                android:title="My Study Review" />
-            <item
-                android:id="@+id/nav_myroutine"
-                android:icon="@drawable/nav_icon_myroutines"
-                android:title="My Achievements" />
-            <item
-                android:id="@+id/nav_myrecord"
-                android:icon="@drawable/nav_icon_myrecords"
-                android:title="My Study Groups" />
-        </menu>
-    </item>
+
 
     <!--<item android:title="운동 알람">-->
         <!--<menu>-->

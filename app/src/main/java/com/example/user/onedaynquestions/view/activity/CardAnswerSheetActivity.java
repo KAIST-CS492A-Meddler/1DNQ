@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -104,10 +105,18 @@ public class CardAnswerSheetActivity extends AppCompatActivity {
 
         switch (v.getId()) {
             case R.id.cardanswer_btn_wrong:
+                MainActivity.odnqDB.updateMyInfoCardAnswer(MainActivity.odnqDB.getMyInfo().getMyInfoId(), 0);
+
+                Log.d("CardAnswerUpdate", "# of wrong: " + MainActivity.odnqDB.getMyInfo().getMyInfoAnswerWrong());
+
                 intent_goeval.putExtra("self_eval", 0);
                 startActivity(intent_goeval);
                 break;
             case R.id.cardanswer_btn_right:
+                MainActivity.odnqDB.updateMyInfoCardAnswer(MainActivity.odnqDB.getMyInfo().getMyInfoId(), 1);
+
+                Log.d("CardAnswerUpdate", "# of right: " + MainActivity.odnqDB.getMyInfo().getMyInfoAnswerRight());
+
                 intent_goeval.putExtra("self_eval", 1);
                 startActivity(intent_goeval);
                 break;

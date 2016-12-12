@@ -17,10 +17,14 @@ import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.model.MyGroup;
 import com.example.user.onedaynquestions.model.AsyncResponse;
+import com.example.user.onedaynquestions.model.UnitRecord;
 import com.example.user.onedaynquestions.utility.LocalDBController;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 import com.example.user.onedaynquestions.view.activity.MainActivity;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -38,6 +42,7 @@ public class DBLocalTestActivity extends AppCompatActivity implements AsyncRespo
     TextView dbtest_local_tv_status_myinfo;
     TextView dbtest_local_tv_status_mycard;
     TextView dbtest_local_tv_status_mygroup;
+    TextView dbtest_local_tv_status_dailyrecord;
 
     EditText dbtest_local_et_myinfo_id;
     EditText dbtest_local_et_myinfo_nick;
@@ -67,6 +72,7 @@ public class DBLocalTestActivity extends AppCompatActivity implements AsyncRespo
         dbtest_local_tv_status_myinfo = (TextView) findViewById(R.id.dbtest_local_tv_status_myinfo);
         dbtest_local_tv_status_mycard = (TextView) findViewById(R.id.dbtest_local_tv_status_mycard);
         dbtest_local_tv_status_mygroup = (TextView) findViewById(R.id.dbtest_local_tv_status_mygroup);
+        dbtest_local_tv_status_dailyrecord = (TextView) findViewById(R.id.dbtest_local_tv_status_mydailyrecord);
 
         dbtest_local_et_myinfo_id = (EditText) findViewById(R.id.dbtest_local_et_myinfo_id);
         dbtest_local_et_myinfo_nick = (EditText) findViewById(R.id.dbtest_local_et_myinfo_nick);
@@ -101,6 +107,8 @@ public class DBLocalTestActivity extends AppCompatActivity implements AsyncRespo
                 + "\n\t-size: " + MainActivity.odnqDB.countTableMyCard());
         dbtest_local_tv_status_mygroup.setText("table MyGroup status: "
                 + "\n\t-size: " + MainActivity.odnqDB.countTableMyGroup());
+        dbtest_local_tv_status_dailyrecord.setText("table DailyRecord status: "
+                + "\n\t-size: " + MainActivity.odnqDB.countTableDailyRecord());
     }
 
 
@@ -155,6 +163,10 @@ public class DBLocalTestActivity extends AppCompatActivity implements AsyncRespo
             case R.id.dbtest_local_btn_drop_mycard:
                 MainActivity.odnqDB.dropTableMyCard();
                 Log.d(TAG_DB, "MyCard table is dropped.");
+                break;
+            case R.id.dbtest_local_btn_drop_dailyrecord:
+                MainActivity.odnqDB.dropTableDailyRecord();
+                Log.d(TAG_DB, "DailyRecord table is dropped.");
                 break;
 
             case R.id.dbtest_local_btn_addinfo:
@@ -246,6 +258,36 @@ public class DBLocalTestActivity extends AppCompatActivity implements AsyncRespo
                 Toast.makeText(getApplicationContext(), "Table is updated.", Toast.LENGTH_SHORT).show();
 
                 initDB();
+                break;
+            case R.id.dbtest_local_btn_addrecord:
+                UnitRecord ur1 = new UnitRecord("2016-12-12 00:00:00", 200, 3, 5);
+                UnitRecord ur2 = new UnitRecord("2016-12-12 01:00:00", 240, 1, 2);
+                UnitRecord ur3 = new UnitRecord("2016-12-12 02:00:00", 250, 8, 1);
+                UnitRecord ur4 = new UnitRecord("2016-12-12 03:00:00", 285, 15, 3);
+                UnitRecord ur5 = new UnitRecord("2016-12-12 04:00:00", 360, 4, 7);
+                UnitRecord ur6 = new UnitRecord("2016-12-12 05:00:00", 365, 2, 6);
+
+                MainActivity.odnqDB.insertDailyRecord(ur1);
+                MainActivity.odnqDB.insertDailyRecord(ur2);
+                MainActivity.odnqDB.insertDailyRecord(ur3);
+                MainActivity.odnqDB.insertDailyRecord(ur4);
+                MainActivity.odnqDB.insertDailyRecord(ur5);
+                MainActivity.odnqDB.insertDailyRecord(ur6);
+
+                Log.d(TAG_DB, "Unit Records are added to DB");
+
+                break;
+            case R.id.dbtest_local_btn_getrecord:
+                ArrayList<UnitRecord> dailyRecords;
+
+                dailyRecords = MainActivity.odnqDB.getMyDailyRecords();
+
+                for(int i = 0; i < dailyRecords.size(); i++) {
+                    Log.d(TAG_DB, "[" + i + "] - datetime: " + dailyRecords.get(i).getDailyRecordDateTime());
+                    Log.d(TAG_DB, "[" + i + "] - contribution: " + dailyRecords.get(i).getDailyRecordContribution());
+                    Log.d(TAG_DB, "[" + i + "] - answerright: " + dailyRecords.get(i).getDailyRecordStudyRight());
+                    Log.d(TAG_DB, "[" + i + "] - answerwrong: " + dailyRecords.get(i).getDailyRecordStudyWrong());
+                }
                 break;
         }
     }

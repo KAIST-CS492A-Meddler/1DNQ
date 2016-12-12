@@ -36,7 +36,7 @@ public class FloatingButtonService extends Service {
     private int sumThreshold;
 
     private boolean isActivate;
-    final int dt = 20, total = 500;
+    final int dt = 20, total = 100;
     float gap, gapSum;
     private ImageView floatBtn;
 

@@ -177,7 +177,8 @@
                     android:background="#fd5179"
                     android:enabled="true"
                     android:textStyle="bold"
-                    android:text="WRONG"/>
+                    android:text="WRONG"
+                    android:onClick="mOnClick"/>
 
                 <Button
                     android:id="@+id/cardanswer_btn_right"

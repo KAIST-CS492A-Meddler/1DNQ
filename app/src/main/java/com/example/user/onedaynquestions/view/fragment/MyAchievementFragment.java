@@ -319,11 +319,15 @@ public class MyAchievementFragment extends Fragment{
             myachievement_tv_regmessage.setVisibility(View.VISIBLE);
         } else {
             float tmpMyCorrectness = (float) tmpMyInfo.getMyInfoAnswerRight() / (float) (tmpMyInfo.getMyInfoAnswerRight() + tmpMyInfo.getMyInfoAnswerWrong());
+            float tmpMyCorrectnessPerc = tmpMyCorrectness * 100;
+
+            String strQualityPoint = String.format("%.2f", tmpMyInfo.getMyInfoQuality());
+            String strCorrectness = String.format("%.1f", tmpMyCorrectnessPerc);
 
             myachievement_tv_submission.setText(tmpMyInfo.getMyInfoCardNum() + "");
             myachievement_tv_contribution.setText(tmpMyInfo.getMyInfoExp() + "");
-            myachievement_tv_quality.setText(tmpMyInfo.getMyInfoQuality() + "");
-            myachievement_tv_correctness.setText(tmpMyCorrectness + "");
+            myachievement_tv_quality.setText(strQualityPoint);
+            myachievement_tv_correctness.setText(strCorrectness+"%");
 
             myachievement_tv_regmessage.setVisibility(View.GONE);
 

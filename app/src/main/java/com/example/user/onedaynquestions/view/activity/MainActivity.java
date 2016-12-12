@@ -1,14 +1,10 @@
 package com.example.user.onedaynquestions.view.activity;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.graphics.PixelFormat;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -19,11 +15,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -33,7 +25,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,12 +42,9 @@ import com.example.user.onedaynquestions.service.WakefulPushReceiver;
 import com.example.user.onedaynquestions.utility.LocalDBController;
 import com.example.user.onedaynquestions.utility.DatabaseHelper;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
-import com.example.user.onedaynquestions.view.fragment.MyRecordsFragment;
 import com.example.user.onedaynquestions.view.fragment.SupportHelpFragment;
 import com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity;
 import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
-import com.example.user.onedaynquestions.view.testactivity.GraphTestActivity;
-import com.example.user.onedaynquestions.view.testactivity.WidgetTestActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -67,7 +55,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTION_RECEIVE;
-import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTION_REGISTRATION;
 
 
 public class MainActivity extends AppCompatActivity
@@ -432,19 +419,19 @@ public class MainActivity extends AppCompatActivity
 //                startActivity(intent_testwidget);
 //                break;
             //My exercise equipments
-            case R.id.nav_myequipments:
+            case R.id.nav_mycards:
 //                Toast.makeText(getApplicationContext(), "MY EXERCISE EQUIPMENTS", Toast.LENGTH_SHORT).show();
                 Intent intent_myequipments = new Intent(getApplicationContext(), MyStudyReview.class);
                 startActivity(intent_myequipments);
                 break;
-            //My exercise routines
-            case R.id.nav_myroutine:
-//                Toast.makeText(getApplicationContext(), "MY EXERCISE ROUTINES", Toast.LENGTH_SHORT).show();
-                Intent intent_myroutines = new Intent(getApplicationContext(), MyAchievements.class);
-                startActivity(intent_myroutines);
-                break;
+//            //My exercise routines
+//            case R.id.nav_myroutine:
+////                Toast.makeText(getApplicationContext(), "MY EXERCISE ROUTINES", Toast.LENGTH_SHORT).show();
+//                Intent intent_myroutines = new Intent(getApplicationContext(), MyAchievements.class);
+//                startActivity(intent_myroutines);
+//                break;
             //My exercise record
-            case R.id.nav_myrecord:
+            case R.id.nav_leaderboard:
 //                Toast.makeText(getApplicationContext(), "MY EXERCISE RECORDS", Toast.LENGTH_SHORT).show();
                 Intent intent_myrecords = new Intent(getApplicationContext(), MyStudyGroups.class);
                 startActivity(intent_myrecords);

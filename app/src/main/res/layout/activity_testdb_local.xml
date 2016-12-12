@@ -30,6 +30,23 @@
             <!--android:textSize="15dp"-->
             <!--android:textStyle="bold"/>-->
 
+            <Button
+                android:id="@+id/dbtest_local_btn_addrecord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ADD DAILY RECORD"
+                android:onClick="mOnClick"/>
+            <Button
+                android:id="@+id/dbtest_local_btn_getrecord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="GET DAILY RECORD"
+                android:onClick="mOnClick"/>
+
+            <VideoView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/colorSkyBlue"/>
 
             <Button
                 android:id="@+id/dbtest_local_btn_drop_myinfo"
@@ -50,6 +67,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="DROP MYGROUP TABLE"
+                android:onClick="mOnClick"/>
+
+            <Button
+                android:id="@+id/dbtest_local_btn_drop_dailyrecord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DROP DAILYRECORD TABLE"
                 android:onClick="mOnClick"/>
 
 
@@ -96,6 +120,17 @@
                 android:textSize="14dp"
                 android:textStyle="bold"
                 android:text="table MyGroup status: "/>
+
+            <TextView
+                android:id="@+id/dbtest_local_tv_status_mydailyrecord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:text="table DailyRecord status: "/>
 
 
             <!-- ////////////////////////////////////////////////////////////////////// -->

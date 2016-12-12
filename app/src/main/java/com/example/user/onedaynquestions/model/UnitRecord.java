@@ -4,9 +4,9 @@ package com.example.user.onedaynquestions.model;
  * Created by selab-ymbaek on 12/11/2016.
  */
 
-public class DailyRecord {
+public class UnitRecord {
 
-    String dailyRecordDate;
+    String dailyRecordDateTime;
 
     int previousDayExp;
 
@@ -16,7 +16,7 @@ public class DailyRecord {
 
     private void initDailyRecord() {
 
-        dailyRecordDate = "2016-01-01";
+        dailyRecordDateTime = "2016-01-01 00:00:00";
 
         previousDayExp = 0;
 
@@ -25,17 +25,24 @@ public class DailyRecord {
         dailyRecordStudyWrong = 0;
     }
 
-    public DailyRecord() {
+    public UnitRecord() {
         initDailyRecord();
     }
 
-    public DailyRecord(int dailyRecordContribution) {
+    public UnitRecord(int dailyRecordContribution) {
         initDailyRecord();
         this.dailyRecordContribution = dailyRecordContribution;
     }
 
-    public DailyRecord(int dailyRecordContribution, int dailyRecordStudyRight, int dailyRecordStudyWrong) {
+    public UnitRecord(int dailyRecordContribution, int dailyRecordStudyRight, int dailyRecordStudyWrong) {
         initDailyRecord();
+        this.dailyRecordContribution = dailyRecordContribution;
+        this.dailyRecordStudyRight = dailyRecordStudyRight;
+        this.dailyRecordStudyWrong = dailyRecordStudyWrong;
+    }
+
+    public UnitRecord(String dailyRecordDateTime, int dailyRecordContribution, int dailyRecordStudyRight, int dailyRecordStudyWrong) {
+        this.dailyRecordDateTime = dailyRecordDateTime;
         this.dailyRecordContribution = dailyRecordContribution;
         this.dailyRecordStudyRight = dailyRecordStudyRight;
         this.dailyRecordStudyWrong = dailyRecordStudyWrong;
@@ -63,5 +70,13 @@ public class DailyRecord {
 
     public void setDailyRecordStudyWrong(int dailyRecordStudyWrong) {
         this.dailyRecordStudyWrong = dailyRecordStudyWrong;
+    }
+
+    public String getDailyRecordDateTime() {
+        return dailyRecordDateTime;
+    }
+
+    public void setDailyRecordDateTime(String dailyRecordDateTime) {
+        this.dailyRecordDateTime = dailyRecordDateTime;
     }
 }

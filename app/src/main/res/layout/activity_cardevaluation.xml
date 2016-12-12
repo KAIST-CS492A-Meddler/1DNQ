@@ -68,7 +68,7 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/here_character_simple_girl"/>
+                    android:src="@drawable/odnq_star_empty"/>
 
             </LinearLayout>
 

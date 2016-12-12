@@ -7,12 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.user.onedaynquestions.model.DailyRecord;
+import com.example.user.onedaynquestions.model.UnitRecord;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.model.MyGroup;
 import com.example.user.onedaynquestions.model.MyInfo;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -27,7 +28,7 @@ public class LocalDBController extends SQLiteOpenHelper{
     private static final String TAG_DB = "LocalDBController";
 
     private static final String DATABASE_NAME = "odnqDB.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     /* Database tables in ODNQ_DB */
     private static final String TABLE_MYINFO = "MyInfo";
@@ -35,7 +36,8 @@ public class LocalDBController extends SQLiteOpenHelper{
     private static final String TABLE_MYGROUP = "MyGroup";
     private static final String TABLE_DAILYRECORD = "DailyRecord";
 
-    /* DailyRecord table */
+    /* UnitRecord table */
+    private static final String ATTR_DR_DATETIME = "dailyrecord_datetime";
     private static final String ATTR_DR_CONTRIBUTION = "dailyrecord_contribution";
     private static final String ATTR_DR_STUDYRIGHT = "dailyrecord_studyright";
     private static final String ATTR_DR_STUDYWRONG = "dailyrecord_studywrong";
@@ -127,9 +129,10 @@ public class LocalDBController extends SQLiteOpenHelper{
                     ");";
 
 
-    //Create DailyRecord table
+    //Create UnitRecord table
     private static final String CREATE_TABLE_DAILYRECORD =
             "CREATE TABLE " + TABLE_DAILYRECORD + "(" +
+                    ATTR_DR_DATETIME + ", " +
                     ATTR_DR_CONTRIBUTION + " INTEGER DEFAULT 0, " +
                     ATTR_DR_STUDYRIGHT + " INTEGER DEFAULT 0, " +
                     ATTR_DR_STUDYWRONG + " INTEGER DEFAULT 0" +
@@ -200,13 +203,14 @@ public class LocalDBController extends SQLiteOpenHelper{
     }
 
 
-    public long insertDailyRecord(DailyRecord dailyRecord) {
+    public long insertDailyRecord(UnitRecord unitRecord) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(ATTR_DR_CONTRIBUTION, dailyRecord.getDailyRecordContribution());
-        values.put(ATTR_DR_STUDYRIGHT, dailyRecord.getDailyRecordStudyRight());
-        values.put(ATTR_DR_STUDYWRONG, dailyRecord.getDailyRecordStudyWrong());
+        values.put(ATTR_DR_DATETIME, unitRecord.getDailyRecordDateTime());
+        values.put(ATTR_DR_CONTRIBUTION, unitRecord.getDailyRecordContribution());
+        values.put(ATTR_DR_STUDYRIGHT, unitRecord.getDailyRecordStudyRight());
+        values.put(ATTR_DR_STUDYWRONG, unitRecord.getDailyRecordStudyWrong());
 
         long dailyRecord_id = db.insert(TABLE_DAILYRECORD, null, values);
         return dailyRecord_id;
@@ -322,6 +326,42 @@ public class LocalDBController extends SQLiteOpenHelper{
         }
     }
 
+    public ArrayList<UnitRecord> getMyDailyRecords() {
+        ArrayList<UnitRecord> recordList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_DAILYRECORD;
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null && c.getCount() != 0) {
+
+            c.moveToFirst();
+
+            while (c.moveToNext()) {
+
+                String recordDateTime = c.getString(c.getColumnIndex(ATTR_DR_DATETIME));
+                int recordContribution = c.getInt(c.getColumnIndex(ATTR_DR_CONTRIBUTION));
+                int recordStudyRight = c.getInt(c.getColumnIndex(ATTR_DR_STUDYRIGHT));
+                int recordStudyWrong = c.getInt(c.getColumnIndex(ATTR_DR_STUDYWRONG));
+
+                UnitRecord tmpUnitRecord = new UnitRecord();
+
+                tmpUnitRecord.setDailyRecordDateTime(recordDateTime);
+                tmpUnitRecord.setDailyRecordContribution(recordContribution);
+                tmpUnitRecord.setDailyRecordStudyRight(recordStudyRight);
+                tmpUnitRecord.setDailyRecordStudyWrong(recordStudyWrong);
+
+                recordList.add(tmpUnitRecord);
+            }
+
+            return recordList;
+
+        } else {
+            return null;
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /** COUNT TABLE QUERIES **/
@@ -359,9 +399,27 @@ public class LocalDBController extends SQLiteOpenHelper{
     }
 
     public int countTableMyGroup() {
+
+
         SQLiteDatabase db = this.getReadableDatabase();
 
         String countQuery = "SELECT * FROM " + TABLE_MYGROUP;
+        Cursor c = db.rawQuery(countQuery, null);
+
+        if (c != null) {
+            int count = c.getCount();
+            c.close();
+
+            return count;
+        } else {
+            return 0;
+        }
+    }
+
+    public int countTableDailyRecord() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String countQuery = "SELECT * FROM " + TABLE_DAILYRECORD;
         Cursor c = db.rawQuery(countQuery, null);
 
         if (c != null) {
@@ -412,6 +470,90 @@ public class LocalDBController extends SQLiteOpenHelper{
         return returnVal;
     }
 
+    public int updateMyInfoLoginNum (String myInfoId) {
+        int prevLoginNum = 0;
+        int curLoginNum = 0;
+
+        SQLiteDatabase readableDB = this.getReadableDatabase();
+
+        String countQuery = "SELECT " + ATTR_MYINFO_LOGINNUM + " FROM " + TABLE_MYINFO;
+        Cursor c = readableDB.rawQuery(countQuery, null);
+
+        if (c != null && c.getCount() != 0) {
+
+            c.moveToFirst();
+            prevLoginNum = c.getInt(c.getColumnIndex(ATTR_MYINFO_LOGINNUM));
+            curLoginNum = prevLoginNum + 1;
+
+        }
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ATTR_MYINFO_LOGINNUM, curLoginNum);
+
+        int returnVal;
+        returnVal = db.update(TABLE_MYINFO, values, ATTR_MYINFO_ID + " = ?",
+                new String[] { myInfoId });
+
+        return returnVal;
+    }
+
+    public void updateMyInfoCardAnswer (String myInfoId, int wrongOrRight) {
+        Log.d("CardAnswerUpdate", "updateMyInfoCardAnswer is called.");
+
+
+        int tmpAnswerRight;
+        int tmpAnswerWrong;
+
+        SQLiteDatabase dbRead = this.getReadableDatabase();
+
+        String selectQueryAnswerWrong = "SELECT " + ATTR_MYINFO_ANSWERWRONG + ", " + ATTR_MYINFO_ANSWERRIGHT + " FROM " + TABLE_MYINFO +
+                " WHERE " + ATTR_MYINFO_ID + " = '" + myInfoId + "'";
+
+        Cursor c = dbRead.rawQuery(selectQueryAnswerWrong, null);
+
+
+        if (c != null) {
+            if (c.getCount() != 0) {
+                c.moveToFirst();
+
+                tmpAnswerWrong = c.getInt(c.getColumnIndex(ATTR_MYINFO_ANSWERWRONG));
+                tmpAnswerRight = c.getInt(c.getColumnIndex(ATTR_MYINFO_ANSWERRIGHT));
+
+                SQLiteDatabase db = this.getWritableDatabase();
+
+//                ContentValues values = new ContentValues();
+//                values.put(ATTR_MYINFO_ANSWERRIGHT, cardNum);
+
+                String UPDATE_ANSWER_RECORD;
+
+                //WRONG
+                if (wrongOrRight == 0) {
+                    tmpAnswerWrong ++;
+                    UPDATE_ANSWER_RECORD =
+                            "UPDATE " + TABLE_MYINFO +
+                                    " SET " + ATTR_MYINFO_ANSWERWRONG + " = " + tmpAnswerWrong +
+                                    " WHERE " + ATTR_MYINFO_ID + " = '" + myInfoId + "';";
+                }
+                //RIGHT
+                else {
+                    tmpAnswerRight ++;
+                    UPDATE_ANSWER_RECORD =
+                            "UPDATE " + TABLE_MYINFO +
+                                    " SET " + ATTR_MYINFO_ANSWERRIGHT + " = " + tmpAnswerRight +
+                                    " WHERE " + ATTR_MYINFO_ID + " = '" + myInfoId + "';";
+
+                }
+
+                db.execSQL(UPDATE_ANSWER_RECORD);
+            }
+        }
+
+    }
+
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /** DROP TABLE QUERIES **/
@@ -440,6 +582,15 @@ public class LocalDBController extends SQLiteOpenHelper{
         Log.d(TAG_DB, "[Database] LocalDBController - dropTableMyInfo(): Table(" + TABLE_MYGROUP + ") is dropped.");
 
         db.execSQL(CREATE_TABLE_MYGROUP);
+        Log.d(TAG_DB, "[Database] LocalDBController - dropTableMyInfo(): Table(" + TABLE_MYGROUP + ") is recreated.");
+    }
+
+    public void dropTableDailyRecord() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DAILYRECORD);
+        Log.d(TAG_DB, "[Database] LocalDBController - dropTableMyInfo(): Table(" + TABLE_DAILYRECORD + ") is dropped.");
+
+        db.execSQL(CREATE_TABLE_DAILYRECORD);
         Log.d(TAG_DB, "[Database] LocalDBController - dropTableMyInfo(): Table(" + TABLE_MYGROUP + ") is recreated.");
     }
 
@@ -493,10 +644,13 @@ public class LocalDBController extends SQLiteOpenHelper{
         Log.d(TAG_DB, "[Database-local] CREATE_TABLE_MYINFO: " + CREATE_TABLE_MYINFO);
         Log.d(TAG_DB, "[Database-local] CREATE_TABLE_MYCARD: " + CREATE_TABLE_MYCARD);
         Log.d(TAG_DB, "[Database-local] CREATE_TABLE_MYGROUP: " + CREATE_TABLE_MYGROUP);
+        Log.d(TAG_DB, "[Database-local] CREATE_TABLE_DAILYRECORD: " + CREATE_TABLE_DAILYRECORD);
+
 
         db.execSQL(CREATE_TABLE_MYINFO);
         db.execSQL(CREATE_TABLE_MYCARD);
         db.execSQL(CREATE_TABLE_MYGROUP);
+        db.execSQL(CREATE_TABLE_DAILYRECORD);
 
         Log.d(TAG_DB, "[Database-local] LocalDBController-onCreate(): Tables are created successfully.");
 
@@ -509,6 +663,8 @@ public class LocalDBController extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MYINFO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MYCARD);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MYGROUP);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DAILYRECORD);
+
 
         onCreate(db);
 
