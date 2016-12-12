@@ -103,7 +103,6 @@ public class WakefulPushReceiver extends WakefulBroadcastReceiver {
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.odnq_app_icon))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentTitle(pushTitle)
-                .setContentText(card.getMyCardQuestion())
                 .setAutoCancel(true)
                 .setSound(sound)
                 .setLights(050030255, 500, 2000)

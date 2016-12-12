@@ -9,10 +9,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
+import com.example.user.onedaynquestions.controller.MemberListAdapter;
+import com.example.user.onedaynquestions.controller.QuestionListAdapter;
+import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
+
+import java.lang.reflect.Member;
+import java.util.ArrayList;
+
+import static com.example.user.onedaynquestions.R.id.container;
 
 /**
  * Created by ymbaek on 2016-04-18.
@@ -31,7 +40,27 @@ public class LeaderboardActivity extends AppCompatActivity {
 //    TextView textView;
 //    ListView listView;
 
+    public class UserInfo{
+        public String userName;
+        public boolean isMale;
+        public String userNickName;
+        public String userId;
+        public int userExp;
+
+        public UserInfo(boolean isMale, String userNickName, String userId, String userName, int userExp){
+            this.isMale =  isMale;
+            this.userNickName = userNickName;
+            this.userId = userId;
+            this.userExp = userExp;
+            this.userName = userName;
+
+        }
+    }
+
     private Button leaderboard_btn_findgroup;
+    private ArrayList<UserInfo> memberList;
+    private MemberListAdapter memberListAdapter;
+    private ListView lvMemberList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +80,21 @@ public class LeaderboardActivity extends AppCompatActivity {
         actionBar.setTitle("Group Leaderboard");
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
 
-//        textView = (TextView) findViewById(R.id.setting_myrecord_tv_myrecord);
-//        listView = (ListView) findViewById(R.id.daily_record_list);
-//        adapter = new ListViewAdapter();
-//        listView.setAdapter(adapter);
-//        adapter.notifyDataSetChanged();
+
+        lvMemberList = (ListView) findViewById(R.id.leaderboard_lv_users);
+
+        memberList = new ArrayList<>();
+        memberListAdapter = new MemberListAdapter(this, memberList);
+        lvMemberList.setAdapter(memberListAdapter);
+
+
+        memberList.add(new UserInfo(true, "SG", "topmaze", "sunggeun", 231));
+        memberList.add(new UserInfo(false, "GS", "top", "sung", 31));
+        memberList.add(new UserInfo(false, "1S2G", "maze", "geun", 21));
+        memberList.add(new UserInfo(true, "S4G", "A431t9", "soony", 281));
+        memberList.add(new UserInfo(true, "S464G", "apsov93", "hyang", 631));
+
+        memberListAdapter.notifyDataSetChanged();
 
         initWidget();
 
