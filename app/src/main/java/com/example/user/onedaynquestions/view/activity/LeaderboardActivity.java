@@ -1,5 +1,6 @@
 package com.example.user.onedaynquestions.view.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
+import com.example.user.onedaynquestions.service.FloatingButtonService;
 
 /**
  * Created by ymbaek on 2016-04-18.
@@ -77,6 +79,12 @@ public class LeaderboardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        stopService(new Intent(this, FloatingButtonService.class));
+
+        super.onResume();
+    }
     @Override
     public void onBackPressed() {
         finish();

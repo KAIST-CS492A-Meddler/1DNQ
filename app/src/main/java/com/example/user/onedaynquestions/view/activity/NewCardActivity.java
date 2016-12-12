@@ -380,18 +380,13 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
     }
 
     @Override
-    public void onResume(){
+    protected void onResume() {
         stopService(new Intent(this, FloatingButtonService.class));
+
         super.onResume();
     }
 
 
-    @Override
-    protected  void onPause(){
-        //앱 꺼져 있을때 플로팅 버튼 뜨도록 서비스 on
-        startService(new Intent(this, FloatingButtonService.class));
-        super.onPause();
-    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.user.onedaynquestions.view.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.user.onedaynquestions.R;
+import com.example.user.onedaynquestions.service.FloatingButtonService;
 
 /**
  * Created by ymbaek on 2016-04-18.

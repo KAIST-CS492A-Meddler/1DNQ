@@ -1,5 +1,6 @@
 package com.example.user.onedaynquestions.view.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -21,6 +22,7 @@ import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.archive.MyInformation;
 import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.model.MyInfo;
+import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 import com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity;
 import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
@@ -332,5 +334,13 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
 //        Toast.makeText(getApplicationContext(), "Information is updated.", Toast.LENGTH_SHORT).show();
 //        Toast.makeText(getApplicationContext(), "temp.length(): " + temp.length(), Toast.LENGTH_SHORT).show();
 //        Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    protected void onResume() {
+        stopService(new Intent(this, FloatingButtonService.class));
+
+        super.onResume();
     }
 }

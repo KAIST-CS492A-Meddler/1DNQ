@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.model.MyCard;
+import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.service.WakefulPushReceiver;
 
 /**
@@ -130,7 +131,14 @@ public class CardSolvingActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        stopService(new Intent(this, FloatingButtonService.class));
+
+        super.onResume();
+    }
+    @Override
     public void onPause(){
+        startService(new Intent(this, FloatingButtonService.class));
         timeChecker.cancel();
         super.onPause();
     }

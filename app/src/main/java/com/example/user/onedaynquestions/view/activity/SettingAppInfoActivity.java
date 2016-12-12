@@ -1,5 +1,6 @@
 package com.example.user.onedaynquestions.view.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.user.onedaynquestions.R;
+import com.example.user.onedaynquestions.service.FloatingButtonService;
 
 /**
  * Created by ymbaek on 2016-04-18.
@@ -52,5 +54,13 @@ public class SettingAppInfoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+
+    @Override
+    protected void onResume() {
+        stopService(new Intent(this, FloatingButtonService.class));
+
+        super.onResume();
     }
 }

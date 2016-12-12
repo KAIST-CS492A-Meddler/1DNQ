@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.archive.MyRoutine;
+import com.example.user.onedaynquestions.service.FloatingButtonService;
 
 import java.util.StringTokenizer;
 
@@ -291,4 +292,10 @@ public class NewGroupActivity extends AppCompatActivity {
 //        }
     }
 
+    @Override
+    protected void onResume() {
+        stopService(new Intent(this, FloatingButtonService.class));
+
+        super.onResume();
+    }
 }

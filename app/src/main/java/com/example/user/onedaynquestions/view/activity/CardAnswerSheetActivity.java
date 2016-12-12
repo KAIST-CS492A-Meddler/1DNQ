@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
+import com.example.user.onedaynquestions.service.FloatingButtonService;
 
 import org.w3c.dom.Text;
 
@@ -93,6 +94,12 @@ public class CardAnswerSheetActivity extends AppCompatActivity {
         cardsolving_tv_myanswer.setText(myAnswer);
     }
 
+    @Override
+    protected void onResume() {
+        stopService(new Intent(this, FloatingButtonService.class));
+
+        super.onResume();
+    }
 
     @Override
     public void onPause(){
