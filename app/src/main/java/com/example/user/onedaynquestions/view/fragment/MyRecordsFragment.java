@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -61,7 +62,11 @@ public class MyRecordsFragment extends Fragment{
     private CardAdapter frequentlyWrongQuestionListAdapter,starredQuestionListAdapter,recommendedQuestionListAdapter;
     private RecyclerView frequentlyWrongList, starredList, recommendList;
 
+    private float dist;
+    private int prevX, prevY;
+    private final float distThreshold = 100;
     public CountDownTimer cdt;
+    private View scaledView;
 
     @Nullable
     @Override
@@ -115,6 +120,44 @@ public class MyRecordsFragment extends Fragment{
         starredQuestionList = new ArrayList<>();
         starredQuestionListAdapter = new CardAdapter(starredQuestionList);
         starredList.setAdapter(starredQuestionListAdapter);
+        starredList.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                switch (e.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        dist = 0;
+                        prevX = (int)e.getX();
+                        prevY = (int)e.getY();
+
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int tempX = prevX - (int)e.getX();
+                        int tempY = prevY - (int)e.getY();
+                        dist += Math.sqrt(tempX * tempX + tempY * tempY);
+                        prevX = (int)e.getX();
+                        prevY = (int)e.getY();
+
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if(dist < distThreshold) {
+                            int id = starredList.getChildAdapterPosition(starredList.findChildViewUnder(e.getX(), e.getY()));
+                            startActivity(new Intent(starredQuestionList.get(id).getCardSolvingIntent(getActivity().getBaseContext())));
+                        }
+
+                        break;
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
 
 
 
@@ -126,6 +169,44 @@ public class MyRecordsFragment extends Fragment{
         frequentlyWrongQuestionList = new ArrayList<>();
         frequentlyWrongQuestionListAdapter = new CardAdapter(frequentlyWrongQuestionList);
         frequentlyWrongList.setAdapter(frequentlyWrongQuestionListAdapter);
+        frequentlyWrongList.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                switch (e.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        dist = 0;
+                        prevX = (int)e.getX();
+                        prevY = (int)e.getY();
+
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int tempX = prevX - (int)e.getX();
+                        int tempY = prevY - (int)e.getY();
+                        dist += Math.sqrt(tempX * tempX + tempY * tempY);
+                        prevX = (int)e.getX();
+                        prevY = (int)e.getY();
+
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if(dist < distThreshold) {
+                            int id = frequentlyWrongList.getChildAdapterPosition(frequentlyWrongList.findChildViewUnder(e.getX(), e.getY()));
+                            startActivity(new Intent(frequentlyWrongQuestionList.get(id).getCardSolvingIntent(getActivity().getBaseContext())));
+                        }
+
+                        break;
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
 
 
         mLayoutManager = new LinearLayoutManager(currentView.getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -135,6 +216,44 @@ public class MyRecordsFragment extends Fragment{
         recommendedQuestionList = new ArrayList<>();
         recommendedQuestionListAdapter = new CardAdapter(recommendedQuestionList);
         recommendList.setAdapter(recommendedQuestionListAdapter);
+        recommendList.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                switch (e.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        dist = 0;
+                        prevX = (int)e.getX();
+                        prevY = (int)e.getY();
+
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int tempX = prevX - (int)e.getX();
+                        int tempY = prevY - (int)e.getY();
+                        dist += Math.sqrt(tempX * tempX + tempY * tempY);
+                        prevX = (int)e.getX();
+                        prevY = (int)e.getY();
+
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if(dist < distThreshold) {
+                            int id = recommendList.getChildAdapterPosition(recommendList.findChildViewUnder(e.getX(), e.getY()));
+                            startActivity(new Intent(recommendedQuestionList.get(id).getCardSolvingIntent(getActivity().getBaseContext())));
+                        }
+
+                        break;
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
 
 
 
