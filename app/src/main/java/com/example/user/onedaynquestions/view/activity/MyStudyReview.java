@@ -5,21 +5,40 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.user.onedaynquestions.R;
+import com.example.user.onedaynquestions.controller.CardAdapter;
+import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
+import com.example.user.onedaynquestions.service.WakefulPushReceiver;
+
+import java.util.ArrayList;
 
 /**
  * Created by ymbaek on 2016-04-18.
  */
 public class MyStudyReview extends AppCompatActivity {
 
+    public static final int FREQUENTLY_WRONG = 0;
+    public static final int DAILY = 1;
+
     public static final String TAG = "MyStudyReview";
     public static final String TAG_DB = "MyEquipmentsDBTag";
+    private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<MyCard> frequentlyWrongQuestionList, dailyRecordList;
+    private float dist;
+    private int prevX, prevY;
+    private final int distThreshold = 100;
+
+    private CardAdapter frequentlyWrongQuestionListAdapter,dailyRecordListAdapter;
+    private RecyclerView frequentlyWrongListView, dailyRecordListView;
 
 //    public List<MyHereAgent> myHereAgents;
 //    private HERE_DeviceListAdapter equipListAdapter;
@@ -57,6 +76,10 @@ public class MyStudyReview extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         final ActionBar actionBar = getSupportActionBar();
+
+        initQuestionList();
+        appendQuestion(DAILY, new MyCard());
+        appendQuestion(FREQUENTLY_WRONG, new MyCard());
 
 //        myHereAgents = new ArrayList<MyHereAgent>();
 //        selectedNewAgent = new MyHereAgent();
@@ -227,7 +250,7 @@ public class MyStudyReview extends AppCompatActivity {
 
     @Override
     public void onResume() {
-
+        stopService(new Intent(this, FloatingButtonService.class));
         super.onResume();
 //        if(registeredAgents!=null)
 //            registeredAgents.clear();
@@ -485,4 +508,172 @@ public class MyStudyReview extends AppCompatActivity {
             return 0;
         }
     }
+
+    public void initQuestionList(){
+
+
+
+        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+
+        dailyRecordListView = (RecyclerView) findViewById(R.id.daily_study_lv);
+        dailyRecordListView.setLayoutManager(mLayoutManager);
+        dailyRecordListView.setHasFixedSize(true);
+        dailyRecordList = new ArrayList<>();
+        dailyRecordListAdapter = new CardAdapter(dailyRecordList);
+        dailyRecordListView.setAdapter(dailyRecordListAdapter);
+        dailyRecordListView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                switch (e.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        dist = 0;
+                        prevX = (int)e.getX();
+                        prevY = (int)e.getY();
+
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int tempX = prevX - (int)e.getX();
+                        int tempY = prevY - (int)e.getY();
+                        dist += Math.sqrt(tempX * tempX + tempY * tempY);
+                        prevX = (int)e.getX();
+                        prevY = (int)e.getY();
+
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if(dist < distThreshold) {
+                            int id = dailyRecordListView.getChildAdapterPosition(dailyRecordListView.findChildViewUnder(e.getX(), e.getY()));
+                            startActivity(new Intent(dailyRecordList.get(id).getCardSolvingIntent(MyStudyReview.this)));
+                        }
+
+                        break;
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
+
+
+
+
+        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        frequentlyWrongListView = (RecyclerView) findViewById(R.id.frequently_wrong_question_onReview_lv);
+        frequentlyWrongListView.setLayoutManager(mLayoutManager);
+        frequentlyWrongListView.setHasFixedSize(true);
+        frequentlyWrongQuestionList = new ArrayList<>();
+        frequentlyWrongQuestionListAdapter = new CardAdapter(frequentlyWrongQuestionList);
+        frequentlyWrongListView.setAdapter(frequentlyWrongQuestionListAdapter);
+        frequentlyWrongListView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                switch (e.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        dist = 0;
+                        prevX = (int)e.getX();
+                        prevY = (int)e.getY();
+
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int tempX = prevX - (int)e.getX();
+                        int tempY = prevY - (int)e.getY();
+                        dist += Math.sqrt(tempX * tempX + tempY * tempY);
+                        prevX = (int)e.getX();
+                        prevY = (int)e.getY();
+
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if(dist < distThreshold) {
+                            int id = frequentlyWrongListView.getChildAdapterPosition(frequentlyWrongListView.findChildViewUnder(e.getX(), e.getY()));
+                            startActivity(new Intent(frequentlyWrongQuestionList.get(id).getCardSolvingIntent(MyStudyReview.this)));
+                        }
+
+                        break;
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
+
+    }
+
+
+    public boolean setQuestion(int where, int position, MyCard question){
+        switch (where){
+            case DAILY:
+                dailyRecordList.add(position, question);
+                break;
+            case FREQUENTLY_WRONG:
+                frequentlyWrongQuestionList.add(position, question);
+                break;
+            default:
+                return false;
+        }
+        return true;
+    };
+
+    public boolean appendQuestion(int where, MyCard question){
+        switch (where){
+            case DAILY:
+                dailyRecordList.add( question);
+                break;
+            case FREQUENTLY_WRONG:
+                frequentlyWrongQuestionList.add( question);
+                break;
+            default:
+                return false;
+        }
+
+        return true;
+    };
+
+    public boolean deleteQuestion(int where, int position){
+        switch (where){
+            case DAILY:
+                dailyRecordList.remove(position);
+                dailyRecordListAdapter.notifyDataSetChanged();
+                break;
+            case FREQUENTLY_WRONG:
+                frequentlyWrongQuestionList.remove(position);
+                frequentlyWrongQuestionListAdapter.notifyDataSetChanged();
+                break;
+            default:
+                return false;
+        }
+        return true;
+    };
+
+
+    public boolean setQuestions(int where, ArrayList<MyCard> list){
+        switch (where){
+            case DAILY:
+                dailyRecordList.clear();
+                dailyRecordList.addAll(list);
+                dailyRecordListAdapter.notifyDataSetChanged();
+                break;
+            case FREQUENTLY_WRONG:
+                frequentlyWrongQuestionList.clear();
+                frequentlyWrongQuestionList.addAll(list);
+                frequentlyWrongQuestionListAdapter.notifyDataSetChanged();
+                break;
+            default:
+                return false;
+        }
+        return true;
+    };
 }

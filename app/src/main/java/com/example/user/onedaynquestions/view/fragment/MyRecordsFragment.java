@@ -140,8 +140,8 @@ public class MyRecordsFragment extends Fragment{
                         break;
                     case MotionEvent.ACTION_UP:
                         if(dist < distThreshold) {
-                            int id = starredList.getChildAdapterPosition(starredList.findChildViewUnder(e.getX(), e.getY()));
-                            startActivity(new Intent(starredQuestionList.get(id).getCardSolvingIntent(getActivity().getBaseContext())));
+                            int id = frequentlyWrongList.getChildAdapterPosition(frequentlyWrongList.findChildViewUnder(e.getX(), e.getY()));
+                            startActivity(new Intent(frequentlyWrongQuestionList.get(id).getCardSolvingIntent(getActivity().getBaseContext())));
                         }
 
                         break;
@@ -845,7 +845,7 @@ public class MyRecordsFragment extends Fragment{
 //        btn_seemore.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent_myrecords = new Intent(getContext(), LeaderboardActivity.class);
+//                Intent intent_myrecords = new Intent(getContext(), MyStudyGroups.class);
 //                startActivity(intent_myrecords);
 //            }
 //        });

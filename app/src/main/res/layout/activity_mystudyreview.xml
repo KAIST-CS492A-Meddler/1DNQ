@@ -22,6 +22,19 @@
         android:textStyle="bold"
         android:text="Daily Study Record"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/daily_study_lv"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:scrollbars="horizontal"
+        android:layout_height="100dp"
+        android:background="#eeeeee"
+        android:gravity="center"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="15dp">
+    </android.support.v7.widget.RecyclerView>
+
     <!--<ListView-->
         <!--android:id="@+id/setting_myeq_list_registered"-->
         <!--android:layout_width="match_parent"-->
@@ -47,6 +60,20 @@
         android:textColor="#ffffff"
         android:textStyle="bold"
         android:text="Wrong Answer Note"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/frequently_wrong_question_onReview_lv"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:scrollbars="horizontal"
+            android:layout_height="100dp"
+            android:background="#eeeeee"
+            android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="15dp">
+        </android.support.v7.widget.RecyclerView>
+
 
     <!--<ListView-->
         <!--android:id="@+id/setting_myeq_list_bluetooth"-->
