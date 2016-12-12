@@ -39,6 +39,7 @@ import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.model.MyInfo;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
+import com.example.user.onedaynquestions.service.MonitoringService;
 import com.example.user.onedaynquestions.service.WakefulPushReceiver;
 import com.example.user.onedaynquestions.utility.LocalDBController;
 import com.example.user.onedaynquestions.utility.DatabaseHelper;
@@ -214,6 +215,8 @@ public class MainActivity extends AppCompatActivity
 
         filter = new IntentFilter("REFRESH_QUESTION_LIST");
         filter.addAction("com.google.android.c2dm.intent.RECEIVE");
+
+        startService(new Intent(this, MonitoringService.class));
 
     }
 

@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!--For top-most activity-->
+    <!-- For top-most activity -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
@@ -44,9 +44,13 @@
         <activity android:name=".view.activity.NewCardActivity" />
         <activity android:name=".view.activity.NewGroupActivity" />
         <activity android:name=".view.activity.FinishExerciseActivity" />
-        <activity android:name=".view.activity.CardSolvingActivity" android:noHistory="true" />
-        <activity android:name=".view.activity.CardAnswerSheetActivity" android:noHistory="true" />
-        <activity android:name=".view.activity.CardEvaluationActivity"/>
+        <activity
+            android:name=".view.activity.CardSolvingActivity"
+            android:noHistory="true" />
+        <activity
+            android:name=".view.activity.CardAnswerSheetActivity"
+            android:noHistory="true" />
+        <activity android:name=".view.activity.CardEvaluationActivity" />
         <activity android:name=".view.testactivity.GraphTestActivity" />
         <activity android:name=".view.testactivity.WidgetTestActivity" />
         <activity android:name=".view.testactivity.DBLocalTestActivity" />
@@ -73,14 +77,17 @@
             android:name=".view.activity.MainActivity$BroadReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
-                <action android:name= "NEW_PROBLEM_HAS_COME" />
+                <action android:name="NEW_PROBLEM_HAS_COME" />
 
                 <category android:name=".view.activity" />
             </intent-filter>
         </receiver>
 
+        <service android:name=".service.FloatingButtonService"></service>
+
+
         <service
-            android:name=".service.FloatingButtonService">
+            android:name=".service.MonitoringService">
         </service>
     </application>
 
