@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.user.onedaynquestions.R;
 
@@ -14,7 +15,7 @@ import com.example.user.onedaynquestions.R;
  */
 public class MyStudyGroups extends AppCompatActivity {
 
-    public static final String TAG = "MyStudyGroups";
+    public static final String TAG = "Leaderboard";
 
     private Toolbar toolbar;
 
@@ -33,7 +34,7 @@ public class MyStudyGroups extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setTitle("My Study Groups");
+        toolbar.setTitle("Group Leaderboard");
         toolbar.setNavigationIcon(R.mipmap.ic_menu_arrow_back);
         toolbar.setTitleTextColor(Color.WHITE);
 
@@ -41,7 +42,7 @@ public class MyStudyGroups extends AppCompatActivity {
 
         final ActionBar actionBar = getSupportActionBar();
 
-        actionBar.setTitle("My Study Groups");
+        actionBar.setTitle("Group Leaderboard");
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
 
 //        textView = (TextView) findViewById(R.id.setting_myrecord_tv_myrecord);
@@ -257,5 +258,12 @@ public class MyStudyGroups extends AppCompatActivity {
         return dateWithYear.substring(hyphenLoc + 1, hyphenLoc + 6);
     }
 
+
+    public void mOnClick(View v) {
+        switch (v.getId()) {
+            case R.id.leaderboard_btn_findgroup:
+                break;
+        }
+    }
 
 }

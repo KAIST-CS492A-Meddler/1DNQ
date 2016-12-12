@@ -25,9 +25,10 @@
 
 
 
-    <TextView
+    <Button
+        android:id="@+id/leaderboard_btn_findgroup"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:paddingLeft="15dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
@@ -39,6 +40,7 @@
         android:textColor="#ffffff"
         android:textStyle="bold"
         android:textSize="23dp"
+        android:onClick="mOnClick"
         android:text="Find another group"/>
 
 
