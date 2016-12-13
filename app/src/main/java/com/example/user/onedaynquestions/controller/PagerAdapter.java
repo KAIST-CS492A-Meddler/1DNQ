@@ -18,7 +18,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     private Map<Integer, String> mFragmentTags;
     int mNumOfTabs;
-    Fragment myAchievement;
+    MyAchievementFragment myAchievement;
     FragmentManager mFragmentManager;
     StudyNoteFragment myStudyNote;
     //Fragment myRecord;
@@ -58,6 +58,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 //            myStudyNote.cdt.start();
 //        }
         myStudyNote.invalidate();
+        myAchievement.invalidate();
         super.notifyDataSetChanged();
     }
 

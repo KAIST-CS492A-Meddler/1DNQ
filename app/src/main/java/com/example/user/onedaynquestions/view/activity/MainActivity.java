@@ -38,12 +38,10 @@ import com.example.user.onedaynquestions.controller.PagerAdapter;
 import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.model.MyInfo;
-import com.example.user.onedaynquestions.model.UnitRecord;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.service.MonitoringService;
 import com.example.user.onedaynquestions.service.WakefulPushReceiver;
 import com.example.user.onedaynquestions.utility.LocalDBController;
-import com.example.user.onedaynquestions.utility.DatabaseHelper;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 import com.example.user.onedaynquestions.view.fragment.SupportHelpFragment;
 import com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity;
@@ -55,7 +53,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTION_RECEIVE;
@@ -70,6 +67,8 @@ public class MainActivity extends AppCompatActivity
 
     private static final int REQUEST_CODE_SYSTEM_ALERT_WINDOW = 22;
     public static final int REQUEST_CODE = 59999;
+    public static final int REQUEST_REFRESH = 59991;
+    public static final int RESULT_REFRESH = 1;
 
     private static final String TAG = "MainActivityTag";
     private static final String TAG_DB = "MainActivityDBTag";
@@ -205,7 +204,7 @@ public class MainActivity extends AppCompatActivity
 //                    startActivity(intent_settingMyInfo);
                 } else {
                     Intent intent_newcard = new Intent(getApplicationContext(), NewCardActivity.class);
-                    startActivity(intent_newcard);
+                    startActivityForResult(intent_newcard, REQUEST_REFRESH);
                 }
 
             }
@@ -228,7 +227,6 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
-
     public void checkDrawOverlayPermission() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (!Settings.canDrawOverlays(getApplicationContext())) {
@@ -250,6 +248,12 @@ public class MainActivity extends AppCompatActivity
                 if (Settings.canDrawOverlays(this)) {
                     Toast.makeText(getApplicationContext(), "Drawing overlay is permitted.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        }
+
+        if (requestCode == REQUEST_REFRESH) {
+            if (resultCode == RESULT_REFRESH) {
+                viewPager.getAdapter().notifyDataSetChanged();
             }
         }
 //        super.onActivityResult(requestCode, resultCode, data);
@@ -421,7 +425,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_dblocal:
                 Toast.makeText(getApplicationContext(), "Local DB Test Activity", Toast.LENGTH_SHORT).show();
                 Intent intent_dblocal = new Intent(getApplicationContext(), DBLocalTestActivity.class);
-                startActivity(intent_dblocal);
+                startActivityForResult(intent_dblocal, REQUEST_REFRESH);
                 break;
             case R.id.nav_dbserver:
                 Toast.makeText(getApplicationContext(), "Server DB Test Activity", Toast.LENGTH_SHORT).show();
@@ -441,7 +445,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_testnewgroup:
                 Toast.makeText(getApplicationContext(), "Test a process to make a new group", Toast.LENGTH_SHORT).show();
                 Intent intent_newgroup = new Intent(getApplicationContext(), NewGroupActivity.class);
-                startActivity(intent_newgroup);
+                startActivityForResult(intent_newgroup, REQUEST_REFRESH);
                 break;
 //            case R.id.nav_testgraph:
 //                Toast.makeText(getApplicationContext(), "Test graph generation", Toast.LENGTH_SHORT).show();
@@ -457,7 +461,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_mycards:
 //                Toast.makeText(getApplicationContext(), "MY EXERCISE EQUIPMENTS", Toast.LENGTH_SHORT).show();
                 Intent intent_myequipments = new Intent(getApplicationContext(), MyStudyReview.class);
-                startActivity(intent_myequipments);
+                startActivityForResult(intent_myequipments, REQUEST_REFRESH);
                 break;
 //            //My exercise routines
 //            case R.id.nav_myroutine:
@@ -469,13 +473,13 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_leaderboard:
 //                Toast.makeText(getApplicationContext(), "MY EXERCISE RECORDS", Toast.LENGTH_SHORT).show();
                 Intent intent_myrecords = new Intent(getApplicationContext(), LeaderboardActivity.class);
-                startActivity(intent_myrecords);
+                startActivityForResult(intent_myrecords, REQUEST_REFRESH);
                 break;
             //My information setting
             case R.id.nav_mng_myinfo:
 //                Toast.makeText(getApplicationContext(), "MY INFORMATION SETTING", Toast.LENGTH_SHORT).show();
                 Intent intent_settingmyinfo = new Intent(getApplicationContext(), SettingMyInfoActivity.class);
-                startActivity(intent_settingmyinfo);
+                startActivityForResult(intent_settingmyinfo, REQUEST_REFRESH);
                 break;
             //Help
             case R.id.nav_mng_showhelp:

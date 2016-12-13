@@ -3,12 +3,10 @@ package com.example.user.onedaynquestions.view.fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -186,7 +184,7 @@ public class MyAchievementFragment extends Fragment{
         record.getGridLabelRenderer().setNumHorizontalLabels(0); // only 4 because of the space
     }
 
-    
+
 
     private LineGraphSeries<DataPoint> getContributionSeries() {
         LineGraphSeries<DataPoint> result = new LineGraphSeries<DataPoint>();
@@ -271,9 +269,6 @@ public class MyAchievementFragment extends Fragment{
         initGraphData();
 
         super.onResume();
-
-        r = new MyReceiver();
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(r, new IntentFilter("TAG_REFRESH"));
     }
 
 
@@ -287,7 +282,18 @@ public class MyAchievementFragment extends Fragment{
 
     public void refresh() {
         //yout code in refresh.
+        initMyInfo();
+        initGraphData();
         Log.i("Refresh", "YES");
     }
 
+    public void invalidate() {
+        refresh();
+        viewFragmentMyAchievement.post(new Runnable() {
+            @Override
+            public void run() {
+                viewFragmentMyAchievement.invalidate();
+            }
+        });
+    }
 }
