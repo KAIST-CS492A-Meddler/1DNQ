@@ -1,8 +1,5 @@
 package com.example.user.onedaynquestions.view.fragment;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -34,9 +31,6 @@ import java.util.Date;
  * Created by ymbae on 2016-04-18.
  */
 public class MyAchievementFragment extends Fragment{
-
-    MyReceiver r;
-
 //    ListViewAdapter listViewAdapter;
 
 //    TextView tv_noroutine;
@@ -223,6 +217,8 @@ public class MyAchievementFragment extends Fragment{
     public void onStart() {
         initWidgets(viewFragmentMyAchievement);
         initMyInfo();
+        //initGraphData();
+        invalidate();
         super.onStart();
     }
 
@@ -239,30 +235,35 @@ public class MyAchievementFragment extends Fragment{
     }
 
     private void initMyInfo() {
-        MyInfo tmpMyInfo = MainActivity.odnqDB.getMyInfo();
+        MyInfo tmpMyInfo;
+        if (MainActivity.odnqDB != null) {
+            tmpMyInfo = MainActivity.odnqDB.getMyInfo();
 
-        if (tmpMyInfo == null) {
-            myachievement_tv_submission.setText("-");
-            myachievement_tv_contribution.setText("-");
-            myachievement_tv_quality.setText("-");
-            myachievement_tv_correctness.setText("-");
 
-            myachievement_tv_regmessage.setVisibility(View.VISIBLE);
-        } else {
-            float tmpMyCorrectness = (float) tmpMyInfo.getMyInfoAnswerRight() / (float) (tmpMyInfo.getMyInfoAnswerRight() + tmpMyInfo.getMyInfoAnswerWrong());
-            float tmpMyCorrectnessPerc = tmpMyCorrectness * 100;
+            if (tmpMyInfo == null) {
+                myachievement_tv_submission.setText("-");
+                myachievement_tv_contribution.setText("-");
+                myachievement_tv_quality.setText("-");
+                myachievement_tv_correctness.setText("-");
 
-            String strQualityPoint = String.format("%.2f", tmpMyInfo.getMyInfoQuality());
-            String strCorrectness = String.format("%.1f", tmpMyCorrectnessPerc);
+                myachievement_tv_regmessage.setVisibility(View.VISIBLE);
+            } else {
+                float tmpMyCorrectness = (float) tmpMyInfo.getMyInfoAnswerRight() / (float) (tmpMyInfo.getMyInfoAnswerRight() + tmpMyInfo.getMyInfoAnswerWrong());
+                float tmpMyCorrectnessPerc = tmpMyCorrectness * 100;
 
-            myachievement_tv_submission.setText(tmpMyInfo.getMyInfoCardNum() + "");
-            myachievement_tv_contribution.setText(tmpMyInfo.getMyInfoExp() + "");
-            myachievement_tv_quality.setText(strQualityPoint);
-            myachievement_tv_correctness.setText(strCorrectness+"%");
+                String strQualityPoint = String.format("%.2f", tmpMyInfo.getMyInfoQuality());
+                String strCorrectness = String.format("%.1f", tmpMyCorrectnessPerc);
 
-            myachievement_tv_regmessage.setVisibility(View.GONE);
+                myachievement_tv_submission.setText(tmpMyInfo.getMyInfoCardNum() + "");
+                myachievement_tv_contribution.setText(tmpMyInfo.getMyInfoExp() + "");
+                myachievement_tv_quality.setText(strQualityPoint);
+                myachievement_tv_correctness.setText(strCorrectness+"%");
 
+                myachievement_tv_regmessage.setVisibility(View.GONE);
+
+            }
         }
+
     }
 
     @Override
@@ -275,13 +276,6 @@ public class MyAchievementFragment extends Fragment{
 
 
 
-    private class MyReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            MyAchievementFragment.this.refresh();
-        }
-    }
-
     public void refresh() {
         //yout code in refresh.
         initMyInfo();
@@ -290,21 +284,27 @@ public class MyAchievementFragment extends Fragment{
     }
 
     public void invalidate() {
-        waitWhileDBupdate = new CountDownTimer(500,100) {
+        waitWhileDBupdate = new CountDownTimer(2000,500) {
             @Override
             public void onTick(long millisUntilFinished) {
-
+                if(MainActivity.odnqDB != null) {
+                    MyInfo tmpMyInfo = MainActivity.odnqDB.getMyInfo();
+                    if (tmpMyInfo != null) {
+                        if (myachievement_tv_contribution.getText().toString().compareTo(tmpMyInfo.getMyInfoExp() + "") != 0) {
+                            viewFragmentMyAchievement.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    refresh();
+                                    viewFragmentMyAchievement.invalidate();
+                                }
+                            });
+                        }
+                    }
+                }
             }
 
             @Override
             public void onFinish() {
-                onResume();
-                viewFragmentMyAchievement.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        viewFragmentMyAchievement.invalidate();
-                    }
-                });
 
             }
         }.start();
