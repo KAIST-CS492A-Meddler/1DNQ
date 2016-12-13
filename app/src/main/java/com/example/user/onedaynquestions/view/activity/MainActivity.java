@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity
 
 
     public static boolean isMainActivityReady = false;
+    public static boolean isMonitoringServiceOn = false;
 
     private static final int REQUEST_CODE_SYSTEM_ALERT_WINDOW = 22;
     public static final int REQUEST_CODE = 59999;
@@ -220,7 +221,11 @@ public class MainActivity extends AppCompatActivity
         filter = new IntentFilter("REFRESH_QUESTION_LIST");
         filter.addAction("com.google.android.c2dm.intent.RECEIVE");
 
-        startService(new Intent(this, MonitoringService.class));
+
+        if (isMonitoringServiceOn = false && odnqDB.getMyInfo() != null) {
+            startService(new Intent(this, MonitoringService.class));
+            isMonitoringServiceOn = true;
+        }
 
     }
 
@@ -314,7 +319,7 @@ public class MainActivity extends AppCompatActivity
 
         countMyCardNumTask.execute("http://110.76.95.150/get_cardbymaker.php");
 
-        Toast.makeText(getApplicationContext(), "User's cards are selected", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "User's cards are selected", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -322,6 +327,11 @@ public class MainActivity extends AppCompatActivity
         Log.d("MainInitWidgets", "onResume() is called");
         initMyInfo();
         stopService(new Intent(this, FloatingButtonService.class));
+
+        /** START SERVICE **/
+        if (odnqDB.getMyInfo() != null) {
+            startService(new Intent(this, MonitoringService.class));
+        }
 
         /** DB LOAD **/
         if (odnqDB.getMyInfo() != null) {
@@ -333,6 +343,8 @@ public class MainActivity extends AppCompatActivity
 
         updateListener = new BroadReceiver();
         registerReceiver(updateListener, filter);
+
+
         super.onResume();
     }
 

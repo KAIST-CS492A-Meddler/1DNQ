@@ -110,6 +110,7 @@ public class UnitRecord {
 
     public void setDailyRecordDateTime(String dailyRecordDateTime) {
 
+//        DateFormat sdFormat;
         sdFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Date tempDate = Calendar.getInstance().getTime();
         try {

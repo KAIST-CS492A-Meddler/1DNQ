@@ -23,6 +23,7 @@ import com.example.user.onedaynquestions.archive.MyInformation;
 import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.model.MyInfo;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
+import com.example.user.onedaynquestions.service.MonitoringService;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 import com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity;
 import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
@@ -239,10 +240,10 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
                         postData.put("myinfo_deviceid", curMyInfo_deviceid);
                         postData.put("myinfo_token", MainActivity.token);
 
-                        PostResponseAsyncTask insertMyInfoTask =
+                        PostResponseAsyncTask updateMyInfoTask =
                                 new PostResponseAsyncTask(SettingMyInfoActivity.this, postData);
 
-                        insertMyInfoTask.execute("http://110.76.95.150/update_user.php");
+                        updateMyInfoTask.execute("http://110.76.95.150/update_user.php");
                     }
 
 
@@ -269,6 +270,12 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
                         Log.d(TAG_DB, "[SettingMyInfoActivity] User information is added into DB.");
                         MainActivity.odnqDB.insertMyInfo(tmpMyInfo);
                         Log.d(TAG_DB, "[SettingMyInfoActivity] User information is added into DB.");
+
+                        if (!MainActivity.isMonitoringServiceOn) {
+                            startService(new Intent(this, MonitoringService.class));
+                            Log.d(TAG_DB, "[SettingMyInfoActivity] Monitoring service is started.");
+                        }
+
                     }
 
                     initWidgetValues();

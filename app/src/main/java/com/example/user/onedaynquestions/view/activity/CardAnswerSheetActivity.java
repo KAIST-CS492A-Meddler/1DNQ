@@ -55,11 +55,11 @@ public class CardAnswerSheetActivity extends AppCompatActivity {
         card_answer = intent.getExtras().getString("card_answer");
         my_answer = intent.getExtras().getString("my_answer");
 
-        Toast.makeText(getApplicationContext(), "- card_type: " + card_type +
-                "\n- card_question: " + card_question +
-                "\n- card_answer: " + card_answer +
-                "\n- my_answer: " + my_answer +
-                "\n- card_id: " + card_id, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "- card_type: " + card_type +
+//                "\n- card_question: " + card_question +
+//                "\n- card_answer: " + card_answer +
+//                "\n- my_answer: " + my_answer +
+//                "\n- card_id: " + card_id, Toast.LENGTH_SHORT).show();
 
         count = 0;
         thisActivity = this;

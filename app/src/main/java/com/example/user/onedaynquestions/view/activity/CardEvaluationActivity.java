@@ -23,6 +23,7 @@ import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -99,29 +100,46 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
                 updateCardTask.execute("http://110.76.95.150/solve_problem.php");
 
 //                Toast.makeText(getApplicationContext(), "Card information is updated", Toast.LENGTH_SHORT).show();
-                MyCard tmpMyCard = MainActivity.odnqDB.getMyCardWithId(card_id);
 
-                if (tmpMyCard != null) {
-                    tmpMyCard.setMyCardDifficulty((int)cardeval_rb_difficulty.getRating());
-                    tmpMyCard.setMyCardQuality((int)cardeval_rb_usefulness.getRating());
-                    if (self_eval == 0) {
-                        tmpMyCard.setMyCardWrong(tmpMyCard.getMyCardWrong() + 1);
+                if (MainActivity.odnqDB != null) {
+                    ArrayList<MyCard> cardList = MainActivity.odnqDB.getMyCards(1, MainActivity.odnqDB.getMyInfo().getMyInfoId());
+
+                    if (cardList != null) {
+                        for (int i = 0; i < cardList.size(); i++) {
+                            Log.d("CardEvaluation", "[" + i + "] card_id: " + cardList.get(i).getMyCardId());
+                            Log.d("CardEvaluation", "[" + i + "] card_question: " + cardList.get(i).getMyCardQuestion());
+                            Log.d("CardEvaluation", "[" + i + "] card_answer: " + cardList.get(i).getMyCardAnswer());
+                        }
                     }
-                    if (card_star == 0) {
-                        tmpMyCard.setMyCardStarred(0);
+
+                    Log.d("CardEvaluation", "card_id: " + card_id);
+                    MyCard tmpMyCard = MainActivity.odnqDB.getMyCardWithId(card_id);
+
+                    if (tmpMyCard != null) {
+                        tmpMyCard.setMyCardDifficulty((int) cardeval_rb_difficulty.getRating());
+                        tmpMyCard.setMyCardQuality((int) cardeval_rb_usefulness.getRating());
+                        if (self_eval == 0) {
+                            tmpMyCard.setMyCardWrong(tmpMyCard.getMyCardWrong() + 1);
+                        }
+                        if (card_star == 0) {
+                            tmpMyCard.setMyCardStarred(0);
+                        } else {
+                            tmpMyCard.setMyCardStarred(1);
+                        }
+
                     } else {
-                        tmpMyCard.setMyCardStarred(1);
+                        Log.d("CardEvaluation", "tmpMyCard is null");
                     }
+
+
+                    MainActivity.odnqDB.updateMyCard(tmpMyCard);
+                    Log.d(TAG_DB, "[CardEvaluationActivity] Card information is updated");
+
+                    showEndCardEvalDialog();
+                } else {
+                    Log.d("CardEvaluation", "MainActivity.odnqDB is null");
 
                 }
-
-
-
-
-                MainActivity.odnqDB.updateMyCard(tmpMyCard);
-                Log.d(TAG_DB, "[CardEvaluationActivity] Card information is updated");
-
-                showEndCardEvalDialog();
                 break;
 
             case R.id.cardeval_iv_star:

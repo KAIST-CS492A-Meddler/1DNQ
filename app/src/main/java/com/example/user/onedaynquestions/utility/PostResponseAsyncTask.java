@@ -27,7 +27,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class PostResponseAsyncTask extends AsyncTask<String, Void, String> {
 
-    private ProgressDialog progressDialog;
+//    private ProgressDialog progressDialog;
 
     private AsyncResponse delegate;
     private Context context;
@@ -69,9 +69,9 @@ public class PostResponseAsyncTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPreExecute() {
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage(loadingMessage);
-        progressDialog.show();
+//        progressDialog = new ProgressDialog(context);
+//        progressDialog.setMessage(loadingMessage);
+//        progressDialog.show();
 
         super.onPreExecute();
     }
@@ -169,9 +169,9 @@ public class PostResponseAsyncTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        if (progressDialog.isShowing()) {
-            progressDialog.dismiss();
-        }
+//        if (progressDialog.isShowing()) {
+//            progressDialog.dismiss();
+//        }
 
         result = result.trim();
 
@@ -181,13 +181,13 @@ public class PostResponseAsyncTask extends AsyncTask<String, Void, String> {
 
     //Getter & Setter
 
-    public ProgressDialog getProgressDialog() {
-        return progressDialog;
-    }
-
-    public void setProgressDialog(ProgressDialog progressDialog) {
-        this.progressDialog = progressDialog;
-    }
+//    public ProgressDialog getProgressDialog() {
+//        return progressDialog;
+//    }
+//
+//    public void setProgressDialog(ProgressDialog progressDialog) {
+//        this.progressDialog = progressDialog;
+//    }
 
     public AsyncResponse getDelegate() {
         return delegate;

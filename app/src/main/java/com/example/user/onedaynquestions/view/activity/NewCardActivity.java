@@ -262,47 +262,50 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
         switch (v.getId()) {
             case R.id.newcard_btn_add:
 
-                int cardType;
+                String tmpQuestion = "";
+                String tmpAnswer = "";
 
-                cardType = newCard_spinner_type.getSelectedItemPosition();
+                tmpQuestion = newCard_et_question.getText().toString();
+                tmpAnswer = newCard_et_answer.getText().toString();
 
-                //Toast.makeText(getApplicationContext(), "Make a new receivedCard\nInsert receivedCard data to Server DB\nSelect saved receivedCard data\nInsert selected receivedCard data to local DB", Toast.LENGTH_LONG).show();
+                if (tmpQuestion.length() > 0 && tmpAnswer.length() > 0) {
 
-                /** SERVER DB **/
-                HashMap postData = new HashMap();
-                postData.put("cinfo_answer", newCard_et_answer.getText().toString());
-                postData.put("cinfo_maker", newCard_et_makerid.getText().toString());
-                //postData.put(, newCard_et_datetime.getText());
-                postData.put("cinfo_question", newCard_et_question.getText().toString());
-                postData.put("cinfo_group", "group-1");
-                postData.put("cinfo_hint", newCard_et_hint.getText().toString());
-                postData.put("cinfo_type", ""+cardType);
 
-                PostResponseAsyncTask newCardTask =
-                        new PostResponseAsyncTask(NewCardActivity.this, postData);
+                    int cardType;
 
-                newCardTask.execute("http://110.76.95.150/create_card.php");
+                    cardType = newCard_spinner_type.getSelectedItemPosition();
 
-                try {
-                    Thread.sleep(300);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    //Toast.makeText(getApplicationContext(), "Make a new receivedCard\nInsert receivedCard data to Server DB\nSelect saved receivedCard data\nInsert selected receivedCard data to local DB", Toast.LENGTH_LONG).show();
+
+                    /** SERVER DB **/
+                    HashMap postData = new HashMap();
+                    postData.put("cinfo_answer", newCard_et_answer.getText().toString());
+                    postData.put("cinfo_maker", newCard_et_makerid.getText().toString());
+                    //postData.put(, newCard_et_datetime.getText());
+                    postData.put("cinfo_question", newCard_et_question.getText().toString());
+                    postData.put("cinfo_group", "group-1");
+                    postData.put("cinfo_hint", newCard_et_hint.getText().toString());
+                    postData.put("cinfo_type", "1"); //TODO: 현재 word type만 지원
+
+                    PostResponseAsyncTask newCardTask =
+                            new PostResponseAsyncTask(NewCardActivity.this, postData);
+
+                    newCardTask.execute("http://110.76.95.150/create_card.php");
+
+//                    try {
+//                        Thread.sleep(300);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+
+
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please fill out question & answer", Toast.LENGTH_SHORT).show();
                 }
 
-                /** LOCAL DB **/
-                MyCard tmpMyCard = new MyCard();
-                tmpMyCard.setMyCardId(createdCardId);
-                tmpMyCard.setMyCardMaker(newCard_et_makerid.getText().toString());
-                tmpMyCard.setMyCardQuestion(newCard_et_question.getText().toString());
-                tmpMyCard.setMyCardAnswer(newCard_et_answer.getText().toString());
-                tmpMyCard.setMyCardGroup("group-1");
-                tmpMyCard.setMyCardHint(newCard_et_hint.getText().toString());
-                tmpMyCard.setMyCardType(cardType);
-
-                MainActivity.odnqDB.insertMyCard(tmpMyCard);
-                Log.d(TAG_DB, "[NewCardActivity] A new card is added to local DB.");
-
                 break;
+
         }
     }
 
@@ -372,6 +375,18 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
             createdCardId = output.replace("Card created: ", "");
             Log.d("CardCreation", "createdCardId: " + createdCardId);
 
+            /** LOCAL DB **/
+            MyCard tmpMyCard = new MyCard();
+            tmpMyCard.setMyCardId(createdCardId); //TODO: null일 수 있음
+            tmpMyCard.setMyCardMaker(newCard_et_makerid.getText().toString());
+            tmpMyCard.setMyCardQuestion(newCard_et_question.getText().toString());
+            tmpMyCard.setMyCardAnswer(newCard_et_answer.getText().toString());
+            tmpMyCard.setMyCardGroup("group-1");
+            tmpMyCard.setMyCardHint(newCard_et_hint.getText().toString());
+            tmpMyCard.setMyCardType(1);
+
+            MainActivity.odnqDB.insertMyCard(tmpMyCard);
+            Log.d(TAG_DB, "[NewCardActivity] A new card is added to local DB.");
 
             showEndNewCardDialog();
         }

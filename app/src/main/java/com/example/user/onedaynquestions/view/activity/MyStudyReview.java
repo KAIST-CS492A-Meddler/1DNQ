@@ -80,6 +80,8 @@ public class MyStudyReview extends AppCompatActivity {
         appendQuestion(DAILY, new MyCard());
         appendQuestion(WRONGANSWER, new MyCard());
 
+        initCards();
+
 //        myHereAgents = new ArrayList<MyHereAgent>();
 //        selectedNewAgent = new MyHereAgent();
 //
@@ -142,6 +144,40 @@ public class MyStudyReview extends AppCompatActivity {
 //            }
 //        });
 
+    }
+
+
+    public void initCards() {
+        if (MainActivity.odnqDB != null) {
+
+            if (MainActivity.odnqDB.getMyInfo() == null) {
+                Log.d("AppendCardList", "[MyStudyReview] No user information");
+
+            } else {
+                String myInfoId = MainActivity.odnqDB.getMyInfo().getMyInfoId();
+                Log.d("AppendCardList", "[MyStudyReview] MyCard table size: " + MainActivity.odnqDB.countTableMyCard());
+
+                clearAllCardList();
+
+                ArrayList<MyCard> allCardList;
+                ArrayList<MyCard> wrongCardList;
+
+                allCardList = MainActivity.odnqDB.getMyCards(1, myInfoId);
+                if (allCardList != null){
+                    Log.d("AppendCardList", "[MyStudyReview] allCardList - size: " + allCardList.size());
+
+                    for (int i = 0; i < allCardList.size(); i++) {
+                        appendQuestion(DAILY, allCardList.get(i));
+                    }
+                }
+
+
+            }
+        }
+    }
+    private void clearAllCardList() {
+        dailyRecordList.clear();
+        wrongAnswerList.clear();
     }
 
 
