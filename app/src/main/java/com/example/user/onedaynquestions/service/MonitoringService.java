@@ -29,7 +29,7 @@ public class MonitoringService extends Service {
         CountDownTimer watchDog = new CountDownTimer(totalTime, dt) {
             @Override
             public void onTick(long l) {
-                Log.d("Watch Dog","" + counter++);
+//                Log.d("Watch Dog","" + counter++);
             }
 
             @Override

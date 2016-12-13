@@ -111,47 +111,55 @@ public class StudyNoteFragment extends Fragment{
         // opt4: get starred cards
         // opt5: get wrong cards
         // opt6: get recommended cards
-        String myInfoId = MainActivity.odnqDB.getMyInfo().getMyInfoId();
 
-        Log.d("AppendCardList", "MyCard table size: " + MainActivity.odnqDB.countTableMyCard());
+        if (MainActivity.odnqDB.getMyInfo() == null) {
+            Log.d("AppendCardList", "No user information");
 
-        clearAllCardList();
+        } else {
 
-        ArrayList<MyCard> allCardList = new ArrayList<MyCard>();
-        ArrayList<MyCard> starredCardList = new ArrayList<MyCard>();
-        ArrayList<MyCard> wrongCardList = new ArrayList<MyCard>();
-        ArrayList<MyCard> recommededCardList = new ArrayList<MyCard>();
+            String myInfoId = MainActivity.odnqDB.getMyInfo().getMyInfoId();
 
-        allCardList = MainActivity.odnqDB.getMyCards(1, myInfoId);
-        if (allCardList != null) Log.d("AppendCardList", "allCardList - size: " + allCardList.size());
+            Log.d("AppendCardList", "MyCard table size: " + MainActivity.odnqDB.countTableMyCard());
 
-        // STARRED CARD
-        starredCardList = MainActivity.odnqDB.getMyCards(4, myInfoId);
+            clearAllCardList();
 
-        if (starredCardList != null){
-            Log.d("AppendCardList", "starredCardList - size: " + starredCardList.size());
-            for (int i = 0; i < starredCardList.size(); i++) {
-                appendQuestion(STARRED, starredCardList.get(i));
+            ArrayList<MyCard> allCardList = new ArrayList<MyCard>();
+            ArrayList<MyCard> starredCardList = new ArrayList<MyCard>();
+            ArrayList<MyCard> wrongCardList = new ArrayList<MyCard>();
+            ArrayList<MyCard> recommededCardList = new ArrayList<MyCard>();
+
+            allCardList = MainActivity.odnqDB.getMyCards(1, myInfoId);
+            if (allCardList != null) Log.d("AppendCardList", "allCardList - size: " + allCardList.size());
+
+            // STARRED CARD
+            starredCardList = MainActivity.odnqDB.getMyCards(4, myInfoId);
+
+            if (starredCardList != null){
+                Log.d("AppendCardList", "starredCardList - size: " + starredCardList.size());
+                for (int i = 0; i < starredCardList.size(); i++) {
+                    appendQuestion(STARRED, starredCardList.get(i));
+                }
+
             }
 
-        }
-
-        // WRONG CARD
-        wrongCardList = MainActivity.odnqDB.getMyCards(5, myInfoId);
-        if (wrongCardList != null){
-            Log.d("AppendCardList", "wrongCardList - size: " + wrongCardList.size());
-            for (int i = 0; i < wrongCardList.size(); i++) {
-                appendQuestion(FREQUENTLY_WRONG, wrongCardList.get(i));
+            // WRONG CARD
+            wrongCardList = MainActivity.odnqDB.getMyCards(5, myInfoId);
+            if (wrongCardList != null){
+                Log.d("AppendCardList", "wrongCardList - size: " + wrongCardList.size());
+                for (int i = 0; i < wrongCardList.size(); i++) {
+                    appendQuestion(FREQUENTLY_WRONG, wrongCardList.get(i));
+                }
             }
-        }
 
-        // RECOMMENDED CARD
-        recommededCardList = MainActivity.odnqDB.getMyCards(6, myInfoId);
-        if (recommededCardList != null) {
-            Log.d("AppendCardList", "recommededCardList - size: " + recommededCardList.size());
-            for (int i = 0; i < recommededCardList.size(); i++) {
-                appendQuestion(RECOMMENDED, recommededCardList.get(i));
+            // RECOMMENDED CARD
+            recommededCardList = MainActivity.odnqDB.getMyCards(6, myInfoId);
+            if (recommededCardList != null) {
+                Log.d("AppendCardList", "recommededCardList - size: " + recommededCardList.size());
+                for (int i = 0; i < recommededCardList.size(); i++) {
+                    appendQuestion(RECOMMENDED, recommededCardList.get(i));
+                }
             }
+
         }
     }
 
@@ -391,16 +399,19 @@ public class StudyNoteFragment extends Fragment{
     public boolean setQuestions(int where, ArrayList<MyCard> list){
         switch (where){
             case STARRED:
+                Log.d("StudyNoteFragment", "setQuestions - STARRED");
                 starredQuestionList.clear();
                 starredQuestionList.addAll(list);
                 starredQuestionListAdapter.notifyDataSetChanged();
                 break;
             case FREQUENTLY_WRONG:
+                Log.d("StudyNoteFragment", "setQuestions - FREQUENTLY_WRONG");
                 frequentlyWrongQuestionList.clear();
                 frequentlyWrongQuestionList.addAll(list);
                 frequentlyWrongQuestionListAdapter.notifyDataSetChanged();
                 break;
             case RECOMMENDED:
+                Log.d("StudyNoteFragment", "setQuestions - RECOMMENDED");
                 recommendedQuestionList.clear();
                 recommendedQuestionList.addAll(list);
                 recommendedQuestionListAdapter.notifyDataSetChanged();

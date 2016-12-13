@@ -292,7 +292,6 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
                 /** LOCAL DB **/
                 MyCard tmpMyCard = new MyCard();
                 tmpMyCard.setMyCardId(createdCardId);
-                //TODO: 나머지 정보 채우기
                 tmpMyCard.setMyCardMaker(newCard_et_makerid.getText().toString());
                 tmpMyCard.setMyCardQuestion(newCard_et_question.getText().toString());
                 tmpMyCard.setMyCardAnswer(newCard_et_answer.getText().toString());
@@ -376,6 +375,8 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
 
             showEndNewCardDialog();
         }
+
+        //TODO: Card Request 관련 부분
 
     }
 

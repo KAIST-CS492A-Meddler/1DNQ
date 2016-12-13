@@ -678,6 +678,11 @@ public class MainActivity extends AppCompatActivity
             switch (action) {
                 case ACTION_RECEIVE:
 
+                    MyCard tmpMyCard = new MyCard(intent);
+                    MainActivity.odnqDB.insertMyCard(tmpMyCard);
+
+                    Log.d(TAG_DB, "[NewCardActivity] A new card is added to local DB.");
+
                     WakefulPushReceiver.updated = false;
                     if (viewPager != null) {
                         viewPager.getAdapter().notifyDataSetChanged();

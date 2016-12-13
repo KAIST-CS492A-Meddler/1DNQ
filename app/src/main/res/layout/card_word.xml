@@ -11,6 +11,7 @@
         card:cardCornerRadius="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:layout_margin="5dp"
         card:cardBackgroundColor="#dddddd">
 
         <!--<TextView-->

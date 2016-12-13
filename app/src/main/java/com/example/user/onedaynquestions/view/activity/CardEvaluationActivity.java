@@ -101,16 +101,22 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
 //                Toast.makeText(getApplicationContext(), "Card information is updated", Toast.LENGTH_SHORT).show();
                 MyCard tmpMyCard = MainActivity.odnqDB.getMyCardWithId(card_id);
 
-                tmpMyCard.setMyCardDifficulty((int)cardeval_rb_difficulty.getRating());
-                tmpMyCard.setMyCardQuality((int)cardeval_rb_usefulness.getRating());
-                if (self_eval == 0) {
-                    tmpMyCard.setMyCardWrong(tmpMyCard.getMyCardWrong() + 1);
+                if (tmpMyCard != null) {
+                    tmpMyCard.setMyCardDifficulty((int)cardeval_rb_difficulty.getRating());
+                    tmpMyCard.setMyCardQuality((int)cardeval_rb_usefulness.getRating());
+                    if (self_eval == 0) {
+                        tmpMyCard.setMyCardWrong(tmpMyCard.getMyCardWrong() + 1);
+                    }
+                    if (card_star == 0) {
+                        tmpMyCard.setMyCardStarred(0);
+                    } else {
+                        tmpMyCard.setMyCardStarred(1);
+                    }
+
                 }
-                if (card_star == 0) {
-                    tmpMyCard.setMyCardStarred(0);
-                } else {
-                    tmpMyCard.setMyCardStarred(1);
-                }
+
+
+
 
                 MainActivity.odnqDB.updateMyCard(tmpMyCard);
                 Log.d(TAG_DB, "[CardEvaluationActivity] Card information is updated");
