@@ -291,7 +291,6 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
                             new PostResponseAsyncTask(NewCardActivity.this, postData);
 
                     newCardTask.execute("http://110.76.95.150/create_card.php");
-                    setResult(MainActivity.RESULT_REFRESH);
 //                    try {
 //                        Thread.sleep(300);
 //                    } catch (InterruptedException e) {
@@ -387,7 +386,7 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
 
             MainActivity.odnqDB.insertMyCard(tmpMyCard);
             Log.d(TAG_DB, "[NewCardActivity] A new card is added to local DB.");
-
+            setResult(MainActivity.RESULT_REFRESH);
             showEndNewCardDialog();
         }
 

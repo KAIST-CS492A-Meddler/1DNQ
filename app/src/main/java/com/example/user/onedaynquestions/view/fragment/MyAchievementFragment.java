@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -59,6 +60,7 @@ public class MyAchievementFragment extends Fragment{
     private QuestionListAdapter questionListAdapter;
     private int numOfShow = 7;
     private int lastIndexOfRecords;
+    CountDownTimer waitWhileDBupdate;
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -288,12 +290,24 @@ public class MyAchievementFragment extends Fragment{
     }
 
     public void invalidate() {
-        refresh();
-        viewFragmentMyAchievement.post(new Runnable() {
+        waitWhileDBupdate = new CountDownTimer(500,100) {
             @Override
-            public void run() {
-                viewFragmentMyAchievement.invalidate();
+            public void onTick(long millisUntilFinished) {
+
             }
-        });
+
+            @Override
+            public void onFinish() {
+                onResume();
+                viewFragmentMyAchievement.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewFragmentMyAchievement.invalidate();
+                    }
+                });
+
+            }
+        }.start();
     }
+
 }

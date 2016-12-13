@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.user.onedaynquestions.R;
@@ -88,8 +87,8 @@ public class FloatingButtonService extends Service {
         layoutParamsBackground = new WindowManager.LayoutParams(
                 magWidth,
                 magHeight,
-                WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
+                WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
                 PixelFormat.TRANSLUCENT);
         layoutParamsBackground .gravity = Gravity.LEFT | Gravity.TOP;
         layoutParamsBackground.x = (screenWidth - magWidth)/ 2;
