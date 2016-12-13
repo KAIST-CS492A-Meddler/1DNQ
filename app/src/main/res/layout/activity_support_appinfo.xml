@@ -11,373 +11,413 @@
         android:layout_height="56dp"
         android:background="@color/colorSkyBlue"/>
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="15dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="5dp"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:text="Application Version"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:paddingTop="5dp"
-        android:textSize="18dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        android:text="HERE (Home Exercise REminder)"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:paddingTop="5dp"
-        android:textSize="16dp"
-        android:text="ver 1.1.5"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:paddingBottom="5dp"
-        android:textSize="16dp"
-        android:text="CS442 Team Project, 2016 Spring"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="15dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:text="Developers"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#dddddd"
-        android:paddingLeft="30dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:textSize="16dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        android:text="Team PEACH"
-        />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="right">
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="right"
-                android:paddingRight="10dp"
-                android:src="@drawable/here_character_simple_boy"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:text="Application Version"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingTop="15dp"
+                android:textSize="22dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:text="1-Day-N-Questions"
+                android:background="@color/colorLightSkyBlue"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingTop="5dp"
+                android:textSize="16dp"
+                android:text="ver 1.0.10"
+                android:textColor="@color/colorPrimaryMoreDark"
+                android:background="@color/colorLightSkyBlue"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingBottom="15dp"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryMoreDark"
+                android:text="CS492 Crowdsourcing\nTerm Project"
+                android:background="@color/colorLightSkyBlue"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:text="Developers"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#dddddd"
+                android:paddingLeft="30dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:text="Team MEDDLER"
+                />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="right"
+                        android:paddingRight="10dp"
+                        android:src="@drawable/here_character_simple_boy"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="#222222"
+                    android:text="Sunggeun Ahn"/>
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14dp"
+                    android:autoLink="email"
+                    android:text="topmaze@kaist.ac.kr"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="11"
+                    android:textSize="12dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Server messaging, visualization, experiment design"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="right"
+                        android:paddingRight="10dp"
+                        android:src="@drawable/here_character_simple_boy"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="#222222"
+                    android:text="Young-Min Baek"/>
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14dp"
+                    android:autoLink="email"
+                    android:text="ymbaek@se.kaist.ac.kr"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="11"
+                    android:textSize="12dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Client Android app, UI/UX design, quality control"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="right"
+                        android:paddingRight="10dp"
+                        android:src="@drawable/here_character_simple_boy"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="#222222"
+                    android:text="Sungjae Hong"/>
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14dp"
+                    android:autoLink="email"
+                    android:text="yain@kaist.ac.kr"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="11"
+                    android:textSize="12dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Server (+DB) management, data integration/distribution"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#dddddd"
+                android:paddingLeft="30dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:text="Professor and TAs"
+                />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="right"
+                        android:paddingRight="10dp"
+                        android:src="@drawable/here_character_simple_boy"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="#222222"
+                    android:text="Professor"/>
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14dp"
+                    android:text="Juho Kim"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="right"
+                        android:paddingRight="10dp"
+                        android:src="@drawable/here_character_simple_boy"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="#222222"
+                    android:text="TA"/>
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14dp"
+                    android:text="Seung Hyun Han"/>
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:text="Repository"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingLeft="15dp"
+                android:text="Github - KAIST-CS492A-Meddler/1DNQ"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:textSize="16dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="25dp"
+                android:text="https://github.com/KAIST-CS492A-Meddler/1DNQ.git"
+                android:textSize="16dp"
+                android:layout_marginBottom="15dp"
+                android:autoLink="web"/>
+
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="center"-->
+            <!--android:text="AppInfoSupport"-->
+            <!--android:textSize="25dp"-->
+            <!--android:textColor="@color/colorPrimary"-->
+            <!--android:textStyle="bold"/>-->
         </LinearLayout>
 
-        <TextView
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:layout_gravity="center_vertical"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            android:textColor="#222222"
-            android:text="Sunggeun Ahn"/>
 
-        <TextView
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:layout_gravity="center_vertical"
-            android:textSize="14dp"
-            android:autoLink="email"
-            android:text="topmaze@kaist.ac.kr"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
-
-        <LinearLayout
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="right">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="right"
-                android:paddingRight="10dp"
-                android:src="@drawable/here_character_simple_boy"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:layout_gravity="center_vertical"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            android:textColor="#222222"
-            android:text="Young-Min Baek"/>
-
-        <TextView
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:layout_gravity="center_vertical"
-            android:textSize="14dp"
-            android:autoLink="email"
-            android:text="ymbaek@se.kaist.ac.kr"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
-
-        <LinearLayout
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="right">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="right"
-                android:paddingRight="10dp"
-                android:src="@drawable/here_character_simple_girl"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:layout_gravity="center_vertical"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            android:textColor="#222222"
-            android:text="Jiyoung Song"/>
-
-        <TextView
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:layout_gravity="center_vertical"
-            android:textSize="14dp"
-            android:autoLink="email"
-            android:text="jysong@se.kaist.ac.kr"/>
-
-    </LinearLayout>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#dddddd"
-        android:paddingLeft="30dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:textSize="16dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        android:text="Professor and TAs"
-        />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
-
-        <LinearLayout
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="right">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="right"
-                android:paddingRight="10dp"
-                android:src="@drawable/here_character_simple_boy"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:layout_gravity="center_vertical"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            android:textColor="#222222"
-            android:text="Professor"/>
-
-        <TextView
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:layout_gravity="center_vertical"
-            android:textSize="14dp"
-            android:text="Sung-Ju Lee"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
-
-        <LinearLayout
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="right">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="right"
-                android:paddingRight="10dp"
-                android:src="@drawable/here_character_simple_boy"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:layout_gravity="center_vertical"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            android:textColor="#222222"
-            android:text="TA"/>
-
-        <TextView
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:layout_gravity="center_vertical"
-            android:textSize="14dp"
-            android:text="Sunwoo Kim"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
-
-        <LinearLayout
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="right">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="right"
-                android:paddingRight="10dp"
-                android:src="@drawable/here_character_simple_boy"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:layout_gravity="center_vertical"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            android:textColor="#222222"
-            android:text="TA"/>
-
-        <TextView
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:layout_gravity="center_vertical"
-            android:textSize="14dp"
-            android:text="Kihoon Jung"/>
-
-    </LinearLayout>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="15dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:text="Repository"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingLeft="15dp"
-        android:text="Github - qtdPeach/HERE"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        android:textSize="16dp" />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="25dp"
-        android:text="https://github.com/qtdPeach/HERE"
-        android:textSize="16dp"
-        android:autoLink="web"/>
-
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:gravity="center"-->
-        <!--android:text="AppInfoSupport"-->
-        <!--android:textSize="25dp"-->
-        <!--android:textColor="@color/colorPrimary"-->
-        <!--android:textStyle="bold"/>-->
+    </ScrollView>
 
 </LinearLayout>

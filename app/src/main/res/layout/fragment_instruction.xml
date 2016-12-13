@@ -11,6 +11,7 @@
         android:alpha="0.7">
 
         <LinearLayout
+            android:id="@+id/instruction_background"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -148,9 +149,18 @@
                 android:textColor="@color/colorSkyBlue"
                 android:textStyle="bold"
                 android:layout_marginTop="40dp"
-                android:layout_marginBottom="40dp"
                 android:gravity="center_horizontal"
                 android:text="Press back if you want to leave this screen"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSkyBlue"
+                android:textStyle="bold"
+                android:layout_marginBottom="40dp"
+                android:gravity="center_horizontal"
+                android:textSize="20dp"
+                android:text="Please register your account first"/>
 
             <LinearLayout
                 android:orientation="vertical"

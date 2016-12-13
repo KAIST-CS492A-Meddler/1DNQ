@@ -25,7 +25,7 @@ public class SupportAppInfoActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setTitle("앱 정보");
+        toolbar.setTitle("App Information");
         toolbar.setNavigationIcon(R.mipmap.ic_menu_arrow_back);
         toolbar.setTitleTextColor(Color.WHITE);
 
@@ -33,7 +33,7 @@ public class SupportAppInfoActivity extends AppCompatActivity {
 
         final ActionBar actionBar = getSupportActionBar();
 
-        actionBar.setTitle("앱 정보");
+        actionBar.setTitle("App Information");
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
     }
 
