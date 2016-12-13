@@ -46,7 +46,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/here_character_simple_girl"
+                    android:src="@drawable/odnq_group_icon"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="10dp"
                     android:paddingRight="5dp"/>
@@ -118,16 +118,16 @@
                 android:paddingRight="10dp"
                 android:paddingBottom="5dp"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="#bbbbbb"/>
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="3dp"-->
+                <!--android:background="#bbbbbb"/>-->
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#eeeeee">
+                android:background="#ffffff">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -144,8 +144,8 @@
                     android:id="@+id/leaderboard_lv_users"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"

@@ -24,7 +24,7 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/prize_d" />
+                    android:src="@drawable/prize" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -73,10 +73,13 @@
                     android:padding="5dp">
 
                     <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/prize"/>
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/odnq_achievement_submission"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -113,10 +116,13 @@
                     android:padding="5dp">
 
                     <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/prize"/>
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/odnq_achievement_contribution"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -127,7 +133,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="LEVEL"
+                        android:text="EXP"
                         android:textSize="10dp"
                         android:gravity="center_horizontal"/>
 
@@ -153,10 +159,13 @@
                     android:padding="5dp">
 
                     <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/prize"/>
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/odnq_achievement_quality"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -193,10 +202,13 @@
                     android:padding="5dp">
 
                     <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/prize"/>
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/odnq_achievement_correctness"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -247,7 +259,7 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/prize_e" />
+                    android:src="@drawable/prize" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -299,7 +311,7 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/prize_p" />
+                    android:src="@drawable/prize" />
 
                 <TextView
                     android:layout_width="match_parent"

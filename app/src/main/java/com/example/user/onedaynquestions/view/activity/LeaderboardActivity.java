@@ -111,7 +111,7 @@ public class LeaderboardActivity extends AppCompatActivity implements AsyncRespo
 
         getGroupTask.execute("http://110.76.95.150/get_group.php");
 
-        Toast.makeText(getApplicationContext(), "Group information is extracted", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "Group information is extracted", Toast.LENGTH_SHORT).show();
     }
 
     public void initLeaderBoard() {
@@ -123,7 +123,6 @@ public class LeaderboardActivity extends AppCompatActivity implements AsyncRespo
 
         getGroupUsersTask.execute("http://110.76.95.150/get_groupusers.php");
 
-        Toast.makeText(getApplicationContext(), "Group's users are extracted", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -352,20 +351,26 @@ public class LeaderboardActivity extends AppCompatActivity implements AsyncRespo
         String temp = output.replaceAll("<br>", "\n");
         Log.d("ExtractGroupUsers", "[LeaderboardActivity] output: " + output);
 
-        memberList.add(new UserInfo(true, "SG", "topmaze", "sunggeun", 231));
-        memberList.add(new UserInfo(false, "GS", "top", "sung", 31));
-        memberList.add(new UserInfo(false, "1S2G", "maze", "geun", 21));
-        memberList.add(new UserInfo(true, "S4G", "A431t9", "soony", 281));
-        memberList.add(new UserInfo(true, "S464G", "apsov93", "hyang", 631));
+        Log.d("ResultGroupUsers", "output: " + output);
 
-        memberListAdapter.notifyDataSetChanged();
+
+//        memberList.add(new UserInfo(true, "SG", "topmaze", "sunggeun", 231));
+//        memberList.add(new UserInfo(false, "GS", "top", "sung", 31));
+//        memberList.add(new UserInfo(false, "1S2G", "maze", "geun", 21));
+//        memberList.add(new UserInfo(true, "S4G", "A431t9", "soony", 281));
+//        memberList.add(new UserInfo(true, "S464G", "apsov93", "hyang", 631));
+//
+//        memberListAdapter.notifyDataSetChanged();
 
         if (output.contains("{\"result_groupusers\":")) {
             String jsonString = output.replace("{\"result_groupusers\":", "");
             jsonString = jsonString.substring(0, jsonString.length() - 1);
 
+            Log.d("ResultGroupUsers", "jsonString: " + jsonString);
+
             try {
                 JSONArray jarray = new JSONArray(jsonString);
+                Log.d("ResultGroupUsers", "jarray size: " + jarray.length());
 
                 for (int i = 0; i < jarray.length(); i++) {
                     JSONObject jObject = jarray.getJSONObject(i);
@@ -385,9 +390,8 @@ public class LeaderboardActivity extends AppCompatActivity implements AsyncRespo
                     memberList.add(tmpUserInfo);
                 }
 
-
-
                 memberListAdapter.notifyDataSetChanged();
+                Toast.makeText(getApplicationContext(), "Group leaderboard is updated", Toast.LENGTH_SHORT).show();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

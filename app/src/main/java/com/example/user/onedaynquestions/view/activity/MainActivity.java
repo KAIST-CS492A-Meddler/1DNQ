@@ -390,7 +390,14 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_help) {
+            SupportHelpFragment fragment = new SupportHelpFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
+            transaction.add(R.id.container, fragment, "instruction");
+            transaction.addToBackStack("instruction");
+
+            transaction.commit();
         }
         if (id == R.id.action_request_question) {
 

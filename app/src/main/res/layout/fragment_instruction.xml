@@ -39,7 +39,7 @@
                     android:textColor="#ffffff"
                     android:paddingLeft="10dp"
                     android:textSize="14dp"
-                    android:text="Open a navigation menu\nif you want to manage something!"/>
+                    android:text="Open a navigation menu\nif you want to check something!"/>
 
             </LinearLayout>
 
@@ -50,6 +50,36 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp">
 
+                <!--<LinearLayout-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_width="0px"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1">-->
+
+                    <!--<View-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="?attr/actionBarSize"/>-->
+
+                    <!--<ImageView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="50dp"-->
+                        <!--android:layout_gravity="center_horizontal"-->
+                        <!--android:adjustViewBounds="true"-->
+                        <!--android:src="@drawable/help_arrow_up"/>-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:textColor="#ffffff"-->
+                        <!--android:paddingTop="10dp"-->
+                        <!--android:paddingLeft="3dp"-->
+                        <!--android:paddingRight="3dp"-->
+                        <!--android:textSize="14dp"-->
+                        <!--android:text="You can check which agents are connected with your HERE app"/>-->
+
+                <!--</LinearLayout>-->
+
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="0px"
@@ -76,7 +106,7 @@
                         android:paddingLeft="3dp"
                         android:paddingRight="3dp"
                         android:textSize="14dp"
-                        android:text="You can check which agents are connected with your HERE app"/>
+                        android:text="You can check your achievement\n - Summary of achievement\n - Weekly contribution and study record"/>
 
                 </LinearLayout>
 
@@ -106,37 +136,7 @@
                         android:paddingLeft="3dp"
                         android:paddingRight="3dp"
                         android:textSize="14dp"
-                        android:text="You can select a custom exercise routine you made"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"/>
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center_horizontal"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/help_arrow_up"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="#ffffff"
-                        android:paddingTop="10dp"
-                        android:paddingLeft="3dp"
-                        android:paddingRight="3dp"
-                        android:textSize="14dp"
-                        android:text="You can see your exercise record with a calorie report and an equipment usage history"/>
+                        android:text="You can see study cards that you have received and marked\n - Starred/Frequently-wrong/Recommended cards"/>
 
                 </LinearLayout>
 
@@ -178,7 +178,7 @@
                         android:paddingRight="3dp"
                         android:textSize="14dp"
                         android:gravity="right"
-                        android:text="Start exercise\nwith your custom\nexercise routine!"/>
+                        android:text="Make a new word card\nThe card will be\nstored in your card list"/>
 
                     <ImageView
                         android:layout_width="50dp"

@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_help"
         android:orderInCategory="100"
-        android:title="Help"
+        android:title="How to use"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_request_question"

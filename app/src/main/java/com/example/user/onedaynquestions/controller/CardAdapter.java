@@ -1,5 +1,6 @@
 package com.example.user.onedaynquestions.controller;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,10 +33,19 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
     @Override
     public void onBindViewHolder(CardViewHolder holder, int position) {
         MyCard tmpCard = cardList.get(position);
+
+        if (tmpCard.getMyCardStarred() == 1) {
+            holder.tagview.setBackgroundColor(Color.parseColor("#ffc90e"));
+        }
+
+        if (tmpCard.getMyCardWrong() > 0) {
+            holder.tagview.setBackgroundColor(Color.parseColor("#e7406f"));
+        }
+
         holder.question.setText(tmpCard.getMyCardQuestion());
         holder.examiner.setText(tmpCard.getMyCardMaker());
         holder.group.setText(tmpCard.getMyCardGroup());
-        holder.date.setText(tmpCard.getMyCardDateTime());
+        holder.date.setVisibility(View.GONE);
     }
 
     @Override
