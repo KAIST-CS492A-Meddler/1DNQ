@@ -1,9 +1,7 @@
 package com.example.user.onedaynquestions.view.fragment;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -22,7 +20,6 @@ import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.service.WakefulPushReceiver;
 import com.example.user.onedaynquestions.view.activity.MainActivity;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -90,7 +87,14 @@ public class StudyNoteFragment extends Fragment{
             public void onTick(long l) {
                 if(WakefulPushReceiver.updated){
                     cdt.cancel();
-                    resetAllList();
+                    initCards();
+                    currentView.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            currentView.invalidate();
+                        }
+                    });
                 }
             }
 
@@ -370,7 +374,7 @@ public class StudyNoteFragment extends Fragment{
             default:
                 return false;
         }
-        invalidate();
+        currentView.postInvalidate();
         return true;
     };
 
@@ -419,17 +423,13 @@ public class StudyNoteFragment extends Fragment{
             default:
                 return false;
         }
-        invalidate();
+        currentView.postInvalidate();
         return true;
     };
 
     public void invalidate() {
-        currentView.post(new Runnable() {
-            @Override
-            public void run() {
-                currentView.invalidate();
-            }
-        });
+        if(cdt != null)
+            cdt.start();
     }
     @Override
     public void onResume() {

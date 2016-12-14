@@ -10,15 +10,12 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.model.MyCard;
-import com.example.user.onedaynquestions.view.activity.CardSolvingActivity;
-import com.example.user.onedaynquestions.view.activity.MainActivity;
 
 import java.util.ArrayList;
 
@@ -47,12 +44,11 @@ public class WakefulPushReceiver extends WakefulBroadcastReceiver {
                 break;
 
             case ACTION_RECEIVE:
-
                 WakefulPushReceiver.updated = false;
                 onMessageReceived(context, intent);
+                abortBroadcast();
                 WakefulPushReceiver.updated = true;
 
-                abortBroadcast();
                 break;
             case "NEW_PROBLEM_HAS_COME":
                 int check = 0;
@@ -71,9 +67,9 @@ public class WakefulPushReceiver extends WakefulBroadcastReceiver {
             //if (id.compareTo("1") == 0) {
             String maker = intent.getStringExtra(MyCard.ATTRIBUTE_CARD_ID);
             if(maker.contains("[system]")) {
-                WakefulPushReceiver.addReccommendedQuestion(intent);
+                //WakefulPushReceiver.addReccommendedQuestion(intent);
             }else {
-                WakefulPushReceiver.addReceivedQuestion(intent);
+                //WakefulPushReceiver.addReceivedQuestion(intent);
                 pushNotification(context, new MyCard(intent));
                 Toast.makeText
                         (context, "A new Question card has arrived!", Toast.LENGTH_SHORT).show();

@@ -289,7 +289,7 @@ public class MyAchievementFragment extends Fragment{
             public void onTick(long millisUntilFinished) {
                 if(MainActivity.odnqDB != null) {
                     MyInfo tmpMyInfo = MainActivity.odnqDB.getMyInfo();
-                    if (tmpMyInfo != null) {
+                    if (tmpMyInfo != null && myachievement_tv_contribution != null) {
                         if (myachievement_tv_contribution.getText().toString().compareTo(tmpMyInfo.getMyInfoExp() + "") != 0) {
                             viewFragmentMyAchievement.post(new Runnable() {
                                 @Override

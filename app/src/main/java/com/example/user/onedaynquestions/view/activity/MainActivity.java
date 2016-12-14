@@ -707,15 +707,22 @@ public class MainActivity extends AppCompatActivity
                     Log.d(TAG_DB, "[NewCardActivity] A new card is added to local DB.");
 
                     WakefulPushReceiver.updated = false;
-                    if (viewPager != null) {
-                        viewPager.getAdapter().notifyDataSetChanged();
+
+                    String maker = intent.getStringExtra(MyCard.ATTRIBUTE_CARD_ID);
+                    if(maker.contains("[system]")) {
+
+                        if (viewPager != null) {
+                            viewPager.getAdapter().notifyDataSetChanged();
+                        }
                     }
+
                     break;
                 case "NEW_PROBLEM_HAS_COME":
                     int check = 0;
                     break;
                 default:
             }
+
         }
     }
 
