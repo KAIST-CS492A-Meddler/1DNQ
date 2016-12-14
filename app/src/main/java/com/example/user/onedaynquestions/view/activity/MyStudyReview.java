@@ -34,18 +34,20 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
 
     public static final int WRONGANSWER = 0;
     public static final int DAILY = 1;
+    public static final int MYCARD = 3;
 
     public static final String TAG = "MyStudyReview";
     public static final String TAG_DB = "MyEquipmentsDBTag";
+
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<MyCard> wrongAnswerList, dailyRecordList;
+    private ArrayList<MyCard> wrongAnswerList, dailyRecordList, myCardList;
     private float dist;
     private int prevX, prevY;
     private final int distThreshold = 100;
     private CountDownTimer cdt;
 
-    private CardAdapter wrongAnswerListAdapter,dailyRecordListAdapter;
-    private RecyclerView wrongAnswerListView, dailyRecordListView;
+    private CardAdapter wrongAnswerListAdapter,dailyRecordListAdapter, myCardListAdapter;
+    private RecyclerView wrongAnswerListView, dailyRecordListView, myCardListView;
 
 //    public List<MyHereAgent> myHereAgents;
 //    private HERE_DeviceListAdapter equipListAdapter;
@@ -108,6 +110,7 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
 
                 ArrayList<MyCard> allCardList;
                 ArrayList<MyCard> wrongCardList;
+                ArrayList<MyCard> myCardList;
 
                 /** ADD ALL CARD LIST **/
                 allCardList = MainActivity.odnqDB.getMyCards(1, myInfoId);
@@ -129,12 +132,23 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
                     }
                 }
 
+                /** ADD MY CARD LIST **/
+                myCardList = MainActivity.odnqDB.getMyCards(3, myInfoId);
+                if (myCardList != null){
+                    Log.d("AppendCardList", "[MyStudyReview] wrongCardList - size: " + myCardList.size());
+
+                    for (int i = 0; i < wrongCardList.size(); i++) {
+                        appendQuestion(MYCARD, myCardList.get(i));
+                    }
+                }
+
             }
         }
     }
     private void clearAllCardList() {
         dailyRecordList.clear();
         wrongAnswerList.clear();
+        myCardList.clear();
     }
 
 
@@ -286,6 +300,54 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
             }
         });
 
+        /** MYCARD **/
+        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        myCardListView = (RecyclerView) findViewById(R.id.mycard_lv);
+        myCardListView.setLayoutManager(mLayoutManager);
+        myCardListView.setHasFixedSize(true);
+        myCardList = new ArrayList<>();
+        myCardListAdapter = new CardAdapter(myCardList);
+        myCardListView.setAdapter(myCardListAdapter);
+        myCardListView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                switch (e.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        dist = 0;
+                        prevX = (int)e.getX();
+                        prevY = (int)e.getY();
+
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int tempX = prevX - (int)e.getX();
+                        int tempY = prevY - (int)e.getY();
+                        dist += Math.sqrt(tempX * tempX + tempY * tempY);
+                        prevX = (int)e.getX();
+                        prevY = (int)e.getY();
+
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if(dist < distThreshold) {
+                            recordUserLog("MyStudyReview", "solveCard");
+                            int id = myCardListView.getChildAdapterPosition(myCardListView.findChildViewUnder(e.getX(), e.getY()));
+                            startActivity(new Intent(myCardList.get(id).getCardSolvingIntent(MyStudyReview.this)));
+                        }
+
+                        break;
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
+
     }
 
     @Override
@@ -336,6 +398,9 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
                 break;
             case WRONGANSWER:
                 wrongAnswerList.add(question);
+                break;
+            case MYCARD:
+                myCardList.add(question);
                 break;
             default:
                 return false;

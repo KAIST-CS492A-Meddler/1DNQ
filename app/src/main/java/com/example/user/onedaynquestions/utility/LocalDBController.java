@@ -35,6 +35,11 @@ public class LocalDBController extends SQLiteOpenHelper{
     private static final String TABLE_MYCARD = "MyCard";
     private static final String TABLE_MYGROUP = "MyGroup";
     private static final String TABLE_DAILYRECORD = "DailyRecord";
+    private static final String TABLE_MYCARD_BYME = "MyCardByMe";
+
+
+    /* MyCardByMe table */
+//    private static final String ATTR_MCBM_;
 
     /* UnitRecord table */
     private static final String ATTR_DR_DATETIME = "dailyrecord_datetime";
@@ -226,31 +231,34 @@ public class LocalDBController extends SQLiteOpenHelper{
 
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if (c != null && c.getCount() != 0) {
+        if (c != null) {
+            if (c.getCount() != 0) {
+                c.moveToFirst();
 
-            c.moveToFirst();
+                MyInfo tmpMyInfo = new MyInfo();
 
-            MyInfo tmpMyInfo = new MyInfo();
+                tmpMyInfo.setMyInfoId(c.getString(c.getColumnIndex(ATTR_MYINFO_ID)));
+                tmpMyInfo.setMyInfoNick(c.getString(c.getColumnIndex(ATTR_MYINFO_NICK)));
+                tmpMyInfo.setMyInfoName(c.getString(c.getColumnIndex(ATTR_MYINFO_NAME)));
+                tmpMyInfo.setMyInfoAge(c.getInt(c.getColumnIndex(ATTR_MYINFO_AGE)));
+                tmpMyInfo.setMyInfoGender(c.getInt(c.getColumnIndex(ATTR_MYINFO_GENDER)));
+                tmpMyInfo.setMyInfoDeviceId(c.getString(c.getColumnIndex(ATTR_MYINFO_DEVICEID)));
+                tmpMyInfo.setMyInfoToken(c.getString(c.getColumnIndex(ATTR_MYINFO_TOKEN)));
+                tmpMyInfo.setMyInfoExp(c.getInt(c.getColumnIndex(ATTR_MYINFO_EXP)));
+                tmpMyInfo.setMyInfoQuality(c.getFloat(c.getColumnIndex(ATTR_MYINFO_QUALITY)));
+                tmpMyInfo.setMyInfoCardNum(c.getInt(c.getColumnIndex(ATTR_MYINFO_CARDNUM)));
+                tmpMyInfo.setMyInfoLoginNum(c.getInt(c.getColumnIndex(ATTR_MYINFO_LOGINNUM)));
+                tmpMyInfo.setMyInfoAnswerRight(c.getInt(c.getColumnIndex(ATTR_MYINFO_ANSWERRIGHT)));
+                tmpMyInfo.setMyInfoAnswerWrong(c.getInt(c.getColumnIndex(ATTR_MYINFO_ANSWERWRONG)));
 
-            tmpMyInfo.setMyInfoId(c.getString(c.getColumnIndex(ATTR_MYINFO_ID)));
-            tmpMyInfo.setMyInfoNick(c.getString(c.getColumnIndex(ATTR_MYINFO_NICK)));
-            tmpMyInfo.setMyInfoName(c.getString(c.getColumnIndex(ATTR_MYINFO_NAME)));
-            tmpMyInfo.setMyInfoAge(c.getInt(c.getColumnIndex(ATTR_MYINFO_AGE)));
-            tmpMyInfo.setMyInfoGender(c.getInt(c.getColumnIndex(ATTR_MYINFO_GENDER)));
-            tmpMyInfo.setMyInfoDeviceId(c.getString(c.getColumnIndex(ATTR_MYINFO_DEVICEID)));
-            tmpMyInfo.setMyInfoToken(c.getString(c.getColumnIndex(ATTR_MYINFO_TOKEN)));
-            tmpMyInfo.setMyInfoExp(c.getInt(c.getColumnIndex(ATTR_MYINFO_EXP)));
-            tmpMyInfo.setMyInfoQuality(c.getFloat(c.getColumnIndex(ATTR_MYINFO_QUALITY)));
-            tmpMyInfo.setMyInfoCardNum(c.getInt(c.getColumnIndex(ATTR_MYINFO_CARDNUM)));
-            tmpMyInfo.setMyInfoLoginNum(c.getInt(c.getColumnIndex(ATTR_MYINFO_LOGINNUM)));
-            tmpMyInfo.setMyInfoAnswerRight(c.getInt(c.getColumnIndex(ATTR_MYINFO_ANSWERRIGHT)));
-            tmpMyInfo.setMyInfoAnswerWrong(c.getInt(c.getColumnIndex(ATTR_MYINFO_ANSWERWRONG)));
-
-            return tmpMyInfo;
-
+                return tmpMyInfo;
+            } else {
+                return null;
+            }
         } else {
             return null;
         }
+
     }
 
     public MyInfo getMyInfoWithId(String myInfoId) {
@@ -342,91 +350,95 @@ public class LocalDBController extends SQLiteOpenHelper{
 
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if (c != null && c.getCount() != 0) {
+        if (c != null) {
+            if (c.getCount() != 0) {
+                c.moveToFirst();
 
-            c.moveToFirst();
+                Log.d("AppendCardList", "[LocalDBController] c.getCount(): " + c.getCount());
 
-            Log.d("AppendCardList", "[LocalDBController] c.getCount(): " + c.getCount());
+                while (!c.isAfterLast()) {
 
-            while (!c.isAfterLast()) {
+                    String myCardId = c.getString(c.getColumnIndex(ATTR_MYCARD_ID));
+                    String myCardDateTime = c.getString(c.getColumnIndex(ATTR_MYCARD_DATETIME));
+                    int myCardType = c.getInt(c.getColumnIndex(ATTR_MYCARD_TYPE));
+                    String myCardMaker = c.getString(c.getColumnIndex(ATTR_MYCARD_MAKER));
+                    String myCardGroup = c.getString(c.getColumnIndex(ATTR_MYCARD_GROUP));
+                    String myCardQuestion = c.getString(c.getColumnIndex(ATTR_MYCARD_QUESTION));
+                    String myCardAnswer = c.getString(c.getColumnIndex(ATTR_MYCARD_ANSWER));
+                    String myCardHint = c.getString(c.getColumnIndex(ATTR_MYCARD_HINT));
+                    int myCardWrong = c.getInt(c.getColumnIndex(ATTR_MYCARD_WRONGNUM));
+                    int myCardDifficulty = c.getInt(c.getColumnIndex(ATTR_MYCARD_DIFFICULTY));
+                    int myCardQuality = c.getInt(c.getColumnIndex(ATTR_MYCARD_QUALITY));
+                    int myCardStarred = c.getInt(c.getColumnIndex(ATTR_MYCARD_STARRED));
 
-                String myCardId = c.getString(c.getColumnIndex(ATTR_MYCARD_ID));
-                String myCardDateTime = c.getString(c.getColumnIndex(ATTR_MYCARD_DATETIME));
-                int myCardType = c.getInt(c.getColumnIndex(ATTR_MYCARD_TYPE));
-                String myCardMaker = c.getString(c.getColumnIndex(ATTR_MYCARD_MAKER));
-                String myCardGroup = c.getString(c.getColumnIndex(ATTR_MYCARD_GROUP));
-                String myCardQuestion = c.getString(c.getColumnIndex(ATTR_MYCARD_QUESTION));
-                String myCardAnswer = c.getString(c.getColumnIndex(ATTR_MYCARD_ANSWER));
-                String myCardHint = c.getString(c.getColumnIndex(ATTR_MYCARD_HINT));
-                int myCardWrong = c.getInt(c.getColumnIndex(ATTR_MYCARD_WRONGNUM));
-                int myCardDifficulty = c.getInt(c.getColumnIndex(ATTR_MYCARD_DIFFICULTY));
-                int myCardQuality = c.getInt(c.getColumnIndex(ATTR_MYCARD_QUALITY));
-                int myCardStarred = c.getInt(c.getColumnIndex(ATTR_MYCARD_STARRED));
+                    MyCard tmpMyCard = new MyCard();
 
-                MyCard tmpMyCard = new MyCard();
-
-                tmpMyCard.setMyCardId(myCardId);
-                tmpMyCard.setMyCardDateTime(myCardDateTime);
-                tmpMyCard.setMyCardType(myCardType);
-                tmpMyCard.setMyCardMaker(myCardMaker);
-                tmpMyCard.setMyCardGroup(myCardGroup);
-                tmpMyCard.setMyCardQuestion(myCardQuestion);
-                tmpMyCard.setMyCardAnswer(myCardAnswer);
-                tmpMyCard.setMyCardHint(myCardHint);
-                tmpMyCard.setMyCardWrong(myCardWrong);
-                tmpMyCard.setMyCardDifficulty(myCardDifficulty);
-                tmpMyCard.setMyCardQuality(myCardQuality);
-                tmpMyCard.setMyCardStarred(myCardStarred);
+                    tmpMyCard.setMyCardId(myCardId);
+                    tmpMyCard.setMyCardDateTime(myCardDateTime);
+                    tmpMyCard.setMyCardType(myCardType);
+                    tmpMyCard.setMyCardMaker(myCardMaker);
+                    tmpMyCard.setMyCardGroup(myCardGroup);
+                    tmpMyCard.setMyCardQuestion(myCardQuestion);
+                    tmpMyCard.setMyCardAnswer(myCardAnswer);
+                    tmpMyCard.setMyCardHint(myCardHint);
+                    tmpMyCard.setMyCardWrong(myCardWrong);
+                    tmpMyCard.setMyCardDifficulty(myCardDifficulty);
+                    tmpMyCard.setMyCardQuality(myCardQuality);
+                    tmpMyCard.setMyCardStarred(myCardStarred);
 
 
-                switch (opt) {
-                    // opt1: get all cards
-                    case 1:
-                        Log.d("AppendCardList", "[LocalDBController] get all cards");
-                        cardList.add(tmpMyCard);
-                        break;
-                    // opt2: get cards without mine
-                    case 2:
-                        if (!myCardMaker.equals(myUserId)) {
+                    switch (opt) {
+                        // opt1: get all cards
+                        case 1:
+                            Log.d("AppendCardList", "[LocalDBController] get all cards");
                             cardList.add(tmpMyCard);
-                        }
-                        break;
-                    // opt3: get only my cards
-                    case 3:
-                        if (myCardMaker.equals(myUserId)) {
-                            cardList.add(tmpMyCard);
-                        }
-                        break;
-                    // opt4: get starred cards
-                    case 4:
-                        if (myCardStarred == 1) {
-                            cardList.add(tmpMyCard);
-                        }
-                        break;
-                    // opt5: get wrong cards
-                    case 5:
-                        if (myCardWrong > 0) {
-                            cardList.add(tmpMyCard);
-                        }
-                        break;
-                    // opt6: get recommended cards
-                    case 6:
-                        if (myCardMaker.contains("[system]")) {
-                            cardList.add(tmpMyCard);
-                        }
-                        break;
-                    default:
-                        break;
+                            break;
+                        // opt2: get cards without mine
+                        case 2:
+                            if (!myCardMaker.equals(myUserId)) {
+                                cardList.add(tmpMyCard);
+                            }
+                            break;
+                        // opt3: get only my cards
+                        case 3:
+                            if (myCardMaker.equals(myUserId)) {
+                                cardList.add(tmpMyCard);
+                            }
+                            break;
+                        // opt4: get starred cards
+                        case 4:
+                            if (myCardStarred == 1) {
+                                cardList.add(tmpMyCard);
+                            }
+                            break;
+                        // opt5: get wrong cards
+                        case 5:
+                            if (myCardWrong > 0) {
+                                cardList.add(tmpMyCard);
+                            }
+                            break;
+                        // opt6: get recommended cards
+                        case 6:
+                            if (myCardMaker.contains("[system]")) {
+                                cardList.add(tmpMyCard);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+
+                    c.moveToNext();
                 }
 
-                c.moveToNext();
+                return cardList;
+
+            } else {
+                return null;
             }
-
-            return cardList;
-
         } else {
             return null;
         }
+
 
     }
 
@@ -439,32 +451,37 @@ public class LocalDBController extends SQLiteOpenHelper{
 
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if (c != null && c.getCount() != 0) {
 
-            c.moveToFirst();
+        if (c != null) {
+            if (c.getCount() != 0) {
 
-            while (c.moveToNext()) {
+                c.moveToFirst();
 
-                String recordDateTime = c.getString(c.getColumnIndex(ATTR_DR_DATETIME));
-                int recordContribution = c.getInt(c.getColumnIndex(ATTR_DR_CONTRIBUTION));
-                int recordStudyRight = c.getInt(c.getColumnIndex(ATTR_DR_STUDYRIGHT));
-                int recordStudyWrong = c.getInt(c.getColumnIndex(ATTR_DR_STUDYWRONG));
+                while (c.moveToNext()) {
 
-                UnitRecord tmpUnitRecord = new UnitRecord();
+                    String recordDateTime = c.getString(c.getColumnIndex(ATTR_DR_DATETIME));
+                    int recordContribution = c.getInt(c.getColumnIndex(ATTR_DR_CONTRIBUTION));
+                    int recordStudyRight = c.getInt(c.getColumnIndex(ATTR_DR_STUDYRIGHT));
+                    int recordStudyWrong = c.getInt(c.getColumnIndex(ATTR_DR_STUDYWRONG));
 
-                tmpUnitRecord.setDailyRecordDateTime(recordDateTime);
-                tmpUnitRecord.setDailyRecordContribution(recordContribution);
-                tmpUnitRecord.setDailyRecordStudyRight(recordStudyRight);
-                tmpUnitRecord.setDailyRecordStudyWrong(recordStudyWrong);
+                    UnitRecord tmpUnitRecord = new UnitRecord();
 
-                recordList.add(tmpUnitRecord);
+                    tmpUnitRecord.setDailyRecordDateTime(recordDateTime);
+                    tmpUnitRecord.setDailyRecordContribution(recordContribution);
+                    tmpUnitRecord.setDailyRecordStudyRight(recordStudyRight);
+                    tmpUnitRecord.setDailyRecordStudyWrong(recordStudyWrong);
+
+                    recordList.add(tmpUnitRecord);
+                }
+
+                return recordList;
+            } else {
+                return null;
             }
-
-            return recordList;
-
         } else {
             return null;
         }
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -624,13 +641,19 @@ public class LocalDBController extends SQLiteOpenHelper{
         String countQuery = "SELECT " + ATTR_MYINFO_LOGINNUM + " FROM " + TABLE_MYINFO;
         Cursor c = readableDB.rawQuery(countQuery, null);
 
-        if (c != null && c.getCount() != 0) {
+        if (c != null) {
+            if (c.getCount() != 0) {
+                c.moveToFirst();
+                prevLoginNum = c.getInt(c.getColumnIndex(ATTR_MYINFO_LOGINNUM));
+                curLoginNum = prevLoginNum + 1;
 
-            c.moveToFirst();
-            prevLoginNum = c.getInt(c.getColumnIndex(ATTR_MYINFO_LOGINNUM));
-            curLoginNum = prevLoginNum + 1;
-
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
         }
+
 
 
         SQLiteDatabase db = this.getWritableDatabase();

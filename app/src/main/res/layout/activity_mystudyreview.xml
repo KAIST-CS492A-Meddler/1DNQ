@@ -11,82 +11,121 @@
         android:layout_height="56dp"
         android:background="@color/colorSkyBlue"/>
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="15dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:text="Daily Study Record"/>
+        android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/daily_study_lv"
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:scrollbars="horizontal"
-        android:layout_height="180dp"
-        android:background="#eeeeee"
-        android:gravity="center"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
-        android:paddingLeft="15dp">
-    </android.support.v7.widget.RecyclerView>
-
-    <!--<ListView-->
-        <!--android:id="@+id/setting_myeq_list_registered"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"></ListView>-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/setting_myeq_tv_registered"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:padding="30dp"-->
-        <!--android:gravity="center"-->
-        <!--android:textColor="#999999"-->
-        <!--android:text="No registered HERE agents"/>-->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="15dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:text="Wrong Answer Note"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/frequently_wrong_question_onReview_lv"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:scrollbars="horizontal"
-            android:layout_height="180dp"
-            android:background="#eeeeee"
-            android:gravity="center"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
-            android:paddingLeft="15dp">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent">
 
 
-    <!--<ListView-->
-        <!--android:id="@+id/setting_myeq_list_bluetooth"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"></ListView>-->
 
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:gravity="center"-->
-        <!--android:text="MyEquipments"-->
-        <!--android:textSize="25dp"-->
-        <!--android:textColor="@color/colorPrimary"-->
-        <!--android:textStyle="bold"/>-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:text="Daily Study Record"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/daily_study_lv"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                android:layout_height="180dp"
+                android:background="#eeeeee"
+                android:gravity="center"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="15dp">
+            </android.support.v7.widget.RecyclerView>
+
+            <!--<ListView-->
+            <!--android:id="@+id/setting_myeq_list_registered"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"></ListView>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/setting_myeq_tv_registered"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="30dp"-->
+            <!--android:gravity="center"-->
+            <!--android:textColor="#999999"-->
+            <!--android:text="No registered HERE agents"/>-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:text="Wrong Answer Note"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/frequently_wrong_question_onReview_lv"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                android:layout_height="180dp"
+                android:background="#eeeeee"
+                android:gravity="center"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="15dp">
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:text="Card made by me"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mycard_lv"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                android:layout_height="180dp"
+                android:background="#eeeeee"
+                android:gravity="center"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="15dp">
+            </android.support.v7.widget.RecyclerView>
+
+            <!--<ListView-->
+            <!--android:id="@+id/setting_myeq_list_bluetooth"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"></ListView>-->
+
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="center"-->
+            <!--android:text="MyEquipments"-->
+            <!--android:textSize="25dp"-->
+            <!--android:textColor="@color/colorPrimary"-->
+            <!--android:textStyle="bold"/>-->
+        </LinearLayout>
+
+
+    </ScrollView>
 
 </LinearLayout>
