@@ -2,6 +2,7 @@ package com.example.user.onedaynquestions.view.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -13,14 +14,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
+import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.service.WakefulPushReceiver;
+import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * Created by user on 2016-06-07.
  */
-public class CardSolvingActivity extends AppCompatActivity {
+public class CardSolvingActivity extends AppCompatActivity implements AsyncResponse {
 
     public static final String TAG_DB = "LocalDatabase";
 
@@ -74,6 +82,21 @@ public class CardSolvingActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 remainTime--;
+
+                switch (remainTime) {
+                    case 7:
+                        timer.setTextColor(Color.parseColor("#ffaa00"));
+                    case 6:
+                    case 5:
+                    case 4:
+                        break;
+                    case 3:
+                        timer.setTextColor(Color.RED);
+                    case 2:
+                    case 1:
+                        break;
+                }
+
                 timer.setText("" + remainTime);
                 timer.postInvalidate();
             }
@@ -83,16 +106,23 @@ public class CardSolvingActivity extends AppCompatActivity {
                 remainTime--;
                 timer.setText("" + remainTime);
                 timer.postInvalidate();
-                Toast.makeText
-                        (thisActivity, "Time Over!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText
+//                        (thisActivity, "Time Over!", Toast.LENGTH_SHORT).show();
+
+                answer.setEnabled(false);
+                answer.setText("TIME OVER");
+                answer.setTextColor(Color.RED);
+
+                goAnswerSheet();
 
             }
         };
 
         setCard();
 
-
     }
+
+
 
     public void setCard(){
         timeChecker.cancel();
@@ -167,15 +197,80 @@ public class CardSolvingActivity extends AppCompatActivity {
                     Log.d("CardSolvingActivity", "receivedCard is null");
                 } else {
 
-                    Intent intent_goanswer = new Intent(getApplicationContext(), CardAnswerSheetActivity.class);
-                    intent_goanswer.putExtra("card_id", receivedCard.getMyCardId());
-                    intent_goanswer.putExtra("card_type", receivedCard.getMyCardType());
-                    intent_goanswer.putExtra("card_question", receivedCard.getMyCardQuestion());
-                    intent_goanswer.putExtra("card_answer", receivedCard.getMyCardAnswer());
-                    intent_goanswer.putExtra("my_answer", answer.getText().toString());
-                    startActivity(intent_goanswer);
+                    goAnswerSheet();
                 }
                 break;
         }
+    }
+
+    private void goAnswerSheet() {
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Intent intent_goanswer = new Intent(getApplicationContext(), CardAnswerSheetActivity.class);
+        intent_goanswer.putExtra("card_id", receivedCard.getMyCardId());
+        intent_goanswer.putExtra("card_type", receivedCard.getMyCardType());
+        intent_goanswer.putExtra("card_question", receivedCard.getMyCardQuestion());
+        intent_goanswer.putExtra("card_answer", receivedCard.getMyCardAnswer());
+        intent_goanswer.putExtra("my_answer", answer.getText().toString());
+        startActivity(intent_goanswer);
+    }
+
+    @Override
+    public void processFinish(String output) {
+
+    }
+
+    public void recordUserLog(String argActivity, String argEvent) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar calendar = Calendar.getInstance();
+//        Toast.makeText(getApplicationContext(), "current time: " + dateFormat.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
+
+        String logTimestamp = dateFormat.format(calendar.getTime());
+        int logDuration = 0;
+        String logCurActivity = "";
+        if (argActivity == null || argActivity.equals("")) {
+            logCurActivity = "unknown";
+        } else {
+            logCurActivity = argActivity;
+        }
+        String logCurEvent = "";
+        if (argEvent == null || argEvent.equals("")) {
+            logCurEvent = "unknown";
+        } else {
+            logCurEvent = argEvent;
+        }
+
+        HashMap postData = new HashMap();
+
+        if (MainActivity.odnqDB != null) {
+            if (MainActivity.odnqDB.getMyInfo() != null) {
+                postData.put("userinfo_id", MainActivity.odnqDB.getMyInfo().getMyInfoId());
+            } else {
+                postData.put("userinfo_id", "unknown");
+            }
+        } else {
+            postData.put("userinfo_id", "unknown");
+        }
+        postData.put("log_timestamp", logTimestamp);
+        postData.put("log_duration", logDuration+"");
+        postData.put("log_curactivity", logCurActivity);
+        postData.put("log_curevent", logCurEvent);
+
+//        postData.put("userinfo_id", "ididididid");
+//        postData.put("log_timestamp", "timetime");
+//        postData.put("log_duration", "duration");
+//        postData.put("log_curactivity", "activity");
+//        postData.put("log_curevent", "event");
+
+        PostResponseAsyncTask createUserLogTask =
+                new PostResponseAsyncTask(CardSolvingActivity.this, postData);
+
+        createUserLogTask.execute("http://110.76.95.150/create_userlog.php");
+        Log.d("USER_LOG", "[" + logTimestamp + "] " + logCurActivity + " - " + logCurEvent);
     }
 }

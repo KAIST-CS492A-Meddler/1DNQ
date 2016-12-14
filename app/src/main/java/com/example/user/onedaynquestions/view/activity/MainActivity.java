@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity
                 viewPager.setCurrentItem(tab.getPosition());
                 Log.d("MainActivity-TabLayout", "tab.getPosition = " + tab.getPosition());
 
-                recordUserLog();
+                recordUserLog("MainActivity", "clickTab[" + tab.getPosition() + "]");
 
                 if (tab.getPosition() == 0) {
 
@@ -611,7 +611,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void processFinish(String output) {
         String temp = output.replaceAll("<br>", "\n");
+        Log.d("USER_LOG", output);
+
         //Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
+        if (output.contains("result_userlog")) {
+            Log.d("USER_LOG", output);
+        }
 
         // My info
         if (output.contains("{\"result_user\":")) {
@@ -739,10 +744,53 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void recordUserLog() {
+    public void recordUserLog(String argActivity, String argEvent) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar calendar = Calendar.getInstance();
-        Toast.makeText(getApplicationContext(), "current time: " + dateFormat.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "current time: " + dateFormat.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
+
+        String logTimestamp = dateFormat.format(calendar.getTime());
+        int logDuration = 0;
+        String logCurActivity = "";
+        if (argActivity == null || argActivity.equals("")) {
+            logCurActivity = "unknown";
+        } else {
+            logCurActivity = argActivity;
+        }
+        String logCurEvent = "";
+        if (argEvent == null || argEvent.equals("")) {
+            logCurEvent = "unknown";
+        } else {
+            logCurEvent = argEvent;
+        }
+
+        HashMap postData = new HashMap();
+
+        if (MainActivity.odnqDB != null) {
+            if (MainActivity.odnqDB.getMyInfo() != null) {
+                postData.put("userinfo_id", MainActivity.odnqDB.getMyInfo().getMyInfoId());
+            } else {
+                postData.put("userinfo_id", "unknown");
+            }
+        } else {
+            postData.put("userinfo_id", "unknown");
+        }
+        postData.put("log_timestamp", logTimestamp);
+        postData.put("log_duration", logDuration+"");
+        postData.put("log_curactivity", logCurActivity);
+        postData.put("log_curevent", logCurEvent);
+
+//        postData.put("userinfo_id", "ididididid");
+//        postData.put("log_timestamp", "timetime");
+//        postData.put("log_duration", "duration");
+//        postData.put("log_curactivity", "activity");
+//        postData.put("log_curevent", "event");
+
+        PostResponseAsyncTask createUserLogTask =
+                new PostResponseAsyncTask(MainActivity.this, postData);
+
+        createUserLogTask.execute("http://110.76.95.150/create_userlog.php");
+        Log.d("USER_LOG", "[" + logTimestamp + "] " + logCurActivity + " - " + logCurEvent);
     }
 
 }
