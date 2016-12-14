@@ -1,10 +1,15 @@
 package com.example.user.onedaynquestions.view.activity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -27,6 +32,8 @@ import com.example.user.onedaynquestions.service.MonitoringService;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 import com.example.user.onedaynquestions.view.testactivity.DBLocalTestActivity;
 import com.example.user.onedaynquestions.view.testactivity.DBServerTestActivity;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +47,9 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
 
     public static final String TAG = "SettingMyInfoActivity";
     public static final String TAG_DB = "DatabaseTestDBTag";
+
+    NetworkInfo networkInfo;
+    ConnectivityManager connectivityManager;
 
     private Toolbar toolbar;
 
@@ -88,11 +98,35 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
 
         isUserInfoInServer = false;
 
-        initWidgets();
+        if (MainActivity.token == null) {
+            initToken();
+        }
 
+        initWidgets();
         initWidgetValues();
     }
 
+    private void initToken() {
+        Toast.makeText(getApplicationContext(), "Token is null", Toast.LENGTH_SHORT).show();
+
+        isOnline();
+        if (networkInfo == null) {
+            showAlert();
+        } else {
+            if (networkInfo.isConnected()) {
+                MainActivity.token = FirebaseInstanceId.getInstance().getToken();
+                if (MainActivity.token != null) {
+                    Log.d("TOKEN", MainActivity.token);
+                } else {
+
+                }
+                FirebaseMessaging.getInstance().subscribeToTopic("test");
+                Toast.makeText(this, "Connected to Firebase server.", Toast.LENGTH_LONG).show();
+            } else {
+                showAlert();
+            }
+        }
+    }
 
     private void initWidgets() {
         settingMyInfo_iv_img = (ImageView) findViewById(R.id.setting_myinfo_iv_character);
@@ -216,18 +250,22 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
                         //Server request
                         HashMap postData = new HashMap();
 
-                        postData.put("myinfo_id", curMyInfo_id);
-                        postData.put("myinfo_nick", curMyInfo_nick);
-                        postData.put("myinfo_name", curMyInfo_name);
-                        postData.put("myinfo_age", curMyInfo_age + "");
-                        postData.put("myinfo_gender", curMyInfo_gender + "");
-                        postData.put("myinfo_deviceid", curMyInfo_deviceid);
-                        postData.put("myinfo_token", MainActivity.token);
+                        if(MainActivity.token != null) {
 
-                        PostResponseAsyncTask insertMyInfoTask =
-                                new PostResponseAsyncTask(SettingMyInfoActivity.this, postData);
+                            postData.put("myinfo_id", curMyInfo_id);
+                            postData.put("myinfo_nick", curMyInfo_nick);
+                            postData.put("myinfo_name", curMyInfo_name);
+                            postData.put("myinfo_age", curMyInfo_age + "");
+                            postData.put("myinfo_gender", curMyInfo_gender + "");
+                            postData.put("myinfo_deviceid", curMyInfo_deviceid);
+                            postData.put("myinfo_token", MainActivity.token);
 
-                        insertMyInfoTask.execute("http://110.76.95.150/create_user2.php");
+                            PostResponseAsyncTask insertMyInfoTask =
+                                    new PostResponseAsyncTask(SettingMyInfoActivity.this, postData);
+
+                            insertMyInfoTask.execute("http://110.76.95.150/create_user.php");
+                        }
+
                     } else {
                         //Server request
                         HashMap postData = new HashMap();
@@ -251,34 +289,40 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
 
                     /** LOCAL DB */
 
-                    MyInfo tmpMyInfo = new MyInfo();
-
-                    tmpMyInfo.setMyInfoId(curMyInfo_id);
-                    tmpMyInfo.setMyInfoNick(curMyInfo_nick);
-                    tmpMyInfo.setMyInfoName(curMyInfo_name);
-                    tmpMyInfo.setMyInfoAge(curMyInfo_age);
-                    tmpMyInfo.setMyInfoGender(curMyInfo_gender);
-                    tmpMyInfo.setMyInfoDeviceId(curMyInfo_deviceid);
-                    tmpMyInfo.setMyInfoToken(MainActivity.token);
-
-                    if (MainActivity.odnqDB.getMyInfo() != null) {
-                        Log.d(TAG_DB, "[SettingMyInfoActivity] User information already exists in DB.");
-                        Log.d(TAG_DB, "[SettingMyInfoActivity] User information is updated");
-
-                        MainActivity.odnqDB.updateMyInfo(tmpMyInfo);
+                    if (MainActivity.token == null) {
+//                        Toast.makeText(getApplicationContext(), "Token is null", Toast.LENGTH_SHORT).show();
                     } else {
-                        Log.d(TAG_DB, "[SettingMyInfoActivity] User information is added into DB.");
-                        MainActivity.odnqDB.insertMyInfo(tmpMyInfo);
-                        Log.d(TAG_DB, "[SettingMyInfoActivity] User information is added into DB.");
 
-                        if (!MainActivity.isMonitoringServiceOn) {
-                            startService(new Intent(this, MonitoringService.class));
-                            Log.d(TAG_DB, "[SettingMyInfoActivity] Monitoring service is started.");
+
+                        MyInfo tmpMyInfo = new MyInfo();
+
+                        tmpMyInfo.setMyInfoId(curMyInfo_id);
+                        tmpMyInfo.setMyInfoNick(curMyInfo_nick);
+                        tmpMyInfo.setMyInfoName(curMyInfo_name);
+                        tmpMyInfo.setMyInfoAge(curMyInfo_age);
+                        tmpMyInfo.setMyInfoGender(curMyInfo_gender);
+                        tmpMyInfo.setMyInfoDeviceId(curMyInfo_deviceid);
+                        tmpMyInfo.setMyInfoToken(MainActivity.token);
+
+                        if (MainActivity.odnqDB.getMyInfo() != null) {
+                            Log.d(TAG_DB, "[SettingMyInfoActivity] User information already exists in DB.");
+                            Log.d(TAG_DB, "[SettingMyInfoActivity] User information is updated");
+
+                            MainActivity.odnqDB.updateMyInfo(tmpMyInfo);
+                        } else {
+                            Log.d(TAG_DB, "[SettingMyInfoActivity] User information is added into DB.");
+                            MainActivity.odnqDB.insertMyInfo(tmpMyInfo);
+                            Log.d(TAG_DB, "[SettingMyInfoActivity] User information is added into DB.");
+
+                            if (!MainActivity.isMonitoringServiceOn) {
+                                startService(new Intent(this, MonitoringService.class));
+                                Log.d(TAG_DB, "[SettingMyInfoActivity] Monitoring service is started.");
+                            }
+
                         }
 
+                        initWidgetValues();
                     }
-
-                    initWidgetValues();
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Please fill out mandatory information", Toast.LENGTH_SHORT).show();
@@ -343,6 +387,45 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
 //        Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
     }
 
+    private boolean isOnline(){
+        connectivityManager= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        networkInfo = connectivityManager.getActiveNetworkInfo();
+        if(networkInfo != null){
+            if( networkInfo.isConnectedOrConnecting()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void showAlert() {
+
+        AlertDialog alert = new AlertDialog.Builder(this).create();
+        alert.setTitle("Network is not connected");
+        alert.setMessage("Please check your network connection");
+        alert.setCancelable(true);
+
+
+        alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                networkInfo = connectivityManager.getActiveNetworkInfo();
+                if (networkInfo == null) {
+                    startActivity(new Intent(Settings.ACTION_SETTINGS));
+                } else {
+                    while (!networkInfo.isConnected()) ;
+                    if (networkInfo.isConnected()) {
+                        MainActivity.token = FirebaseInstanceId.getInstance().getToken();
+                        Log.d("TOKEN", MainActivity.token);
+                        FirebaseMessaging.getInstance().subscribeToTopic("test");
+                        Toast.makeText(SettingMyInfoActivity.this, "Connected to Firebase server.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(SettingMyInfoActivity.this, "Please check your network connection.", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+    }
 
     @Override
     protected void onResume() {
