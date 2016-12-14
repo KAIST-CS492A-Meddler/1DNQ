@@ -386,7 +386,7 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
 //
 //            MainActivity.odnqDB.insertMyCard(tmpMyCard);
 //            Log.d(TAG_DB, "[NewCardActivity] A new card is added to local DB.");
-            
+
             setResult(MainActivity.RESULT_REFRESH);
             showEndNewCardDialog();
         }
