@@ -255,12 +255,11 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
 
                     getUserTask.execute("http://110.76.95.150/get_user.php");
 
-                    while (true) {
-                        if (isUserGotten) {
-                            break;
-                        }
-                    }
-
+//                    while (true) {
+//                        if (isUserGotten) {
+//                            break;
+//                        }
+//                    }
 
 
                     if (!isUserInfoInServer) {
@@ -381,6 +380,8 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
 
         // PARSE USER
         if (output.contains("{\"result_user\":")) {
+            isUserGotten = true;
+
             String jsonString = output.replace("{\"result_user\":", "");
             jsonString = jsonString.substring(0, jsonString.length() - 1);
 
@@ -395,7 +396,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
                     isUserInfoInServer = false;
                 }
 
-                isUserGotten = true;
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

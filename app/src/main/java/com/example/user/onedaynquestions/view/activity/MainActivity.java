@@ -418,13 +418,13 @@ public class MainActivity extends AppCompatActivity
 
             transaction.commit();
         }
-        if (id == R.id.action_request_question) {
-
-            PostResponseAsyncTask loginTask =
-                    new PostResponseAsyncTask(MainActivity.this);
-            loginTask.execute("http://110.76.95.150/push_notification2.php");
-            return true;
-        }
+//        if (id == R.id.action_request_question) {
+//
+//            PostResponseAsyncTask loginTask =
+//                    new PostResponseAsyncTask(MainActivity.this);
+//            loginTask.execute("http://110.76.95.150/push_notification2.php");
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
