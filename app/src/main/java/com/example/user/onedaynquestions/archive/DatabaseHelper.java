@@ -244,7 +244,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String selectQuery = "SELECT * FROM " + TABLE_MYINFO;
 
         Cursor c = db.rawQuery(selectQuery, null);
-        if (c != null) { if (c.getCount() != 0) here {
+        if (c != null && c.getCount() != 0)  {
             c.moveToFirst();
 
             MyInformation tmpMyInformation = new MyInformation();
