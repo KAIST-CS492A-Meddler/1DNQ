@@ -209,6 +209,8 @@ public class FloatingButtonService extends Service {
     public void onDestroy() {
         if(windowManager != null) {
             if(floatView != null) windowManager.removeView(floatView);
+            if(backgroundView != null)
+                windowManager.removeView(backgroundView);
         }
         anim.cancel();
         super.onDestroy();
