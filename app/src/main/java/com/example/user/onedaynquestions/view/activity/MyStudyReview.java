@@ -162,6 +162,7 @@ public class MyStudyReview extends AppCompatActivity {
                 ArrayList<MyCard> allCardList;
                 ArrayList<MyCard> wrongCardList;
 
+                /** ADD ALL CARD LIST **/
                 allCardList = MainActivity.odnqDB.getMyCards(1, myInfoId);
                 if (allCardList != null){
                     Log.d("AppendCardList", "[MyStudyReview] allCardList - size: " + allCardList.size());
@@ -171,6 +172,15 @@ public class MyStudyReview extends AppCompatActivity {
                     }
                 }
 
+                /** ADD WRONG CARD LIST **/
+                wrongCardList = MainActivity.odnqDB.getMyCards(5, myInfoId);
+                if (wrongCardList != null){
+                    Log.d("AppendCardList", "[MyStudyReview] wrongCardList - size: " + wrongCardList.size());
+
+                    for (int i = 0; i < wrongCardList.size(); i++) {
+                        appendQuestion(WRONGANSWER, wrongCardList.get(i));
+                    }
+                }
 
             }
         }
