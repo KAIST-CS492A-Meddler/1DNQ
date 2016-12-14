@@ -53,6 +53,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import static com.example.user.onedaynquestions.service.WakefulPushReceiver.ACTION_RECEIVE;
@@ -166,6 +169,8 @@ public class MainActivity extends AppCompatActivity
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
                 Log.d("MainActivity-TabLayout", "tab.getPosition = " + tab.getPosition());
+
+                recordUserLog();
 
                 if (tab.getPosition() == 0) {
 
@@ -730,6 +735,12 @@ public class MainActivity extends AppCompatActivity
             }
 
         }
+    }
+
+    public void recordUserLog() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar calendar = Calendar.getInstance();
+        Toast.makeText(getApplicationContext(), "current time: " + dateFormat.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
     }
 
 }
