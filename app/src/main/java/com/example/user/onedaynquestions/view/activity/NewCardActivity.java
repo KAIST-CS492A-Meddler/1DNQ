@@ -371,21 +371,22 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
 //            Toast.makeText(getApplicationContext(), "A receivedCard is created.", Toast.LENGTH_SHORT).show();
             Log.d("CardCreation", "output: " + output);
 
-            createdCardId = output.replace("Card created: ", "");
-            Log.d("CardCreation", "createdCardId: " + createdCardId);
-
-            /** LOCAL DB **/
-            MyCard tmpMyCard = new MyCard();
-            tmpMyCard.setMyCardId(createdCardId); //TODO: null일 수 있음
-            tmpMyCard.setMyCardMaker(newCard_et_makerid.getText().toString());
-            tmpMyCard.setMyCardQuestion(newCard_et_question.getText().toString());
-            tmpMyCard.setMyCardAnswer(newCard_et_answer.getText().toString());
-            tmpMyCard.setMyCardGroup("group-1");
-            tmpMyCard.setMyCardHint(newCard_et_hint.getText().toString());
-            tmpMyCard.setMyCardType(1);
-
-            MainActivity.odnqDB.insertMyCard(tmpMyCard);
-            Log.d(TAG_DB, "[NewCardActivity] A new card is added to local DB.");
+//            createdCardId = output.replace("Card created: ", "");
+//            Log.d("CardCreation", "createdCardId: " + createdCardId);
+//
+//            /** LOCAL DB **/
+//            MyCard tmpMyCard = new MyCard();
+//            tmpMyCard.setMyCardId(createdCardId); //TODO: null일 수 있음
+//            tmpMyCard.setMyCardMaker(newCard_et_makerid.getText().toString());
+//            tmpMyCard.setMyCardQuestion(newCard_et_question.getText().toString());
+//            tmpMyCard.setMyCardAnswer(newCard_et_answer.getText().toString());
+//            tmpMyCard.setMyCardGroup("group-1");
+//            tmpMyCard.setMyCardHint(newCard_et_hint.getText().toString());
+//            tmpMyCard.setMyCardType(1);
+//
+//            MainActivity.odnqDB.insertMyCard(tmpMyCard);
+//            Log.d(TAG_DB, "[NewCardActivity] A new card is added to local DB.");
+            
             setResult(MainActivity.RESULT_REFRESH);
             showEndNewCardDialog();
         }
