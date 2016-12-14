@@ -105,6 +105,9 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
 
         if (MainActivity.token == null) {
             initToken();
+        }else{
+            Toast.makeText(getApplicationContext(), "Connected to server", Toast.LENGTH_SHORT).show();
+
         }
 
         recordUserLog("SettingMyInfoActivity", "onCreate");
@@ -114,7 +117,6 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
     }
 
     private void initToken() {
-        Toast.makeText(getApplicationContext(), "Token is null", Toast.LENGTH_SHORT).show();
 
         isOnline();
         if (networkInfo == null) {
@@ -126,7 +128,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
                 if (MainActivity.token != null) {
                     Log.d("TOKEN", MainActivity.token);
                 } else {
-
+                    Toast.makeText(getApplicationContext(), "Token is null", Toast.LENGTH_SHORT).show();
                 }
                 FirebaseMessaging.getInstance().subscribeToTopic("test");
 //                Toast.makeText(this, "Connected to Firebase server.", Toast.LENGTH_LONG).show();
