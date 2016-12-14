@@ -459,12 +459,12 @@ public class MainActivity extends AppCompatActivity
 
                 break;
 
-            case R.id.nav_dblocal:
-                recordUserLog("MainActivity", "navItemSelect - nav_dblocal");
-                Toast.makeText(getApplicationContext(), "Local DB Test Activity", Toast.LENGTH_SHORT).show();
-                Intent intent_dblocal = new Intent(getApplicationContext(), DBLocalTestActivity.class);
-                startActivityForResult(intent_dblocal, REQUEST_REFRESH);
-                break;
+//            case R.id.nav_dblocal:
+//                recordUserLog("MainActivity", "navItemSelect - nav_dblocal");
+//                Toast.makeText(getApplicationContext(), "Local DB Test Activity", Toast.LENGTH_SHORT).show();
+//                Intent intent_dblocal = new Intent(getApplicationContext(), DBLocalTestActivity.class);
+//                startActivityForResult(intent_dblocal, REQUEST_REFRESH);
+//                break;
 //            case R.id.nav_dbserver:
 //                Toast.makeText(getApplicationContext(), "Server DB Test Activity", Toast.LENGTH_SHORT).show();
 //                Intent intent_dbserver = new Intent(getApplicationContext(), DBServerTestActivity.class);

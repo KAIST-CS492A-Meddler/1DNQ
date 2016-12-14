@@ -36,18 +36,18 @@
 
         </menu>
     </item>
-    <item android:title="Database">
-        <menu>
-            <item
-                android:id="@+id/nav_dblocal"
-                android:icon="@drawable/odnq_nav_icon_db"
-                android:title="Local Database Test" />
+    <!--<item android:title="Database">-->
+        <!--<menu>-->
             <!--<item-->
-                <!--android:id="@+id/nav_dbserver"-->
+                <!--android:id="@+id/nav_dblocal"-->
                 <!--android:icon="@drawable/odnq_nav_icon_db"-->
-                <!--android:title="Server Database Test" />-->
-        </menu>
-    </item>
+                <!--android:title="Local Database Test" />-->
+            <!--&lt;!&ndash;<item&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/nav_dbserver"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:icon="@drawable/odnq_nav_icon_db"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="Server Database Test" />&ndash;&gt;-->
+        <!--</menu>-->
+    <!--</item>-->
 
     <!--<item android:title="Test Menu">-->
         <!--<menu>-->
