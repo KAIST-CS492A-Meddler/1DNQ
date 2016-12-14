@@ -3,6 +3,7 @@ package com.example.user.onedaynquestions.view.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,6 +42,7 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
     private float dist;
     private int prevX, prevY;
     private final int distThreshold = 100;
+    private CountDownTimer cdt;
 
     private CardAdapter wrongAnswerListAdapter,dailyRecordListAdapter;
     private RecyclerView wrongAnswerListView, dailyRecordListView;
@@ -89,7 +91,6 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
         recordUserLog("MyStudyReview", "onCreate");
 
         initCards();
-
     }
 
 
@@ -217,7 +218,7 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
                         if(dist < distThreshold) {
                             recordUserLog("MyStudyReview", "solveCard");
                             int id = dailyRecordListView.getChildAdapterPosition(dailyRecordListView.findChildViewUnder(e.getX(), e.getY()));
-                            startActivity(new Intent(dailyRecordList.get(id).getCardSolvingIntent(MyStudyReview.this)));
+                            startActivityForResult(new Intent(dailyRecordList.get(id).getCardSolvingIntent(MyStudyReview.this)), MainActivity.REQUEST_REFRESH);
                         }
 
                         break;
@@ -267,7 +268,7 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
                         if(dist < distThreshold) {
                             recordUserLog("MyStudyReview", "solveCard");
                             int id = wrongAnswerListView.getChildAdapterPosition(wrongAnswerListView.findChildViewUnder(e.getX(), e.getY()));
-                            startActivity(new Intent(wrongAnswerList.get(id).getCardSolvingIntent(MyStudyReview.this)));
+                            startActivityForResult(new Intent(wrongAnswerList.get(id).getCardSolvingIntent(MyStudyReview.this)), MainActivity.REQUEST_REFRESH);
                         }
 
                         break;
@@ -287,6 +288,32 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == MainActivity.REQUEST_REFRESH){
+            //if(resultCode == MainActivity.RESULT_REFRESH){
+                    cdt = new CountDownTimer(2000, 100) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            if (MainActivity.odnqDB != null) {
+                                if (wrongAnswerList != null) {
+                                    if (MainActivity.odnqDB.countWrongCardNum() != wrongAnswerList.size()) {
+                                        initCards();
+                                        wrongAnswerListAdapter.notifyDataSetChanged();
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFinish() {
+
+                        }
+                    }.start();
+            //}
+        }
+    }
 
     public boolean setQuestion(int where, int position, MyCard question){
         switch (where){

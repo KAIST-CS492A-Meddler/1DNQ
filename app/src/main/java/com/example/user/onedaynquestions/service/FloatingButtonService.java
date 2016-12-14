@@ -30,7 +30,7 @@ public class FloatingButtonService extends Service {
 
     private int originWidth, originHeight;
     private int magWidth, magHeight;
-    public static float xPos, yPos;
+    public static float xPos = -1, yPos = -1;
     private float sum;
     private int sumThreshold;
 
@@ -73,9 +73,14 @@ public class FloatingButtonService extends Service {
                 PixelFormat.TRANSLUCENT);
         layoutParams .gravity = Gravity.LEFT | Gravity.TOP;
 
-        layoutParams.x = (int)(FloatingButtonService.xPos);
-        if(layoutParams.x > screenWidth / 2) layoutParams.x = screenWidth;
-        else layoutParams.x = 0;
+        if(FloatingButtonService.xPos < 0) {
+            FloatingButtonService.xPos = screenWidth;
+            FloatingButtonService.yPos = originHeight;
+        }else{
+            layoutParams.x = (int) (FloatingButtonService.xPos);
+            if (layoutParams.x > screenWidth / 2) layoutParams.x = screenWidth;
+            else layoutParams.x = 0;
+        }
         layoutParams.y = (int)(FloatingButtonService.yPos);
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         floatView = inflater.inflate(R.layout.activity_floating_widget, null);
@@ -91,9 +96,9 @@ public class FloatingButtonService extends Service {
                 WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
                 PixelFormat.TRANSLUCENT);
         layoutParamsBackground .gravity = Gravity.LEFT | Gravity.TOP;
-        layoutParamsBackground.x = (screenWidth - magWidth)/ 2;
-        layoutParamsBackground.y = (screenHeight - magHeight)/ 2;
-        windowManager.addView(backgroundView,layoutParamsBackground);
+        layoutParamsBackground.x = (screenWidth)/ 2;
+        layoutParamsBackground.y = 0;
+        //windowManager.addView(backgroundView,layoutParamsBackground);
 
 
 
@@ -130,6 +135,10 @@ public class FloatingButtonService extends Service {
                         if(sum > sumThreshold){
                             anim.onFinish();
                             if(backgroundView.getAlpha() < 0.1) {
+                                if(windowManager != null) {
+                                    if(backgroundView != null)
+                                        windowManager.addView(backgroundView,layoutParamsBackground);
+                                }
                                 backgroundView.setAlpha(1);
                                 windowManager.updateViewLayout(backgroundView, layoutParamsBackground);
                             }
@@ -177,6 +186,10 @@ public class FloatingButtonService extends Service {
                                 startActivity(intent_newcard);
                             }
                         }
+                        if(windowManager != null) {
+                            if(backgroundView != null)
+                                windowManager.removeView(backgroundView);
+                        }
                         //Intent intent = new Intent(getBaseContext(), NewCardActivity.class);
                         //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         //startActivity(intent);
@@ -209,8 +222,7 @@ public class FloatingButtonService extends Service {
     public void onDestroy() {
         if(windowManager != null) {
             if(floatView != null) windowManager.removeView(floatView);
-            if(backgroundView != null)
-                windowManager.removeView(backgroundView);
+
         }
         anim.cancel();
         super.onDestroy();
