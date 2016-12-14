@@ -10,15 +10,24 @@
 
         </menu>
     </item>
+    <item android:title="New Question">
+        <menu>
+            <item
+                android:id="@+id/nav_newcard"
+                android:icon="@drawable/odnq_nav_icon_newcard"
+                android:title="Request a New Card" />
+
+        </menu>
+    </item>
     <item android:title="Card and Group">
         <menu>
             <item
                 android:id="@+id/nav_leaderboard"
-                android:icon="@drawable/nav_icon_myrecords"
+                android:icon="@drawable/odnq_nav_icon_leaderboard"
                 android:title="Leaderboard" />
             <item
                 android:id="@+id/nav_mycards"
-                android:icon="@drawable/nav_icon_myagents"
+                android:icon="@drawable/odnq_nav_icon_mycard"
                 android:title="My Cards" />
             <!--<item-->
             <!--android:id="@+id/nav_myroutine"-->
@@ -27,43 +36,43 @@
 
         </menu>
     </item>
-    <item android:title="Database">
-        <menu>
-            <item
-                android:id="@+id/nav_dblocal"
-                android:icon="@drawable/odnq_nav_icon_db"
-                android:title="Local Database Test" />
-            <item
-                android:id="@+id/nav_dbserver"
-                android:icon="@drawable/odnq_nav_icon_db"
-                android:title="Server Database Test" />
-        </menu>
-    </item>
+    <!--<item android:title="Database">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_dblocal"-->
+                <!--android:icon="@drawable/odnq_nav_icon_db"-->
+                <!--android:title="Local Database Test" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_dbserver"-->
+                <!--android:icon="@drawable/odnq_nav_icon_db"-->
+                <!--android:title="Server Database Test" />-->
+        <!--</menu>-->
+    <!--</item>-->
 
-    <item android:title="Test Menu">
-        <menu>
+    <!--<item android:title="Test Menu">-->
+        <!--<menu>-->
+            <!--&lt;!&ndash;<item&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/nav_testcardsolving"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:icon="@drawable/odnq_nav_icon_card"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="Card Solving Activity" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<item&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/nav_testcardevaluation"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:icon="@drawable/odnq_nav_icon_card"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="Card Evaluation Activity" />&ndash;&gt;-->
             <!--<item-->
-                <!--android:id="@+id/nav_testcardsolving"-->
-                <!--android:icon="@drawable/odnq_nav_icon_card"-->
-                <!--android:title="Card Solving Activity" />-->
-            <!--<item-->
-                <!--android:id="@+id/nav_testcardevaluation"-->
-                <!--android:icon="@drawable/odnq_nav_icon_card"-->
-                <!--android:title="Card Evaluation Activity" />-->
-            <item
-                android:id="@+id/nav_testnewgroup"
-                android:icon="@drawable/odnq_nav_icon_group"
-                android:title="Make a New Group" />
-            <!--<item-->
-                <!--android:id="@+id/nav_testgraph"-->
-                <!--android:icon="@drawable/odnq_nav_icon_graph"-->
-                <!--android:title="Graph Test Activity" />-->
-            <!--<item-->
-                <!--android:id="@+id/nav_testwidget"-->
-                <!--android:icon="@drawable/odnq_nav_icon_widget"-->
-                <!--android:title="Widget Test Activity" />-->
-        </menu>
-    </item>
+                <!--android:id="@+id/nav_testnewgroup"-->
+                <!--android:icon="@drawable/odnq_nav_icon_group"-->
+                <!--android:title="Make a New Group" />-->
+            <!--&lt;!&ndash;<item&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/nav_testgraph"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:icon="@drawable/odnq_nav_icon_graph"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="Graph Test Activity" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<item&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/nav_testwidget"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:icon="@drawable/odnq_nav_icon_widget"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="Widget Test Activity" />&ndash;&gt;-->
+        <!--</menu>-->
+    <!--</item>-->
 
 
 

@@ -421,17 +421,23 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         switch (item.getItemId()) {
+            case R.id.nav_newcard:
+                PostResponseAsyncTask loginTask =
+                        new PostResponseAsyncTask(MainActivity.this);
+                loginTask.execute("http://110.76.95.150/push_notification2.php");
+                Toast.makeText(getApplicationContext(), "A new card is requested.", Toast.LENGTH_SHORT).show();
+                break;
 
-            case R.id.nav_dblocal:
-                Toast.makeText(getApplicationContext(), "Local DB Test Activity", Toast.LENGTH_SHORT).show();
-                Intent intent_dblocal = new Intent(getApplicationContext(), DBLocalTestActivity.class);
-                startActivityForResult(intent_dblocal, REQUEST_REFRESH);
-                break;
-            case R.id.nav_dbserver:
-                Toast.makeText(getApplicationContext(), "Server DB Test Activity", Toast.LENGTH_SHORT).show();
-                Intent intent_dbserver = new Intent(getApplicationContext(), DBServerTestActivity.class);
-                startActivity(intent_dbserver);
-                break;
+//            case R.id.nav_dblocal:
+//                Toast.makeText(getApplicationContext(), "Local DB Test Activity", Toast.LENGTH_SHORT).show();
+//                Intent intent_dblocal = new Intent(getApplicationContext(), DBLocalTestActivity.class);
+//                startActivityForResult(intent_dblocal, REQUEST_REFRESH);
+//                break;
+//            case R.id.nav_dbserver:
+//                Toast.makeText(getApplicationContext(), "Server DB Test Activity", Toast.LENGTH_SHORT).show();
+//                Intent intent_dbserver = new Intent(getApplicationContext(), DBServerTestActivity.class);
+//                startActivity(intent_dbserver);
+//                break;
 //            case R.id.nav_testcardsolving:
 //                Toast.makeText(getApplicationContext(), "Test a receivedCard-solving activity", Toast.LENGTH_SHORT).show();
 //                Intent intent_cardsolving = new Intent(getApplicationContext(), CardSolvingActivity.class);
@@ -442,11 +448,11 @@ public class MainActivity extends AppCompatActivity
 //                Intent intent_cardanswersheet = new Intent(getApplicationContext(), CardAnswerSheetActivity.class);
 //                startActivity(intent_cardanswersheet);
 //                break;
-            case R.id.nav_testnewgroup:
-                Toast.makeText(getApplicationContext(), "Test a process to make a new group", Toast.LENGTH_SHORT).show();
-                Intent intent_newgroup = new Intent(getApplicationContext(), NewGroupActivity.class);
-                startActivityForResult(intent_newgroup, REQUEST_REFRESH);
-                break;
+//            case R.id.nav_testnewgroup:
+//                Toast.makeText(getApplicationContext(), "Test a process to make a new group", Toast.LENGTH_SHORT).show();
+//                Intent intent_newgroup = new Intent(getApplicationContext(), NewGroupActivity.class);
+//                startActivityForResult(intent_newgroup, REQUEST_REFRESH);
+//                break;
 //            case R.id.nav_testgraph:
 //                Toast.makeText(getApplicationContext(), "Test graph generation", Toast.LENGTH_SHORT).show();
 //                Intent intent_testgraph = new Intent(getApplicationContext(), GraphTestActivity.class);
