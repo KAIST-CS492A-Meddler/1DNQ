@@ -747,7 +747,6 @@ public class MainActivity extends AppCompatActivity
 
                     String maker = intent.getStringExtra(MyCard.ATTRIBUTE_CARD_ID);
                     if(maker.contains("[system]")) {
-
                         if (viewPager != null) {
                             viewPager.getAdapter().notifyDataSetChanged();
                         }
