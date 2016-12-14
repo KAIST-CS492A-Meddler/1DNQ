@@ -419,7 +419,7 @@ public class LocalDBController extends SQLiteOpenHelper{
                             break;
                         // opt6: get recommended cards
                         case 6:
-                            if (myCardMaker.contains("[system]")) {
+                            if (myCardMaker.equals("RECOMMEND BOT")) {
                                 cardList.add(tmpMyCard);
                             }
                             break;
