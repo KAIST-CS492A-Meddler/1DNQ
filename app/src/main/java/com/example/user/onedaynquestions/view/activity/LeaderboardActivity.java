@@ -136,6 +136,7 @@ public class LeaderboardActivity extends AppCompatActivity implements AsyncRespo
 
         switch (item.getItemId()) {
             case android.R.id.home:
+                recordUserLog("LeaderboardActivity", "goHome");
                 onBackPressed();
                 break;
         }

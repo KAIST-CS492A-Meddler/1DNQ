@@ -114,6 +114,9 @@ public class CardSolvingActivity extends AppCompatActivity implements AsyncRespo
                 answer.setText("TIME OVER");
                 answer.setTextColor(Color.RED);
 
+                recordUserLog("CardSolvingActivity", "timeOver");
+
+
                 goAnswerSheet();
 
             }
@@ -183,6 +186,8 @@ public class CardSolvingActivity extends AppCompatActivity implements AsyncRespo
     public void mOnClick(View v) {
         switch (v.getId()) {
             case R.id.cardsolving_btn_showhint:
+                recordUserLog("CardSolvingActivity", "see/hideHint");
+
                 if (isHintShown) {
                     hint.setVisibility(View.GONE);
                     showHint.setText("SHOW HINT");
@@ -194,6 +199,8 @@ public class CardSolvingActivity extends AppCompatActivity implements AsyncRespo
                 }
                 break;
             case R.id.cardsolving_btn_submit:
+                recordUserLog("CardSolvingActivity", "submitAnswer");
+
                 if (receivedCard == null) {
                     Log.d("CardSolvingActivity", "receivedCard is null");
                 } else {
@@ -205,6 +212,7 @@ public class CardSolvingActivity extends AppCompatActivity implements AsyncRespo
     }
 
     private void goAnswerSheet() {
+        recordUserLog("CardSolvingActivity", "goAnswerSheet");
 
         try {
             Thread.sleep(1000);

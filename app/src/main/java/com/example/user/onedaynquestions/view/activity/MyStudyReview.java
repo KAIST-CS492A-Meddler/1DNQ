@@ -160,110 +160,23 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
         finish();
     }
 
-//    public class ListViewAdapter extends BaseAdapter{
-//
-//
-//
-//        public ListViewAdapter() {
-//            super();
-//            if(MainActivity.hereDB.getAllMyHereAgents() !=null)
-//                myHereAgents = MainActivity.hereDB.getAllMyHereAgents();
-//
-//            TextView textView = (TextView) findViewById(R.id.setting_myeq_tv_registered);
-//            if (myHereAgents.size() != 0) {
-//                textView.setVisibility(View.GONE);
-//            }
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return myHereAgents.size();
-//        }
-//
-//        @Override
-//        public Object getItem(int position) {
-//            return myHereAgents.get(position);
-//        }
-//
-//        @Override
-//        public long getItemId(int position) {
-//            return position;
-//        }
-//
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//            final int pos = position;
-//            final Context context = parent.getContext();
-//
-//            if (convertView == null){
-//                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//                convertView = inflater.inflate(R.layout.listitem_equipment_simple,parent,false);
-//            }
-//            ImageView eqTypeImage = (ImageView) convertView.findViewById(R.id.equiplist_img);
-//            TextView eqName = (TextView) convertView.findViewById(R.id.equiplist_name);
-//            TextView eqId = (TextView) convertView.findViewById(R.id.equiplist_id);
-//            TextView eqSensorType = (TextView) convertView.findViewById(R.id.equiplist_sensorid);
-//
-//            switch (myHereAgents.get(pos).getMyeqType()) {
-//                case 1:
-//                    eqTypeImage.setImageResource(R.drawable.eq_01_dumbbell);
-//                    break;
-//                case 2:
-//                    eqTypeImage.setImageResource(R.drawable.eq_02_pushupbar);
-//                    break;
-//                case 3:
-//                    eqTypeImage.setImageResource(R.drawable.eq_03_jumprope);
-//                    break;
-//                case 4:
-//                    eqTypeImage.setImageResource(R.drawable.eq_04_hoolahoop);
-//                    break;
-//                case 5:
-//                    eqTypeImage.setImageResource(R.drawable.icon_bluetooth_device);
-//                default:
-//                    break;
-//            }
-//
-//            eqName.setText(myHereAgents.get(pos).getMyeqName());
-//            eqId.setText(myHereAgents.get(pos).getMyeqMacId());
-//            eqSensorType.setText(myHereAgents.get(pos).getMyeqBeaconMajorId() + "-" + myHereAgents.get(pos).getMyeqBeaconMinorId());
-//            //eqSensorType.setText(registeredAgents.get(pos).getMyeqType());
-//
-//            return convertView;
-//        }
-//    }
 
     @Override
     public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause");
-//        scanLeDevice(false);
     }
 
     @Override
     public void onResume() {
         stopService(new Intent(this, FloatingButtonService.class));
         super.onResume();
-//        if(registeredAgents!=null)
-//            registeredAgents.clear();
-//        registeredAgents = MainActivity.hereDB.getAllMyHereAgents();
-//
-//        Log.d(TAG, "onResume");
-//        // Ensures Bluetooth is enabled on the device.  If Bluetooth is not currently enabled,
-//        // fire an intent to display a dialog asking the user to grant permission to enable it.
-//        if (!mBluetoothAdapter.isEnabled()) {
-//            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-//            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-//        }
-//
-//        scanLeDevice(true);
     }
 
     @Override
     public void onStop(){
         super.onStop();
         Log.d(TAG, "onStop");
-//        scanLeDevice(false);
-//        equipListAdapter.clear();
     }
 
     @Override
@@ -271,239 +184,8 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
         super.onRestart();
     }
 
-//    private void scanLeDevice(final boolean enable) {
-//        if (enable) {
-//            // Stops scanning after a pre-defined scan period.
-//            mHandler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mScanning = false;
-//                    mBluetoothAdapter.stopLeScan(mLeScanCallback);
-//                }
-//            }, SCAN_PERIOD);
-//
-//            mScanning = true;
-//            mBluetoothAdapter.startLeScan(mLeScanCallback);
-//        } else {
-//            mScanning = false;
-//            mBluetoothAdapter.stopLeScan(mLeScanCallback);
-//        }
-//    }
-
-//    // Adapter for holding devices found through scanning.
-//    private class HERE_DeviceListAdapter extends BaseAdapter {
-//
-//        public HERE_DeviceListAdapter() {
-//            super();
-//            pairedEquipList = new ArrayList<MyHereAgent>();
-//            mLEdeviceList = new ArrayList<BluetoothDevice>();
-//
-//        }
-//
-//        public void addDevice(BluetoothDevice device) {
-//            if(!mLEdeviceList.contains(device)) {
-//                mLEdeviceList.add(device);
-//                if(!pairedEquipList.contains(device.getAddress())){
-//                    String deviceAddress = device.getAddress();
-//                    String deviceName = device.getName();
-//                    String deviceMajorId = parseMajorId(device.getName());
-//                    String deviceMinorId = parseMinorId(device.getName());
-//                    int deviceType = getTypeByMinorId(deviceMinorId);
-//
-//                    pairedEquipList.add(new MyHereAgent(deviceAddress, deviceName, deviceType, deviceMajorId, deviceMinorId));
-//                }
-//            }
-//        }
-//
-//        public BluetoothDevice getDevice(int position) {
-//            return mLEdeviceList.get(position);
-//        }
-//
-//        public void clear() {
-//            mLEdeviceList.clear();
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return mLEdeviceList.size();
-//        }
-//
-//        @Override
-//        public Object getItem(int i) {
-//            return mLEdeviceList.get(i);
-//        }
-//
-//        @Override
-//        public long getItemId(int i) {
-//            return i;
-//        }
-//
-//        @Override
-//        public View getView(int i, View view, ViewGroup viewGroup) {
-//
-//            final Context context = viewGroup.getContext();
-//
-//            if (view == null){
-//                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//                view = inflater.inflate(R.layout.listitem_equipment_simple,viewGroup,false);
-//            }
-//
-//            ImageView eqTypeImage = (ImageView)view.findViewById(R.id.equiplist_img);
-//            TextView eqName = (TextView)view.findViewById(R.id.equiplist_name);
-//            TextView eqId = (TextView)view.findViewById(R.id.equiplist_id);
-//            TextView eqSensorId = (TextView)view.findViewById(R.id.equiplist_sensorid);
-//
-//            switch (pairedEquipList.get(i).getMyeqType()) {
-//                case MyHereAgent.TYPE_DUMBEL:
-//                    eqTypeImage.setImageResource(R.drawable.eq_01_dumbbell);
-//                    break;
-//                case MyHereAgent.TYPE_PUSH_UP:
-//                    eqTypeImage.setImageResource(R.drawable.eq_02_pushupbar);
-//                    break;
-//                case MyHereAgent.TYPE_JUMP_ROPE:
-//                    eqTypeImage.setImageResource(R.drawable.eq_03_jumprope);
-//                    break;
-//                case MyHereAgent.TYPE_HOOLA_HOOP:
-//                    eqTypeImage.setImageResource(R.drawable.eq_04_hoolahoop);
-//                    break;
-//                default:
-//                    eqTypeImage.setImageResource(R.drawable.icon_bluetooth_device);
-//                    break;
-//            }
-//
-//            eqName.setText(pairedEquipList.get(i).getMyeqName());
-//            eqId.setText(pairedEquipList.get(i).getMyeqMacId());
-//            eqSensorId.setText(pairedEquipList.get(i).getMyeqBeaconMajorId() + "-" + pairedEquipList.get(i).getMyeqBeaconMinorId());
-//            //eqSensorId.setText(pairedEquipList.get(i).getEquipmentSensorID());
-//
-//            return view;
-//        }
-//    }
-
-//    // Device scan callback.
-//    private BluetoothAdapter.LeScanCallback mLeScanCallback =
-//            new BluetoothAdapter.LeScanCallback() {
-//
-//                @Override
-//                public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            equipListAdapter.addDevice(device);
-//                            equipListAdapter.notifyDataSetChanged();
-//                        }
-//                    });
-//                }
-//            };
-//
-//    private void showAddAgentDialog() {
-//        LayoutInflater inflater = getLayoutInflater();
-//
-//        final View dialogView = inflater.inflate(R.layout.dialog_agent, null);
-//
-//        EditText et_addagent_macid = (EditText) dialogView.findViewById(R.id.dialog_agent_macid);
-//        final EditText et_addagent_name = (EditText) dialogView.findViewById(R.id.dialog_agent_name);
-//        EditText et_addagent_majorid = (EditText) dialogView.findViewById(R.id.dialog_agent_majorid);
-//        EditText et_addagent_minorid = (EditText) dialogView.findViewById(R.id.dialog_agent_minorid);
-//
-//        et_addagent_macid.setText(selectedNewAgent.getMyeqMacId());
-//        et_addagent_majorid.setText(selectedNewAgent.getMyeqBeaconMajorId());
-//        et_addagent_minorid.setText(selectedNewAgent.getMyeqBeaconMinorId());
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(MyStudyReview.this);
-//        builder.setTitle("Add a new HERE agent");
-//        builder.setView(dialogView);
-//        builder.setPositiveButton("Add agent", new DialogInterface.OnClickListener() {
-//
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//                if (selectedNewAgent.getMyeqBeaconMajorId() == "") {
-//                    Toast.makeText(getApplicationContext(), "This device is not compatible for HERE", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    selectedNewAgent.setMyeqName(et_addagent_name.getText().toString());
-//                    MainActivity.hereDB.insertHereAgent(selectedNewAgent);
-//                    Toast.makeText(getApplicationContext(), "An agent is added into DB", Toast.LENGTH_SHORT).show();
-//
-//                    myHereAgents.clear();
-//                    if (MainActivity.hereDB.getAllMyHereAgents() != null)
-//                        myHereAgents = MainActivity.hereDB.getAllMyHereAgents();
-//                    adapter.notifyDataSetChanged();
-//
-//                    TextView textView = (TextView) findViewById(R.id.setting_myeq_tv_registered);
-//                    if (myHereAgents.size() != 0) {
-//                        textView.setVisibility(View.GONE);
-//                    }
-//                }
-//
-//
-//
-//                dialog.dismiss();
-//            }
-//        });
-//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        AlertDialog dialog = builder.create();
-//        dialog.setCanceledOnTouchOutside(false);
-//        dialog.show();
-//    }
-
-    private String parseMajorId(String deviceName) {
-        if (deviceName != null) {
-            if (deviceName.contains("-")) {
-                int separatorLoc = deviceName.indexOf("-");
-                return deviceName.substring(0, separatorLoc);
-            } else {
-                return "";
-            }
-
-        } else {
-            return "";
-        }
-    }
-
-    private String parseMinorId(String deviceName) {
-        if (deviceName != null) {
-            if (deviceName.contains("-")) {
-                int separatorLoc = deviceName.indexOf("-");
-                return deviceName.substring(separatorLoc + 1, deviceName.length());
-            } else {
-                return "";
-            }
-
-        } else {
-            return "";
-        }
-    }
-
-    private int getTypeByMinorId(String minorId) {
-        if (minorId != null) {
-            if (minorId.contains("DB") || minorId.contains("Dumbbell") || minorId.contains("Dumbbel") || minorId.contains("Dumbel")) {
-                return 1;
-            }else if (minorId.contains("PU") || minorId.contains("Pushupbar")) {
-                return 2;
-            }else if (minorId.contains("JR") || minorId.contains("Jumprope")) {
-                return 3;
-            }else if (minorId.contains("HH") || minorId.contains("Hoolahoop")) {
-                return 4;
-            } else {
-                return 0;
-            }
-
-        } else {
-            return 0;
-        }
-    }
 
     public void initQuestionList(){
-
-
-
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
 
@@ -533,6 +215,7 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
                         break;
                     case MotionEvent.ACTION_UP:
                         if(dist < distThreshold) {
+                            recordUserLog("MyStudyReview", "solveCard");
                             int id = dailyRecordListView.getChildAdapterPosition(dailyRecordListView.findChildViewUnder(e.getX(), e.getY()));
                             startActivity(new Intent(dailyRecordList.get(id).getCardSolvingIntent(MyStudyReview.this)));
                         }
@@ -582,6 +265,7 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
                         break;
                     case MotionEvent.ACTION_UP:
                         if(dist < distThreshold) {
+                            recordUserLog("MyStudyReview", "solveCard");
                             int id = wrongAnswerListView.getChildAdapterPosition(wrongAnswerListView.findChildViewUnder(e.getX(), e.getY()));
                             startActivity(new Intent(wrongAnswerList.get(id).getCardSolvingIntent(MyStudyReview.this)));
                         }

@@ -35,6 +35,8 @@ public class SplashActivity extends Activity implements AsyncResponse {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
                 startActivity(intent);
+                recordUserLog("SplashActivity", "goHome");
+
                 finish();
             }
         }, SPLASH_TIMEOUT_MILLIS);

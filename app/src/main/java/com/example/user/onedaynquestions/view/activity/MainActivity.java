@@ -341,6 +341,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         Log.d("MainInitWidgets", "onResume() is called");
+        recordUserLog("MainActivity", "returnHome");
         initMyInfo();
         stopService(new Intent(this, FloatingButtonService.class));
 
@@ -366,6 +367,8 @@ public class MainActivity extends AppCompatActivity
     protected  void onPause(){
         //앱 꺼져 있을때 플로팅 버튼 뜨도록 서비스 on
 //        startService(new Intent(this, FloatingButtonService.class));
+
+        recordUserLog("MainActivity", "onPause");
 
         if (Build.VERSION.SDK_INT >= 23) {
             if (Settings.canDrawOverlays(this)) {
@@ -710,6 +713,8 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy() {
         unregisterReceiver(updateListener);
         isMainActivityReady = false;
+        recordUserLog("MainActivity", "quitApp");
+
         super.onDestroy();
     }
 
@@ -718,6 +723,9 @@ public class MainActivity extends AppCompatActivity
     public class BroadReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {
+            recordUserLog("MainActivity", "BroadcastReceiver - New card is received");
+
+
             String action = intent.getAction();
             switch (action) {
                 case ACTION_RECEIVE:

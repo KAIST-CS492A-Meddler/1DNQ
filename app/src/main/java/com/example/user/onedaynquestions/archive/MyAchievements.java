@@ -1,6 +1,8 @@
-package com.example.user.onedaynquestions.view.activity;
+package com.example.user.onedaynquestions.archive;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
+import com.example.user.onedaynquestions.view.activity.MainActivity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,40 +21,57 @@ import java.util.HashMap;
 /**
  * Created by ymbaek on 2016-04-18.
  */
-public class SupportHelpActivity extends AppCompatActivity implements AsyncResponse {
+public class MyAchievements extends AppCompatActivity implements AsyncResponse {
 
-    public static final String TAG = "SupportHelpActivity";
+    public static final String TAG = "MyAchievements";
 
     private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_support_help);
+        setContentView(R.layout.activity_myachievements);
 
-        recordUserLog("SupportHelpActivity", "onCreate");
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        toolbar.setTitle("My Achievements");
+        toolbar.setNavigationIcon(R.mipmap.ic_menu_arrow_back);
+        toolbar.setTitleTextColor(Color.WHITE);
 
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//
-//        toolbar.setTitle("도움말");
-//        toolbar.setNavigationIcon(R.mipmap.ic_menu_arrow_back);
-//        toolbar.setTitleTextColor(Color.WHITE);
-//
-//        setSupportActionBar(toolbar);
-//
-//        final ActionBar actionBar = getSupportActionBar();
-//
-//        actionBar.setTitle("도움말");
-//        actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+        setSupportActionBar(toolbar);
+
+        final ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setTitle("My Achievements");
+        actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+
+        recordUserLog("MyAchievements", "onCreate");
+
     }
+
+    public int findImage (int type){
+        switch (type) {
+            case 1:
+                return R.drawable.eq_01_dumbbell;
+            case 2:
+                return R.drawable.eq_02_pushupbar;
+            case 3:
+                return R.drawable.eq_03_jumprope;
+            case 4:
+                return R.drawable.eq_04_hoolahoop;
+            case 5:
+                return R.drawable.list_routine_icon;
+        }
+        return 0;
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                recordUserLog("SupportAppInfoActivity", "goHome");
                 onBackPressed();
                 break;
         }
@@ -68,6 +88,7 @@ public class SupportHelpActivity extends AppCompatActivity implements AsyncRespo
     public void processFinish(String output) {
 
     }
+
 
     public void recordUserLog(String argActivity, String argEvent) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -112,7 +133,7 @@ public class SupportHelpActivity extends AppCompatActivity implements AsyncRespo
 //        postData.put("log_curevent", "event");
 
         PostResponseAsyncTask createUserLogTask =
-                new PostResponseAsyncTask(SupportHelpActivity.this, postData);
+                new PostResponseAsyncTask(MyAchievements.this, postData);
 
         createUserLogTask.execute("http://110.76.95.150/create_userlog.php");
         Log.d("USER_LOG", "[" + logTimestamp + "] " + logCurActivity + " - " + logCurEvent);

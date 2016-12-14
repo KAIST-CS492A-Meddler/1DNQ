@@ -1,4 +1,4 @@
-package com.example.user.onedaynquestions.view.activity;
+package com.example.user.onedaynquestions.archive;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +13,7 @@ import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
+import com.example.user.onedaynquestions.view.activity.MainActivity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

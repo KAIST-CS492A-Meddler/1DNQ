@@ -139,6 +139,7 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
 
 
     private void showNoUserInfoDialog() {
+
         LayoutInflater inflater = getLayoutInflater();
 
         final View dialogView = inflater.inflate(R.layout.dialog_finishprocess, null);
@@ -157,6 +158,7 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
         builder.setPositiveButton("Go to 1DNQ", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                recordUserLog("NewCardActivity", "goHome");
 
                 Intent intent_gomain = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent_gomain);
@@ -168,6 +170,8 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
         builder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                recordUserLog("NewCardActivity", "quitApp");
+
                 finish();
                 dialog.dismiss();
             }
@@ -185,83 +189,6 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
         return dateFormat.format(date);
     }
 
-//    /**
-//     *
-//     * @param outputStyle   1:30개씩 2세트, 2:2세트 30개, 3:30 times X 2 sets
-//     * @param rawGoal       Raw String
-//     * @return              Parsed/Refined String
-//     */
-//    private String parseRoutineGoal(int outputStyle, String rawGoal) {
-//
-//        String goalSentence = "";
-//
-//        //Default: style 3
-//        outputStyle = 3;
-//
-//        //Type 1. 3|15|-1
-//        //Type 2. 2|-1|60
-//
-//        int goalType = 0;   //1: count times, 2: count secs, 3: count times & secs
-//
-//        String set = "";    //sets
-//        String count = "";  //times
-//        String time = "";   //secs
-//
-//        StringTokenizer tokens = new StringTokenizer(rawGoal, "|");
-//        set = tokens.nextToken();
-//        count = tokens.nextToken();
-//        time = tokens.nextToken();
-//
-//        Log.d("TokenizerExercise", "set[" + set + "], count[" + count + "], time[" + "]");
-//
-//        //Single or multiple
-//        int intSet = Integer.parseInt(set);
-//        int intCount = Integer.parseInt(count);
-//        int intTime = Integer.parseInt(time);
-//
-//        set += " SET";
-//        count += " TIME";
-//        time += " SEC";
-//
-//        //Check goal type
-//        if (intCount == -1) {
-//            goalType = 2;
-//        }
-//        if (intTime == -1) {
-//            goalType = 1;
-//        }
-//        if (intTime != -1 && intCount != -1) {
-//            goalType = 3;
-//        }
-//
-//        if (intSet > 1) {
-//            set += "S";
-//        }
-//        if (intCount > 1) {
-//            count += "S";
-//        }
-//        if (intTime > 1) {
-//            time += "S";
-//        }
-//
-//        switch (goalType) {
-//            //Count times (회수)
-//            case 1:
-//                goalSentence = count + " X " + set;
-//                break;
-//            //Count secs (시간)
-//            case 2:
-//                goalSentence = time + " X " + set;
-//                break;
-//            // Count both times & secs
-//            case 3:
-//                goalSentence = count + " X " + set + " (" + time + ")";
-//                break;
-//        }
-//
-//        return goalSentence;
-//
-//    }
 
     public void mOnClick(View v) {
         switch (v.getId()) {
@@ -275,6 +202,7 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
 
                 if (tmpQuestion.length() > 0 && tmpAnswer.length() > 0) {
 
+                    recordUserLog("NewCardActivity", "makeNewCard");
 
                     int cardType;
 
@@ -333,6 +261,8 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
             builder.setPositiveButton("CLOSE", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    recordUserLog("NewCardActivity", "goHome");
+
                     finish();
 
                     dialog.dismiss();
@@ -345,6 +275,7 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
             builder.setPositiveButton("Go to 1DNQ", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    recordUserLog("NewCardActivity", "goHome");
 
                     Intent intent_gomain = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent_gomain);
@@ -356,6 +287,8 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
             builder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    recordUserLog("NewCardActivity", "quitApp");
+
                     finish();
                     dialog.dismiss();
                 }

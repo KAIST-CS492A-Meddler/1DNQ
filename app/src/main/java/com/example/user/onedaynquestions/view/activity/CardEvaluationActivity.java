@@ -86,6 +86,7 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
     public void mOnClick(View v) {
         switch (v.getId()) {
             case R.id.cardeval_btn_submit:
+                recordUserLog("CardEvaluationActivity", "submitEvaluation");
 
                 Toast.makeText(getApplicationContext(), "card_id: " + card_id +
                     "\nusefulness: " + cardeval_rb_usefulness.getRating() +
@@ -148,6 +149,8 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
                 break;
 
             case R.id.cardeval_iv_star:
+                recordUserLog("CardEvaluationActivity", "starCard");
+
                 if (card_star == 0) {
                     //nostar -> star
                     Toast.makeText(getApplicationContext(), "This card is starred.", Toast.LENGTH_SHORT).show();
@@ -184,6 +187,7 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
             builder.setPositiveButton("CLOSE", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    recordUserLog("CardEvaluationActivity", "finishCardSolving - Go to 1DNQ");
                     finish();
 
                     dialog.dismiss();
@@ -196,6 +200,7 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
             builder.setPositiveButton("Go to 1DNQ", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    recordUserLog("CardEvaluationActivity", "finishCardSolving - Go to 1DNQ");
 
                     Intent intent_gomain = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent_gomain);
@@ -207,6 +212,7 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
             builder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    recordUserLog("CardEvaluationActivity", "quitApp");
                     finish();
                     dialog.dismiss();
                 }

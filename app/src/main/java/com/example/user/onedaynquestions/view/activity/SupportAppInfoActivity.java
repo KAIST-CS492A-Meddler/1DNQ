@@ -53,6 +53,7 @@ public class SupportAppInfoActivity extends AppCompatActivity implements AsyncRe
 
         switch (item.getItemId()) {
             case android.R.id.home:
+                recordUserLog("SupportAppInfoActivity", "goHome");
                 onBackPressed();
                 break;
         }

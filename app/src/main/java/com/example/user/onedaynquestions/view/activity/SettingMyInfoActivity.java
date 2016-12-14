@@ -119,6 +119,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
             showAlert();
         } else {
             if (networkInfo.isConnected()) {
+                recordUserLog("SettingMyInfoActivity", "getToken");
                 MainActivity.token = FirebaseInstanceId.getInstance().getToken();
                 if (MainActivity.token != null) {
                     Log.d("TOKEN", MainActivity.token);
@@ -252,6 +253,8 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
                     getUserTask.execute("http://110.76.95.150/get_user.php");
 
                     if (!isUserInfoInServer) {
+                        recordUserLog("SettingMyInfoActivity", "createAccount");
+
                         //Server request
                         HashMap postData = new HashMap();
 
@@ -272,6 +275,8 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
                         }
 
                     } else {
+                        recordUserLog("SettingMyInfoActivity", "updateAccount");
+
                         //Server request
                         HashMap postData = new HashMap();
 
@@ -330,6 +335,8 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
                     }
 
                 } else {
+                    recordUserLog("SettingMyInfoActivity", "warned - no mandatory info");
+
                     Toast.makeText(getApplicationContext(), "Please fill out mandatory information", Toast.LENGTH_SHORT).show();
                 }
 
@@ -343,6 +350,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
 
         switch (item.getItemId()) {
             case android.R.id.home:
+                recordUserLog("SettingMyInfoActivity", "goHome");
                 onBackPressed();
                 break;
         }

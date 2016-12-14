@@ -127,14 +127,17 @@ public class CardAnswerSheetActivity extends AppCompatActivity implements AsyncR
 
         switch (v.getId()) {
             case R.id.cardanswer_btn_wrong:
+                recordUserLog("CardAnswerSheetActivity", "selfEvaluate (Wrong)");
                 MainActivity.odnqDB.updateMyInfoCardAnswer(MainActivity.odnqDB.getMyInfo().getMyInfoId(), 0);
 
                 Log.d("CardAnswerUpdate", "# of wrong: " + MainActivity.odnqDB.getMyInfo().getMyInfoAnswerWrong());
+
 
                 intent_goeval.putExtra("self_eval", 0);
                 startActivity(intent_goeval);
                 break;
             case R.id.cardanswer_btn_right:
+                recordUserLog("CardAnswerSheetActivity", "selfEvaluate (Right)");
                 MainActivity.odnqDB.updateMyInfoCardAnswer(MainActivity.odnqDB.getMyInfo().getMyInfoId(), 1);
 
                 Log.d("CardAnswerUpdate", "# of right: " + MainActivity.odnqDB.getMyInfo().getMyInfoAnswerRight());
