@@ -435,7 +435,7 @@ public class LocalDBController extends SQLiteOpenHelper{
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String selectQuery = "SELECT * FROM " + TABLE_DAILYRECORD;
+        String selectQuery = "SELECT * FROM " + TABLE_DAILYRECORD + " ORDER BY " + ATTR_DR_DATETIME + " DESC LIMIT 10";
 
         Cursor c = db.rawQuery(selectQuery, null);
 

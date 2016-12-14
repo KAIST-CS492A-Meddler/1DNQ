@@ -35,11 +35,18 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
         MyCard tmpCard = cardList.get(position);
 
         if (tmpCard.getMyCardStarred() == 1) {
-            holder.tagview.setBackgroundColor(Color.parseColor("#ffc90e"));
+            holder.tagviewStarred.setVisibility(View.VISIBLE);
+            holder.tagviewStarred.setBackgroundColor(Color.parseColor("#ffc90e"));
+        } else {
+            holder.tagviewStarred.setVisibility(View.GONE);
         }
 
+
         if (tmpCard.getMyCardWrong() > 0) {
-            holder.tagview.setBackgroundColor(Color.parseColor("#e7406f"));
+            holder.tagviewWrong.setVisibility(View.VISIBLE);
+            holder.tagviewWrong.setBackgroundColor(Color.parseColor("#e7406f"));
+        } else {
+            holder.tagviewWrong.setVisibility(View.GONE);
         }
 
         holder.question.setText(tmpCard.getMyCardQuestion());
