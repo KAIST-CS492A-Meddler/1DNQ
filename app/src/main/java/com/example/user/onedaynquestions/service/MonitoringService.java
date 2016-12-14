@@ -30,7 +30,7 @@ import java.util.Locale;
 import java.util.Random;
 
 public class MonitoringService extends Service implements AsyncResponse {
-    private int dt = 1000 * 60 * 180, totalTime = 180 * 60 * 1000; //millisecond
+    private int dt = 60 * 60 * 1000, totalTime = 60 * 60 * 1000; //millisecond
     private long counter = 0;
 
     public MonitoringService() {
