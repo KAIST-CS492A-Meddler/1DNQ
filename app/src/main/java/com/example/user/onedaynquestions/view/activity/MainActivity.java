@@ -231,6 +231,10 @@ public class MainActivity extends AppCompatActivity
             isMonitoringServiceOn = true;
         }
 
+
+        updateListener = new BroadReceiver();
+        registerReceiver(updateListener, filter);
+
     }
     public void checkDrawOverlayPermission() {
         if (Build.VERSION.SDK_INT >= 23) {
@@ -350,8 +354,6 @@ public class MainActivity extends AppCompatActivity
             Log.d("LocalDatabase", "[MainActivity] userLoginNum: " + odnqDB.getMyInfo().getMyInfoLoginNum());
         }
 
-        updateListener = new BroadReceiver();
-        registerReceiver(updateListener, filter);
 
 
         super.onResume();
