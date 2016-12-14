@@ -105,6 +105,8 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
             initToken();
         }
 
+        recordUserLog("SettingMyInfoActivity", "onCreate");
+
         initWidgets();
         initWidgetValues();
     }

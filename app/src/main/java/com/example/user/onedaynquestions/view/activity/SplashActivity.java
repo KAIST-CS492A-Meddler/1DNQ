@@ -27,6 +27,8 @@ public class SplashActivity extends Activity implements AsyncResponse {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        recordUserLog("SplashActivity", "onCreate");
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

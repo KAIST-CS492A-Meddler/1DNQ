@@ -148,6 +148,8 @@ public class MainActivity extends AppCompatActivity
         /** Initialize Widget First **/
         initWidgets();
 
+        recordUserLog("MainActivity", "onCreate");
+
 
         /** TAB LAYOUT & FRAGMENTS **/
         tabLayout = (TabLayout) findViewById(R.id.main_tablayout);
@@ -200,6 +202,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                 //TODO: User login되어 있지 않고 그룹에 속해있지 않으면, Card를 만들 수 없도록 예외처리
                 if (odnqDB.getMyInfo() == null) {

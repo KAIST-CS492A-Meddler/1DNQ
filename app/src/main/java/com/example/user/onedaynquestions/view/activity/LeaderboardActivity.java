@@ -89,6 +89,9 @@ public class LeaderboardActivity extends AppCompatActivity implements AsyncRespo
 
         memberListAdapter.notifyDataSetChanged();
 
+        recordUserLog("LeaderboardActivity", "onCreate");
+
+
         initWidget();
         initWidgetValue();
 

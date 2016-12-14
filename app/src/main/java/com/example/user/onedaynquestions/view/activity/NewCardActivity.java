@@ -65,6 +65,9 @@ public class NewCardActivity extends AppCompatActivity implements AsyncResponse 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newcard);
 
+        recordUserLog("NewCardActivity", "onCreate");
+
+
 //        Intent intent = getIntent();
 //        selectedRoutine = (MyRoutine) intent.getSerializableExtra("selectedRoutine");
 

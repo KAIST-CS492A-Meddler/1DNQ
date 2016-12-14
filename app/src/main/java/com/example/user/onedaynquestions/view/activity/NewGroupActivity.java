@@ -46,6 +46,9 @@ public class NewGroupActivity extends AppCompatActivity implements AsyncResponse
         Intent intent = getIntent();
         selectedRoutine = (MyRoutine) intent.getSerializableExtra("selectedRoutine");
 
+        recordUserLog("NewGroupActivity", "onCreate");
+
+
         initWidgets();
 
         if (selectedRoutine == null) {

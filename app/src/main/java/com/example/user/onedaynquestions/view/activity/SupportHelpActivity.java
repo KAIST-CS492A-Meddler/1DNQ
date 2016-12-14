@@ -29,6 +29,9 @@ public class SupportHelpActivity extends AppCompatActivity implements AsyncRespo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support_help);
 
+        recordUserLog("SupportHelpActivity", "onCreate");
+
+
 //        toolbar = (Toolbar) findViewById(R.id.toolbar);
 //
 //        toolbar.setTitle("도움말");

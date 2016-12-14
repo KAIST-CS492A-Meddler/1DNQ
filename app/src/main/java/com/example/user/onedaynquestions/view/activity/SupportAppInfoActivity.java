@@ -43,6 +43,9 @@ public class SupportAppInfoActivity extends AppCompatActivity implements AsyncRe
 
         actionBar.setTitle("App Information");
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+
+        recordUserLog("SupportAppInfoActivity", "onCreate");
+
     }
 
     @Override

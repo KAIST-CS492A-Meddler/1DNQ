@@ -73,6 +73,8 @@ public class CardAnswerSheetActivity extends AppCompatActivity implements AsyncR
         thisActivity = this;
         setContentView(R.layout.activity_cardanswersheet);
 
+        recordUserLog("CardAnswerSheetActivity", "onCreate");
+
         initWidget();
         initWidgetValue(card_type, card_question, card_answer, my_answer);
 

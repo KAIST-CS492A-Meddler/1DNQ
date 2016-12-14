@@ -45,6 +45,9 @@ public class SettingAppInfoActivity extends AppCompatActivity implements AsyncRe
 
         actionBar.setTitle("앱 설정");
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+
+        recordUserLog("SettingAppInfoActivity", "onCreate");
+
     }
 
     @Override

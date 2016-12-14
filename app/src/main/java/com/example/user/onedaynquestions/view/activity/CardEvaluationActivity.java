@@ -66,6 +66,8 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
         cardeval_rb_difficulty = (RatingBar) findViewById(R.id.cardeval_rb_difficulty);
         cardeval_iv_star = (ImageView) findViewById(R.id.cardeval_iv_star);
 
+        recordUserLog("CardEvaluationActivity", "onCreate");
+
 
     }
 

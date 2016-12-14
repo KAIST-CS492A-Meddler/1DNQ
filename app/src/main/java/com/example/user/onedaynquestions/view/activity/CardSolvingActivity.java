@@ -53,7 +53,8 @@ public class CardSolvingActivity extends AppCompatActivity implements AsyncRespo
         super.onCreate(savedInstanceState);
 
 
-        //TODO: Floating button 없애기
+        recordUserLog("CardSolvingActivity", "onCreate");
+
 
         count = 0;
         thisActivity = this;

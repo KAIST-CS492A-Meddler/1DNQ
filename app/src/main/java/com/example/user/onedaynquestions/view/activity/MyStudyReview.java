@@ -86,69 +86,9 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
         appendQuestion(DAILY, new MyCard());
         appendQuestion(WRONGANSWER, new MyCard());
 
-        initCards();
+        recordUserLog("MyStudyReview", "onCreate");
 
-//        myHereAgents = new ArrayList<MyHereAgent>();
-//        selectedNewAgent = new MyHereAgent();
-//
-//        actionBar.setTitle("My Study Review");
-//        actionBar.setDefaultDisplayHomeAsUpEnabled(true);
-//
-//        ListView listView = (ListView) findViewById(R.id.setting_myeq_list_registered);
-//        adapter = new ListViewAdapter();
-//        listView.setAdapter(adapter);
-//        adapter.notifyDataSetChanged();
-//        mHandler = new Handler();
-//
-//        // Use this check to determine whether BLE is supported on the device.  Then you can
-//        // selectively disable BLE-related features.
-//        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-//            Toast.makeText(this, "You need BLE support device", Toast.LENGTH_SHORT).show();
-//            finish();
-//        }
-//        // Initializes a Bluetooth adapter.  For API level 18 and above, get a reference to
-//        // BluetoothAdapter through BluetoothManager.
-//        final BluetoothManager bluetoothManager =
-//                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-//        mBluetoothAdapter = bluetoothManager.getAdapter();
-//
-//        // Checks if Bluetooth is supported on the device.
-//        if (mBluetoothAdapter == null) {
-//            Toast.makeText(this, "You need BLUETOOTH support device", Toast.LENGTH_SHORT).show();
-//            finish();
-//        }
-//
-//        equipListAdapter = new HERE_DeviceListAdapter();
-//        lvEquipList = (ListView) findViewById(R.id.setting_myeq_list_bluetooth);
-//        lvEquipList.setAdapter(equipListAdapter);
-//
-//        scanLeDevice(true);
-//
-//        lvEquipList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////                Toast.makeText(getApplicationContext(), "lvEquipList.setOnItemClickListener", Toast.LENGTH_SHORT).show();
-//
-//                String majorId = parseMajorId(mLEdeviceList.get(position).getName());
-//                String minorId = parseMinorId(mLEdeviceList.get(position).getName());
-//                int eqType = getTypeByMinorId(minorId);
-//
-//                selectedNewAgent.setMyeqMacId(mLEdeviceList.get(position).getAddress());
-//                selectedNewAgent.setMyeqType(eqType);
-//                selectedNewAgent.setMyeqBeaconMajorId(majorId);
-//                selectedNewAgent.setMyeqBeaconMinorId(minorId);
-//
-//                Log.d("parseIDs", "mLEdeviceList.get(position).getName(): " + mLEdeviceList.get(position).getName());
-//
-//                Log.d("parseIDs", "Major ID: " + majorId);
-//                Log.d("parseIDs", "Major ID: " + minorId);
-//                Log.d("parseIDs", "Agent type: " + eqType);
-//
-//                showAddAgentDialog();
-//
-//                scanLeDevice(false);
-//            }
-//        });
+        initCards();
 
     }
 
