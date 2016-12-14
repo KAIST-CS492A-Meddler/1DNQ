@@ -11,10 +11,13 @@ import com.example.user.onedaynquestions.R;
  */
 public class CardViewHolder extends RecyclerView.ViewHolder{
     public TextView question, group, examiner, date;
-    public View tagview;
+    public View tagviewStarred, tagviewWrong;
     public CardViewHolder(View cardView){
         super(cardView);
-        tagview = (View)cardView.findViewById(R.id.card_tagcolor);
+
+        tagviewStarred = (View)cardView.findViewById(R.id.card_tagcolorstarred);
+        tagviewWrong = (View)cardView.findViewById(R.id.card_tagcolorwrong);
+
         question = (TextView)cardView.findViewById(R.id.card_question);
         group = (TextView)cardView.findViewById(R.id.card_group);
         examiner = (TextView)cardView.findViewById(R.id.card_examiner);

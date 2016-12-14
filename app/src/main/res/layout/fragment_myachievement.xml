@@ -269,7 +269,7 @@
                     android:textColor="@color/colorSkyBlue"
                     android:textStyle="bold"
                     android:textSize="18dp"
-                    android:text="Weekly Contribution"/>
+                    android:text="Recent Contribution"/>
 
             </LinearLayout>
 
@@ -321,7 +321,7 @@
                     android:textColor="@color/colorSkyBlue"
                     android:textStyle="bold"
                     android:textSize="18dp"
-                    android:text="Weekly Study Record"/>
+                    android:text="Recent Study Record"/>
 
             </LinearLayout>
 

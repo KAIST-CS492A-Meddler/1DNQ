@@ -143,24 +143,51 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorSkyBlue"
-                android:textStyle="bold"
-                android:layout_marginTop="40dp"
-                android:gravity="center_horizontal"
-                android:text="Press back if you want to leave this screen"/>
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@color/colorSkyBlue"-->
+                <!--android:textStyle="bold"-->
+                <!--android:layout_marginTop="40dp"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:text="Press back if you want to leave this screen"/>-->
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorSkyBlue"
                 android:textStyle="bold"
-                android:layout_marginBottom="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="15dp"
                 android:gravity="center_horizontal"
                 android:textSize="20dp"
-                android:text="Please register your account first"/>
+                android:text="Card types"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/odnq_help_card_01"/>
+
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/odnq_help_card_02"/>
+
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/odnq_help_card_03"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
