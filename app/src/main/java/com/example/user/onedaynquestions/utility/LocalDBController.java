@@ -28,7 +28,7 @@ public class LocalDBController extends SQLiteOpenHelper{
     private static final String TAG_DB = "LocalDBController";
 
     private static final String DATABASE_NAME = "odnqDB.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
 
     /* Database tables in ODNQ_DB */
     private static final String TABLE_MYINFO = "MyInfo";

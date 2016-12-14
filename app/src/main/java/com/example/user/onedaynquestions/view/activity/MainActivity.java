@@ -497,10 +497,21 @@ public class MainActivity extends AppCompatActivity
 //                break;
             //My exercise equipments
             case R.id.nav_mycards:
-                recordUserLog("MainActivity", "navItemSelect - nav_mycards");
+                if (odnqDB != null) {
+                    if (odnqDB.getMyInfo() != null) {
+                        recordUserLog("MainActivity", "navItemSelect - nav_mycards");
 //                Toast.makeText(getApplicationContext(), "MY EXERCISE EQUIPMENTS", Toast.LENGTH_SHORT).show();
-                Intent intent_myequipments = new Intent(getApplicationContext(), MyStudyReview.class);
-                startActivityForResult(intent_myequipments, REQUEST_REFRESH);
+                        Intent intent_myequipments = new Intent(getApplicationContext(), MyStudyReview.class);
+                        startActivityForResult(intent_myequipments, REQUEST_REFRESH);
+
+                    }else {
+                        Toast.makeText(getApplicationContext(), "Please register your account first\n" +
+                                "Side menu > My Information", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Please register your account first\n" +
+                            "Side menu > My Information", Toast.LENGTH_SHORT).show();
+                }
                 break;
 //            //My exercise routines
 //            case R.id.nav_myroutine:
@@ -510,10 +521,21 @@ public class MainActivity extends AppCompatActivity
 //                break;
             //My exercise record
             case R.id.nav_leaderboard:
-                recordUserLog("MainActivity", "navItemSelect - nav_leaderboard");
+
+                if (odnqDB != null) {
+                    if (odnqDB.getMyInfo() != null) {
+                        recordUserLog("MainActivity", "navItemSelect - nav_leaderboard");
 //                Toast.makeText(getApplicationContext(), "MY EXERCISE RECORDS", Toast.LENGTH_SHORT).show();
-                Intent intent_myrecords = new Intent(getApplicationContext(), LeaderboardActivity.class);
-                startActivityForResult(intent_myrecords, REQUEST_REFRESH);
+                        Intent intent_myrecords = new Intent(getApplicationContext(), LeaderboardActivity.class);
+                        startActivityForResult(intent_myrecords, REQUEST_REFRESH);
+                    }else {
+                        Toast.makeText(getApplicationContext(), "Please register your account first\n" +
+                                "Side menu > My Information", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Please register your account first\n" +
+                            "Side menu > My Information", Toast.LENGTH_SHORT).show();
+                }
                 break;
             //My information setting
             case R.id.nav_mng_myinfo:
