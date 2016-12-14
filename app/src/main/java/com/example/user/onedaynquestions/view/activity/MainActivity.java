@@ -128,6 +128,8 @@ public class MainActivity extends AppCompatActivity
         if (odnqDB.getMyInfo() != null) {
             countMyCardNum(odnqDB.getMyInfo().getMyInfoId());
             odnqDB.updateMyInfoLoginNum(odnqDB.getMyInfo().getMyInfoId());
+            recordUserLog("LOGIN", "loginNum: " + odnqDB.getMyInfo().getMyInfoLoginNum());
+
         }
 
 
@@ -436,10 +438,25 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.nav_newcard:
                 recordUserLog("MainActivity", "navItemSelect - nav_newcard");
-                PostResponseAsyncTask loginTask =
-                        new PostResponseAsyncTask(MainActivity.this);
-                loginTask.execute("http://110.76.95.150/push_notification2.php");
-                Toast.makeText(getApplicationContext(), "A new card is requested.", Toast.LENGTH_SHORT).show();
+
+                if (odnqDB != null) {
+                    if (odnqDB.getMyInfo() != null) {
+                        HashMap postData = new HashMap();
+                        postData.put("userinfo_id", odnqDB.getMyInfo().getMyInfoId());
+
+                        PostResponseAsyncTask requestNewCardTask =
+                                new PostResponseAsyncTask(MainActivity.this, postData);
+                        requestNewCardTask.execute("http://110.76.95.150/push_notification1.php");
+                        Toast.makeText(getApplicationContext(), "A new card is requested.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Please register your account first\n" +
+                                "Side menu > My Information", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Please register your account first\n" +
+                            "Side menu > My Information", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
 
             case R.id.nav_dblocal:
