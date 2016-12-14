@@ -65,6 +65,10 @@ public class FloatingButtonService extends Service {
         magWidth = originWidth * 2;
         magHeight= originHeight * 2;
 
+        if(FloatingButtonService.xPos < 0){
+            FloatingButtonService.xPos = screenWidth;
+            FloatingButtonService.yPos = originHeight;
+        }
         layoutParams = new WindowManager.LayoutParams(
                 originWidth,
                 originHeight,
@@ -91,8 +95,8 @@ public class FloatingButtonService extends Service {
                 WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
                 PixelFormat.TRANSLUCENT);
         layoutParamsBackground .gravity = Gravity.LEFT | Gravity.TOP;
-        layoutParamsBackground.x = (screenWidth - magWidth)/ 2;
-        layoutParamsBackground.y = (screenHeight - magHeight)/ 2;
+        layoutParamsBackground.x = (screenWidth - originWidth)/ 2;
+        layoutParamsBackground.y = 0;
         windowManager.addView(backgroundView,layoutParamsBackground);
 
 
