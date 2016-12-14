@@ -435,6 +435,7 @@ public class MainActivity extends AppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.nav_newcard:
+                recordUserLog("MainActivity", "navItemSelect - nav_newcard");
                 PostResponseAsyncTask loginTask =
                         new PostResponseAsyncTask(MainActivity.this);
                 loginTask.execute("http://110.76.95.150/push_notification2.php");
@@ -442,6 +443,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_dblocal:
+                recordUserLog("MainActivity", "navItemSelect - nav_dblocal");
                 Toast.makeText(getApplicationContext(), "Local DB Test Activity", Toast.LENGTH_SHORT).show();
                 Intent intent_dblocal = new Intent(getApplicationContext(), DBLocalTestActivity.class);
                 startActivityForResult(intent_dblocal, REQUEST_REFRESH);
@@ -478,6 +480,7 @@ public class MainActivity extends AppCompatActivity
 //                break;
             //My exercise equipments
             case R.id.nav_mycards:
+                recordUserLog("MainActivity", "navItemSelect - nav_mycards");
 //                Toast.makeText(getApplicationContext(), "MY EXERCISE EQUIPMENTS", Toast.LENGTH_SHORT).show();
                 Intent intent_myequipments = new Intent(getApplicationContext(), MyStudyReview.class);
                 startActivityForResult(intent_myequipments, REQUEST_REFRESH);
@@ -490,18 +493,21 @@ public class MainActivity extends AppCompatActivity
 //                break;
             //My exercise record
             case R.id.nav_leaderboard:
+                recordUserLog("MainActivity", "navItemSelect - nav_leaderboard");
 //                Toast.makeText(getApplicationContext(), "MY EXERCISE RECORDS", Toast.LENGTH_SHORT).show();
                 Intent intent_myrecords = new Intent(getApplicationContext(), LeaderboardActivity.class);
                 startActivityForResult(intent_myrecords, REQUEST_REFRESH);
                 break;
             //My information setting
             case R.id.nav_mng_myinfo:
+                recordUserLog("MainActivity", "navItemSelect - mng_myinfo");
 //                Toast.makeText(getApplicationContext(), "MY INFORMATION SETTING", Toast.LENGTH_SHORT).show();
                 Intent intent_settingmyinfo = new Intent(getApplicationContext(), SettingMyInfoActivity.class);
                 startActivityForResult(intent_settingmyinfo, REQUEST_REFRESH);
                 break;
             //Help
             case R.id.nav_mng_showhelp:
+                recordUserLog("MainActivity", "navItemSelect - showhelp");
 //                Toast.makeText(getApplicationContext(), "SHOW HELP DIALOG", Toast.LENGTH_SHORT).show();
 
                 SupportHelpFragment fragment = new SupportHelpFragment();
@@ -518,6 +524,8 @@ public class MainActivity extends AppCompatActivity
                 break;
             //Application information
             case R.id.nav_mng_showappinfo:
+                recordUserLog("MainActivity", "navItemSelect - showappinfo");
+
 //                Toast.makeText(getApplicationContext(), "SHOW APP INFO DIALOG", Toast.LENGTH_SHORT).show();
 
 //                MainActivity.hereDB.dropAllTables();
@@ -553,7 +561,7 @@ public class MainActivity extends AppCompatActivity
 
                 }
                 FirebaseMessaging.getInstance().subscribeToTopic("test");
-                Toast.makeText(this, "Connected to Firebase server.", Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "Connected to Firebase server.", Toast.LENGTH_LONG).show();
             } else {
                 showAlert();
             }
@@ -580,7 +588,7 @@ public class MainActivity extends AppCompatActivity
                         token = FirebaseInstanceId.getInstance().getToken();
                         Log.d("TOKEN", token);
                         FirebaseMessaging.getInstance().subscribeToTopic("test");
-                        Toast.makeText(MainActivity.this, "Connected to Firebase server.", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(MainActivity.this, "Connected to Firebase server.", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(MainActivity.this, "Please check your network connection.", Toast.LENGTH_LONG).show();
                     }

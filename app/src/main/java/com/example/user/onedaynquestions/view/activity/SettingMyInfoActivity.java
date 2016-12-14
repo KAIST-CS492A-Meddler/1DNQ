@@ -127,7 +127,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
 
                 }
                 FirebaseMessaging.getInstance().subscribeToTopic("test");
-                Toast.makeText(this, "Connected to Firebase server.", Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "Connected to Firebase server.", Toast.LENGTH_LONG).show();
             } else {
                 showAlert();
             }
@@ -431,7 +431,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
                         MainActivity.token = FirebaseInstanceId.getInstance().getToken();
                         Log.d("TOKEN", MainActivity.token);
                         FirebaseMessaging.getInstance().subscribeToTopic("test");
-                        Toast.makeText(SettingMyInfoActivity.this, "Connected to Firebase server.", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(SettingMyInfoActivity.this, "Connected to Firebase server.", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(SettingMyInfoActivity.this, "Please check your network connection.", Toast.LENGTH_LONG).show();
                     }
