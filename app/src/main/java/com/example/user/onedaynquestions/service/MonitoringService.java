@@ -30,8 +30,10 @@ import java.util.Locale;
 import java.util.Random;
 
 public class MonitoringService extends Service implements AsyncResponse {
-    private int dt = 60 * 60 * 1000, totalTime = 60 * 60 * 1000; //millisecond
+    private int dt =  30 * 60 * 1000, totalTime = 31 * 60 * 1000; //millisecond
     private long counter = 0;
+
+    CountDownTimer watchDog;
 
     public MonitoringService() {
     }
@@ -46,7 +48,7 @@ public class MonitoringService extends Service implements AsyncResponse {
     public int onStartCommand(Intent intent, int flags, int startId) {
         // TODO Auto-generated method stub
 
-        CountDownTimer watchDog = new CountDownTimer(totalTime, dt) {
+        watchDog = new CountDownTimer(totalTime, dt) {
             @Override
             public void onTick(long l) {
 //                Log.d("Watch Dog","" + counter++);
@@ -56,6 +58,8 @@ public class MonitoringService extends Service implements AsyncResponse {
 
                 if (MainActivity.odnqDB != null) {
                     if (MainActivity.odnqDB.getMyInfo() != null) {
+                        Log.d("DailyRecord", "There is DB and we request get_user");
+
                         HashMap postData = new HashMap();
                         postData.put("userinfo_id", MainActivity.odnqDB.getMyInfo().getMyInfoId());
 
@@ -65,9 +69,13 @@ public class MonitoringService extends Service implements AsyncResponse {
                         getUserTask.execute("http://110.76.95.150/get_user.php");
 
                     } else {
+                        Log.d("DailyRecord", "getMyInfo() is null");
                         onFinish();
                     }
 
+                } else {
+                    Log.d("DailyRecord", "odnqDB is null");
+                    onFinish();
                 }
             }
 
@@ -126,6 +134,12 @@ public class MonitoringService extends Service implements AsyncResponse {
                 jarray = new JSONArray(jsonString);
                 JSONObject jObject = jarray.getJSONObject(0);
 
+                if (jarray == null) {
+                    Log.d("DailyRecord", "jarray is null");
+
+                }
+
+
                 dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
 
 
@@ -152,6 +166,10 @@ public class MonitoringService extends Service implements AsyncResponse {
                     Log.d("DailyRecord", "A unit record is inserted into DB.");
                     Log.d("DailyRecord", "- Date: " + dateFormat.format(date));
                     Log.d("DailyRecord", "- Contribution: " + jObject.getInt("user_exp"));
+                    Log.d("DailyRecord", "- Right: " + MainActivity.odnqDB.getMyInfo().getMyInfoAnswerRight());
+                    Log.d("DailyRecord", "- Wrong: " + MainActivity.odnqDB.getMyInfo().getMyInfoAnswerWrong());
+
+
 
                     recordUserLog("HOURLY_USER_LOG - dateTime", dateTime);
                     recordUserLog("HOURLY_USER_LOG - userExp", "" + jObject.getInt("user_exp"));

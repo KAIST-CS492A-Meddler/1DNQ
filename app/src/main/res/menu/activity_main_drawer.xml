@@ -10,11 +10,15 @@
 
         </menu>
     </item>
-    <item android:title="New Question">
+    <item android:title="New Question Card">
         <menu>
             <item
+                android:id="@+id/nav_makenewcard"
+                android:icon="@drawable/odnq_nav_icon_makenewcard"
+                android:title="Make a New Card" />
+            <item
                 android:id="@+id/nav_newcard"
-                android:icon="@drawable/odnq_nav_icon_newcard"
+                android:icon="@drawable/odnq_nav_icon_requestnewcard"
                 android:title="Request a New Card" />
 
         </menu>

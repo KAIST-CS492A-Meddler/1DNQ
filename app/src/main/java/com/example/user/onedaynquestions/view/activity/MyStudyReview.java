@@ -137,7 +137,7 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
                 if (myCardList != null){
                     Log.d("AppendCardList", "[MyStudyReview] wrongCardList - size: " + myCardList.size());
 
-                    for (int i = 0; i < wrongCardList.size(); i++) {
+                    for (int i = 0; i < myCardList.size(); i++) {
                         appendQuestion(MYCARD, myCardList.get(i));
                     }
                 }

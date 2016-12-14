@@ -120,6 +120,17 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG_DB, "[Database] LocalDBController is created.");
         }
 
+        if (odnqDB.countTableMyInfo() == 0) {
+            SupportHelpFragment fragment = new SupportHelpFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            transaction.add(R.id.container, fragment, "instruction");
+            transaction.addToBackStack("instruction");
+
+            transaction.commit();
+        }
+
         /** GLOBAL VARIABLE **/
         //myCardNum = 0;
 
@@ -436,6 +447,21 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         switch (item.getItemId()) {
+            case R.id.nav_makenewcard:
+                recordUserLog("MainActivity", "navItemSelect - nav_makenewcard");
+                if (odnqDB != null) {
+                    if (odnqDB.getMyInfo() != null) {
+                        Intent intent_newcard = new Intent(getApplicationContext(), NewCardActivity.class);
+                        startActivityForResult(intent_newcard, REQUEST_REFRESH);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Please register your account first\n" +
+                                "Side menu > My Information", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Please register your account first\n" +
+                            "Side menu > My Information", Toast.LENGTH_SHORT).show();
+                }
+                break;
             case R.id.nav_newcard:
                 recordUserLog("MainActivity", "navItemSelect - nav_newcard");
 
@@ -585,9 +611,7 @@ public class MainActivity extends AppCompatActivity
         //awaken when screen is off
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
-//        IntentFilter intentfilter = new IntentFilter();
-//        intentfilter.addAction(".service.PushReceiver");
-        //이 부분을 클라이언트마다 다르게 subscribe하면 가능?
+
         isOnline();
         if(networkInfo == null){
             showAlert();

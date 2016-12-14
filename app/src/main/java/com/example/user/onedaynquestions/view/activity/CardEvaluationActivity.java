@@ -19,6 +19,7 @@ import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.model.MyCard;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
+import com.example.user.onedaynquestions.utility.LocalDBController;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 
 import org.w3c.dom.Text;
@@ -88,10 +89,10 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
             case R.id.cardeval_btn_submit:
                 recordUserLog("CardEvaluationActivity", "submitEvaluation");
 
-                Toast.makeText(getApplicationContext(), "card_id: " + card_id +
-                    "\nusefulness: " + cardeval_rb_usefulness.getRating() +
-                    "\ndifficulty: " + cardeval_rb_difficulty.getRating() +
-                    "\nself_eval: " + self_eval, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "card_id: " + card_id +
+//                    "\nusefulness: " + cardeval_rb_usefulness.getRating() +
+//                    "\ndifficulty: " + cardeval_rb_difficulty.getRating() +
+//                    "\nself_eval: " + self_eval, Toast.LENGTH_SHORT).show();
 
                 HashMap postData = new HashMap();
                 postData.put("userinfo_id", MainActivity.odnqDB.getMyInfo().getMyInfoId());
@@ -106,6 +107,9 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
                 updateCardTask.execute("http://110.76.95.150/solve_problem.php");
 
 //                Toast.makeText(getApplicationContext(), "Card information is updated", Toast.LENGTH_SHORT).show();
+
+                MainActivity.odnqDB = new LocalDBController(getApplicationContext());
+
 
                 if (MainActivity.odnqDB != null) {
                     ArrayList<MyCard> cardList = MainActivity.odnqDB.getMyCards(1, MainActivity.odnqDB.getMyInfo().getMyInfoId());

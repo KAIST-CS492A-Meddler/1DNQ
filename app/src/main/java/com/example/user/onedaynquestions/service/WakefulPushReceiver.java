@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.model.MyCard;
+import com.example.user.onedaynquestions.utility.LocalDBController;
+import com.example.user.onedaynquestions.view.activity.MainActivity;
 
 import java.util.ArrayList;
 
@@ -70,7 +72,14 @@ public class WakefulPushReceiver extends WakefulBroadcastReceiver {
                 //WakefulPushReceiver.addReccommendedQuestion(intent);
             }else {
                 //WakefulPushReceiver.addReceivedQuestion(intent);
-                pushNotification(context, new MyCard(intent));
+//                Log.d ("onMessageReceived", "context: " + context);
+//                Log.d ("onMessageReceived", "getApplicationContext: " + )
+
+                MainActivity.odnqDB = new LocalDBController(context);
+
+                MyCard tmpMyCard = new MyCard(intent);
+                MainActivity.odnqDB.insertMyCard(tmpMyCard);
+                pushNotification(context, tmpMyCard);
                 Toast.makeText
                         (context, "A new Question card has arrived!", Toast.LENGTH_SHORT).show();
             }

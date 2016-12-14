@@ -290,15 +290,29 @@
                 android:layout_height="1dp"
                 android:background="@color/colorSkyBlue"/>
 
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/weekly_contribution_gv"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:background="#eeeeee"
                 android:gravity="center"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:paddingLeft="15dp"/>
+                android:background="#eeeeee"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/weekly_contribution_gv"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:background="#eeeeee"
+                    android:gravity="center"
+                    android:paddingTop="26dp"
+                    android:paddingBottom="6dp"
+                    android:paddingLeft="15dp"/>
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:orientation="horizontal"

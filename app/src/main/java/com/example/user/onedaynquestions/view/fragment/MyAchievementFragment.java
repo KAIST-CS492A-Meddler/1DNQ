@@ -138,10 +138,10 @@ public class MyAchievementFragment extends Fragment{
             records = new ArrayList<>();
         }
         int recordSize = records.size();
-        for(int i  = records.size() ; i < numOfShow; i++){
-
-            records.add(i - recordSize, new UnitRecord());
-        }
+//        for(int i  = records.size() ; i < numOfShow; i++){
+//
+//            records.add(i - recordSize, new UnitRecord());
+//        }
         Date tempDateRecord;
         lastIndexOfRecords = records.size()-numOfShow;
         /*

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.user.onedaynquestions.R;
 import com.example.user.onedaynquestions.model.AsyncResponse;
 import com.example.user.onedaynquestions.service.FloatingButtonService;
+import com.example.user.onedaynquestions.utility.LocalDBController;
 import com.example.user.onedaynquestions.utility.PostResponseAsyncTask;
 
 import org.w3c.dom.Text;
@@ -124,6 +125,10 @@ public class CardAnswerSheetActivity extends AppCompatActivity implements AsyncR
     public void mOnClick(View v) {
         Intent intent_goeval = new Intent(getApplicationContext(), CardEvaluationActivity.class);
         intent_goeval.putExtra("card_id", card_id);
+
+        MainActivity.odnqDB = new LocalDBController(getApplicationContext());
+
+        Log.d("CardAnswerSheetIssue", "odnqDB is null? " + MainActivity.odnqDB);
 
         switch (v.getId()) {
             case R.id.cardanswer_btn_wrong:
