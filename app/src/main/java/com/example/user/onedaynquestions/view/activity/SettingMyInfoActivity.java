@@ -74,6 +74,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
     MyInfo myInfo;
 
     boolean isUserInfoInServer;
+    boolean isUserGotten;
 
     //    MyInformation myInformation;
     String android_id;
@@ -100,6 +101,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
 
         isUserInfoInServer = false;
+        isUserGotten = false;
 
         if (MainActivity.token == null) {
             initToken();
@@ -223,6 +225,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
             case R.id.setting_myinfo_btn_save:
 
 
+
                 String curMyInfo_id = "";
                 String curMyInfo_nick = "";
                 String curMyInfo_name = "";
@@ -251,6 +254,14 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
                             new PostResponseAsyncTask(SettingMyInfoActivity.this, getPostData);
 
                     getUserTask.execute("http://110.76.95.150/get_user.php");
+
+                    while (true) {
+                        if (isUserGotten) {
+                            break;
+                        }
+                    }
+
+
 
                     if (!isUserInfoInServer) {
                         recordUserLog("SettingMyInfoActivity", "createAccount");
@@ -383,6 +394,8 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
                     Log.d("JSONParser", "[DBServerTestActivity] This user_id is available.");
                     isUserInfoInServer = false;
                 }
+
+                isUserGotten = true;
             } catch (JSONException e) {
                 e.printStackTrace();
             }

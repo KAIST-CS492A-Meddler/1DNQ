@@ -35,7 +35,7 @@
                     android:textColor="@color/colorSkyBlue"
                     android:textStyle="bold"
                     android:textSize="18dp"
-                    android:text="Starred Question Cards"/>
+                    android:text="Starred Question Card Note"/>
 
             </LinearLayout>
 
@@ -101,7 +101,7 @@
                     android:textColor="@color/colorSkyBlue"
                     android:textStyle="bold"
                     android:textSize="18dp"
-                    android:text="Frequently Wrong Cards"/>
+                    android:text="Wrong Card Note"/>
 
             </LinearLayout>
 
@@ -166,7 +166,7 @@
                     android:textColor="@color/colorSkyBlue"
                     android:textStyle="bold"
                     android:textSize="18dp"
-                    android:text="Recommended Cards"/>
+                    android:text="Recommended Card Note"/>
 
             </LinearLayout>
 

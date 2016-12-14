@@ -746,7 +746,8 @@ public class MainActivity extends AppCompatActivity
                     WakefulPushReceiver.updated = false;
 
                     String maker = intent.getStringExtra(MyCard.ATTRIBUTE_CARD_ID);
-                    if(maker.contains("[system]")) {
+                    if(maker.equals("RECOMMEND BOT")) {
+
                         if (viewPager != null) {
                             viewPager.getAdapter().notifyDataSetChanged();
                         }

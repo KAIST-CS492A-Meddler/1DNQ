@@ -66,7 +66,7 @@ public class WakefulPushReceiver extends WakefulBroadcastReceiver {
         if(id != null) {
             //if (id.compareTo("1") == 0) {
             String maker = intent.getStringExtra(MyCard.ATTRIBUTE_CARD_ID);
-            if(maker.contains("[system]")) {
+            if(maker.equals("RECOMMEND BOT")) {
                 //WakefulPushReceiver.addReccommendedQuestion(intent);
             }else {
                 //WakefulPushReceiver.addReceivedQuestion(intent);
