@@ -470,6 +470,22 @@ public class LocalDBController extends SQLiteOpenHelper{
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /** COUNT TABLE QUERIES **/
 
+    public int countWrongCardNum() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String countQuery = "SELECT * FROM " + TABLE_MYCARD + " WHERE " + ATTR_MYCARD_WRONGNUM + " > 0";
+        Cursor c = db.rawQuery(countQuery, null);
+
+        if (c != null) {
+            int count = c.getCount();
+            c.close();
+
+            return count;
+        } else {
+            return 0;
+        }
+    }
+
     public int countTableMyInfo() {
         SQLiteDatabase db = this.getReadableDatabase();
 
