@@ -264,13 +264,35 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
 //                    }
 
 
-                    if (!isUserInfoInServer) {
-                        recordUserLog("SettingMyInfoActivity", "createAccount");
+                    if (MainActivity.odnqDB != null) {
 
-                        //Server request
-                        HashMap postData = new HashMap();
+                        if (MainActivity.odnqDB.getMyInfo() == null) {
+                            recordUserLog("SettingMyInfoActivity", "createAccount");
 
-                        if(MainActivity.token != null) {
+                            //Server request
+                            HashMap postData = new HashMap();
+
+                            if(MainActivity.token != null) {
+
+                                postData.put("myinfo_id", curMyInfo_id);
+                                postData.put("myinfo_nick", curMyInfo_nick);
+                                postData.put("myinfo_name", curMyInfo_name);
+                                postData.put("myinfo_age", curMyInfo_age + "");
+                                postData.put("myinfo_gender", curMyInfo_gender + "");
+                                postData.put("myinfo_deviceid", curMyInfo_deviceid);
+                                postData.put("myinfo_token", MainActivity.token);
+
+                                PostResponseAsyncTask insertMyInfoTask =
+                                        new PostResponseAsyncTask(SettingMyInfoActivity.this, postData);
+
+                                insertMyInfoTask.execute("http://110.76.95.150/create_user.php");
+                            }
+
+                        } else {
+                            recordUserLog("SettingMyInfoActivity", "updateAccount");
+
+                            //Server request
+                            HashMap postData = new HashMap();
 
                             postData.put("myinfo_id", curMyInfo_id);
                             postData.put("myinfo_nick", curMyInfo_nick);
@@ -280,33 +302,12 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
                             postData.put("myinfo_deviceid", curMyInfo_deviceid);
                             postData.put("myinfo_token", MainActivity.token);
 
-                            PostResponseAsyncTask insertMyInfoTask =
+                            PostResponseAsyncTask updateMyInfoTask =
                                     new PostResponseAsyncTask(SettingMyInfoActivity.this, postData);
 
-                            insertMyInfoTask.execute("http://110.76.95.150/create_user.php");
+                            updateMyInfoTask.execute("http://110.76.95.150/update_user.php");
                         }
-
-                    } else {
-                        recordUserLog("SettingMyInfoActivity", "updateAccount");
-
-                        //Server request
-                        HashMap postData = new HashMap();
-
-                        postData.put("myinfo_id", curMyInfo_id);
-                        postData.put("myinfo_nick", curMyInfo_nick);
-                        postData.put("myinfo_name", curMyInfo_name);
-                        postData.put("myinfo_age", curMyInfo_age + "");
-                        postData.put("myinfo_gender", curMyInfo_gender + "");
-                        postData.put("myinfo_deviceid", curMyInfo_deviceid);
-                        postData.put("myinfo_token", MainActivity.token);
-
-                        PostResponseAsyncTask updateMyInfoTask =
-                                new PostResponseAsyncTask(SettingMyInfoActivity.this, postData);
-
-                        updateMyInfoTask.execute("http://110.76.95.150/update_user.php");
                     }
-
-
 
 
                     /** LOCAL DB */

@@ -448,6 +448,7 @@ public class MainActivity extends AppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.nav_makenewcard:
+                Log.d("checkToken", "token: " + token);
                 recordUserLog("MainActivity", "navItemSelect - nav_makenewcard");
                 if (odnqDB != null) {
                     if (odnqDB.getMyInfo() != null) {
