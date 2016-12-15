@@ -159,8 +159,8 @@ public class MyAchievementFragment extends Fragment{
 
 //        contribution.getViewport().setMinX(days[0].getTime());
 //        contribution.getViewport().setMaxX(days[6].getTime());
-        contribution.getViewport().setMinX(0);
-        contribution.getViewport().setMaxX(numOfShow-1);
+        contribution.getViewport().setMinX(7);
+        contribution.getViewport().setMaxX(13);
         contribution.getViewport().setXAxisBoundsManual(true);
         contribution.removeAllSeries();
         contribution.addSeries(contributionSeries);
@@ -169,8 +169,8 @@ public class MyAchievementFragment extends Fragment{
 
 //        record.getViewport().setMinX(days[0].getTime());
 //        record.getViewport().setMaxX(days[6].getTime());
-        record.getViewport().setMinX(0);
-        record.getViewport().setMaxX(numOfShow-1);
+        record.getViewport().setMinX(7);
+        record.getViewport().setMaxX(13);
         record.getViewport().setXAxisBoundsManual(true);
         recordTrueSeries.setColor(Color.BLUE);
         recordWrongSeries.setColor(Color.RED);
@@ -192,23 +192,50 @@ public class MyAchievementFragment extends Fragment{
         }
         int min  = records.get(records.size() - 1).getDailyRecordContribution();
         int max  = records.get(records.size() -numOfShow - 1).getDailyRecordContribution();
+///
+        result.appendData(new DataPoint(7, 0), true, numOfShow);
+        result.appendData(new DataPoint(8, 100), true, numOfShow);
+        result.appendData(new DataPoint(9, 130), true, numOfShow);
+        result.appendData(new DataPoint(10, 130), true, numOfShow);
+        result.appendData(new DataPoint(11, 130), true, numOfShow);
+        result.appendData(new DataPoint(12, 160), true, numOfShow);
+        result.appendData(new DataPoint(13, 160), true, numOfShow);
+
+///
         int mid = (min + max )/2;
         int gap = mid - min;
         gap *= 1.3;
-        contribution.getViewport().setYAxisBoundsManual(true);
-        contribution.getViewport().setMinY(min - gap);
-        contribution.getViewport().setMaxY(max + gap);
+
+//        contribution.getViewport().setYAxisBoundsManual(true);
+//        contribution.getViewport().setMinY(min - gap);
+//        contribution.getViewport().setMaxY(max + gap);
         return result;
     }
 
     private BarGraphSeries<DataPoint> getRecordWrongSeries() {
 
         BarGraphSeries<DataPoint> result = new BarGraphSeries<DataPoint>();
-        for(int i = 0; i < numOfShow; i++){
+        for(int i = 0; i < numOfShow; i++) {
             //Date temp = records.get(i).getDailyRecordDateTime_Date();
-            result.appendData(new DataPoint(i, records.get(records.size() - i -1).getDailyRecordStudyWrong()), true, numOfShow);
-
+            result.appendData(new DataPoint(i, records.get(records.size() - i - 1).getDailyRecordStudyWrong()), true, numOfShow);
         }
+
+        result.appendData(new DataPoint(7, 0), true, numOfShow);
+        result.appendData(new DataPoint(8, 0), true, numOfShow);
+        result.appendData(new DataPoint(9, 1), true, numOfShow);
+        result.appendData(new DataPoint(10, 1), true, numOfShow);
+        result.appendData(new DataPoint(11, 1), true, numOfShow);
+        result.appendData(new DataPoint(12, 1), true, numOfShow);
+        result.appendData(new DataPoint(13, 1), true, numOfShow);
+            int min  = records.get(records.size() - 1).getDailyRecordStudyWrong();
+            int max  = records.get(records.size() -numOfShow - 1).getDailyRecordStudyWrong();
+///
+            int unit = (max - min) / 6;
+
+///
+
+            int mid = (min + max )/2;
+            int gap = mid - min;
         return result;
     }
     private BarGraphSeries<DataPoint> getRecordTrueSeries() {
@@ -219,19 +246,38 @@ public class MyAchievementFragment extends Fragment{
             result.appendData(new DataPoint(i, records.get(records.size() - i -1).getDailyRecordStudyRight()), true, numOfShow);
 
         }
+        result.appendData(new DataPoint(7, 0), true, numOfShow);
+        result.appendData(new DataPoint(8, 0), true, numOfShow);
+        result.appendData(new DataPoint(9, 0), true, numOfShow);
+        result.appendData(new DataPoint(10, 0), true, numOfShow);
+        result.appendData(new DataPoint(11, 0), true, numOfShow);
+        result.appendData(new DataPoint(12, 1), true, numOfShow);
+        result.appendData(new DataPoint(13, 1), true, numOfShow);
+
+        int min  = records.get(records.size() - 1).getDailyRecordStudyRight();
+        int max  = records.get(records.size() -numOfShow - 1).getDailyRecordStudyRight();
+///
+///
+
+        int mid = (min + max )/2;
+        int gap = mid - min;
 
         int min1  = records.get(records.size() - 1).getDailyRecordStudyWrong();
         int max1  = records.get(records.size() -numOfShow - 1).getDailyRecordStudyWrong();
         int min2  = records.get(records.size() - 1).getDailyRecordStudyRight();
         int max2  = records.get(records.size() -numOfShow - 1).getDailyRecordStudyRight();
-        int min = min1 < min2 ? min1 : min2;
-        int max = max1 > max2 ? max1 : max2;
-        int mid = (min + max )/2;
-        int gap = mid - min;
+//        int min = min1 < min2 ? min1 : min2;
+//        int max = max1 > max2 ? max1 : max2;
+//        int mid = (min + max )/2;
+//        int gap = mid - min;
+//        int min = min1 < min2 ? min1 : min2;
+        max = max1 > max2 ? max1 : max2;
+        mid = (min + max )/2;
+        gap = mid - min;
         gap *= 1.2;
-        record.getViewport().setYAxisBoundsManual(true);
-        record.getViewport().setMinY(min - gap);
-        record.getViewport().setMaxY(max + gap);
+//        record.getViewport().setYAxisBoundsManual(true);
+//        record.getViewport().setMinY(min - gap);
+//        record.getViewport().setMaxY(max + gap);
         return result;
     }
 
