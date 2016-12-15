@@ -142,7 +142,7 @@ public class CardSolvingActivity extends AppCompatActivity implements AsyncRespo
         }
         examiner.setText(receivedCard.getMyCardMaker());
         examiner.postInvalidate();
-        group.setText("from [" + receivedCard.getMyCardGroup()+ "] Group");
+        group.setText("from " + receivedCard.getMyCardGroup()+ "");
         group.postInvalidate();
         remainTime = TIME_LIMIT;
         timer.setText("" + remainTime);
@@ -199,6 +199,7 @@ public class CardSolvingActivity extends AppCompatActivity implements AsyncRespo
                 break;
             case R.id.cardsolving_btn_submit:
                 recordUserLog("CardSolvingActivity", "submitAnswer");
+                submit.setEnabled(false);
 
                 if (receivedCard == null) {
                     Log.d("CardSolvingActivity", "receivedCard is null");

@@ -226,7 +226,7 @@ public class SettingMyInfoActivity extends AppCompatActivity implements AsyncRes
         switch (v.getId()) {
             case R.id.setting_myinfo_btn_save:
 
-
+                settingMyInfo_btn_save.setEnabled(false);
 
                 String curMyInfo_id = "";
                 String curMyInfo_nick = "";

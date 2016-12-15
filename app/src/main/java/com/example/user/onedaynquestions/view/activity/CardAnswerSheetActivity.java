@@ -137,6 +137,8 @@ public class CardAnswerSheetActivity extends AppCompatActivity implements AsyncR
 
                 Log.d("CardAnswerUpdate", "# of wrong: " + MainActivity.odnqDB.getMyInfo().getMyInfoAnswerWrong());
 
+                cardsolving_btn_right.setEnabled(false);
+                cardsolving_btn_wrong.setEnabled(false);
 
                 intent_goeval.putExtra("self_eval", 0);
                 startActivity(intent_goeval);
@@ -146,6 +148,9 @@ public class CardAnswerSheetActivity extends AppCompatActivity implements AsyncR
                 MainActivity.odnqDB.updateMyInfoCardAnswer(MainActivity.odnqDB.getMyInfo().getMyInfoId(), 1);
 
                 Log.d("CardAnswerUpdate", "# of right: " + MainActivity.odnqDB.getMyInfo().getMyInfoAnswerRight());
+
+                cardsolving_btn_right.setEnabled(false);
+                cardsolving_btn_wrong.setEnabled(false);
 
                 intent_goeval.putExtra("self_eval", 1);
                 startActivity(intent_goeval);

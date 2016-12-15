@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -46,6 +47,8 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
     private RatingBar cardeval_rb_difficulty;
     private ImageView cardeval_iv_star;
 
+    private Button cardeval_btn_submit;
+
     private String card_id;
     private int self_eval;
     private int card_star = 0;
@@ -66,6 +69,8 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
         cardeval_rb_usefulness = (RatingBar) findViewById(R.id.cardeval_rb_usefulness);
         cardeval_rb_difficulty = (RatingBar) findViewById(R.id.cardeval_rb_difficulty);
         cardeval_iv_star = (ImageView) findViewById(R.id.cardeval_iv_star);
+
+        cardeval_btn_submit = (Button) findViewById(R.id.cardeval_btn_submit);
 
         recordUserLog("CardEvaluationActivity", "onCreate");
 
@@ -109,7 +114,7 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
 //                Toast.makeText(getApplicationContext(), "Card information is updated", Toast.LENGTH_SHORT).show();
 
                 MainActivity.odnqDB = new LocalDBController(getApplicationContext());
-
+                cardeval_btn_submit.setEnabled(false);
 
                 if (MainActivity.odnqDB != null) {
                     ArrayList<MyCard> cardList = MainActivity.odnqDB.getMyCards(1, MainActivity.odnqDB.getMyInfo().getMyInfoId());
@@ -130,7 +135,12 @@ public class CardEvaluationActivity extends AppCompatActivity implements AsyncRe
                         tmpMyCard.setMyCardQuality((int) cardeval_rb_usefulness.getRating());
                         if (self_eval == 0) {
                             tmpMyCard.setMyCardWrong(tmpMyCard.getMyCardWrong() + 1);
+                        } else {
+                            //Initialize wrong num
+                            tmpMyCard.setMyCardWrong(0);
                         }
+
+
                         if (card_star == 0) {
                             tmpMyCard.setMyCardStarred(0);
                         } else {

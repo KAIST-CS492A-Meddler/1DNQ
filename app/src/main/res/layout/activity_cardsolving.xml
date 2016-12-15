@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:background="@color/colorSkyBlue"
-    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -15,7 +14,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center">
+            android:layout_gravity="top">
 
 
             <LinearLayout
@@ -165,26 +164,55 @@
                     android:background="@color/colorLightSkyBlue"
                     />
 
-                <EditText
-                    android:id="@+id/cardsolving_et_answer"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginBottom="20dp"
-                    android:gravity="center"
-                    android:textSize="16dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:hint="Write your answer here"
-                    android:textColorHint="#bbbbbb"
-                    android:maxLines="1"
-                    />
+                    android:gravity="center_vertical"
+                    android:background="#eeeeee"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:layout_marginBottom="40dp">
+
+                    <EditText
+                        android:id="@+id/cardsolving_et_answer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:hint="Write your answer here"
+                        android:lines="2"
+                        android:maxLines="3"
+                        android:maxLength="500"
+                        android:scrollbars="vertical"
+                        android:textColorHint="#bbbbbb"
+                        android:background="#eeeeee"
+                        />
+
+                    <Button
+                        android:id="@+id/cardsolving_btn_submit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorPrimaryDark"
+                        android:textColor="#ffffff"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:onClick="mOnClick"
+                        android:text="SUBMIT"/>
+
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#eeeeee"
+
                     >
 
                     <Button
@@ -196,7 +224,7 @@
                         android:textSize="13dp"
                         android:onClick="mOnClick"
                         android:layout_gravity="center_horizontal"
-                        android:background="#eeeeee"/>
+                        android:background="#dddddd"/>
 
                     <TextView
                         android:id="@+id/cardsolving_tv_hint"
@@ -213,20 +241,20 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/cardsolving_btn_submit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="15dp"
-                android:padding="10dp"
-                android:textColor="@color/colorSkyBlue"
-                android:textSize="20dp"
-                android:background="#ffffff"
-                android:enabled="true"
-                android:onClick="mOnClick"
-                android:text="SUBMIT MY ANSWER"/>
+            <!--<Button-->
+                <!--android:id="@+id/cardsolving_btn_submit"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="30dp"-->
+                <!--android:layout_marginRight="30dp"-->
+                <!--android:layout_marginBottom="15dp"-->
+                <!--android:padding="10dp"-->
+                <!--android:textColor="@color/colorSkyBlue"-->
+                <!--android:textSize="20dp"-->
+                <!--android:background="#ffffff"-->
+                <!--android:enabled="true"-->
+                <!--android:onClick="mOnClick"-->
+                <!--android:text="SUBMIT MY ANSWER"/>-->
             <!--android:shadowRadius="10"-->
             <!--android:shadowColor="@color/colorSkyBlue"-->
 

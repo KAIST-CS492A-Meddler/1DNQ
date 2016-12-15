@@ -173,24 +173,30 @@ public class LocalDBController extends SQLiteOpenHelper{
 
 
     public long insertMyCard(MyCard myCard) {
-        SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(ATTR_MYCARD_ID,myCard.getMyCardId());
-        values.put(ATTR_MYCARD_DATETIME,myCard.getMyCardDateTime());
-        values.put(ATTR_MYCARD_TYPE,myCard.getMyCardType());
-        values.put(ATTR_MYCARD_MAKER,myCard.getMyCardMaker());
-        values.put(ATTR_MYCARD_GROUP,myCard.getMyCardGroup());
-        values.put(ATTR_MYCARD_QUESTION,myCard.getMyCardQuestion());
-        values.put(ATTR_MYCARD_ANSWER,myCard.getMyCardAnswer());
-        values.put(ATTR_MYCARD_HINT,myCard.getMyCardHint());
-        values.put(ATTR_MYCARD_WRONGNUM,myCard.getMyCardWrong());
-        values.put(ATTR_MYCARD_DIFFICULTY,myCard.getMyCardDifficulty());
-        values.put(ATTR_MYCARD_QUALITY,myCard.getMyCardQuality());
-        values.put(ATTR_MYCARD_STARRED,myCard.getMyCardStarred());
+        MyCard tmpMyCard = getMyCardWithId(myCard.getMyCardId());
+        if (tmpMyCard == null) {
+            SQLiteDatabase db = this.getWritableDatabase();
 
-        long myCard_id = db.insert(TABLE_MYCARD, null, values);
-        return myCard_id;
+            ContentValues values = new ContentValues();
+            values.put(ATTR_MYCARD_ID, myCard.getMyCardId());
+            values.put(ATTR_MYCARD_DATETIME, myCard.getMyCardDateTime());
+            values.put(ATTR_MYCARD_TYPE, myCard.getMyCardType());
+            values.put(ATTR_MYCARD_MAKER, myCard.getMyCardMaker());
+            values.put(ATTR_MYCARD_GROUP, myCard.getMyCardGroup());
+            values.put(ATTR_MYCARD_QUESTION, myCard.getMyCardQuestion());
+            values.put(ATTR_MYCARD_ANSWER, myCard.getMyCardAnswer());
+            values.put(ATTR_MYCARD_HINT, myCard.getMyCardHint());
+            values.put(ATTR_MYCARD_WRONGNUM, myCard.getMyCardWrong());
+            values.put(ATTR_MYCARD_DIFFICULTY, myCard.getMyCardDifficulty());
+            values.put(ATTR_MYCARD_QUALITY, myCard.getMyCardQuality());
+            values.put(ATTR_MYCARD_STARRED, myCard.getMyCardStarred());
+
+            long myCard_id = db.insert(TABLE_MYCARD, null, values);
+            return myCard_id;
+        } else {
+            return 0;
+        }
     }
 
 
@@ -696,6 +702,7 @@ public class LocalDBController extends SQLiteOpenHelper{
 //                values.put(ATTR_MYINFO_ANSWERRIGHT, cardNum);
 
                 String UPDATE_ANSWER_RECORD;
+                String INITIALIZE_ANSWER_WRONG;
 
                 //WRONG
                 if (wrongOrRight == 0) {
