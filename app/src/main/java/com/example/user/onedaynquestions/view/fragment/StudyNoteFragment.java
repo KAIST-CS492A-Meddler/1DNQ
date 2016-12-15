@@ -204,9 +204,9 @@ public class StudyNoteFragment extends Fragment{
                         break;
                     case MotionEvent.ACTION_UP:
                         if(dist < distThreshold) {
-                            int id = frequentlyWrongList.getChildAdapterPosition(frequentlyWrongList.findChildViewUnder(e.getX(), e.getY()));
+                            int id = starredList.getChildAdapterPosition(starredList.findChildViewUnder(e.getX(), e.getY()));
                             if (id > -1) {
-                                startActivity(new Intent(frequentlyWrongQuestionList.get(id).getCardSolvingIntent(getActivity().getBaseContext())));
+                                startActivity(new Intent(starredQuestionList.get(id).getCardSolvingIntent(getActivity().getBaseContext())));
 
                             }
                         }

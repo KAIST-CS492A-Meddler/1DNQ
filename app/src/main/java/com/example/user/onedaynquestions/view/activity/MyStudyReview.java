@@ -232,7 +232,8 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
                         if(dist < distThreshold) {
                             recordUserLog("MyStudyReview", "solveCard");
                             int id = dailyRecordListView.getChildAdapterPosition(dailyRecordListView.findChildViewUnder(e.getX(), e.getY()));
-                            startActivityForResult(new Intent(dailyRecordList.get(id).getCardSolvingIntent(MyStudyReview.this)), MainActivity.REQUEST_REFRESH);
+                            if(id > -1)
+                                startActivityForResult(new Intent(dailyRecordList.get(id).getCardSolvingIntent(MyStudyReview.this)), MainActivity.REQUEST_REFRESH);
                         }
 
                         break;
@@ -282,7 +283,8 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
                         if(dist < distThreshold) {
                             recordUserLog("MyStudyReview", "solveCard");
                             int id = wrongAnswerListView.getChildAdapterPosition(wrongAnswerListView.findChildViewUnder(e.getX(), e.getY()));
-                            startActivityForResult(new Intent(wrongAnswerList.get(id).getCardSolvingIntent(MyStudyReview.this)), MainActivity.REQUEST_REFRESH);
+                            if(id > -1)
+                                startActivityForResult(new Intent(wrongAnswerList.get(id).getCardSolvingIntent(MyStudyReview.this)), MainActivity.REQUEST_REFRESH);
                         }
 
                         break;
@@ -330,7 +332,8 @@ public class MyStudyReview extends AppCompatActivity implements AsyncResponse {
                         if(dist < distThreshold) {
                             recordUserLog("MyStudyReview", "solveCard");
                             int id = myCardListView.getChildAdapterPosition(myCardListView.findChildViewUnder(e.getX(), e.getY()));
-                            startActivity(new Intent(myCardList.get(id).getCardSolvingIntent(MyStudyReview.this)));
+                            if(id > -1)
+                                startActivity(new Intent(myCardList.get(id).getCardSolvingIntent(MyStudyReview.this)));
                         }
 
                         break;

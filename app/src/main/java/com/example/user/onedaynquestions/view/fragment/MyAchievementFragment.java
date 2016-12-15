@@ -185,15 +185,19 @@ public class MyAchievementFragment extends Fragment{
 
     private LineGraphSeries<DataPoint> getContributionSeries() {
         LineGraphSeries<DataPoint> result = new LineGraphSeries<DataPoint>();
+        if(records.size() < 1) return result;
 
-        for(int i = 0; i < numOfShow; i++){
+        for(int i = 0; i < numOfShow && -1 < records.size() - i -1; i++){
             //Date temp = records.get(records.size() - i).getDailyRecordDateTime_Date();
             result.appendData(new DataPoint(i, records.get(records.size() - i -1).getDailyRecordContribution()), true, numOfShow);
         }
         int min  = records.get(records.size() - 1).getDailyRecordContribution();
-
-        int max  = records.get(records.size() -numOfShow - 1).getDailyRecordContribution();
-
+        int max;
+        if(records.size() > numOfShow) {
+            max = records.get(records.size() - numOfShow - 1).getDailyRecordContribution();
+        }else{
+            max = records.get(0).getDailyRecordContribution();
+        }
         int mid = (min + max )/2;
         int gap = mid - min;
         gap *= 1.3;
@@ -209,34 +213,36 @@ public class MyAchievementFragment extends Fragment{
     }
 
     private BarGraphSeries<DataPoint> getRecordWrongSeries() {
-
         BarGraphSeries<DataPoint> result = new BarGraphSeries<DataPoint>();
-        for(int i = 0; i < numOfShow; i++) {
+        if(records.size() < 1) return result;
+
+        for(int i = 0; i < numOfShow&& -1 < records.size() - i -1; i++) {
             //Date temp = records.get(i).getDailyRecordDateTime_Date();
             result.appendData(new DataPoint(i, records.get(records.size() - i - 1).getDailyRecordStudyWrong()), true, numOfShow);
         }
-        int min  = records.get(records.size() - 1).getDailyRecordStudyWrong();
-        int max  = records.get(records.size() -numOfShow - 1).getDailyRecordStudyWrong();
-
-        int mid = (min + max )/2;
-        int gap = mid - min;
 
 
         return result;
     }
     private BarGraphSeries<DataPoint> getRecordTrueSeries() {
-
         BarGraphSeries<DataPoint> result = new BarGraphSeries<DataPoint>();
-        for(int i = 0; i < numOfShow; i++){
+        if(records.size() < 1) return result;
+        for(int i = 0; i < numOfShow&& -1 < records.size() - i -1; i++){
             //Date temp = records.get(records.size() - i).getDailyRecordDateTime_Date();
             result.appendData(new DataPoint(i, records.get(records.size() - i -1).getDailyRecordStudyRight()), true, numOfShow);
 
         }
 
         int min1  = records.get(records.size() - 1).getDailyRecordStudyWrong();
-        int max1  = records.get(records.size() -numOfShow - 1).getDailyRecordStudyWrong();
         int min2  = records.get(records.size() - 1).getDailyRecordStudyRight();
-        int max2  = records.get(records.size() -numOfShow - 1).getDailyRecordStudyRight();
+        int max1, max2 ;
+        if(records.size() > numOfShow) {
+            max2  = records.get(records.size() -numOfShow - 1).getDailyRecordStudyRight();
+            max1  = records.get(records.size() -numOfShow - 1).getDailyRecordStudyWrong();
+        }else{
+            max2  = records.get(0).getDailyRecordStudyRight();
+            max1  = records.get(0).getDailyRecordStudyWrong();
+        }
         int min = min1 < min2 ? min1 : min2;
         int max = max1 > max2 ? max1 : max2;
         int mid = (min + max )/2;
